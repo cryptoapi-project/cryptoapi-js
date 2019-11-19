@@ -6,6 +6,6 @@ import { IEthAddressApi } from '../../../interfaces/eth.apis/eth.sub.apis/eth.ad
 @injectable()
 export class EthAddressApi implements IEthAddressApi {
 	getNetworkInfo(): any {
-		return 'testikksjsfjskdljf';
+		return 'return from ETH ADRRESS API';
 	}
 }

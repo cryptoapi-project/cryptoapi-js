@@ -16,7 +16,6 @@ import { IEthRawTransactionApi } from '../interfaces/eth.apis/eth.sub.apis/eth.r
 import { Crypto } from '../crypto/crypto';
 import { ApiClient } from '../clients/api.client';
 import { EventsClient } from '../clients/events.client';
-
 import { EthEventsClient } from '../clients/eth.events/eth.events.client';
 import { EthApiClient } from '../clients/eth.apis/eth.api.client';
 
