@@ -11,16 +11,18 @@ import { IConfigurableConfig } from '../interfaces/configs/configurable.config.i
 import { IApiConfig } from '../interfaces/configs/api.config.interface';
 import { IEventsConfig } from '../interfaces/configs/events.config.interface';
 
-import {CryptoConfig} from '../dtos/crypto.config';
-
+import { CryptoConfig } from '../dtos/crypto.config';
 
 @injectable()
 export class Crypto implements ICrypto {
 	private _config: ICryptoConfig = new CryptoConfig({});
 
 	constructor(
-		@inject(TYPES_DEPENDENCIES.IApiClient) private readonly _api: IApiClient & IConfigurableConfig<IApiConfig>,
-		@inject(TYPES_DEPENDENCIES.IEventsClient) private readonly _events: IEventsClient & IConfigurableConfig<IEventsConfig>,
+		@inject(TYPES_DEPENDENCIES.IApiClient)
+		private readonly _api: IApiClient & IConfigurableConfig<IApiConfig>,
+		@inject(TYPES_DEPENDENCIES.IEventsClient)
+		private readonly _events: IEventsClient &
+			IConfigurableConfig<IEventsConfig>,
 	) {}
 
 	setConfig(_config: ICryptoConfig) {

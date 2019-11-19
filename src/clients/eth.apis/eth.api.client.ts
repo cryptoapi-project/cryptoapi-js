@@ -12,11 +12,16 @@ import { IEthRawTransactionApi } from '../../interfaces/eth.apis/eth.sub.apis/et
 @injectable()
 export class EthApiClient implements IEthApiClient {
 	constructor(
-		@inject(TYPES_DEPENDENCIES.IEthMainInfoApi) private readonly ethMainInfo: IEthMainInfoApi,
-		@inject(TYPES_DEPENDENCIES.IEthAddressApi) private readonly ethAddress: IEthAddressApi,
-		@inject(TYPES_DEPENDENCIES.IEthNotifyApi) private readonly ethNotify: IEthNotifyApi,
-		@inject(TYPES_DEPENDENCIES.IEthContractApi) private readonly ethContract: IEthContractApi,
-		@inject(TYPES_DEPENDENCIES.IEthRawTransactionApi) private readonly ethRawTransaction: IEthRawTransactionApi,
+		@inject(TYPES_DEPENDENCIES.IEthMainInfoApi)
+		private readonly ethMainInfo: IEthMainInfoApi,
+		@inject(TYPES_DEPENDENCIES.IEthAddressApi)
+		private readonly ethAddress: IEthAddressApi,
+		@inject(TYPES_DEPENDENCIES.IEthNotifyApi)
+		private readonly ethNotify: IEthNotifyApi,
+		@inject(TYPES_DEPENDENCIES.IEthContractApi)
+		private readonly ethContract: IEthContractApi,
+		@inject(TYPES_DEPENDENCIES.IEthRawTransactionApi)
+		private readonly ethRawTransaction: IEthRawTransactionApi,
 	) {}
 
 	getNetworkInfo() {

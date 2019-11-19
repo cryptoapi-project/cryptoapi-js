@@ -1,3 +1,3 @@
 export interface IApiConfig {
-    token: string;
+	token: string;
 }

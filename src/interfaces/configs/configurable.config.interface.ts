@@ -1,3 +1,3 @@
 export interface IConfigurableConfig<T> {
-    setConfig(config: T): void;
+	setConfig(config: T): void;
 }

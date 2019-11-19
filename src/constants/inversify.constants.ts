@@ -1,4 +1,4 @@
-import {ICryptoConfig} from "../interfaces/configs/crypto.config.interface";
+import { ICryptoConfig } from '../interfaces/configs/crypto.config.interface';
 
 const TYPES_DEPENDENCIES = {
 	ICrypto: Symbol.for('ICrypto'),

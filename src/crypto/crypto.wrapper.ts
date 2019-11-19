@@ -1,7 +1,10 @@
 import { TYPES_DEPENDENCIES } from '../constants/inversify.constants';
 
 import { ICrypto } from '../interfaces/crypto.interface';
-import { ICryptoConfig, ICryptoOptions } from '../interfaces/configs/crypto.config.interface';
+import {
+	ICryptoConfig,
+	ICryptoOptions,
+} from '../interfaces/configs/crypto.config.interface';
 
 import { diContainer } from '../configuration/di.container';
 import { CryptoConfig } from '../dtos/crypto.config';
@@ -37,7 +40,6 @@ class CryptoWrapper implements ICrypto {
 	get api() {
 		return this.crypto.api;
 	}
-
 }
 
 export { CryptoWrapper as Crypto };
