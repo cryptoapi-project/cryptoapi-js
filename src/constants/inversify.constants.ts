@@ -13,6 +13,8 @@ const TYPES_DEPENDENCIES = {
 	IEthNotifyApi: Symbol.for('IEthNotifyApi'),
 	IEthContractApi: Symbol.for('IEthContractApi'),
 	IEthRawTransactionApi: Symbol.for('IEthRawTransactionApi'),
+
+	IIdHelper: Symbol.for('IIdHelper'),
 };
 
 export { TYPES_DEPENDENCIES };

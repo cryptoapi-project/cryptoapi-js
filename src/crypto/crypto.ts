@@ -11,7 +11,7 @@ import { ICryptoConfig } from '../interfaces/configs/crypto.config.interface';
 @injectable()
 export class Crypto implements ICrypto {
 	private _config: ICryptoConfig = {
-		token: '',
+		token: 'jjj',
 	};
 
 	constructor(

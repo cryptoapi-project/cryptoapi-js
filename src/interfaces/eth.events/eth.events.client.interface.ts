@@ -1,15 +1,25 @@
+import {
+	AddressTransactionSubscription,
+	TokenTransferSubscription,
+	TransactionConrimationSubscription,
+} from '../../dtos/event.dtos';
+
 export interface IEthEventsClient {
+
 	close(): void;
 
-	subscribeBlock(countConfirmation: number, eventId: number): void;
-	unsubscribeBlock(countConfirmation: number, eventId: number): void;
-	onMessageBlock(cb: Function): void;
+	onOpen(): void;
 
-	// subscribeTransaction(params: any[]): void;
-	// unsubscribeTransaction(): void;
-	// onMessageTransaction(): void;
-	//
-	// subscribeTransfer(params: any[]): void;
-	// unsubscribeTransfer(): void;
-	// onMessageTransfer(): void;
+	onClose(): void;
+
+	unsubscribe(id: number): boolean;
+
+	onBlock(confirmations: number, cb: Function): number;
+
+	onAddressTransactions({ address, confirmations }: AddressTransactionSubscription, cb: Function): number;
+
+	onTokenTransfers({ token, address, confirmations }: TokenTransferSubscription, cb: Function): number;
+
+	onTransactionConrimations({ hash, confirmations }: TransactionConrimationSubscription, cb: Function): number;
+
 }

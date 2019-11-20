@@ -4,3 +4,8 @@ export enum SUBSCRIPTIONS {
 	TRANSFER = 'new_transfer',
 	CONFIRMATION = 'new_confirmation',
 }
+
+export enum METHODS {
+	SUBSCRIBE = 'subscribe',
+	UNSUBSCRIBE = 'unsubscribe',
+}

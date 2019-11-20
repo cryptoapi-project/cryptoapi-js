@@ -13,6 +13,8 @@ import { IEthMainInfoApi } from '../interfaces/eth.apis/eth.sub.apis/eth.main.in
 import { IEthContractApi } from '../interfaces/eth.apis/eth.sub.apis/eth.contract.api.interface';
 import { IEthRawTransactionApi } from '../interfaces/eth.apis/eth.sub.apis/eth.raw.transaction.interface';
 
+import { IIdHelper } from '../interfaces/helpers/id.helper.interface';
+
 import { Crypto } from '../crypto/crypto';
 import { ApiClient } from '../clients/api.client';
 import { EventsClient } from '../clients/events.client';
@@ -25,6 +27,8 @@ import { EthAddressApi } from '../clients/eth.apis/eth.sub.apis/eth.address.api'
 import { EthNotifyApi } from '../clients/eth.apis/eth.sub.apis/eth.notify.api';
 import { EthContractApi } from '../clients/eth.apis/eth.sub.apis/eth.contract.api';
 import { EthRawTransactionApi } from '../clients/eth.apis/eth.sub.apis/eth.raw.transaction.api';
+
+import { IdHelper } from '../helpers/id.helper';
 
 const diContainer = new Container();
 
@@ -49,5 +53,10 @@ diContainer.bind<IEthAddressApi>(TYPES_DEPENDENCIES.IEthAddressApi).to(EthAddres
 diContainer.bind<IEthNotifyApi>(TYPES_DEPENDENCIES.IEthNotifyApi).to(EthNotifyApi);
 diContainer.bind<IEthContractApi>(TYPES_DEPENDENCIES.IEthContractApi).to(EthContractApi);
 diContainer.bind<IEthRawTransactionApi>(TYPES_DEPENDENCIES.IEthRawTransactionApi).to(EthRawTransactionApi);
+
+/**
+ * Inject helpers
+ */
+diContainer.bind<IIdHelper>(TYPES_DEPENDENCIES.IIdHelper).to(IdHelper)
 
 export { diContainer };

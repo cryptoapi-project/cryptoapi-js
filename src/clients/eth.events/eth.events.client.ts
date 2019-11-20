@@ -1,100 +1,129 @@
 import 'reflect-metadata';
-import { injectable } from 'inversify';
-import { fromJS } from 'immutable';
-import { IMessageEvent, w3cwebsocket } from 'websocket';
-import { SUBSCRIPTIONS } from '../../constants/events.constants';
+import { inject, injectable } from 'inversify';
+import WS from 'ws';
 
+import { METHODS, SUBSCRIPTIONS } from '../../constants/events.constants';
+import { TYPES_DEPENDENCIES } from '../../constants/inversify.constants';
+
+import {
+	AddressTransactionSubscription,
+	TokenTransferSubscription,
+	TransactionConrimationSubscription,
+} from '../../dtos/event.dtos';
 import { IEthEventsClient } from '../../interfaces/eth.events/eth.events.client.interface';
-
-import { Event } from '../../dtos/event.dto';
+import { IIdHelper } from '../../interfaces/helpers/id.helper.interface';
 
 @injectable()
 export class EthEventsClient implements IEthEventsClient {
-	private _isListen: boolean = false;
-	private _subscriptions: Map<string, Function[]>;
+	private subscribers: Map<string | number, { params: any[], cb: Function }> = new Map();
+	private ws: WS;
 
-	// private _url: string;
-	private _ws: w3cwebsocket;
+	constructor(
+		@inject(TYPES_DEPENDENCIES.IIdHelper) private readonly idHelper: IIdHelper,
 
-	constructor() {
-		this._ws = new w3cwebsocket('localhost:8080');
-		this._subscriptions = fromJS({
-			[SUBSCRIPTIONS.BLOCK]: [],
-			[SUBSCRIPTIONS.TRANSACTION]: [],
-			[SUBSCRIPTIONS.TRANSFER]: [],
-			[SUBSCRIPTIONS.CONFIRMATION]: [],
-		});
+	) {
+		this.ws = new WS('ws://localhost:8080');
+		this.ws.onmessage = this.onMessage.bind(this);
+		this.ws.onopen = this.onOpen.bind(this);
+		this.ws.onclose = this.onClose.bind(this);
+	}
+
+	private send(method: string, params: any[], id: string | number) {
+		this.ws.send(JSON.stringify({ method, params, id }));
+	}
+
+	private isValidMessage(data: any) {
+		if (!data.method || !Object.values(SUBSCRIPTIONS).includes(data.method)) {
+			return false;
+		}
+
+		if (!data.params || data.params.length < 2) {
+			return false;
+		}
+
+		return true;
+	}
+
+	private onMessage(event: WS.MessageEvent) {
+		const data = JSON.parse(event.data.toString());
+
+		if (!this.isValidMessage(data)) {
+			return;
+		}
+
+		const [id, notificaton] = data.params;
+		const sub = this.subscribers.get(id);
+
+		if (!sub) {
+			return;
+		}
+
+		sub.cb(notificaton);
 	}
 
 	close() {
-		this._ws.close();
+		this.ws.close();
+		this.subscribers = new Map();
 	}
 
-	subscribeBlock(countConfirmation: number, eventId: number) {
-		this._ws.send(
-			JSON.stringify({
-				method: 'subscribe',
-				params: ['new_block', countConfirmation],
-				id: eventId,
-			}),
-		);
+	onOpen() {
+		console.log('open');
 	}
 
-	unsubscribeBlock(countConfirmation: number, eventId: number) {
-		this._ws.send(
-			JSON.stringify({
-				method: 'unsubscribe',
-				params: ['new_block', countConfirmation],
-				id: eventId,
-			}),
-		);
+	onClose() {
+		console.log('close');
 	}
 
-	private onMessage() {
-		if (this._isListen) {
-			return;
+
+	onBlock(confirmations: number, cb: Function) {
+		const id = this.idHelper.get();
+		const params = [SUBSCRIPTIONS.BLOCK, confirmations];
+		this.subscribers.set(id, { params, cb });
+
+		this.send(METHODS.SUBSCRIBE, params, id);
+
+		return id;
+	}
+
+	onAddressTransactions({ address, confirmations }: AddressTransactionSubscription, cb: Function) {
+		const id = this.idHelper.get();
+		const params = [SUBSCRIPTIONS.TRANSACTION, address, confirmations];
+		this.subscribers.set(id, { params, cb });
+
+		this.send(METHODS.SUBSCRIBE, params, id);
+
+		return id;
+	}
+
+	onTokenTransfers({ token, address, confirmations }: TokenTransferSubscription, cb: Function) {
+		const id = this.idHelper.get();
+		const params = [SUBSCRIPTIONS.TRANSFER, token, address, confirmations];
+		this.subscribers.set(id, { params, cb });
+
+		this.send(METHODS.SUBSCRIBE, params, id);
+
+		return id;
+	}
+
+	onTransactionConrimations({ hash, confirmations }: TransactionConrimationSubscription, cb: Function) {
+		const id = this.idHelper.get();
+		const params = [SUBSCRIPTIONS.CONFIRMATION, hash, confirmations];
+		this.subscribers.set(id, { params, cb });
+
+		this.send(METHODS.SUBSCRIBE, params, id);
+
+		return id;
+	}
+
+	unsubscribe(id: number) {
+		const sub = this.subscribers.get(id);
+
+		if (sub) {
+			this.send(METHODS.UNSUBSCRIBE, sub.params, id);
+			this.subscribers.delete(id);
 		}
-		this._ws.onmessage = (event: IMessageEvent) => {
-			// @ts-ignore
-			const data: Event = JSON.parse(event.data);
-			// @ts-ignore
-			this._subscriptions.get(event.type).forEach((cb) => cb());
-		};
+
+		return true;
 	}
 
-	onMessageBlock(cb: () => void) {
-		this.onMessage();
-		console.log(this._subscriptions);
-		// this._subscriptions.get()
-		// this._subscriptions.get(SUBSCRIPTIONS.BLOCK).push(cb);
-	}
-
-	// subscribeTransaction(){
-	//     this._socket.send('subscribe', JSON.stringify({ params: [
-	//             'block',
-	//             1,
-	//         ], id: 1 }))
-	// }
-	//
-	// unsubscribeTransaction(){
-	//     this._socket.send('unsubscribe', JSON.stringify({ params: [
-	//             'block',
-	//             1,
-	//         ], id: 1 }))
-	// }
-	//
-	// onMessageBlock(cb: Function) {
-	//     this._socket.onMessage('block')
-	//         .subscribe(cb)
-	// }
-	//
-	// onMessageTransfer(cb: Function) {
-	//     this._socket.onMessage('transfer')
-	//         .subscribe(cb)
-	// }
-	//
-	// onMessageTransaction(cb: Function) {
-	//     this._socket.onMessage('transfer')
-	//         .subscribe(cb)
-	// }
 }
