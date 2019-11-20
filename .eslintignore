@@ -1,0 +1,17 @@
+# Dependencies
+/node_modules/
+
+# Build files
+/dist/
+build
+
+# Build Artifacts
+/coverage/
+/docs/
+
+# Log files
+yarn-error.log
+
+.idea
+package-lock.json
+.npmrc

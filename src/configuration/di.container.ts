@@ -18,7 +18,6 @@ import { IIdHelper } from '../interfaces/helpers/id.helper.interface';
 import { Crypto } from '../crypto/crypto';
 import { ApiClient } from '../clients/api.client';
 import { EventsClient } from '../clients/events.client';
-
 import { EthEventsClient } from '../clients/eth.events/eth.events.client';
 import { EthApiClient } from '../clients/eth.apis/eth.api.client';
 
@@ -37,22 +36,38 @@ const diContainer = new Container();
  */
 diContainer.bind<ICrypto>(TYPES_DEPENDENCIES.ICrypto).to(Crypto);
 diContainer.bind<IApiClient>(TYPES_DEPENDENCIES.IApiClient).to(ApiClient);
-diContainer.bind<IEventsClient>(TYPES_DEPENDENCIES.IEventsClient).to(EventsClient);
+diContainer
+	.bind<IEventsClient>(TYPES_DEPENDENCIES.IEventsClient)
+	.to(EventsClient);
 
 /**
  * Inject service by module, example eth, btc and etc.
  */
-diContainer.bind<IEthApiClient>(TYPES_DEPENDENCIES.IEthApiClient).to(EthApiClient);
-diContainer.bind<IEthEventsClient>(TYPES_DEPENDENCIES.IEthEventsClient).to(EthEventsClient);
+diContainer
+	.bind<IEthApiClient>(TYPES_DEPENDENCIES.IEthApiClient)
+	.to(EthApiClient);
+diContainer
+	.bind<IEthEventsClient>(TYPES_DEPENDENCIES.IEthEventsClient)
+	.to(EthEventsClient);
 
 /**
  * Inject sub api and socket clients.
  */
-diContainer.bind<IEthMainInfoApi>(TYPES_DEPENDENCIES.IEthMainInfoApi).to(EthMainInfoApi);
-diContainer.bind<IEthAddressApi>(TYPES_DEPENDENCIES.IEthAddressApi).to(EthAddressApi);
-diContainer.bind<IEthNotifyApi>(TYPES_DEPENDENCIES.IEthNotifyApi).to(EthNotifyApi);
-diContainer.bind<IEthContractApi>(TYPES_DEPENDENCIES.IEthContractApi).to(EthContractApi);
-diContainer.bind<IEthRawTransactionApi>(TYPES_DEPENDENCIES.IEthRawTransactionApi).to(EthRawTransactionApi);
+diContainer
+	.bind<IEthMainInfoApi>(TYPES_DEPENDENCIES.IEthMainInfoApi)
+	.to(EthMainInfoApi);
+diContainer
+	.bind<IEthAddressApi>(TYPES_DEPENDENCIES.IEthAddressApi)
+	.to(EthAddressApi);
+diContainer
+	.bind<IEthNotifyApi>(TYPES_DEPENDENCIES.IEthNotifyApi)
+	.to(EthNotifyApi);
+diContainer
+	.bind<IEthContractApi>(TYPES_DEPENDENCIES.IEthContractApi)
+	.to(EthContractApi);
+diContainer
+	.bind<IEthRawTransactionApi>(TYPES_DEPENDENCIES.IEthRawTransactionApi)
+	.to(EthRawTransactionApi);
 
 /**
  * Inject helpers

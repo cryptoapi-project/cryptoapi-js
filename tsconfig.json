@@ -1,5 +1,4 @@
 {
-  "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
     "rootDir": ".",
     "module": "commonjs",
@@ -11,7 +10,8 @@
     "baseUrl": "./src",
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "noImplicitAny" : true
   },
   "include": [
     "src/*.ts",

@@ -1,18 +1,15 @@
-import { Crypto } from './build/src';
+const lib = require('./build/src');
 
-const t = new Crypto('sas', {
-	asd: 'asAS'
+console.log('dasdasd');
+
+const crypto = new lib.Crypto('sas', {
+	test: 1,
 });
 
-
-
-t.api.eth.getNetworkInfo();
-// Crypto()
-// const crypto = new Crypto({
-// 	token: 'asd'
-// });
-
-console.log(crypto);
+(async () => {
+	const t = await crypto.api.eth.getNetworkInfo();
+	console.log(t);
+})();
 
 //
 // const result = await crypto.api.eth.getNetworkInfo();
