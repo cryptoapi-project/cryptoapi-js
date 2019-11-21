@@ -17,15 +17,13 @@ class CryptoWrapper implements ICrypto {
 	constructor(token: string, options?: ICryptoOptions);
 	constructor(token: any, options?: any) {
 		let cryptoConfig: ICryptoConfig = new CryptoConfig({});
-		if (typeof token === 'string') {
-			cryptoConfig.token = token;
-		} else {
-			cryptoConfig.token = token;
-			cryptoConfig = {
-				...cryptoConfig,
-				...options,
-			};
-		}
+
+		cryptoConfig.token = token;
+		cryptoConfig = {
+			...cryptoConfig,
+			...options,
+		};
+
 		this.crypto = diContainer.get<ICrypto>(TYPES_DEPENDENCIES.ICrypto);
 		this.config = cryptoConfig;
 		this.crypto.setConfig(this.config);

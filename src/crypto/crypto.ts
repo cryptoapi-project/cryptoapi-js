@@ -28,7 +28,7 @@ export class Crypto implements ICrypto {
 	setConfig(_config: ICryptoConfig) {
 		this._config = _config;
 		this._api.setConfig(_config);
-		this._events.setConfig(_config);
+		this._events.setConfig(_config.events);
 	}
 
 	private _checkCredentials(): boolean | Error {

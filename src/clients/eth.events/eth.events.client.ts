@@ -12,7 +12,7 @@ import {
 } from '../../dtos/event.dtos';
 import { IEthEventsClient } from '../../interfaces/eth.events/eth.events.client.interface';
 import { IIdHelper } from '../../interfaces/helpers/id.helper.interface';
-import { IEventsConfig } from '../../interfaces/configs/events.config.interface';
+import { IEthEventsConfig } from '../../interfaces/configs/events.config.interface';
 
 @injectable()
 export class EthEventsClient implements IEthEventsClient {
@@ -20,7 +20,8 @@ export class EthEventsClient implements IEthEventsClient {
 	private connectedSubscribers: Function[] = [];
 	private disconnectedSubscribers: Function[] = [];
 	private ws: WS;
-	private config: IEventsConfig;
+	private config: IEthEventsConfig;
+	private reconnectingInterval: any;
 	public connected: boolean = false;
 
 	constructor(
@@ -94,11 +95,16 @@ export class EthEventsClient implements IEthEventsClient {
 	/**
 	 *  @param {string} url
 	 */
-	connect(config: IEventsConfig) {
+	connect(config: IEthEventsConfig) {
+		if (!config || !config.url) {
+			return;
+		}
+
 		this.ws = new WS(config.url);
 		this.ws.onmessage = this.onMessage.bind(this);
 		this.ws.onopen = this.onOpen.bind(this);
 		this.ws.onclose = this.onClose.bind(this);
+		this.ws.onerror = () => { console.log('error') };
 		this.config = config;
 	}
 
@@ -106,12 +112,17 @@ export class EthEventsClient implements IEthEventsClient {
 	 * try to reconnect ws
 	 */
 	reconnect() {
-		let attempt = 0;
+		if (this.reconnectingInterval) {
+			return;
+		}
+
+		let attempt = 1;
 		this.connect(this.config);
 
-		const id = setInterval(() => {
+		this.reconnectingInterval = setInterval(() => {
 			if (this.connected) {
-				clearInterval(id);
+				clearInterval(this.reconnectingInterval);
+				this.reconnectingInterval = null;
 				return;
 			}
 
@@ -154,6 +165,10 @@ export class EthEventsClient implements IEthEventsClient {
 	 *  @param {Function} cb
 	 */
 	onBlock(confirmations: number, cb: Function) {
+		if (!this.connected) {
+			throw new Error('Disconnected');
+		}
+
 		const id = this.idHelper.get();
 		const params = [SUBSCRIPTIONS.BLOCK, confirmations];
 		this.subscribers.set(id, { params, cb });
@@ -168,6 +183,10 @@ export class EthEventsClient implements IEthEventsClient {
 	 *  @param {Function} cb
 	 */
 	onAddressTransactions({ address, confirmations }: AddressTransactionSubscription, cb: Function) {
+		if (!this.connected) {
+			throw new Error('Disconnected');
+		}
+
 		const id = this.idHelper.get();
 		const params = [SUBSCRIPTIONS.TRANSACTION, address, confirmations];
 		this.subscribers.set(id, { params, cb });
@@ -182,6 +201,10 @@ export class EthEventsClient implements IEthEventsClient {
 	 *  @param {Function} cb
 	 */
 	onTokenTransfers({ token, address, confirmations }: TokenTransferSubscription, cb: Function) {
+		if (!this.connected) {
+			throw new Error('Disconnected');
+		}
+
 		const id = this.idHelper.get();
 		const params = [SUBSCRIPTIONS.TRANSFER, token, address, confirmations];
 		this.subscribers.set(id, { params, cb });
@@ -196,6 +219,10 @@ export class EthEventsClient implements IEthEventsClient {
 	 *  @param {Function} cb
 	 */
 	onTransactionConrimations({ hash, confirmations }: TransactionConrimationSubscription, cb: Function) {
+		if (!this.connected) {
+			throw new Error('Disconnected');
+		}
+
 		const id = this.idHelper.get();
 		const params = [SUBSCRIPTIONS.CONFIRMATION, hash, confirmations];
 		this.subscribers.set(id, { params, cb });
@@ -209,6 +236,10 @@ export class EthEventsClient implements IEthEventsClient {
 	 *  @param {string | number} id
 	 */
 	unsubscribe(id: string | number) {
+		if (!this.connected) {
+			throw new Error('Disconnected');
+		}
+
 		const sub = this.subscribers.get(id);
 
 		if (sub) {

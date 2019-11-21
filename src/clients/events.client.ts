@@ -19,7 +19,11 @@ export class EventsClient
 	}
 
 	setConfig(config: IEventsConfig): void {
-		this.eth.connect(config);
+		if (!config) {
+			return;
+		}
+
+		this.eth.connect(config.eth)
 		// TODO work with token
 	}
 }
