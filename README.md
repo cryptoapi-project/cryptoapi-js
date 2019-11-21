@@ -17,9 +17,9 @@
     │   │   ├── eth.apis                   #  
     │   │   │   ├── eth.sub.apis           # Folder includes sub eth apis.
     │   │   │   ├── eth.api.client.ts      # EthApiClient injects all sub eth apis.
-    │   │   ├── eth.events                 # 
+    │   │   ├── eth.events                 #
     │   │   │   ├── eth.events.client.ts   # EthEventsClient work with websocket service.
-    │   │   ├── api.client.ts              # Client for work with all api request. 
+    │   │   ├── api.client.ts              # Client for work with all api request.
     │   │   ├── events.client.ts           # Client for work with all websocket request.        
     │   ├── index.ts                       # Exporting crypto library client.
     ├── LICENSE
@@ -34,16 +34,7 @@ const crypto = new Crypto('sdasda');
 
 const result = await crypto.api.eth.getNetworkInfo();
 
-crypto.events.eth.subscribeBlock(123, 1);
-
 crypto.api.eth.getNetworkInfo();
-crypto.api.eth.subscribeToken();
 
-crypto.events.eth.subscribeBlock(12, 10);
-crypto.events.eth.unsubscribeBlock(12, 9);
-
-crypto.events.eth.onMessageBlock((data) => console.log('data clinet', data));
-
-crypto.events.eth.close();
     
 ```
