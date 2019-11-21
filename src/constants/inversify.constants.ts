@@ -17,6 +17,7 @@ const TYPES_DEPENDENCIES = {
 	IEthRawTransactionApi: Symbol.for('IEthRawTransactionApi'),
 
 	IIdHelper: Symbol.for('IIdHelper'),
+	ISubsHelper: Symbol.for('ISubsHelper'),
 };
 
 export { TYPES_DEPENDENCIES };

@@ -9,3 +9,5 @@ export enum METHODS {
 	SUBSCRIBE = 'subscribe',
 	UNSUBSCRIBE = 'unsubscribe',
 }
+
+export const MAX_CONFIRMATION = 100;

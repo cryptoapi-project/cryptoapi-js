@@ -12,6 +12,7 @@ import {
 } from '../../dtos/event.dtos';
 import { IEthEventsClient } from '../../interfaces/eth.events/eth.events.client.interface';
 import { IIdHelper } from '../../interfaces/helpers/id.helper.interface';
+import { ISubsHelper } from '../../interfaces/helpers/subs.helper.interface';
 import { IEthEventsConfig } from '../../interfaces/configs/events.config.interface';
 
 @injectable()
@@ -26,6 +27,7 @@ export class EthEventsClient implements IEthEventsClient {
 
 	constructor(
 		@inject(TYPES_DEPENDENCIES.IIdHelper) private readonly idHelper: IIdHelper,
+		@inject(TYPES_DEPENDENCIES.ISubsHelper) private readonly subsHelper: ISubsHelper,
 	) {}
 
 	/**
@@ -169,6 +171,8 @@ export class EthEventsClient implements IEthEventsClient {
 			throw new Error('Disconnected');
 		}
 
+		this.subsHelper.validateConfirmations(confirmations);
+
 		const id = this.idHelper.get();
 		const params = [SUBSCRIPTIONS.BLOCK, confirmations];
 		this.subscribers.set(id, { params, cb });
@@ -185,6 +189,12 @@ export class EthEventsClient implements IEthEventsClient {
 	onAddressTransactions({ address, confirmations }: AddressTransactionSubscription, cb: Function) {
 		if (!this.connected) {
 			throw new Error('Disconnected');
+		}
+
+		this.subsHelper.validateAddress(address);
+
+		if (confirmations) {
+			this.subsHelper.validateConfirmations(confirmations);
 		}
 
 		const id = this.idHelper.get();
@@ -205,6 +215,13 @@ export class EthEventsClient implements IEthEventsClient {
 			throw new Error('Disconnected');
 		}
 
+		this.subsHelper.validateAddress(token, 'token');
+		this.subsHelper.validateAddress(address);
+
+		if (confirmations) {
+			this.subsHelper.validateConfirmations(confirmations);
+		}
+
 		const id = this.idHelper.get();
 		const params = [SUBSCRIPTIONS.TRANSFER, token, address, confirmations];
 		this.subscribers.set(id, { params, cb });
@@ -221,6 +238,12 @@ export class EthEventsClient implements IEthEventsClient {
 	onTransactionConrimations({ hash, confirmations }: TransactionConrimationSubscription, cb: Function) {
 		if (!this.connected) {
 			throw new Error('Disconnected');
+		}
+
+		this.subsHelper.validateHash(hash);
+
+		if (confirmations) {
+			this.subsHelper.validateConfirmations(confirmations);
 		}
 
 		const id = this.idHelper.get();
