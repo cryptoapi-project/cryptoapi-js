@@ -12,26 +12,33 @@ import {
 } from '../../dtos/event.dtos';
 import { IEthEventsClient } from '../../interfaces/eth.events/eth.events.client.interface';
 import { IIdHelper } from '../../interfaces/helpers/id.helper.interface';
+import { IEventsConfig } from '../../interfaces/configs/events.config.interface';
 
 @injectable()
 export class EthEventsClient implements IEthEventsClient {
 	private subscribers: Map<string | number, { params: any[], cb: Function }> = new Map();
+	private connectedSubscribers: Function[] = [];
+	private disconnectedSubscribers: Function[] = [];
 	private ws: WS;
+	private config: IEventsConfig;
+	public connected: boolean = false;
 
 	constructor(
 		@inject(TYPES_DEPENDENCIES.IIdHelper) private readonly idHelper: IIdHelper,
+	) {}
 
-	) {
-		this.ws = new WS('ws://localhost:8080');
-		this.ws.onmessage = this.onMessage.bind(this);
-		this.ws.onopen = this.onOpen.bind(this);
-		this.ws.onclose = this.onClose.bind(this);
-	}
-
+	/**
+	 *  @param {string} method
+	 *  @param {any[]} params
+	 *  @param {string | number} id
+	 */
 	private send(method: string, params: any[], id: string | number) {
 		this.ws.send(JSON.stringify({ method, params, id }));
 	}
 
+	/**
+	 *  @param {any} data
+	 */
 	private isValidMessage(data: any) {
 		if (!data.method || !Object.values(SUBSCRIPTIONS).includes(data.method)) {
 			return false;
@@ -44,6 +51,9 @@ export class EthEventsClient implements IEthEventsClient {
 		return true;
 	}
 
+	/**
+	 *  @param {WS.MessageEvent} event
+	 */
 	private onMessage(event: WS.MessageEvent) {
 		const data = JSON.parse(event.data.toString());
 
@@ -61,20 +71,88 @@ export class EthEventsClient implements IEthEventsClient {
 		sub.cb(notificaton);
 	}
 
+	/**
+	 * handler on open ws
+	 */
+	private onOpen() {
+		this.connected = true;
+		this.connectedSubscribers.forEach((cb) => cb());
+	}
+
+	/**
+	 * handler on close ws
+	 */
+	private onClose() {
+		this.connected = false;
+		this.disconnectedSubscribers.forEach((cb) => cb());
+
+		if (this.config.reconnect) {
+			this.reconnect();
+		}
+	}
+
+	/**
+	 *  @param {string} url
+	 */
+	connect(config: IEventsConfig) {
+		this.ws = new WS(config.url);
+		this.ws.onmessage = this.onMessage.bind(this);
+		this.ws.onopen = this.onOpen.bind(this);
+		this.ws.onclose = this.onClose.bind(this);
+		this.config = config;
+	}
+
+	/**
+	 * try to reconnect ws
+	 */
+	reconnect() {
+		let attempt = 0;
+		this.connect(this.config);
+
+		const id = setInterval(() => {
+			if (this.connected) {
+				clearInterval(id);
+				return;
+			}
+
+			attempt += 1;
+			if (this.config.attempts && attempt > this.config.attempts) {
+				throw new Error('Connection attempts are over');
+			}
+
+			this.connect(this.config);
+		}, this.config.timeout);
+	}
+
+	/**
+	 * close ws
+	 */
 	close() {
 		this.ws.close();
+		this.config = { url: null };
 		this.subscribers = new Map();
+		this.connectedSubscribers = [];
+		this.disconnectedSubscribers = [];
 	}
 
-	onOpen() {
-		console.log('open');
+	/**
+	 *  @param {Function} cb
+	 */
+	onConnected(cb: Function) {
+		this.connectedSubscribers.push(cb);
 	}
 
-	onClose() {
-		console.log('close');
+	/**
+	 *  @param {Function} cb
+	 */
+	onDisconnected(cb: Function) {
+		this.disconnectedSubscribers.push(cb);
 	}
 
-
+	/**
+	 *  @param {number} confirmations
+	 *  @param {Function} cb
+	 */
 	onBlock(confirmations: number, cb: Function) {
 		const id = this.idHelper.get();
 		const params = [SUBSCRIPTIONS.BLOCK, confirmations];
@@ -85,6 +163,10 @@ export class EthEventsClient implements IEthEventsClient {
 		return id;
 	}
 
+	/**
+	 *  @param {AddressTransactionSubscription} subscription
+	 *  @param {Function} cb
+	 */
 	onAddressTransactions({ address, confirmations }: AddressTransactionSubscription, cb: Function) {
 		const id = this.idHelper.get();
 		const params = [SUBSCRIPTIONS.TRANSACTION, address, confirmations];
@@ -95,6 +177,10 @@ export class EthEventsClient implements IEthEventsClient {
 		return id;
 	}
 
+	/**
+	 *  @param {TokenTransferSubscription} subscription
+	 *  @param {Function} cb
+	 */
 	onTokenTransfers({ token, address, confirmations }: TokenTransferSubscription, cb: Function) {
 		const id = this.idHelper.get();
 		const params = [SUBSCRIPTIONS.TRANSFER, token, address, confirmations];
@@ -105,6 +191,10 @@ export class EthEventsClient implements IEthEventsClient {
 		return id;
 	}
 
+	/**
+	 *  @param {TransactionConrimationSubscription} subscription
+	 *  @param {Function} cb
+	 */
 	onTransactionConrimations({ hash, confirmations }: TransactionConrimationSubscription, cb: Function) {
 		const id = this.idHelper.get();
 		const params = [SUBSCRIPTIONS.CONFIRMATION, hash, confirmations];
@@ -115,7 +205,10 @@ export class EthEventsClient implements IEthEventsClient {
 		return id;
 	}
 
-	unsubscribe(id: number) {
+	/**
+	 *  @param {string | number} id
+	 */
+	unsubscribe(id: string | number) {
 		const sub = this.subscribers.get(id);
 
 		if (sub) {

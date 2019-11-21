@@ -3,14 +3,17 @@ import {
 	TokenTransferSubscription,
 	TransactionConrimationSubscription,
 } from '../../dtos/event.dtos';
+import { IEventsConfig } from '../configs/events.config.interface';
 
 export interface IEthEventsClient {
 
+	connected: boolean;
+
+	connect(options: IEventsConfig): void;
+
+	reconnect(): void;
+
 	close(): void;
-
-	onOpen(): void;
-
-	onClose(): void;
 
 	unsubscribe(id: number): boolean;
 
