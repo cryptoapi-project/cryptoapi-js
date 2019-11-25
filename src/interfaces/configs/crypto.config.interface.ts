@@ -1,5 +1,10 @@
+export interface IServerConfig {
+	baseUrl: string;
+}
+
 export interface ICryptoOptions {
-	test?: number;
+	eth: IServerConfig;
+	timeout: number;
 }
 
 export interface ICryptoConfig extends ICryptoOptions {

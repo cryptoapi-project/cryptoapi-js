@@ -1,49 +1,90 @@
-# Crypto API Client
+# Cryptoapi
 
-### Folder structure
-    ├── build                              # Compiled files.
-    ├── docs                               # Documentation files.
-    ├── src                                # Source files.
-    │   ├── constants                      # All library constants.
-    │   ├── dtos                           # Objects which carry data between processes.
-    │   ├── errors                         # Base and inheritance errors.
-    │   ├── interfaces                     # Intefaces folder.
-    │   ├── configuration                  # Dependencies injection configuration.
-    │   │   ├── di.container.ts  
-    │   ├── crypto                         # All library constants.
-    │   │   ├── crypto.ts                  # Crypto client.
-    │   │   ├── crypto.factory.ts          # Crypto client factory.   
-    │   ├── clients                        # Clients for fork with api and socket.
-    │   │   ├── eth.apis                   #  
-    │   │   │   ├── eth.sub.apis           # Folder includes sub eth apis.
-    │   │   │   ├── eth.api.client.ts      # EthApiClient injects all sub eth apis.
-    │   │   ├── eth.events                 # 
-    │   │   │   ├── eth.events.client.ts   # EthEventsClient work with websocket service.
-    │   │   ├── api.client.ts              # Client for work with all api request. 
-    │   │   ├── events.client.ts           # Client for work with all websocket request.        
-    │   ├── index.ts                       # Exporting crypto library client.
-    ├── LICENSE
-    └── README.md
+Pure TypeScript crypto library for node.js and browsers. Can be used to subscribe, unsubscribe eth events, get eth network information.
+
+#### Table of Contents
+1. [Usage](#Usage)
+2. [Full API Reference](#full-api-reference)
+3. [Development](#development)
+4. [License](#license)
 
 
-### Example
+## Usage
+Below are some of the most common ways to usage cryptoapi.
+
+### Node
+#### Installation
+To include cryptoapi in Node, first install with npm.
 ```
-import { Crypto } from 'cryptoapi';
+$ npm install --save cryptoapi
+```
+#### Examples
 
-const crypto = new Crypto('sdasda');
+##### CommonJS
 
+```js
+const cryptoapi = require('cryptoapi');
+const crypto = new crypto.Crypto('***');
 const result = await crypto.api.eth.getNetworkInfo();
-
-crypto.events.eth.subscribeBlock(123, 1);
-
-crypto.api.eth.getNetworkInfo();
-crypto.api.eth.subscribeToken();
-
-crypto.events.eth.subscribeBlock(12, 10);
-crypto.events.eth.unsubscribeBlock(12, 9);
-
-crypto.events.eth.onMessageBlock((data) => console.log('data clinet', data));
-
-crypto.events.eth.close();
-    
 ```
+
+##### ES Module
+```js
+import { Crypto } from 'crypto.js';
+const crypto = new Crypto('***');
+const result = await crypto.api.eth.getNetworkInfo();
+```
+
+### Browser
+
+#### Installation
+Or if you're keeping things super simple, just include [this file](dist/bundles/crypto-api.js) as a script like so:
+```html
+<script src="node_modules/cryptoapi/dist/bundles/crypto-api.js"></script>
+<script src="node_modules/cryptoapi/dist/bundles/crypto-api.min.js"></script>
+```
+
+#### Examples
+```
+const crypto = new cryptoapi.Crypto('***')
+const result = await crypto.api.eth.getNetworkInfo();
+```
+
+## Full API Reference
+[API](docs/API.md) - List with all api methods.
+
+## Development
+
+Use the following commands to build library:
+
+```bash
+$ npm install --save cryptoapi
+$ cd cryptoapi
+$ npm i
+$ npm run build
+```
+All compiled files will be located in the directory dist.
+
+## License
+The MIT License (MIT)
+
+Copyright (c) 2019 PixelPlex Inc. <https://pixelplex.io>
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

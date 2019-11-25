@@ -1,25 +1,34 @@
 import 'reflect-metadata';
 import { injectable, inject } from 'inversify';
-import axios from 'axios';
 
-import { TYPES_DEPENDENCIES } from '../constants/inversify.constants';
+import { TYPES_DI } from '../constants/inversify.constants';
 
 import { IApiClient } from '../interfaces/clients/api.client.interface';
 import { IEthApiClient } from '../interfaces/eth.apis/eth.api.client.interface';
-import { IConfigurableConfig } from '../interfaces/configs/configurable.config.interface';
-import { IApiConfig } from '../interfaces/configs/api.config.interface';
+import { IHttpService } from '../interfaces/providers/http.service.interface';
+import { ICryptoConfig } from '../interfaces/configs/crypto.config.interface';
 
 @injectable()
-export class ApiClient implements IApiClient, IConfigurableConfig<IApiConfig> {
+export class ApiClient implements IApiClient {
 	eth: IEthApiClient;
 
-	constructor(@inject(TYPES_DEPENDENCIES.IEthApiClient) eth: IEthApiClient) {
+	constructor(
+		@inject(TYPES_DI.IHttpService)
+		private readonly httpService: IHttpService,
+		@inject(TYPES_DI.IEthApiClient) eth: IEthApiClient,
+	) {
 		this.eth = eth;
 	}
 
-	setConfig(config: IApiConfig): void {
-		axios.defaults.params = {
-			token: config.token,
-		};
+	/**
+	 * Configure httpClient, ethApiClient.
+	 * @method
+	 * @name configure
+	 * @param {ICryptoConfig} config
+	 * @return {void}
+	 */
+	configure(config: ICryptoConfig) {
+		this.httpService.configure(config.token, config.timeout);
+		this.eth.configure(config.eth);
 	}
 }
