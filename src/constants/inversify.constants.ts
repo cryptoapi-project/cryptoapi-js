@@ -1,8 +1,5 @@
-import { ICryptoConfig } from '../interfaces/configs/crypto.config.interface';
-
-const TYPES_DEPENDENCIES = {
+const TYPES_DI = {
 	ICrypto: Symbol.for('ICrypto'),
-	ICryptoConfig: Symbol.for('ICryptoConfig'),
 
 	IApiClient: Symbol.for('IApiClient'),
 	IEventsClient: Symbol.for('IEventsClient'),
@@ -15,6 +12,10 @@ const TYPES_DEPENDENCIES = {
 	IEthNotifyApi: Symbol.for('IEthNotifyApi'),
 	IEthContractApi: Symbol.for('IEthContractApi'),
 	IEthRawTransactionApi: Symbol.for('IEthRawTransactionApi'),
+
+	IHttpService: Symbol.for('IHttpService'),
+
+	ICryptoConfig: Symbol.for('ICryptoConfig'),
 };
 
-export { TYPES_DEPENDENCIES };
+export { TYPES_DI };

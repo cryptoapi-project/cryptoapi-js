@@ -1,27 +1,35 @@
 {
-  "name": "cryptoapi-library",
-  "description": "cryptoapi-library",
+  "name": "cryptoapi",
+  "description": "Cryptoapi library",
   "version": "0.0.1",
-  "author": "Pixelplex",
+  "author": {
+    "name": "PixelPlex, Inc.",
+    "email": "info@pixelplex.io",
+    "url": "https://pixelplex.io"
+  },
+  "license": "MIT",
   "engines": {
     "node": ">=8.10.0"
   },
   "repository": "https://github.com/AlinaLoz/ts-library-starter",
-  "main": "./build/src/index.js",
-  "types": "./build/src/index.d.ts",
+  "main": "dist/bundles/crypto-api.js",
+  "module": "dist/lib-esm/src/index.js",
+  "es2015": "dist/lib/src/index.js",
   "files": [
-    "build"
+    "dist",
+    "src"
   ],
   "keywords": [],
   "scripts": {
     "start": "tsc && tsc -w -p .",
     "compile": "tsc -p .",
+    "clean": "shx rm -rf dist",
+    "build": "npm run clean && tsc && tsc -m es6 --outDir dist/lib-esm && webpack",
     "predocs": "npm run compile",
     "preconformance-test": "npm run compile",
     "presystem-test": "npm run compile",
     "pretest": "npm run compile",
     "check": "gts check",
-    "clean": "gts clean",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "prepare": "npm run compile",
@@ -30,12 +38,16 @@
   "dependencies": {
     "@types/node": "^12.12.8",
     "@types/websocket": "^1.0.0",
+    "awesome-typescript-loader": "^5.2.1",
     "axios": "^0.19.0",
     "husky": "2.1.0",
     "immutable": "^4.0.0-rc.12",
+    "log4js": "^6.0.0",
     "reflect-metadata": "^0.1.13",
+    "shx": "^0.3.2",
     "ts-node-dev": "^1.0.0-pre.44",
     "tsconfig-paths": "^3.9.0",
+    "webpack": "^4.41.2",
     "websocket": "^1.0.30"
   },
   "devDependencies": {
@@ -48,10 +60,14 @@
     "inversify": "^5.0.1",
     "power-assert": "^1.4.4",
     "prettier": "^1.19.1",
-    "typescript": "~3.7.0"
+    "ts-loader": "^6.2.1",
+    "typescript": "~3.7.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack-cli": "^3.3.10"
   },
   "husky": {
     "hooks": {
+      "pre-commit": "npm run lint"
     }
   }
 }

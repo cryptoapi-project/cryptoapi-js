@@ -3,7 +3,7 @@ export interface IEthEventsClient {
 
 	subscribeBlock(countConfirmation: number, eventId: number): void;
 	unsubscribeBlock(countConfirmation: number, eventId: number): void;
-	onMessageBlock(cb: Function): void;
+	onMessageBlock(cb: () => void): void;
 
 	// subscribeTransaction(params: any[]): void;
 	// unsubscribeTransaction(): void;

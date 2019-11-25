@@ -1,55 +1,69 @@
 import 'reflect-metadata';
 import { inject, injectable } from 'inversify';
 
-import { TYPES_DEPENDENCIES } from '../constants/inversify.constants';
+import { TYPES_DI } from '../constants/inversify.constants';
 
 import { ICrypto } from '../interfaces/crypto.interface';
 import { IApiClient } from '../interfaces/clients/api.client.interface';
 import { IEventsClient } from '../interfaces/clients/events.client.interface';
 import { ICryptoConfig } from '../interfaces/configs/crypto.config.interface';
-import { IConfigurableConfig } from '../interfaces/configs/configurable.config.interface';
-import { IApiConfig } from '../interfaces/configs/api.config.interface';
-import { IEventsConfig } from '../interfaces/configs/events.config.interface';
-
+import { UnauthorizedException } from '../exceptions/unauthorized.exception';
 import { CryptoConfig } from '../dtos/crypto.config';
 
 @injectable()
 export class Crypto implements ICrypto {
-	private _config: ICryptoConfig = new CryptoConfig({});
+	private _config = new CryptoConfig();
 
 	constructor(
-		@inject(TYPES_DEPENDENCIES.IApiClient)
-		private readonly _api: IApiClient & IConfigurableConfig<IApiConfig>,
-		@inject(TYPES_DEPENDENCIES.IEventsClient)
-		private readonly _events: IEventsClient &
-			IConfigurableConfig<IEventsConfig>,
+		@inject(TYPES_DI.IApiClient) private readonly _api: IApiClient,
+		@inject(TYPES_DI.IEventsClient) private readonly _events: IEventsClient,
 	) {}
 
-	setConfig(_config: ICryptoConfig) {
-		this._config = _config;
-		this._api.setConfig(_config);
-		this._events.setConfig(_config);
+	/**
+	 * Configure Crypto client
+	 * @method
+	 * @name configure
+	 * @param {ICryptoConfig} config
+	 * @return {void}
+	 */
+	configure(config: ICryptoConfig) {
+		this._config = config;
+		this._api.configure(config);
 	}
 
-	private _checkCredentials(): boolean | Error {
+	/**
+	 * Check token access.
+	 * @private method
+	 * @name _checkCredentials
+	 * @return {Error|void}
+	 */
+	private _checkCredentials(): void {
 		if (!this._config.token) {
-			throw new Error('Token not found.');
+			throw new UnauthorizedException('Token not found.');
 		}
-
-		return true;
 	}
 
+	/**
+	 *
+	 * Check credentials before getting access to events clients.
+	 * @property
+	 * @name events
+	 * @return {IEventsClient}
+	 */
 	get events() {
-		if (!this._checkCredentials()) {
-			return null;
-		}
+		this._checkCredentials();
 		return this._events;
 	}
 
+	/**
+	 *
+	 * Check credentials before getting access to api clients.
+	 * @property
+	 * @name api
+	 * @return {IApiClient}
+	 */
 	get api() {
-		if (!this._checkCredentials()) {
-			return null;
-		}
+		this._checkCredentials();
 		return this._api;
 	}
 }

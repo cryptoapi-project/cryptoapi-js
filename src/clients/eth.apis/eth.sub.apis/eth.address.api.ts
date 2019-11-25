@@ -3,8 +3,4 @@ import { injectable } from 'inversify';
 import { IEthAddressApi } from '../../../interfaces/eth.apis/eth.sub.apis/eth.address.api.interface';
 
 @injectable()
-export class EthAddressApi implements IEthAddressApi {
-	getNetworkInfo(): any {
-		return 'return from ETH ADRRESS API';
-	}
-}
+export class EthAddressApi implements IEthAddressApi {}

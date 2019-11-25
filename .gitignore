@@ -1,3 +1,9 @@
 build
 node_modules
 .idea
+package-lock.json
+client.js
+local.json
+index.html
+start.js
+dist
