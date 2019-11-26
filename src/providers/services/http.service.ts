@@ -10,8 +10,7 @@ export class HttpService implements IHttpService {
 
 	/**
 	 * Configure http client
-	 * @method
-	 * @name configure
+	 * @method configure
 	 * @param {string} token
 	 * @param {number} timeout
 	 */

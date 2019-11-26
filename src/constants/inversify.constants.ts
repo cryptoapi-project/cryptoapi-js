@@ -12,9 +12,9 @@ const TYPES_DI = {
 	IEthNotifyApi: Symbol.for('IEthNotifyApi'),
 	IEthContractApi: Symbol.for('IEthContractApi'),
 	IEthRawTransactionApi: Symbol.for('IEthRawTransactionApi'),
+	IEthTokenApi: Symbol.for('IEthTokenApi'),
 
 	IHttpService: Symbol.for('IHttpService'),
-
 	ICryptoConfig: Symbol.for('ICryptoConfig'),
 };
 

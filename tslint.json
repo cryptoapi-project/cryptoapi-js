@@ -6,7 +6,6 @@
   },
   "rules": {
     "no-unused-declaration": true,
-    "no-unused-variable":  true,
     "no-empty": false,
     "no-empty-interface": false,
     "quotemark": [true, "single"],

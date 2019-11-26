@@ -8,12 +8,4 @@ import { IHttpService } from '../../../interfaces/providers/http.service.interfa
 @injectable()
 export class EthNotifyApi implements IEthNotifyApi {
 	constructor(@inject(TYPES_DI.IHttpService) httpService: IHttpService) {}
-
-	subscribeToken() {
-		return Promise.resolve(true);
-	}
-
-	unsubscribeToken() {
-		return Promise.resolve(true);
-	}
 }

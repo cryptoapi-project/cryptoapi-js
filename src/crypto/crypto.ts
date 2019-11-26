@@ -8,11 +8,12 @@ import { IApiClient } from '../interfaces/clients/api.client.interface';
 import { IEventsClient } from '../interfaces/clients/events.client.interface';
 import { ICryptoConfig } from '../interfaces/configs/crypto.config.interface';
 import { UnauthorizedException } from '../exceptions/unauthorized.exception';
+
 import { CryptoConfig } from '../dtos/crypto.config';
 
 @injectable()
 export class Crypto implements ICrypto {
-	private _config = new CryptoConfig();
+	private _config: ICryptoConfig|null = null;
 
 	constructor(
 		@inject(TYPES_DI.IApiClient) private readonly _api: IApiClient,
@@ -27,7 +28,7 @@ export class Crypto implements ICrypto {
 	 * @return {void}
 	 */
 	configure(config: ICryptoConfig) {
-		this._config = config;
+		this._config = new CryptoConfig(config);
 		this._api.configure(config);
 	}
 
@@ -38,7 +39,7 @@ export class Crypto implements ICrypto {
 	 * @return {Error|void}
 	 */
 	private _checkCredentials(): void {
-		if (!this._config.token) {
+		if (!this._config || !this._config.token) {
 			throw new UnauthorizedException('Token not found.');
 		}
 	}
