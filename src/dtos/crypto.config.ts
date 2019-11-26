@@ -1,18 +1,40 @@
 import { injectable } from 'inversify';
 import {
 	ICryptoConfig,
-	ICryptoOptions,
+	IServerConfig,
 } from '../interfaces/configs/crypto.config.interface';
 import { IEventsConfig } from '../interfaces/configs/events.config.interface';
+
+export class ServerConfig {
+	baseUrl: string;
+	events?: IEventsConfig;
+
+	constructor(
+		config: {
+			baseUrl: string,
+			events?: IEventsConfig,
+		},
+	) {
+		this.baseUrl = config.baseUrl;
+		this.events = config.events;
+	}
+}
 
 @injectable()
 export class CryptoConfig implements ICryptoConfig {
 	token: string;
-	events?: IEventsConfig;
-	options?: ICryptoOptions;
+	timeout: number;
+	eth: IServerConfig;
 
-	constructor({ token = '', events }: { token?: string, events?: IEventsConfig }) {
-		this.token = token;
-		this.events = events;
+	constructor(
+		config: {
+			token: string,
+			timeout: number,
+			eth: ServerConfig,
+		},
+	) {
+		this.token = config.token;
+		this.eth = config.eth;
+		this.timeout = config.timeout;
 	}
 }

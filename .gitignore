@@ -40,3 +40,7 @@ config/local.json
 #test report
 coverage/*
 /build
+
+client.js
+index.html
+start.js

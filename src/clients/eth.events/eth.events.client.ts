@@ -3,7 +3,7 @@ import { inject, injectable } from 'inversify';
 import WS from 'ws';
 
 import { METHODS, SUBSCRIPTIONS } from '../../constants/events.constants';
-import { TYPES_DEPENDENCIES } from '../../constants/inversify.constants';
+import { TYPES_DI } from '../../constants/inversify.constants';
 
 import {
 	AddressTransactionSubscription,
@@ -13,21 +13,21 @@ import {
 import { IEthEventsClient } from '../../interfaces/eth.events/eth.events.client.interface';
 import { IIdHelper } from '../../interfaces/helpers/id.helper.interface';
 import { ISubsHelper } from '../../interfaces/helpers/subs.helper.interface';
-import { IEthEventsConfig } from '../../interfaces/configs/events.config.interface';
+import { IEventsConfig } from '../../interfaces/configs/crypto.config.interface';
 
 @injectable()
 export class EthEventsClient implements IEthEventsClient {
-	private subscribers: Map<string | number, { params: any[], cb: Function }> = new Map();
-	private connectedSubscribers: Function[] = [];
-	private disconnectedSubscribers: Function[] = [];
-	private ws: WS;
-	private config: IEthEventsConfig;
+	private subscribers: Map<string | number, { params: any[], cb: (notificaton: any) => void }> = new Map();
+	private connectedSubscribers: Array<() => void> = [];
+	private disconnectedSubscribers: Array<() => void> = [];
+	private ws: WS | null = null;
+	private config: IEventsConfig | null = null;
 	private reconnectingInterval: any;
 	public connected: boolean = false;
 
 	constructor(
-		@inject(TYPES_DEPENDENCIES.IIdHelper) private readonly idHelper: IIdHelper,
-		@inject(TYPES_DEPENDENCIES.ISubsHelper) private readonly subsHelper: ISubsHelper,
+		@inject(TYPES_DI.IIdHelper) private readonly idHelper: IIdHelper,
+		@inject(TYPES_DI.ISubsHelper) private readonly subsHelper: ISubsHelper,
 	) {}
 
 	/**
@@ -36,7 +36,7 @@ export class EthEventsClient implements IEthEventsClient {
 	 *  @param {string | number} id
 	 */
 	private send(method: string, params: any[], id: string | number) {
-		this.ws.send(JSON.stringify({ method, params, id }));
+		this.ws!.send(JSON.stringify({ method, params, id }));
 	}
 
 	/**
@@ -89,7 +89,7 @@ export class EthEventsClient implements IEthEventsClient {
 		this.connected = false;
 		this.disconnectedSubscribers.forEach((cb) => cb());
 
-		if (this.config.reconnect) {
+		if (this.config!.reconnect) {
 			this.reconnect();
 		}
 	}
@@ -97,7 +97,7 @@ export class EthEventsClient implements IEthEventsClient {
 	/**
 	 *  @param {string} url
 	 */
-	connect(config: IEthEventsConfig) {
+	connect(config: IEventsConfig | null) {
 		if (!config || !config.url) {
 			return;
 		}
@@ -106,7 +106,7 @@ export class EthEventsClient implements IEthEventsClient {
 		this.ws.onmessage = this.onMessage.bind(this);
 		this.ws.onopen = this.onOpen.bind(this);
 		this.ws.onclose = this.onClose.bind(this);
-		this.ws.onerror = () => { console.log('error') };
+		this.ws.onerror = () => {};
 		this.config = config;
 	}
 
@@ -129,20 +129,20 @@ export class EthEventsClient implements IEthEventsClient {
 			}
 
 			attempt += 1;
-			if (this.config.attempts && attempt > this.config.attempts) {
+			if (this.config!.attempts && attempt > this.config!.attempts) {
 				throw new Error('Connection attempts are over');
 			}
 
 			this.connect(this.config);
-		}, this.config.timeout);
+		}, this.config!.timeout);
 	}
 
 	/**
 	 * close ws
 	 */
 	close() {
-		this.ws.close();
-		this.config = { url: null };
+		this.ws!.close();
+		this.config = null;
 		this.subscribers = new Map();
 		this.connectedSubscribers = [];
 		this.disconnectedSubscribers = [];
@@ -151,14 +151,14 @@ export class EthEventsClient implements IEthEventsClient {
 	/**
 	 *  @param {Function} cb
 	 */
-	onConnected(cb: Function) {
+	onConnected(cb: () => void) {
 		this.connectedSubscribers.push(cb);
 	}
 
 	/**
 	 *  @param {Function} cb
 	 */
-	onDisconnected(cb: Function) {
+	onDisconnected(cb: () => void) {
 		this.disconnectedSubscribers.push(cb);
 	}
 
@@ -166,7 +166,7 @@ export class EthEventsClient implements IEthEventsClient {
 	 *  @param {number} confirmations
 	 *  @param {Function} cb
 	 */
-	onBlock(confirmations: number, cb: Function) {
+	onBlock(confirmations: number, cb: (notificaton: any) => void) {
 		if (!this.connected) {
 			throw new Error('Disconnected');
 		}
@@ -186,7 +186,7 @@ export class EthEventsClient implements IEthEventsClient {
 	 *  @param {AddressTransactionSubscription} subscription
 	 *  @param {Function} cb
 	 */
-	onAddressTransactions({ address, confirmations }: AddressTransactionSubscription, cb: Function) {
+	onAddressTransactions({ address, confirmations }: AddressTransactionSubscription, cb: (notificaton: any) => void) {
 		if (!this.connected) {
 			throw new Error('Disconnected');
 		}
@@ -210,7 +210,7 @@ export class EthEventsClient implements IEthEventsClient {
 	 *  @param {TokenTransferSubscription} subscription
 	 *  @param {Function} cb
 	 */
-	onTokenTransfers({ token, address, confirmations }: TokenTransferSubscription, cb: Function) {
+	onTokenTransfers({ token, address, confirmations }: TokenTransferSubscription, cb: (notificaton: any) => void) {
 		if (!this.connected) {
 			throw new Error('Disconnected');
 		}
@@ -235,7 +235,7 @@ export class EthEventsClient implements IEthEventsClient {
 	 *  @param {TransactionConrimationSubscription} subscription
 	 *  @param {Function} cb
 	 */
-	onTransactionConrimations({ hash, confirmations }: TransactionConrimationSubscription, cb: Function) {
+	onTransactionConrimations({ hash, confirmations }: TransactionConrimationSubscription, cb: (notificaton: any) => void) {
 		if (!this.connected) {
 			throw new Error('Disconnected');
 		}

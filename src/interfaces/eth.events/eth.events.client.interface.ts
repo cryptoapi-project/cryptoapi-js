@@ -3,30 +3,30 @@ import {
 	TokenTransferSubscription,
 	TransactionConrimationSubscription,
 } from '../../dtos/event.dtos';
-import { IEthEventsConfig } from '../configs/events.config.interface';
+import { IEventsConfig } from '../configs/crypto.config.interface';
 
 export interface IEthEventsClient {
 
 	connected: boolean;
 
-	connect(options: IEthEventsConfig): void;
+	connect(options: IEventsConfig): void;
 
 	reconnect(): void;
 
 	close(): void;
 
-	onConnected(cb: Function): void;
+	onConnected(cb: () => void): void;
 
-	onDisconnected(cb: Function): void;
+	onDisconnected(cb: () => void): void;
 
 	unsubscribe(id: number): boolean;
 
-	onBlock(confirmations: number, cb: Function): number;
+	onBlock(confirmations: number, cb: () => void): number;
 
-	onAddressTransactions({ address, confirmations }: AddressTransactionSubscription, cb: Function): number;
+	onAddressTransactions({ address, confirmations }: AddressTransactionSubscription, cb: () => void): number;
 
-	onTokenTransfers({ token, address, confirmations }: TokenTransferSubscription, cb: Function): number;
+	onTokenTransfers({ token, address, confirmations }: TokenTransferSubscription, cb: () => void): number;
 
-	onTransactionConrimations({ hash, confirmations }: TransactionConrimationSubscription, cb: Function): number;
+	onTransactionConrimations({ hash, confirmations }: TransactionConrimationSubscription, cb: () => void): number;
 
 }

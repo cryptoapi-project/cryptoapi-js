@@ -1,3 +1,1 @@
-export interface IEthAddressApi {
-	getNetworkInfo(): any;
-}
+export interface IEthAddressApi {}

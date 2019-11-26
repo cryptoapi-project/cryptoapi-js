@@ -1,10 +1,20 @@
-import { IEventsConfig } from './events.config.interface';
+export interface IEventsConfig {
+	url: string;
+	reconnect?: boolean;
+	attempts?: number;
+	timeout?: number;
+}
+
+export interface IServerConfig {
+	baseUrl: string;
+	events?: IEventsConfig;
+}
 
 export interface ICryptoOptions {
-	test?: number;
+	eth: IServerConfig;
+	timeout: number;
 }
 
 export interface ICryptoConfig extends ICryptoOptions {
 	token: string;
-	events?: IEventsConfig;
 }

@@ -1,38 +1,52 @@
 import { inject, injectable } from 'inversify';
 
-import { TYPES_DEPENDENCIES } from '../../constants/inversify.constants';
+import { TYPES_DI } from '../../constants/inversify.constants';
 
 import { IEthApiClient } from '../../interfaces/eth.apis/eth.api.client.interface';
-import { IEthAddressApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.address.api.interface';
 import { IEthMainInfoApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.main.info.interface';
-import { IEthContractApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.contract.api.interface';
-import { IEthNotifyApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.notify.api.interface';
-import { IEthRawTransactionApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.raw.transaction.interface';
+import { IEthTokenApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.token.api.interface';
+import { IServerConfig } from '../../interfaces/configs/crypto.config.interface';
+import { TryCatch } from '../../providers/decorators/try.catch';
 
 @injectable()
 export class EthApiClient implements IEthApiClient {
+	config: IServerConfig|null = null;
+
 	constructor(
-		@inject(TYPES_DEPENDENCIES.IEthMainInfoApi)
-		private readonly ethMainInfo: IEthMainInfoApi,
-		@inject(TYPES_DEPENDENCIES.IEthAddressApi)
-		private readonly ethAddress: IEthAddressApi,
-		@inject(TYPES_DEPENDENCIES.IEthNotifyApi)
-		private readonly ethNotify: IEthNotifyApi,
-		@inject(TYPES_DEPENDENCIES.IEthContractApi)
-		private readonly ethContract: IEthContractApi,
-		@inject(TYPES_DEPENDENCIES.IEthRawTransactionApi)
-		private readonly ethRawTransaction: IEthRawTransactionApi,
+		@inject(TYPES_DI.IEthMainInfoApi) private readonly ethMainInfo: IEthMainInfoApi,
+		@inject(TYPES_DI.IEthTokenApi) private readonly tokenInfo: IEthTokenApi,
 	) {}
 
-	getNetworkInfo() {
-		return this.ethAddress.getNetworkInfo();
+	/**
+	 * Set config to eth api.
+	 * @method configure
+	 * @param {IServerConfig} config
+	 * @return {void}
+	 */
+	configure(config: IServerConfig) {
+		this.ethMainInfo.configure(config);
+		this.tokenInfo.configure(config);
 	}
 
-	subscribeToken() {
-		return this.ethNotify.subscribeToken();
+	/**
+	 * Get eth network full information.
+	 * @method getNetworkInfo
+	 * @return {Promise<EthNetworkInfo>}
+	 */
+	@TryCatch
+	async getNetworkInfo() {
+		return this.ethMainInfo.getNetworkInfo();
 	}
 
-	unsubscribeToken() {
-		return this.ethNotify.unsubscribeToken();
+	/**
+	 * Get eth token information by token address.
+	 * @method getTokenInfoByTokenAddress
+	 * @param {string} address
+	 * @return {Promise<EthNetworkInfo>}
+	 */
+	@TryCatch
+	async getTokenInfoByTokenAddress(address: string) {
+		return this.tokenInfo.getTokenInfoByTokenAddress(address);
 	}
+
 }

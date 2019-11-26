@@ -1,4 +1,1 @@
-export interface IEthNotifyApi {
-	subscribeToken(): Promise<any>;
-	unsubscribeToken(): Promise<any>;
-}
+export interface IEthNotifyApi {}
