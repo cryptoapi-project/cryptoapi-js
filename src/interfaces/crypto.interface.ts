@@ -1,5 +1,6 @@
 import { IApiClient } from './clients/api.client.interface';
 import { IEventsClient } from './clients/events.client.interface';
+
 import { IConfigurable } from './configs/configurable.interface';
 import { ICryptoConfig } from './configs/crypto.config.interface';
 

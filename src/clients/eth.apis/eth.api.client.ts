@@ -4,34 +4,33 @@ import { TYPES_DI } from '../../constants/inversify.constants';
 
 import { IEthApiClient } from '../../interfaces/eth.apis/eth.api.client.interface';
 import { IEthMainInfoApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.main.info.interface';
-import { IEthNotifyApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.notify.api.interface';
+import { IEthTokenApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.token.api.interface';
 import { IServerConfig } from '../../interfaces/configs/crypto.config.interface';
 import { TryCatch } from '../../providers/decorators/try.catch';
 
 @injectable()
 export class EthApiClient implements IEthApiClient {
+	config: IServerConfig|null = null;
+
 	constructor(
-		@inject(TYPES_DI.IEthMainInfoApi)
-		private readonly ethMainInfo: IEthMainInfoApi,
-		@inject(TYPES_DI.IEthNotifyApi)
-		private readonly ethNotify: IEthNotifyApi,
+		@inject(TYPES_DI.IEthMainInfoApi) private readonly ethMainInfo: IEthMainInfoApi,
+		@inject(TYPES_DI.IEthTokenApi) private readonly tokenInfo: IEthTokenApi,
 	) {}
 
 	/**
 	 * Set config to eth api.
-	 * @method
-	 * @name configure
+	 * @method configure
 	 * @param {IServerConfig} config
 	 * @return {void}
 	 */
 	configure(config: IServerConfig) {
-		this.ethMainInfo.config = config;
+		this.ethMainInfo.configure(config);
+		this.tokenInfo.configure(config);
 	}
 
 	/**
 	 * Get eth network full information.
-	 * @method
-	 * @name getNetworkInfo
+	 * @method getNetworkInfo
 	 * @return {Promise<EthNetworkInfo>}
 	 */
 	@TryCatch
@@ -39,11 +38,15 @@ export class EthApiClient implements IEthApiClient {
 		return this.ethMainInfo.getNetworkInfo();
 	}
 
-	subscribeToken() {
-		return this.ethNotify.subscribeToken();
+	/**
+	 * Get eth token information by token address.
+	 * @method getTokenInfoByTokenAddress
+	 * @param {string} address
+	 * @return {Promise<EthNetworkInfo>}
+	 */
+	@TryCatch
+	async getTokenInfoByTokenAddress(address: string) {
+		return this.tokenInfo.getTokenInfoByTokenAddress(address);
 	}
 
-	unsubscribeToken() {
-		return this.ethNotify.unsubscribeToken();
-	}
 }

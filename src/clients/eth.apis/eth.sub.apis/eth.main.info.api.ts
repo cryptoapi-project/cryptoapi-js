@@ -6,27 +6,26 @@ import { EthNetworkInfo } from '../../../dtos/eth.network.info';
 
 import { IEthMainInfoApi } from '../../../interfaces/eth.apis/eth.sub.apis/eth.main.info.interface';
 import { IHttpService } from '../../../interfaces/providers/http.service.interface';
-import { IServerConfig } from '../../../interfaces/configs/crypto.config.interface';
-import { ServerConfig } from '../../../dtos/crypto.config';
+import { AbstractApi } from '../../../abstracts/abstract.api';
 
 @injectable()
-export class EthMainInfoApi implements IEthMainInfoApi {
-	config: IServerConfig = new ServerConfig();
+export class EthMainInfoApi extends AbstractApi implements IEthMainInfoApi {
 
 	constructor(
-		@inject(TYPES_DI.IHttpService)
-		private readonly httpService: IHttpService,
-	) {}
+		@inject(TYPES_DI.IHttpService) private readonly httpService: IHttpService,
+	) {
+		super();
+	}
 
 	/**
 	 * Method to get network information.
-	 * @method
-	 * @name getNetworkInfo
+	 * @method getNetworkInfo
 	 * @return {Promise<EthNetworkInfo>>}
 	 */
 	async getNetworkInfo(): Promise<EthNetworkInfo> {
+		this._checkConfig();
 		const networkInfo = await this.httpService.agent.get<EthNetworkInfo>(
-			`${this.config.baseUrl}/coins/eth/network`,
+			`${this.config!.baseUrl}/coins/eth/network`,
 		);
 		return networkInfo.data;
 	}

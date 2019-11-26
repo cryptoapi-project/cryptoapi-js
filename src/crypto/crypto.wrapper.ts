@@ -12,7 +12,6 @@ import {
 } from '../interfaces/configs/crypto.config.interface';
 
 import { diContainer } from '../configuration/di.container';
-import { CryptoConfig } from '../dtos/crypto.config';
 import { UnauthorizedException } from '../exceptions/unauthorized.exception';
 import { UnprocessableException } from '../exceptions/unprocessable.exception';
 
@@ -22,7 +21,7 @@ class CryptoWrapper implements IPublicCrypto {
 	constructor(config: ICryptoConfig);
 	constructor(token: string, options?: ICryptoOptions);
 	constructor(token: any, options?: any) {
-		const cryptoConfig: ICryptoConfig = new CryptoConfig();
+		const cryptoConfig: any = {};
 
 		if (!token) {
 			throw new UnprocessableException('Incorrect params.');

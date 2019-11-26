@@ -7,17 +7,17 @@ export class EthNetworkInfo {
 	hashRate: number;
 	difficulty: number;
 
-	constructor({
-		lastBlock = 0,
-		countTransactions = '0',
-		gasPrice = 0,
-		hashRate = 0,
-		difficulty = 0,
+	constructor(info: {
+		lastBlock: number,
+		countTransactions: string,
+		gasPrice: number,
+		hashRate: number,
+		difficulty: number,
 	}) {
-		this.lastBlock = lastBlock;
-		this.countTransactions = countTransactions;
-		this.gasPrice = gasPrice;
-		this.hashRate = hashRate;
-		this.difficulty = difficulty;
+		this.lastBlock = info.lastBlock;
+		this.countTransactions = info.countTransactions;
+		this.gasPrice = info.gasPrice;
+		this.hashRate = info.hashRate;
+		this.difficulty = info.difficulty;
 	}
 }

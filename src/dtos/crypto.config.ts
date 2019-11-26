@@ -3,14 +3,13 @@ import {
 	ICryptoConfig,
 	IServerConfig,
 } from '../interfaces/configs/crypto.config.interface';
-import { DEFAULT_TIMEOUT_REQUEST } from '../config/capi.lib.config';
 
 export class ServerConfig {
 	baseUrl: string;
 
 	constructor(
-		config: ServerConfig = {
-			baseUrl: '',
+		config: {
+			baseUrl: string,
 		},
 	) {
 		this.baseUrl = config.baseUrl;
@@ -24,10 +23,10 @@ export class CryptoConfig implements ICryptoConfig {
 	eth: IServerConfig;
 
 	constructor(
-		config: CryptoConfig = {
-			token: '',
-			timeout: DEFAULT_TIMEOUT_REQUEST,
-			eth: new ServerConfig(),
+		config: {
+			token: string,
+			timeout: number,
+			eth: ServerConfig,
 		},
 	) {
 		this.token = config.token;
