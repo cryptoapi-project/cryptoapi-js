@@ -1,7 +1,7 @@
 import { IServerConfig } from '../interfaces/configs/crypto.config.interface';
 import { IConfigurable } from '../interfaces/configs/configurable.interface';
 import { ServerConfig } from '../dtos/crypto.config';
-import { BadRequestException } from '../exceptions/bad.request.exception';
+import { InternalLibraryException } from '../exceptions/internal.library.exception';
 import { injectable } from 'inversify';
 
 @injectable()
@@ -14,7 +14,7 @@ export abstract class AbstractApi implements IConfigurable<IServerConfig> {
 
 	protected _checkConfig() {
 		if (!this.config) {
-			throw new BadRequestException('Incorrect config.');
+			throw new InternalLibraryException('Library error configuration: not configured service.');
 		}
 	}
 }
