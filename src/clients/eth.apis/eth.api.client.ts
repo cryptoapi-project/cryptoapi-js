@@ -19,7 +19,7 @@ export class EthApiClient implements IEthApiClient {
 
 	constructor(
 		@inject(TYPES_DI.IEthMainInfoApi) private readonly ethMainInfo: IEthMainInfoApi,
-		@inject(TYPES_DI.IEthTokenApi) private readonly tokenInfo: IEthTokenApi,
+		@inject(TYPES_DI.IEthTokenApi) private readonly ethTokenInfo: IEthTokenApi,
 		@inject(TYPES_DI.IEthAddressApi) private readonly ethAddressInfo: IEthAddressApi,
 		@inject(TYPES_DI.IEthContractApi) private readonly ethContractApi: IEthContractApi,
 	) {}
@@ -32,7 +32,7 @@ export class EthApiClient implements IEthApiClient {
 	 */
 	configure(config: IServerConfig) {
 		this.ethMainInfo.configure(config);
-		this.tokenInfo.configure(config);
+		this.ethTokenInfo.configure(config);
 		this.ethAddressInfo.configure(config);
 		this.ethContractApi.configure(config);
 	}
@@ -66,7 +66,7 @@ export class EthApiClient implements IEthApiClient {
 	 */
 	@TryCatch
 	async getTokenInfoByTokenAddress(address: string) {
-		return this.tokenInfo.getTokenInfoByTokenAddress(address);
+		return this.ethTokenInfo.getTokenInfoByTokenAddress(address);
 	}
 
 	/**
@@ -100,5 +100,17 @@ export class EthApiClient implements IEthApiClient {
 	@TryCatch
 	getContractInfo(address: string) {
 		return this.ethContractApi.getContractInfo(address);
+	}
+
+	/**
+	 * Method to get balance token by holder and token addresses.
+	 * @method getTokenBalanceByAddresses
+	 * @param {string} tokenAddress
+	 * @param {string} holderAddress
+	 * @return {Promise<EthTokenBalance>}
+	 */
+	@TryCatch
+	getTokenBalanceByAddresses(tokenAddress: string, holderAddress: string) {
+		return this.ethTokenInfo.getTokenBalanceByAddresses(tokenAddress, holderAddress);
 	}
 }

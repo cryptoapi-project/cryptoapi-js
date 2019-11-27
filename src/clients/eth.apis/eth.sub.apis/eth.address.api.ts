@@ -2,8 +2,8 @@ import { inject, injectable } from 'inversify';
 
 import { TYPES_DI } from '../../../constants/inversify.constants';
 
-import { EthAddressBalance } from '../../../dtos/eth.address.balance';
-import { EthAddressInfo } from '../../../dtos/eth.adress.info';
+import { EthAddressBalance } from '../../../dtos/eth/eth.address.balance';
+import { EthAddressInfo } from '../../../dtos/eth/eth.address.info';
 
 import { IEthAddressApi } from '../../../interfaces/eth.apis/eth.sub.apis/eth.address.api.interface';
 
