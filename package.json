@@ -44,6 +44,7 @@
     "axios": "^0.19.0",
     "husky": "2.1.0",
     "immutable": "^4.0.0-rc.12",
+    "isomorphic-ws": "^4.0.1",
     "log4js": "^6.0.0",
     "reflect-metadata": "^0.1.13",
     "shx": "^0.3.2",

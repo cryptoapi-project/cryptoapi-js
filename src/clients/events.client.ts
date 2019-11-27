@@ -10,11 +10,13 @@ import { ICryptoConfig } from '../interfaces/configs/crypto.config.interface';
 export class EventsClient implements IEventsClient {
 	eth: IEthEventsClient;
 
-	constructor(@inject(TYPES_DI.IEthEventsClient) eth: IEthEventsClient) {
+	constructor(
+		@inject(TYPES_DI.IEthEventsClient) eth: IEthEventsClient,
+	) {
 		this.eth = eth;
 	}
 
-	setConfig(config: ICryptoConfig): void {
+	configure(config: ICryptoConfig): void {
 		if (!config) {
 			return;
 		}

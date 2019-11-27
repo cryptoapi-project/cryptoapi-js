@@ -9,6 +9,7 @@ import { ICrypto, IPublicCrypto } from '../interfaces/crypto.interface';
 import {
 	ICryptoConfig,
 	ICryptoOptions,
+	IServerConfig,
 } from '../interfaces/configs/crypto.config.interface';
 
 import { diContainer } from '../configuration/di.container';
@@ -26,29 +27,49 @@ class CryptoWrapper implements IPublicCrypto {
 		if (!token) {
 			throw new UnprocessableException('Incorrect params.');
 		}
-		cryptoConfig.token =
-			token.token || (typeof token === 'string' && token);
 
-		cryptoConfig.timeout =
-			(options && options.timeout) ||
-			token.timeout ||
-			DEFAULT_TIMEOUT_REQUEST;
-		cryptoConfig.eth = {
-			baseUrl:
-				(options && options.eth && options.eth.baseUrl) ||
-				(token.eth && token.eth.baseUrl) ||
-				ETH_BASE_URL,
-		};
+		if (!options && typeof token !== 'string') {
+			options = { ...token };
+			token = token.token;
+		}
+
+		cryptoConfig.token = token;
+
+		if (options) {
+			cryptoConfig.timeout = options.timeout || DEFAULT_TIMEOUT_REQUEST;
+
+			if (options.eth) {
+				cryptoConfig.eth = this.getEthConfig(options.eth);
+			}
+		}
 
 		if (!cryptoConfig.token) {
 			throw new UnauthorizedException('Token is not exist.');
 		}
+
 		diContainer
 			.bind<ICryptoConfig>(TYPES_DI.ICryptoConfig)
 			.toConstantValue(cryptoConfig);
 
 		this.crypto = diContainer.get<ICrypto>(TYPES_DI.ICrypto);
 		this.crypto.configure(cryptoConfig);
+	}
+
+	private getEthConfig(eth: IServerConfig) {
+		const config: any = {};
+
+		config.baseUrl = eth.baseUrl || ETH_BASE_URL;
+
+		if (eth.events) {
+			config.events = {
+				url: eth.events.url,
+				reconnect: eth.events.reconnect,
+				attempts: eth.events.attempts,
+				timeout: eth.events.timeout,
+			};
+		}
+
+		return config;
 	}
 
 	/**

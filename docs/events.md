@@ -9,8 +9,8 @@ In order to use eth events client, you need to pass a connection.
 ```javascript
 
 const options = {
-    events: {
-        eth: {
+    eth: {
+        events: {
             url: 'ws://localhost:8080',
         },
     },
@@ -26,8 +26,8 @@ Set in options parameters for reconnect (count of attempts and timeout between t
 ```javascript
 
 const options = {
-    events: {
-        eth: {
+    eth: {
+        events: {
             url: 'ws://localhost:8080',
             reconnect: true,
             attempts: 10,

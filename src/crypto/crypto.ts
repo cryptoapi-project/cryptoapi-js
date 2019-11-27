@@ -30,6 +30,7 @@ export class Crypto implements ICrypto {
 	configure(config: ICryptoConfig) {
 		this._config = new CryptoConfig(config);
 		this._api.configure(config);
+		this._events.configure(config);
 	}
 
 	/**

@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { inject, injectable } from 'inversify';
-import WS from 'ws';
+import WS from 'isomorphic-ws';
 
 import { METHODS, SUBSCRIPTIONS } from '../../constants/events.constants';
 import { TYPES_DI } from '../../constants/inversify.constants';
@@ -24,6 +24,7 @@ export class EthEventsClient implements IEthEventsClient {
 	private config: IEventsConfig | null = null;
 	private reconnectingInterval: any;
 	public connected: boolean = false;
+	public error: string = '';
 
 	constructor(
 		@inject(TYPES_DI.IIdHelper) private readonly idHelper: IIdHelper,
@@ -106,7 +107,7 @@ export class EthEventsClient implements IEthEventsClient {
 		this.ws.onmessage = this.onMessage.bind(this);
 		this.ws.onopen = this.onOpen.bind(this);
 		this.ws.onclose = this.onClose.bind(this);
-		this.ws.onerror = () => {};
+		this.ws.onerror = (error) => { this.error = error.message; };
 		this.config = config;
 	}
 
