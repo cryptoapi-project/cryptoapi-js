@@ -4,10 +4,13 @@ import { TYPES_DI } from '../../../constants/inversify.constants';
 
 import { EthTokenInfo } from '../../../dtos/eth/eth.token.info';
 import { EthTokenBalance } from '../../../dtos/eth/eth.token.balance';
+import { EthTokensByHolder } from '../../../dtos/eth/eth.tokens.by.holder';
 
 import { IEthTokenApi } from '../../../interfaces/eth.apis/eth.sub.apis/eth.token.api.interface';
 import { IHttpService } from '../../../interfaces/providers/http.service.interface';
 import { AbstractApi } from '../../../abstracts/abstract.api';
+import { PaginationOptions } from '../../../dtos/paginations.options';
+import { UrlHelper } from '../../../providers/helpers/UrlHelper';
 
 @injectable()
 export class EthTokenApi extends AbstractApi  implements IEthTokenApi {
@@ -48,6 +51,25 @@ export class EthTokenApi extends AbstractApi  implements IEthTokenApi {
 				.replace(':address', holderAddress)}`,
 		);
 		return new EthTokenBalance(tokenInfo.data);
+	}
+
+	/**
+	 * Method to get tokens balances by holder address.
+	 * @method getTokensBalancesByHolderAddress
+	 * @param {string} address
+	 * @param {PaginationOptions} options?
+	 * @return {Promise<EthTokensByHolder>}
+	 */
+	async getTokensBalancesByHolderAddress(address: string, options?: PaginationOptions): Promise<EthTokensByHolder> {
+		this._checkConfig();
+
+		let url = `${this.config!.baseUrl}${'/coins/eth/tokens/:address/balances'
+			.replace(':address', address)}`;
+		url = UrlHelper.addOptionsToUrl(url, options);
+
+		const tokensBalances = await this.httpClient.agent.get<EthTokensByHolder>(url);
+
+		return new EthTokensByHolder(tokensBalances.data);
 	}
 
 }
