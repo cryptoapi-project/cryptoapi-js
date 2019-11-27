@@ -2,14 +2,16 @@ import { inject, injectable } from 'inversify';
 
 import { TYPES_DI } from '../../constants/inversify.constants';
 
+import { EstimateGasRequest, EstimateGasResponse } from '../../dtos/eth/eth.estimate.gas.dto';
+
 import { IEthApiClient } from '../../interfaces/eth.apis/eth.api.client.interface';
 import { IEthMainInfoApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.main.info.interface';
 import { IEthTokenApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.token.api.interface';
 import { IEthAddressApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.address.api.interface';
 import { IServerConfig } from '../../interfaces/configs/crypto.config.interface';
-import { TryCatch } from '../../providers/decorators/try.catch';
+import { IEthContractApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.contract.api.interface';
 
-import { EstimateGasRequest, EstimateGasResponse } from '../../dtos/eth/estimate.gas.dto';
+import { TryCatch } from '../../providers/decorators/try.catch';
 
 @injectable()
 export class EthApiClient implements IEthApiClient {
@@ -19,6 +21,7 @@ export class EthApiClient implements IEthApiClient {
 		@inject(TYPES_DI.IEthMainInfoApi) private readonly ethMainInfo: IEthMainInfoApi,
 		@inject(TYPES_DI.IEthTokenApi) private readonly tokenInfo: IEthTokenApi,
 		@inject(TYPES_DI.IEthAddressApi) private readonly ethAddressInfo: IEthAddressApi,
+		@inject(TYPES_DI.IEthContractApi) private readonly ethContractApi: IEthContractApi,
 	) {}
 
 	/**
@@ -31,6 +34,7 @@ export class EthApiClient implements IEthApiClient {
 		this.ethMainInfo.configure(config);
 		this.tokenInfo.configure(config);
 		this.ethAddressInfo.configure(config);
+		this.ethContractApi.configure(config);
 	}
 
 	/**
@@ -87,4 +91,14 @@ export class EthApiClient implements IEthApiClient {
 		return this.ethAddressInfo.getAddressesInfos(addresses);
 	}
 
+	/**
+	 * Method to get contract information.
+	 * method getContractInfo
+	 * @param {string} address
+	 * @return {Promise<EthContractInfo>}
+	 */
+	@TryCatch
+	getContractInfo(address: string) {
+		return this.ethContractApi.getContractInfo(address);
+	}
 }

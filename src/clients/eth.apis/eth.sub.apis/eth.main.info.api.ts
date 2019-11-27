@@ -2,8 +2,8 @@ import { inject, injectable } from 'inversify';
 
 import { TYPES_DI } from '../../../constants/inversify.constants';
 
-import { EthNetworkInfo } from '../../../dtos/eth.network.info';
-import { EstimateGasRequest, EstimateGasResponse } from '../../../dtos/eth/estimate.gas.dto';
+import { EthNetworkInfo } from '../../../dtos/eth/eth.network.info';
+import { EstimateGasRequest, EstimateGasResponse } from '../../../dtos/eth/eth.estimate.gas.dto';
 
 import { IEthMainInfoApi } from '../../../interfaces/eth.apis/eth.sub.apis/eth.main.info.interface';
 import { IHttpService } from '../../../interfaces/providers/http.service.interface';

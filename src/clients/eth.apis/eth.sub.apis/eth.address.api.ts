@@ -6,6 +6,7 @@ import { EthAddressBalance } from '../../../dtos/eth.address.balance';
 import { EthAddressInfo } from '../../../dtos/eth.adress.info';
 
 import { IEthAddressApi } from '../../../interfaces/eth.apis/eth.sub.apis/eth.address.api.interface';
+
 import { IHttpService } from '../../../interfaces/providers/http.service.interface';
 import { AbstractApi } from '../../../abstracts/abstract.api';
 
@@ -39,10 +40,11 @@ export class EthAddressApi  extends AbstractApi implements IEthAddressApi {
 	 * @param {string[]} addresses
 	 * @return {Promise<EthAddressInfo[]>}
 	 */
-	async getAddressesInfos(addresses: string[]) {
+	async getAddressesInfos(addresses: string[]): Promise<EthAddressInfo[]> {
 		this._checkConfig();
 		const addressesInfos = await this.httpService.agent.get<EthAddressInfo[]>(
 			`${this.config!.baseUrl}${'/coins/eth/accounts/:addresses/info'.replace(':addresses', addresses.join(','))}`);
 		return addressesInfos.data;
 	}
+
 }
