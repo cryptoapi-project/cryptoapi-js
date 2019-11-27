@@ -9,7 +9,12 @@ This library provides api methods to work with CryptoAPI.
 
 #### ETH API
 <dl>
-<dt><a href="#eth.getNetworkInfo">eth.getNetworkInfo()</a> ⇒<code><a href="#EthNetworkInfo">Promise&lt;EthNetworkInfo&gt;</a></code></dt></dt>
+<dt><a href="#eth.getNetworkInfo">eth.getNetworkInfo</a> ⇒<code><a href="#EthNetworkInfo">Promise&lt;EthNetworkInfo&gt;</a></code></dt></dt>
+<dd></dd>
+</dl>
+
+<dl>
+<dt><a href="#eth.estimateGas">eth.estimateGas</a> ⇒<code><a href="#EstimateGasResponse">Promise&lt;EstimateGasResponse&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getTokenInfoByTokenAddress">eth.getTokenInfoByTokenAddress(address: string)</a> ⇒<code><a href="#EthTokenInfo">Promise&lt;EthTokenInfo&gt;</a></code></dt></dt>
 <dd></dd>
@@ -59,12 +64,42 @@ Example response:
 }
 ```
 
+#### <a name="eth.estimateGas">eth.estimateGas</a>(transaction: <a href="#EstimateGasRequest">EstimateGasRequest</a>) ⇒ <code>Promise&lt;<a href="#EstimateGasResponse">EstimateGasResponse</a>&gt;</code></dt></dt>
+Returns JSON data about a network information such as last block, count transactions,
+current hash rate, gas price, difficulty.
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    const result = await crypto.api.eth.estimateGas({
+        from: '0x653a801625c60112a03097c51b7d3f3a19e07c9c',
+    	to: '0xc6c65a3979a7ea0b2ff3040e6d3efdbebf87c345',
+    	value: '20000000000000000'
+    });
+```
+Example:
+```
+{
+    estimate_gas: 21000,
+    gas_price: '1000000000',
+    nonce: 279
+}
+```
+
 ## Typedefs
 
 <dl>
 <dt><a href="#EthNetworkInfo">EthNetworkInfo</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTokenInfo">EthTokenInfo</a> : <code>Object</code></dt>
+<dd></dd>
+</dl>
+
+<dl>
+<dt><a href="#EstimateGasRequest">EstimateGasRequest</a> : <code>Object</code></dt>
+<dd></dd>
+</dl>
+<dl>
+<dt><a href="#EstimateGasResponse">EstimateGasResponse</a> : <code>Object</code></dt>
 <dd></dd>
 </dl>
 
@@ -94,5 +129,28 @@ Example response:
     total_supply: String;
     create_transaction_hash: String;
     holders_count: Number;
+}
+```
+
+#### EstimateGasRequest : <code>Object</code>
+<a name="EstimateGasRequest"></a>
+
+```javascript
+{
+    from?: string;
+	to?: string;
+	value?: string | number;
+	data?: string;
+}
+```
+
+#### EstimateGasResponse : <code>Object</code>
+<a name="EstimateGasResponse"></a>
+
+```javascript
+{
+    estimate_gas: number;
+	gas_price: string;
+	nonce: number;
 }
 ```
