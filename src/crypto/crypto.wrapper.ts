@@ -68,6 +68,7 @@ class CryptoWrapper implements IPublicCrypto {
 	get api() {
 		return this.crypto.api;
 	}
+
 }
 
 export { CryptoWrapper as Crypto };

@@ -8,6 +8,8 @@ import { IEthTokenApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.token.a
 import { IServerConfig } from '../../interfaces/configs/crypto.config.interface';
 import { TryCatch } from '../../providers/decorators/try.catch';
 
+import { EstimateGasRequest, EstimateGasResponse } from '../../dtos/eth/estimate.gas.dto';
+
 @injectable()
 export class EthApiClient implements IEthApiClient {
 	config: IServerConfig|null = null;
@@ -36,6 +38,18 @@ export class EthApiClient implements IEthApiClient {
 	@TryCatch
 	async getNetworkInfo() {
 		return this.ethMainInfo.getNetworkInfo();
+	}
+
+	/**
+	 * Executes a message call or transaction and returns the amount of the gas used
+	 * @method
+	 * @name estimateGas
+	 * @param {EstimateGasRequest} transaction
+	 * @return {Promise<EstimateGasResponse>}
+	 */
+	@TryCatch
+	estimateGas(transaction: EstimateGasRequest): Promise<EstimateGasResponse> {
+		return this.ethMainInfo.estimateGas(transaction);
 	}
 
 	/**
