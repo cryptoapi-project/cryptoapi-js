@@ -1,8 +1,8 @@
 import { injectable } from 'inversify';
 import { isHex, isAddress } from 'web3-utils';
 
-import { MAX_CONFIRMATION } from '../constants/events.constants';
-import { ISubsHelper } from '../interfaces/helpers/subs.helper.interface';
+import { MAX_CONFIRMATION } from '../../constants/events.constants';
+import { ISubsHelper } from '../../interfaces/providers/helpers/subs.helper.interface';
 
 @injectable()
 export class SubsHelper implements ISubsHelper {

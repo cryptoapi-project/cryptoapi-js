@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 
-import { IIdHelper } from '../interfaces/helpers/id.helper.interface';
+import { IIdHelper } from '../../interfaces/providers/helpers/id.helper.interface';
 
 @injectable()
 export class IdHelper implements IIdHelper {

@@ -55,7 +55,7 @@ All subscribers are listed below:
 <dd></dd>
 </dl>
 <dl>
-<dt><a href="#eth.onTransactionConrimations">eth.onTransactionConrimations</a></dt></dt>
+<dt><a href="#eth.onTransactionConfirmations">eth.onTransactionConfirmations</a></dt></dt>
 <dd></dd>
 </dl>
 <dl>
@@ -206,7 +206,7 @@ Returns subscription id.
 }
 ```
 
-#### <a name="eth.onTransactionConrimations">onTransactionConrimations</a> ⇒ <code>Number</code>
+#### <a name="eth.onTransactionConfirmations">onTransactionConfirmations</a> ⇒ <code>Number</code>
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -217,7 +217,7 @@ Returns subscription id.
 Returns subscription id.
 
 ```javascript
-> const subscriptionId = crypto.events.eth.onTransactionConrimations({
+> const subscriptionId = crypto.events.eth.onTransactionConfirmations({
     hash: '0x4c29f5d1bc3228cca62e29d2c9f47a028edf68f85bab133053adfc541001eeb5',
     confirmations: 2,
 }, (msg) => { console.log(msg) });

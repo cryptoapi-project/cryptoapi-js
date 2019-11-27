@@ -27,6 +27,6 @@ export interface IEthEventsClient {
 
 	onTokenTransfers({ token, address, confirmations }: TokenTransferSubscription, cb: () => void): number;
 
-	onTransactionConrimations({ hash, confirmations }: TransactionConrimationSubscription, cb: () => void): number;
+	onTransactionConfirmations({ hash, confirmations }: TransactionConrimationSubscription, cb: () => void): number;
 
 }

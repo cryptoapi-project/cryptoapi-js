@@ -28,20 +28,18 @@ class CryptoWrapper implements IPublicCrypto {
 			throw new UnprocessableException('Incorrect params.');
 		}
 
-		if (!options && typeof token !== 'string') {
-			options = { ...token };
+		options = options || {};
+
+		if (typeof token !== 'string') {
+			options = { ...options, ...token };
 			token = token.token;
 		}
 
 		cryptoConfig.token = token;
 
-		if (options) {
-			cryptoConfig.timeout = options.timeout || DEFAULT_TIMEOUT_REQUEST;
+		cryptoConfig.timeout = options.timeout || DEFAULT_TIMEOUT_REQUEST;
 
-			if (options.eth) {
-				cryptoConfig.eth = this.getEthConfig(options.eth);
-			}
-		}
+		cryptoConfig.eth = this.getEthConfig(options.eth);
 
 		if (!cryptoConfig.token) {
 			throw new UnauthorizedException('Token is not exist.');
@@ -58,9 +56,9 @@ class CryptoWrapper implements IPublicCrypto {
 	private getEthConfig(eth: IServerConfig) {
 		const config: any = {};
 
-		config.baseUrl = eth.baseUrl || ETH_BASE_URL;
+		config.baseUrl = (eth && eth.baseUrl) || ETH_BASE_URL;
 
-		if (eth.events) {
+		if (eth && eth.events) {
 			config.events = {
 				url: eth.events.url,
 				reconnect: eth.events.reconnect,

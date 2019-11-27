@@ -14,8 +14,8 @@ import { IEthContractApi } from '../interfaces/eth.apis/eth.sub.apis/eth.contrac
 import { IEthRawTransactionApi } from '../interfaces/eth.apis/eth.sub.apis/eth.raw.transaction.interface';
 import { IEthTokenApi } from 'interfaces/eth.apis/eth.sub.apis/eth.token.api.interface';
 
-import { IIdHelper } from '../interfaces/helpers/id.helper.interface';
-import { ISubsHelper } from '../interfaces/helpers/subs.helper.interface';
+import { IIdHelper } from '../interfaces/providers/helpers/id.helper.interface';
+import { ISubsHelper } from '../interfaces/providers/helpers/subs.helper.interface';
 
 import { Crypto } from '../crypto/crypto';
 import { ApiClient } from '../clients/api.client';
@@ -33,8 +33,8 @@ import { EthTokenApi } from '../clients/eth.apis/eth.sub.apis/eth.token.api';
 
 import { HttpService } from '../providers/services/http.service';
 
-import { IdHelper } from '../helpers/id.helper';
-import { SubsHelper } from '../helpers/subs.helper';
+import { IdHelper } from '../providers/helpers/id.helper';
+import { SubsHelper } from '../providers/helpers/subs.helper';
 
 const diContainer = new Container();
 

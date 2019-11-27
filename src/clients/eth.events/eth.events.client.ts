@@ -11,8 +11,8 @@ import {
 	TransactionConrimationSubscription,
 } from '../../dtos/event.dtos';
 import { IEthEventsClient } from '../../interfaces/eth.events/eth.events.client.interface';
-import { IIdHelper } from '../../interfaces/helpers/id.helper.interface';
-import { ISubsHelper } from '../../interfaces/helpers/subs.helper.interface';
+import { IIdHelper } from '../../interfaces/providers/helpers/id.helper.interface';
+import { ISubsHelper } from '../../interfaces/providers/helpers/subs.helper.interface';
 import { IEventsConfig } from '../../interfaces/configs/crypto.config.interface';
 
 @injectable()
@@ -236,7 +236,7 @@ export class EthEventsClient implements IEthEventsClient {
 	 *  @param {TransactionConrimationSubscription} subscription
 	 *  @param {Function} cb
 	 */
-	onTransactionConrimations({ hash, confirmations }: TransactionConrimationSubscription, cb: (notificaton: any) => void) {
+	onTransactionConfirmations({ hash, confirmations }: TransactionConrimationSubscription, cb: (notificaton: any) => void) {
 		if (!this.connected) {
 			throw new Error('Disconnected');
 		}
