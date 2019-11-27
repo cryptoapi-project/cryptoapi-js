@@ -11,17 +11,19 @@ This library provides api methods to work with CryptoAPI.
 <dl>
 <dt><a href="#eth.getNetworkInfo">eth.getNetworkInfo</a> ⇒<code><a href="#EthNetworkInfo">Promise&lt;EthNetworkInfo&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#eth.getTokenInfoByTokenAddress">eth.getTokenInfoByTokenAddress(address: string)</a> ⇒<code><a href="#EthTokenInfo">Promise&lt;EthTokenInfo&gt;</a></code></dt></dt>
+<dt><a href="#eth.estimateGas">eth.estimateGas</a> ⇒<code><a href="#EstimateGasResponse">Promise&lt;EstimateGasResponse&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getAddressesBalances">eth.getAddressesBalances(addresses: string[])</a> ⇒<code><a href="#EthAddressBalance">Promise&lt;EthAddressBalance[]&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getAddressesInfos">eth.getAddressesInfos(addresses: string[])</a> ⇒<code><a href="#EthAddressInfo">Promise&lt;EthAddressInfo[]&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#eth.estimateGas">eth.estimateGas</a> ⇒<code><a href="#EstimateGasResponse">Promise&lt;EstimateGasResponse&gt;</a></code></dt></dt>
-<dd></dd>
 <dt><a href="#eth.getContractInfo">eth.getContractInfo</a> ⇒<code><a href="#EthContractInfo">Promise&lt;EthContractInfo&gt;</a></code></dt></dt>
+<dd></dd>
+<dt><a href="#eth.getTokenInfoByTokenAddress">eth.getTokenInfoByTokenAddress(address: string)</a> ⇒<code><a href="#EthTokenInfo">Promise&lt;EthTokenInfo&gt;</a></code></dt></dt>
+<dd></dd>
+<dt><a href="#eth.getTokenBalanceByAddresses">eth.getTokenBalanceByAddresses</a> ⇒<code><a href="#EthTokenBalance">Promise&lt;EthTokenBalance&gt;</a></code></dt></dt>
+<dd></dd>
 </dl>
-
 
 #### <a name="eth.getNetworkInfo">eth.getNetworkInfo()</a> ⇒ <code><a href="#EthNetworkInfo">Promise&lt;EthNetworkInfo&gt;</a></code></dt></dt>
 Returns JSON data about a network information such as last block, count transactions,
@@ -43,30 +45,24 @@ Example response:
 }
 ```
 
-#### <a name="eth.getTokenInfoByTokenAddress">eth.getTokenInfoByTokenAddress(address: string)</a> ⇒ <code><a href="#EthTokenInfo">Promise&lt;EthTokenInfo&gt;</a></code></dt></dt>
-Returns JSON data about a eth token information.
+#### <a name="eth.estimateGas">eth.estimateGas</a>(transaction: <a href="#EstimateGasRequest">EstimateGasRequest</a>) ⇒ <code>Promise&lt;<a href="#EstimateGasResponse">EstimateGasResponse</a>&gt;</code></dt></dt>
+Returns JSON data about an estimate gas information.
 
-Input data:
-
-| Param | Type | Description |
-| --- | --- | --- |
-| address | <code>String</code> | [Token address] |
 ```javascript
     import { Crypto } from 'cryptoapi';
     const crypto = new Crypto('******');
-    const result = await crypto.api.eth.getTokenInfoByTokenAddress('0x106c2dbabeb8c4932e3f68b76fb9665180b74587');
+    const result = await crypto.api.eth.estimateGas({
+        from: '0x653a801625c60112a03097c51b7d3f3a19e07c9c',
+    	to: '0xc6c65a3979a7ea0b2ff3040e6d3efdbebf87c345',
+    	value: '20000000000000000'
+    });
 ```
 Example response:
 ```
 {
-    address: "0x106c2dbabeb8c4932e3f68b76fb9665180b74587"
-    create_transaction_hash: "0x3b010efb798c38509b1dbb0b517399cff2716dce4e0dff1ba6b4c09430880ffc"
-    decimals: "0"
-    holders_count: 1
-    name: "premfina-secured-loan-notes-2019-bond-no6-7"
-    symbol: "rmn"
-    totalSupply: "1000000000000000000"
-    type: "ERC20"
+    estimate_gas: 21000,
+    gas_price: '1000000000',
+    nonce: 279
 }
 ```
 
@@ -98,27 +94,6 @@ Example response:
         balance: "2044716170999999824"
     }
 ]
-```
-
-#### <a name="eth.estimateGas">eth.estimateGas</a>(transaction: <a href="#EstimateGasRequest">EstimateGasRequest</a>) ⇒ <code>Promise&lt;<a href="#EstimateGasResponse">EstimateGasResponse</a>&gt;</code></dt></dt>
-Returns JSON data about an estimate gas information.
-
-```javascript
-    import { Crypto } from 'cryptoapi';
-    const crypto = new Crypto('******');
-    const result = await crypto.api.eth.estimateGas({
-        from: '0x653a801625c60112a03097c51b7d3f3a19e07c9c',
-    	to: '0xc6c65a3979a7ea0b2ff3040e6d3efdbebf87c345',
-    	value: '20000000000000000'
-    });
-```
-Example response:
-```
-{
-    estimate_gas: 21000,
-    gas_price: '1000000000',
-    nonce: 279
-}
 ```
 
 #### <a name="eth.getAddressesInfos">eth.getAddressesInfos(address: string[])</a> ⇒ <code><a href="#EthAddressInfo">Promise&lt;EthAddressInfo[]&gt;</a></code></dt></dt>
@@ -167,6 +142,58 @@ Example response:
 }
 ```
 
+#### <a name="eth.getTokenInfoByTokenAddress">eth.getTokenInfoByTokenAddress(address: string)</a> ⇒ <code><a href="#EthTokenInfo">Promise&lt;EthTokenInfo&gt;</a></code></dt></dt>
+Returns JSON data about a eth token information.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| address | <code>String</code> | [Token address] |
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    const result = await crypto.api.eth.getTokenInfoByTokenAddress('0x106c2dbabeb8c4932e3f68b76fb9665180b74587');
+```
+Example response:
+```
+{
+    address: "0x106c2dbabeb8c4932e3f68b76fb9665180b74587"
+    create_transaction_hash: "0x3b010efb798c38509b1dbb0b517399cff2716dce4e0dff1ba6b4c09430880ffc"
+    decimals: "0"
+    holders_count: 1
+    name: "premfina-secured-loan-notes-2019-bond-no6-7"
+    symbol: "rmn"
+    totalSupply: "1000000000000000000"
+    type: "ERC20"
+}
+```
+
+#### <a name="eth.getTokenBalanceByAddresses">eth.getTokenBalanceByAddresses(tokenAddress: string, holderAddress: string)</a> ⇒ <code><a href="#EthTokeBalance">Promise&lt;EthTokeBalance&gt;</a></code></dt></dt>
+Returns JSON data about balance token by token and holder addresses.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tokenAddress | <code>string</code> | [Token address] |
+| holderAddress | <code>string</code> | [Holder address] |
+
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    crypto.api.eth.getTokenBalanceByAddresses('0x5ae86537ea087929a34b597480fd23144d2dd216', '0xd89f43605f4ccc0935afceba98f3d5d04ce2e390');
+```
+
+Example response:
+```
+{
+    address: "0x5ae86537ea087929a34b597480fd23144d2dd216"
+    balance: "100000000000000000000"
+    holder: "0xd89f43605f4ccc0935afceba98f3d5d04ce2e390"
+}
+```
+
 ## Typedefs
 
 <dl>
@@ -183,6 +210,8 @@ Example response:
 <dt><a href="#EstimateGasResponse">EstimateGasResponse</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthContractInfo">EthContractInfo</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthTokenBalance">EthTokenBalance</a> : <code>Object</code></dt>
 <dd></dd>
 </dl>
 
@@ -267,5 +296,16 @@ Example response:
 ```javascript
 {
     bytecode: String;
+}
+```
+
+#### EthTokenBalance : <code>Object</code>
+<a name="EthTokenBalance"></a>
+
+```javascript
+{
+   address: String; 
+   balance: String;
+   holder: String;
 }
 ```
