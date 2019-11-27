@@ -11,12 +11,11 @@ This library provides api methods to work with CryptoAPI.
 <dl>
 <dt><a href="#eth.getNetworkInfo">eth.getNetworkInfo</a> ⇒<code><a href="#EthNetworkInfo">Promise&lt;EthNetworkInfo&gt;</a></code></dt></dt>
 <dd></dd>
-</dl>
-
-<dl>
-<dt><a href="#eth.estimateGas">eth.estimateGas</a> ⇒<code><a href="#EstimateGasResponse">Promise&lt;EstimateGasResponse&gt;</a></code></dt></dt>
-<dd></dd>
 <dt><a href="#eth.getTokenInfoByTokenAddress">eth.getTokenInfoByTokenAddress(address: string)</a> ⇒<code><a href="#EthTokenInfo">Promise&lt;EthTokenInfo&gt;</a></code></dt></dt>
+<dd></dd>
+<dt><a href="#eth.getAddressesBalances">eth.getAddressesBalances(addresses: string[])</a> ⇒<code><a href="#EthAddressBalance">Promise&lt;EthAddressBalance[]&gt;</a></code></dt></dt>
+<dd></dd>
+<dt><a href="#eth.estimateGas">eth.estimateGas</a> ⇒<code><a href="#EstimateGasResponse">Promise&lt;EstimateGasResponse&gt;</a></code></dt></dt>
 <dd></dd>
 </dl>
 
@@ -42,6 +41,7 @@ Example response:
 Returns JSON data about a eth token information.
 
 Input data:
+
 | Param | Type | Description |
 | --- | --- | --- |
 | address | <code>String</code> | [Token address] |
@@ -64,9 +64,39 @@ Example response:
 }
 ```
 
+#### <a name="eth.getAddressesBalances">getAddressesBalances(address: string[])</a> ⇒ <code><a href="#EthAddressBalance">Promise&lt;EthAddressBalance[]&gt;</a></code></dt></dt>
+Returns JSON data about a eth addresses balances informations.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| addresses | <code>string[]</code> | [Tokens addresses] |
+
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    const result =  crypto.api.eth.getAddressesBalances([
+                       		'0xa177AD7c3CA2cCa794C02a0FF4dF1C2B09D49C8f', 
+                       		'0xf24A2674208B7B5EC2f2863DCb65938EF82dC180'
+                       ]);
+```
+Example response:
+```
+[
+    {
+        address: "0xa177ad7c3ca2cca794c02a0ff4df1c2b09d49c8f", 
+        balance: "0"
+    }, {
+        address: "0xf24a2674208b7b5ec2f2863dcb65938ef82dc180", 
+        balance: "2044716170999999824"
+    }
+]
+```
+
 #### <a name="eth.estimateGas">eth.estimateGas</a>(transaction: <a href="#EstimateGasRequest">EstimateGasRequest</a>) ⇒ <code>Promise&lt;<a href="#EstimateGasResponse">EstimateGasResponse</a>&gt;</code></dt></dt>
-Returns JSON data about a network information such as last block, count transactions,
-current hash rate, gas price, difficulty.
+Returns JSON data about an estimate gas information.
+
 ```javascript
     import { Crypto } from 'cryptoapi';
     const crypto = new Crypto('******');
@@ -92,8 +122,9 @@ Example:
 <dd></dd>
 <dt><a href="#EthTokenInfo">EthTokenInfo</a> : <code>Object</code></dt>
 <dd></dd>
+<dt><a href="#EthAddressBalance">EthAddressBalance</a> : <code>Object</code></dt>
+<dd></dd>
 </dl>
-
 <dl>
 <dt><a href="#EstimateGasRequest">EstimateGasRequest</a> : <code>Object</code></dt>
 <dd></dd>
@@ -130,6 +161,16 @@ Example:
     create_transaction_hash: String;
     holders_count: Number;
 }
+
+```
+#### EthAddressBalance : <code>Object</code>
+<a name="EthAddressBalance"></a>
+
+```javascript
+{
+    address: String;
+    balance: String;
+}
 ```
 
 #### EstimateGasRequest : <code>Object</code>
@@ -137,10 +178,10 @@ Example:
 
 ```javascript
 {
-    from?: string;
-	to?: string;
-	value?: string | number;
-	data?: string;
+    from?: String;
+	to?: String;
+	value?: String | Number;
+	data?: String;
 }
 ```
 
@@ -149,8 +190,8 @@ Example:
 
 ```javascript
 {
-    estimate_gas: number;
-	gas_price: string;
-	nonce: number;
+    estimate_gas: Number;
+	gas_price: String;
+	nonce: Number;
 }
 ```

@@ -22,8 +22,7 @@ export class ApiClient implements IApiClient {
 
 	/**
 	 * Configure httpClient, ethApiClient.
-	 * @method
-	 * @name configure
+	 * @method configure
 	 * @param {ICryptoConfig} config
 	 * @return {void}
 	 */
