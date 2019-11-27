@@ -28,7 +28,7 @@ export class EthMainInfoApi extends AbstractApi implements IEthMainInfoApi {
 		const networkInfo = await this.httpService.agent.get<EthNetworkInfo>(
 			`${this.config!.baseUrl}/coins/eth/network`,
 		);
-		return networkInfo.data;
+		return new EthNetworkInfo(networkInfo.data);
 	}
 
 	/**

@@ -23,6 +23,8 @@ This library provides api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.getTokenBalanceByAddresses">eth.getTokenBalanceByAddresses</a> ⇒<code><a href="#EthTokenBalance">Promise&lt;EthTokenBalance&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#eth.getTokensBalancesByHolderAddress">eth.getTokensBalancesByHolderAddress</a> ⇒<code><a href="#EthTokensByHolder">Promise&lt;EthTokensByHolder&gt;</a></code></dt></dt>
+<dd></dd>
 </dl>
 
 #### <a name="eth.getNetworkInfo">eth.getNetworkInfo()</a> ⇒ <code><a href="#EthNetworkInfo">Promise&lt;EthNetworkInfo&gt;</a></code></dt></dt>
@@ -194,6 +196,41 @@ Example response:
 }
 ```
 
+#### <a name="eth.getTokensBalancesByHolderAddress">eth.getTokensBalancesByHolderAddress(address: string, options: PaginationOptions)</a> ⇒<code><a href="#EthTokensByHolder">Promise&lt;EthTokensByHolder&gt;</a></code></dt></dt>
+ 
+Return list of tokens balances by holder address, when token balance is more than zero.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| address | <code>string</code> | [Holder address] |
+| options? | <code><a href="#PaginationOptions">PaginationOptions</a></code> | [Options params to paginating response] |
+
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    crypto.api.eth.getTokensBalancesByHolderAddress('0xd89f43605f4ccc0935afceba98f3d5d04ce2e390', {
+		skip: 0,
+	});
+```
+
+Example response:
+```
+{
+    items: [
+        {
+            address: "0x5ae86537ea087929a34b597480fd23144d2dd216"
+            balance: "100000000000000000000"
+        }, {
+            address: "0xd7238c83f70a4d30192527c48fd6d30c57a75a29"
+            balance: "100000000000000000000"
+        }
+    ]
+    total: 2
+}
+```
+
 ## Typedefs
 
 <dl>
@@ -212,6 +249,10 @@ Example response:
 <dt><a href="#EthContractInfo">EthContractInfo</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTokenBalance">EthTokenBalance</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthTokensByHolder">EthTokensByHolder</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#PaginationOptions">PaginationOptions</a> : <code>Object</code></dt>
 <dd></dd>
 </dl>
 
@@ -307,5 +348,25 @@ Example response:
    address: String; 
    balance: String;
    holder: String;
+}
+```
+
+#### EthTokensByHolder : <code>Object</code>
+<a name="EthTokensByHolder"></a>
+
+```javascript
+{
+   total: Number;
+   items: EthAddressBalance[];
+}
+```
+
+#### PaginationOptions : <code>Object</code>
+<a name="PaginationOptions"></a>
+
+```javascript
+{
+   skip?: Number;
+   limit?: Number;
 }
 ```

@@ -3,6 +3,7 @@ import { inject, injectable } from 'inversify';
 import { TYPES_DI } from '../../constants/inversify.constants';
 
 import { EstimateGasRequest, EstimateGasResponse } from '../../dtos/eth/eth.estimate.gas.dto';
+import { PaginationOptions } from '../../dtos/paginations.options';
 
 import { IEthApiClient } from '../../interfaces/eth.apis/eth.api.client.interface';
 import { IEthMainInfoApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.main.info.interface';
@@ -112,5 +113,17 @@ export class EthApiClient implements IEthApiClient {
 	@TryCatch
 	getTokenBalanceByAddresses(tokenAddress: string, holderAddress: string) {
 		return this.ethTokenInfo.getTokenBalanceByAddresses(tokenAddress, holderAddress);
+	}
+
+	/**
+	 * Method to get list  tokens balances by holder address.
+	 * @method getTokensBalancesByHolderAddress
+	 * @param {string} address
+	 * @param {PaginationOptions} options?
+	 * @return {Promise{EthTokensByHolder}}
+	 */
+	@TryCatch
+	getTokensBalancesByHolderAddress(address: string, options?: PaginationOptions) {
+		return this.ethTokenInfo.getTokensBalancesByHolderAddress(address, options);
 	}
 }
