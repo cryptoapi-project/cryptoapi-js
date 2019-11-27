@@ -1,4 +1,4 @@
-import { EthTokenInfo } from '../../../dtos/eth.token.info';
+import { EthTokenInfo } from '../../../dtos/eth/eth.token.info';
 import { IConfigurable } from '../../configs/configurable.interface';
 import { IServerConfig } from '../../configs/crypto.config.interface';
 

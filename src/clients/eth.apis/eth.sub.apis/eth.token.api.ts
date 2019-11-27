@@ -3,7 +3,7 @@ import { inject, injectable } from 'inversify';
 import { TYPES_DI } from '../../../constants/inversify.constants';
 import { IEthTokenApi } from '../../../interfaces/eth.apis/eth.sub.apis/eth.token.api.interface';
 
-import { EthTokenInfo } from '../../../dtos/eth.token.info';
+import { EthTokenInfo } from '../../../dtos/eth/eth.token.info';
 import { IHttpService } from '../../../interfaces/providers/http.service.interface';
 import { AbstractApi } from '../../../abstracts/abstract.api';
 
