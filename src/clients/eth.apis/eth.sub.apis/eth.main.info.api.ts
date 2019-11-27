@@ -39,8 +39,9 @@ export class EthMainInfoApi extends AbstractApi implements IEthMainInfoApi {
 	 * @return {Promise<EstimateGasResponse>>}
 	 */
 	async estimateGas(transaction: EstimateGasRequest): Promise<EstimateGasResponse> {
+		this._checkConfig();
 		const estimate = await this.httpService.agent.post<EstimateGasResponse>(
-			`${this.config.baseUrl}/coins/eth/estimate-gas`,
+			`${this.config!.baseUrl}/coins/eth/estimate-gas`,
 			transaction,
 		);
 		return estimate.data;

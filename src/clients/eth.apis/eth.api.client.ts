@@ -5,6 +5,7 @@ import { TYPES_DI } from '../../constants/inversify.constants';
 import { IEthApiClient } from '../../interfaces/eth.apis/eth.api.client.interface';
 import { IEthMainInfoApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.main.info.interface';
 import { IEthTokenApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.token.api.interface';
+import { IEthAddressApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.address.api.interface';
 import { IServerConfig } from '../../interfaces/configs/crypto.config.interface';
 import { TryCatch } from '../../providers/decorators/try.catch';
 
@@ -17,6 +18,7 @@ export class EthApiClient implements IEthApiClient {
 	constructor(
 		@inject(TYPES_DI.IEthMainInfoApi) private readonly ethMainInfo: IEthMainInfoApi,
 		@inject(TYPES_DI.IEthTokenApi) private readonly tokenInfo: IEthTokenApi,
+		@inject(TYPES_DI.IEthAddressApi) private readonly ethAddressInfo: IEthAddressApi,
 	) {}
 
 	/**
@@ -28,6 +30,7 @@ export class EthApiClient implements IEthApiClient {
 	configure(config: IServerConfig) {
 		this.ethMainInfo.configure(config);
 		this.tokenInfo.configure(config);
+		this.ethAddressInfo.configure(config);
 	}
 
 	/**
@@ -42,8 +45,7 @@ export class EthApiClient implements IEthApiClient {
 
 	/**
 	 * Executes a message call or transaction and returns the amount of the gas used
-	 * @method
-	 * @name estimateGas
+	 * @method estimateGas
 	 * @param {EstimateGasRequest} transaction
 	 * @return {Promise<EstimateGasResponse>}
 	 */
@@ -63,4 +65,14 @@ export class EthApiClient implements IEthApiClient {
 		return this.tokenInfo.getTokenInfoByTokenAddress(address);
 	}
 
+	/**
+	 * Get eth address balances.
+	 * @method getAddressesBalances
+	 * @param {string[]} addresses
+	 * @return {Promise<EthAddressBalance[]>}
+	 */
+	@TryCatch
+	async getAddressesBalances(addresses: string[]) {
+		return this.ethAddressInfo.getAddressesBalances(addresses);
+	}
 }
