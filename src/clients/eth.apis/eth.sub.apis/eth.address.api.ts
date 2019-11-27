@@ -2,8 +2,10 @@ import { inject, injectable } from 'inversify';
 
 import { TYPES_DI } from '../../../constants/inversify.constants';
 
-import { IEthAddressApi } from '../../../interfaces/eth.apis/eth.sub.apis/eth.address.api.interface';
 import { EthAddressBalance } from '../../../dtos/eth.address.balance';
+import { EthAddressInfo } from '../../../dtos/eth.adress.info';
+
+import { IEthAddressApi } from '../../../interfaces/eth.apis/eth.sub.apis/eth.address.api.interface';
 import { IHttpService } from '../../../interfaces/providers/http.service.interface';
 import { AbstractApi } from '../../../abstracts/abstract.api';
 
@@ -31,4 +33,16 @@ export class EthAddressApi  extends AbstractApi implements IEthAddressApi {
 		return addressesBalances.data;
 	}
 
+	/**
+	 * Get eth addresses infos.
+	 * @method getAddressesInfos
+	 * @param {string[]} addresses
+	 * @return {Promise<EthAddressInfo[]>}
+	 */
+	async getAddressesInfos(addresses: string[]) {
+		this._checkConfig();
+		const addressesInfos = await this.httpService.agent.get<EthAddressInfo[]>(
+			`${this.config!.baseUrl}${'/coins/eth/accounts/:addresses/info'.replace(':addresses', addresses.join(','))}`);
+		return addressesInfos.data;
+	}
 }
