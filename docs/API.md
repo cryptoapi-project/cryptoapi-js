@@ -15,9 +15,11 @@ This library provides api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.getAddressesBalances">eth.getAddressesBalances(addresses: string[])</a> ⇒<code><a href="#EthAddressBalance">Promise&lt;EthAddressBalance[]&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#eth.getAddressesInfos">eth.getAddressesInfos(addresses: string[])</a> ⇒<code><a href="#EthAddressInfo">Promise&lt;EthAddressInfo[]&gt;</a></code></dt></dt>
 <dt><a href="#eth.estimateGas">eth.estimateGas</a> ⇒<code><a href="#EstimateGasResponse">Promise&lt;EstimateGasResponse&gt;</a></code></dt></dt>
 <dd></dd>
 </dl>
+
 
 #### <a name="eth.getNetworkInfo">eth.getNetworkInfo()</a> ⇒ <code><a href="#EthNetworkInfo">Promise&lt;EthNetworkInfo&gt;</a></code></dt></dt>
 Returns JSON data about a network information such as last block, count transactions,
@@ -27,6 +29,7 @@ current hash rate, gas price, difficulty.
     const crypto = new Crypto('******');
     const result = await crypto.api.eth.getNetworkInfo();
 ```
+
 Example response:
 ```
 {
@@ -37,6 +40,7 @@ Example response:
     "difficulty": "1"
 }
 ```
+
 #### <a name="eth.getTokenInfoByTokenAddress">eth.getTokenInfoByTokenAddress(address: string)</a> ⇒ <code><a href="#EthTokenInfo">Promise&lt;EthTokenInfo&gt;</a></code></dt></dt>
 Returns JSON data about a eth token information.
 
@@ -106,13 +110,41 @@ Returns JSON data about an estimate gas information.
     	value: '20000000000000000'
     });
 ```
-Example:
+Example response:
 ```
 {
     estimate_gas: 21000,
     gas_price: '1000000000',
     nonce: 279
 }
+```
+
+#### <a name="eth.getAddressesInfos">eth.getAddressesInfos(address: string[])</a> ⇒ <code><a href="#EthAddressInfo">Promise&lt;EthAddressInfo[]&gt;</a></code></dt></dt>
+Returns JSON data about addresses information.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| addresses | <code>string[]</code> | [Addresses] |
+
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    crypto.api.eth.getAddressesInfos([
+        '0xa177AD7c3CA2cCa794C02a0FF4dF1C2B09D49C8f',
+    ]);
+```
+
+Example response:
+```javascript
+[
+    {
+        address: "0xa177ad7c3ca2cca794c02a0ff4df1c2b09d49c8f"
+        balance: "0"
+        count_transactions: 0
+        is_contract: true
+        type: "ERC20"
+    }
+]
 ```
 
 ## Typedefs
@@ -124,12 +156,10 @@ Example:
 <dd></dd>
 <dt><a href="#EthAddressBalance">EthAddressBalance</a> : <code>Object</code></dt>
 <dd></dd>
-</dl>
-<dl>
+<dt><a href="#EthAddressInfo">EthAddressInfo</a> : <code>Object</code></dt>
+<dd></dd>
 <dt><a href="#EstimateGasRequest">EstimateGasRequest</a> : <code>Object</code></dt>
 <dd></dd>
-</dl>
-<dl>
 <dt><a href="#EstimateGasResponse">EstimateGasResponse</a> : <code>Object</code></dt>
 <dd></dd>
 </dl>
@@ -194,4 +224,16 @@ Example:
 	gas_price: String;
 	nonce: Number;
 }
+```
+
+#### EthAddressInfo : <code>Object</code>
+<a name="EthAddressInfo"></a>
+
+```javascript
+{
+    address: String;
+    balance: String;
+    is_contract: Boolean;
+    type: String;
+    count_transactions: Number;
 ```

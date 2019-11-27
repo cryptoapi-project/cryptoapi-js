@@ -75,4 +75,16 @@ export class EthApiClient implements IEthApiClient {
 	async getAddressesBalances(addresses: string[]) {
 		return this.ethAddressInfo.getAddressesBalances(addresses);
 	}
+
+	/**
+	 * Get eth addresses infos.
+	 * @method getAddressesInfos
+	 * @param {string[]} addresses
+	 * @return {Promise<EthAddressInfo[]>}
+	 */
+	@TryCatch
+	getAddressesInfos(addresses: string[]) {
+		return this.ethAddressInfo.getAddressesInfos(addresses);
+	}
+
 }

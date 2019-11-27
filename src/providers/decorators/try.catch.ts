@@ -12,7 +12,11 @@ export function TryCatch(
 			result = await originalMethod.apply(this, args);
 			return result;
 		} catch (error) {
-			throw new ServerResponseException(error.response.status, error.response.data.errors);
+			if (!error.response) {
+				throw error;
+			} else {
+				throw new ServerResponseException(error.response.status, error.response.data.errors);
+			}
 		}
 	};
 
