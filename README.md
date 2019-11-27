@@ -52,6 +52,7 @@ const result = await crypto.api.eth.getNetworkInfo();
 
 ## Full API Reference
 [API](docs/API.md) - List with all api methods.
+[Events](docs/API.md) - All about websocket notifications.
 
 ## Development
 

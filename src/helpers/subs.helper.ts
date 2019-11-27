@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import web3utils from 'web3-utils';
+import { isHex, isAddress } from 'web3-utils';
 
 import { MAX_CONFIRMATION } from '../constants/events.constants';
 import { ISubsHelper } from '../interfaces/helpers/subs.helper.interface';
@@ -26,7 +26,7 @@ export class SubsHelper implements ISubsHelper {
 			throw new Error(`Param ${key} is required`);
 		}
 
-		if (!web3utils.isAddress(address)) {
+		if (!isAddress(address)) {
 			throw new Error(`Invalid ${key}`);
 		}
 	}
@@ -36,7 +36,7 @@ export class SubsHelper implements ISubsHelper {
 			throw new Error(`Param hash is required`);
 		}
 
-		if (!web3utils.isHex(hash)) {
+		if (!isHex(hash)) {
 			throw new Error(`Invalid hash`);
 		}
 
