@@ -27,6 +27,8 @@ This library provides api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.getTokensBalancesByHolderAddress">eth.getTokensBalancesByHolderAddress</a> ⇒<code><a href="#EthTokensByHolder">Promise&lt;EthTokensByHolder&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#eth.getTransactionsByAddresses">eth.getTransactionsByAddresses</a> ⇒<code><a href="#EthTransactionByAddresses">Promise&lt;EthTransactionByAddresses&gt;</a></code></dt></dt>
+<dd></dd>
 </dl>
 
 #### <a name="eth.getNetworkInfo">eth.getNetworkInfo()</a> ⇒ <code><a href="#EthNetworkInfo">Promise&lt;EthNetworkInfo&gt;</a></code></dt></dt>
@@ -268,6 +270,49 @@ Example response:
 }
 ```
 
+#### <a name="eth.getTransactionsByAddresses">eth.getTransactionsByAddresses</a>(addresses: string[], positive: boolean, options: <a href="#PaginationOptions">PaginationOptions</a>) ⇒<code><a href="#EthTransactionByAddresses">Promise&lt;EthTransactionByAddresses&gt;</a></code></dt></dt>
+
+Return list of transactions by addresses.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| address | <code>string[]</code> | [Ethereum Address] |
+| positive? | <code>boolean</code> | [If true, return only items with positive value] |
+| options? | <code><a href="#PaginationOptions">PaginationOptions</a></code> | [Count of skipping items and page items count] |
+
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    crypto.api.eth.getTransactionsByAddresses(['0x99608ad1026a47acf7839003546748158ad55504']);
+```
+
+Example response:
+```
+{
+    "addresses": [
+        "0x99608ad1026a47acf7839003546748158ad55504"
+    ],
+    "limit": 100,
+    "skip": 0,
+    "items": [
+        {
+            "block_number": 5485938,
+            "from": "0xcd66e50e51026673d60b3f993610b46b0f44096f",
+            "to": "0x99608ad1026a47acf7839003546748158ad55504",
+            "value": "1000000000000000000",
+            "hash": "0xec4f7a1a8bfbac44fd2d9af09a7291217668a6b834a54fa186a9cf613d65ca34",
+            "gas": 21000,
+            "gas_price": "22000000000",
+            "internal": false,
+            "utc": "2019-11-22T13:10:29.000Z"
+        }
+    ],
+    "count": 1
+}
+```
+
 ## Typedefs
 
 <dl>
@@ -292,6 +337,8 @@ Example response:
 <dt><a href="#EthTokensByHolder">EthTokensByHolder</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#PaginationOptions">PaginationOptions</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthTransactionByAddresses">EthTransactionByAddresses</a> : <code>Object</code></dt>
 <dd></dd>
 </dl>
 
@@ -435,5 +482,28 @@ Example response:
 {
    skip?: Number;
    limit?: Number;
+}
+```
+
+#### EthTransactionByAddresses : <code>Object</code>
+<a name="EthTransactionByAddresses"></a>
+
+```javascript
+{
+    addresses: String[];
+    limit: Number;
+    skip: Number;
+    items: Array<{
+        block_number: Number;
+        from: String;
+        to: String;
+        value: String;
+        hash: String;
+        gas: Number;
+        gas_price: String;
+        internal: Boolean;
+        utc: String;
+    }>;
+    count: Number;
 }
 ```

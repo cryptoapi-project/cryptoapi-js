@@ -10,6 +10,7 @@ import { IEthMainInfoApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.main
 import { IEthBlockApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.block.interface';
 import { IEthTokenApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.token.api.interface';
 import { IEthAddressApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.address.api.interface';
+import { IEthTransactionsApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.transactions.interface';
 import { IServerConfig } from '../../interfaces/configs/crypto.config.interface';
 import { IEthContractApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.contract.api.interface';
 
@@ -24,6 +25,7 @@ export class EthApiClient implements IEthApiClient {
 		@inject(TYPES_DI.IEthTokenApi) private readonly ethTokenInfo: IEthTokenApi,
 		@inject(TYPES_DI.IEthAddressApi) private readonly ethAddressInfo: IEthAddressApi,
 		@inject(TYPES_DI.IEthContractApi) private readonly ethContractApi: IEthContractApi,
+		@inject(TYPES_DI.IEthTransactionsApi) private readonly ethTransactions: IEthTransactionsApi,
 		@inject(TYPES_DI.IEthBlockApi) private readonly ethBlock: IEthBlockApi,
 	) {}
 
@@ -38,6 +40,7 @@ export class EthApiClient implements IEthApiClient {
 		this.ethTokenInfo.configure(config);
 		this.ethAddressInfo.configure(config);
 		this.ethContractApi.configure(config);
+		this.ethTransactions.configure(config);
 		this.ethBlock.configure(config);
 	}
 
@@ -131,6 +134,19 @@ export class EthApiClient implements IEthApiClient {
 	}
 
 	/**
+	 * Method to get transactions by addresses.
+	 * @method getTransactionsByAddresses
+	 * @param {string[]} addresses
+	 * @param {boolean} positive?
+	 * @param {PaginationOptions} options?
+	 * @return {Promise{EthTransactionByAddresses}}
+	 */
+	@TryCatch
+	getTransactionsByAddresses(addresses: string[], positive?: boolean, options?: PaginationOptions) {
+		return this.ethTransactions.getTransactionsByAddresses(addresses, positive, options);
+	}
+
+	/**
 	 * Method to get block information.
 	 * @method getBlock
 	 * @param {Number} blockNumber
@@ -140,5 +156,4 @@ export class EthApiClient implements IEthApiClient {
 	getBlock(blockNumber: number) {
 		return this.ethBlock.getBlock(blockNumber);
 	}
-
 }

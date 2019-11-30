@@ -5,18 +5,20 @@ import { TYPES_DI } from '../../../constants/inversify.constants';
 import { EthTokenInfo } from '../../../dtos/eth/eth.token.info';
 import { EthTokenBalance } from '../../../dtos/eth/eth.token.balance';
 import { EthTokensByHolder } from '../../../dtos/eth/eth.tokens.by.holder';
+import { PaginationOptions } from '../../../dtos/paginations.options';
 
 import { IEthTokenApi } from '../../../interfaces/eth.apis/eth.sub.apis/eth.token.api.interface';
 import { IHttpService } from '../../../interfaces/providers/http.service.interface';
+import { IUrlHelper } from '../../../interfaces/providers/helpers/url.helper.interface';
+
 import { AbstractApi } from '../../../abstracts/abstract.api';
-import { PaginationOptions } from '../../../dtos/paginations.options';
-import { UrlHelper } from '../../../providers/helpers/UrlHelper';
 
 @injectable()
 export class EthTokenApi extends AbstractApi  implements IEthTokenApi {
 
 	constructor(
 		@inject(TYPES_DI.IHttpService) private readonly httpClient: IHttpService,
+		@inject(TYPES_DI.IUrlHelper) private readonly urlHelper: IUrlHelper,
 	) {
 		super();
 	}
@@ -65,7 +67,7 @@ export class EthTokenApi extends AbstractApi  implements IEthTokenApi {
 
 		let url = `${this.config!.baseUrl}${'/coins/eth/tokens/:address/balances'
 			.replace(':address', address)}`;
-		url = UrlHelper.addOptionsToUrl(url, options);
+		url = this.urlHelper.addOptionsToUrl(url, options);
 
 		const tokensBalances = await this.httpClient.agent.get<EthTokensByHolder>(url);
 

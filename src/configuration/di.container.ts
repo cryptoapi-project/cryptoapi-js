@@ -14,6 +14,10 @@ import { IEthContractApi } from '../interfaces/eth.apis/eth.sub.apis/eth.contrac
 import { IEthRawTransactionApi } from '../interfaces/eth.apis/eth.sub.apis/eth.raw.transaction.interface';
 import { IEthBlockApi } from '../interfaces/eth.apis/eth.sub.apis/eth.block.interface';
 import { IEthTokenApi } from 'interfaces/eth.apis/eth.sub.apis/eth.token.api.interface';
+import { IEthTransactionsApi } from '../interfaces/eth.apis/eth.sub.apis/eth.transactions.interface';
+
+import { IValidateHelper } from '../interfaces/providers/helpers/validate.helper.interface';
+import { IUrlHelper } from '../interfaces/providers/helpers/url.helper.interface';
 
 import { Crypto } from '../crypto/crypto';
 import { ApiClient } from '../clients/api.client';
@@ -29,6 +33,10 @@ import { EthContractApi } from '../clients/eth.apis/eth.sub.apis/eth.contract.ap
 import { EthRawTransactionApi } from '../clients/eth.apis/eth.sub.apis/eth.raw.transaction.api';
 import { EthBlockApi } from '../clients/eth.apis/eth.sub.apis/eth.block.api';
 import { EthTokenApi } from '../clients/eth.apis/eth.sub.apis/eth.token.api';
+import { EthTransactionsApi } from '../clients/eth.apis/eth.sub.apis/eth.transactions.api';
+
+import { ValidateHelper } from '../providers/helpers/validate.helper';
+import { UrlHelper } from '../providers/helpers/url.helper';
 
 import { HttpService } from '../providers/services/http.service';
 
@@ -61,6 +69,7 @@ diContainer
 	.to(EthRawTransactionApi);
 diContainer.bind<IEthBlockApi>(TYPES_DI.IEthBlockApi).to(EthBlockApi);
 diContainer.bind<IEthTokenApi>(TYPES_DI.IEthTokenApi).to(EthTokenApi);
+diContainer.bind<IEthTransactionsApi>(TYPES_DI.IEthTransactionsApi).to(EthTransactionsApi);
 
 /**
  * Inject others providers.
@@ -69,5 +78,11 @@ diContainer
 	.bind<IHttpService>(TYPES_DI.IHttpService)
 	.to(HttpService)
 	.inSingletonScope();
+
+/**
+ * Inject helpers
+ */
+diContainer.bind<IValidateHelper>(TYPES_DI.IValidateHelper).to(ValidateHelper);
+diContainer.bind<IUrlHelper>(TYPES_DI.IUrlHelper).to(UrlHelper);
 
 export { diContainer };
