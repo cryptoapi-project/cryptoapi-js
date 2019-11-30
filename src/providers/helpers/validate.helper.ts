@@ -1,7 +1,9 @@
 import { injectable } from 'inversify';
 
+import { IValidateHelper } from '../../interfaces/providers/helpers/validate.helper.interface';
+
 @injectable()
-export class ValidateHelper  {
+export class ValidateHelper implements IValidateHelper {
 
 	/**
 	 * Method to check array

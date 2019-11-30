@@ -29,6 +29,8 @@ This library provides api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.getTransactionsByAddresses">eth.getTransactionsByAddresses</a> ⇒<code><a href="#EthTransactionByAddresses">Promise&lt;EthTransactionByAddresses&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#eth.getTransactionsIntersection">eth.getTransactionsIntersection</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
+<dd></dd>
 </dl>
 
 #### <a name="eth.getNetworkInfo">eth.getNetworkInfo()</a> ⇒ <code><a href="#EthNetworkInfo">Promise&lt;EthNetworkInfo&gt;</a></code></dt></dt>
@@ -278,7 +280,7 @@ Input data:
 
 | Param | Type | Description |
 | --- | --- | --- |
-| address | <code>string[]</code> | [Ethereum Address] |
+| addresses | <code>string[]</code> | [Ethereum Addresses] |
 | positive? | <code>boolean</code> | [If true, return only items with positive value] |
 | options? | <code><a href="#PaginationOptions">PaginationOptions</a></code> | [Count of skipping items and page items count] |
 
@@ -313,6 +315,55 @@ Example response:
 }
 ```
 
+#### <a name="eth.getTransactionsIntersection">eth.getTransactionsIntersection(addresses: string[], options: <a href="#PaginationOptions">PaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
+
+Return list of transactions interception by addresses.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| addresses | <code>string[]</code> | [Ethereum Addresses] |
+| options? | <code><a href="#PaginationOptions">PaginationOptions</a></code> | [Options params to paginating response] |
+
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    crypto.api.eth.getTransactionsIntersection(['0x99608ad1026a47acf7839003546748158ad55504', '0xcd66e50e51026673d60b3f993610b46b0f44096f']);
+```
+
+Example response:
+```
+{
+    "addresses": [
+        "0x99608ad1026a47acf7839003546748158ad55504",
+        "0xcd66e50e51026673d60b3f993610b46b0f44096f"
+    ],
+    "limit": 35,
+    "skip": 0,
+    "count": 1,
+    "items": [
+        {
+            "block_hash": "0xfe61a16336aabe235e01a3b3540e9581f7e4684df9c3d555eb68e3e33d8cebce",
+            "block_number": 5485938,
+            "utc": "2019-11-22T13:10:29.000Z",
+            "from": "0xcd66e50e51026673d60b3f993610b46b0f44096f",
+            "gas": 21000,
+            "gas_price": "22000000000",
+            "hash": "0xec4f7a1a8bfbac44fd2d9af09a7291217668a6b834a54fa186a9cf613d65ca34",
+            "input": "0x",
+            "nonce": 377,
+            "to": "0x99608ad1026a47acf7839003546748158ad55504",
+            "transaction_index": 0,
+            "value": "1000000000000000000",
+            "v": "0x2b",
+            "s": "0x55b0348bf5a0f5b3e64f2b6a324c2dc3114f301e5dfbd68b01e1d0b2a3f4a593",
+            "r": "0xa03fe81c87e60fce8d483ec933a65931e617f38af01c6a1cc37d6658f79bbda1"
+        }
+    ]
+}
+```
+
 ## Typedefs
 
 <dl>
@@ -339,6 +390,8 @@ Example response:
 <dt><a href="#PaginationOptions">PaginationOptions</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTransactionByAddresses">EthTransactionByAddresses</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthTransactionsIntersection">EthTransactionsIntersection</a> : <code>Object</code></dt>
 <dd></dd>
 </dl>
 
@@ -505,5 +558,35 @@ Example response:
         utc: String;
     }>;
     count: Number;
+}
+```
+
+#### EthTransactionsIntersection : <code>Object</code>
+<a name="EthTransactionsIntersection"></a>
+
+```javascript
+{
+    addresses: String[],
+    limit: Number,
+    skip: Number,
+    items: Array<{
+        block_hash: String,
+        block_number: Number,
+        from: String,
+        to: String,
+        value: String,
+        hash: String,
+        input: String,
+        nonce: Number,
+        transaction_index: Number,
+        v: String,
+        s: String,
+        r: String,
+        gas: Number,
+        gas_price: String,
+        internal: Boolean,
+        utc: String,
+    }>,
+    count: Number,
 }
 ```

@@ -134,6 +134,17 @@ export class EthApiClient implements IEthApiClient {
 	}
 
 	/**
+	 * Method to get block information.
+	 * @method getBlock
+	 * @param {Number} blockNumber
+	 * @return {Promise<EthBlockInfo>}
+	 */
+	@TryCatch
+	getBlock(blockNumber: number) {
+		return this.ethBlock.getBlock(blockNumber);
+	}
+
+	/**
 	 * Method to get transactions by addresses.
 	 * @method getTransactionsByAddresses
 	 * @param {string[]} addresses
@@ -147,13 +158,15 @@ export class EthApiClient implements IEthApiClient {
 	}
 
 	/**
-	 * Method to get block information.
-	 * @method getBlock
-	 * @param {Number} blockNumber
-	 * @return {Promise<EthBlockInfo>}
+	 * Get transactions interception by addresses
+	 * @method getTransactionsIntersection
+	 * @param {string[]} addresses
+	 * @param {PaginationOptions} options
+	 * @return {Promise<EthTransactionsIntersection>}
 	 */
-	@TryCatch
-	getBlock(blockNumber: number) {
-		return this.ethBlock.getBlock(blockNumber);
-	}
+ 	@TryCatch
+ 	getTransactionsIntersection(addresses: string[], options: PaginationOptions) {
+ 		return this.ethTransactions.getTransactionsIntersection(addresses, options);
+ 	}
+
 }

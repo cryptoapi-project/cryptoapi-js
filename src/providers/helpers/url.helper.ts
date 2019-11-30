@@ -1,7 +1,9 @@
 import { injectable } from 'inversify';
 
+import { IUrlHelper } from '../../interfaces/providers/helpers/url.helper.interface';
+
 @injectable()
-export class UrlHelper {
+export class UrlHelper implements IUrlHelper {
 
 	/**
 	 * Add params to url

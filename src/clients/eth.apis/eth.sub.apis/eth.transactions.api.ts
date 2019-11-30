@@ -4,7 +4,10 @@ import { inject, injectable } from 'inversify';
 import { TYPES_DI } from '../../../constants/inversify.constants';
 import { InternalLibraryException } from '../../../exceptions/internal.library.exception';
 
-import { EthTransactionByAddresses } from '../../../dtos/eth/eth.transaction.dtos';
+import {
+	EthTransactionByAddresses,
+	EthTransactionsIntersection,
+} from '../../../dtos/eth/eth.transaction.dtos';
 import { PaginationOptions } from '../../../dtos/paginations.options';
 
 import { IEthTransactionsApi } from '../../../interfaces/eth.apis/eth.sub.apis/eth.transactions.interface';
@@ -28,7 +31,7 @@ export class EthTransactionsApi extends AbstractApi implements IEthTransactionsA
 	/**
 	 * Method to get transactions by addresses.
 	 * @method getTransactionsByAddresses
-	 * @param {string} addresses
+	 * @param {string[]} addresses
 	 * @param {boolean} positive?
 	 * @param {PaginationOptions} options?
 	 * @return {Promise<EthTransactionByAddresses>}
@@ -53,6 +56,30 @@ export class EthTransactionsApi extends AbstractApi implements IEthTransactionsA
 			`${this.config!.baseUrl}/coins/eth/accounts/${addresses.join(',')}/transfers${query}`,
 		);
 		return new EthTransactionByAddresses(transactionsInfo.data);
+	}
+
+	/**
+	 * Get transactions interception by addresses
+	 * @method getTransactionsIntersection
+	 * @param {string[]} addresses
+	 * @param {PaginationOptions} options
+	 * @return {Promise<EthTransactionsIntersection>}
+	 */
+	async getTransactionsIntersection(
+		addresses: string[],
+		options?: PaginationOptions,
+	): Promise<EthTransactionsIntersection> {
+		this._checkConfig();
+
+		if (!this.validateHelper.isArray(addresses) || !addresses.length) {
+			throw new InternalLibraryException(`Addresses are required.`);
+		}
+
+		const query = options ? this.urlHelper.addOptionsToUrl('', options) : '';
+		const transactionsInfo = await this.httpService.agent.get<any>(
+			`${this.config!.baseUrl}/coins/eth/accounts/${addresses.join(',')}/transactions/external${query}`,
+		);
+		return new EthTransactionsIntersection(transactionsInfo.data);
 	}
 
 }
