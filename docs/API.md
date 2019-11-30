@@ -27,6 +27,7 @@ This library provides api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.getTokensBalancesByHolderAddress">eth.getTokensBalancesByHolderAddress</a> ⇒<code><a href="#EthTokensByHolder">Promise&lt;EthTokensByHolder&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#eth.decodeRawTransaction">eth.decodeRawTransaction</a> ⇒<code><a href="#EthRawTransaction">Promise&lt;EthRawTransaction&gt;</a></code></dt></dt>
 <dt><a href="#eth.getTransactionsByAddresses">eth.getTransactionsByAddresses</a> ⇒<code><a href="#EthTransactionByAddresses">Promise&lt;EthTransactionByAddresses&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getTransactionsIntersection">eth.getTransactionsIntersection</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
@@ -272,6 +273,36 @@ Example response:
 }
 ```
 
+#### <a name="eth.decodeRawTransaction">eth.decodeRawTransaction(tx: string)</a> ⇒ <code><a href="#EthRawTransaction">Promise&lt;EthRawTransaction&gt;</a></code></dt></dt>
+
+Returns JSON data of decode raw transaction by hash.
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tr | <code>string</code> | [Raw transaction] |
+
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    crypto.api.eth.decodeRawTransaction('0xf86e8386ca038602bba7f5220083632ea0941de29f644d555fe9cc3241e1083de0868' +
+                   		'f959bfa8545d964b800801ca04ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637fdc35' +
+                   		'bdc49c4a04b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02');
+```
+Example response:
+```
+{
+    data: "0x"
+    gas_limit: "0x632ea0"
+    gas_price: "0x02bba7f52200"
+    nonce: 8833539
+    r: "0x4ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637fdc35bdc49c4"
+    s: "0x4b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02"
+    to: "0x1de29f644d555fe9cc3241e1083de0868f959bfa"
+    v: 28
+    value: "0x45d964b800"
+}
+ ```
 #### <a name="eth.getTransactionsByAddresses">eth.getTransactionsByAddresses</a>(addresses: string[], positive: boolean, options: <a href="#PaginationOptions">PaginationOptions</a>) ⇒<code><a href="#EthTransactionByAddresses">Promise&lt;EthTransactionByAddresses&gt;</a></code></dt></dt>
 
 Return list of transactions by addresses.
@@ -389,6 +420,7 @@ Example response:
 <dd></dd>
 <dt><a href="#PaginationOptions">PaginationOptions</a> : <code>Object</code></dt>
 <dd></dd>
+<dt><a href="#EthRawTransaction">EthRawTransaction</a> : <code>Object</code></dt>
 <dt><a href="#EthTransactionByAddresses">EthTransactionByAddresses</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTransactionsIntersection">EthTransactionsIntersection</a> : <code>Object</code></dt>
@@ -535,6 +567,23 @@ Example response:
 {
    skip?: Number;
    limit?: Number;
+}
+```
+
+#### EthRawTransaction : <code>Object</code>
+<a name="EthRawTransaction"></a>
+
+```javascript
+{
+    nonce: Number;
+    gas_price: String;
+    gas_limit: String;
+    to: String;
+    value: String;
+    data: String;
+    v: Number;
+    r: String;
+    s: String;
 }
 ```
 

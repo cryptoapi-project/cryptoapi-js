@@ -13,6 +13,7 @@ import { IEthAddressApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.addre
 import { IEthTransactionsApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.transactions.interface';
 import { IServerConfig } from '../../interfaces/configs/crypto.config.interface';
 import { IEthContractApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.contract.api.interface';
+import { IEthRawTransactionApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.raw.transaction.interface';
 
 import { TryCatch } from '../../providers/decorators/try.catch';
 
@@ -25,6 +26,7 @@ export class EthApiClient implements IEthApiClient {
 		@inject(TYPES_DI.IEthTokenApi) private readonly ethTokenInfo: IEthTokenApi,
 		@inject(TYPES_DI.IEthAddressApi) private readonly ethAddressInfo: IEthAddressApi,
 		@inject(TYPES_DI.IEthContractApi) private readonly ethContractApi: IEthContractApi,
+		@inject(TYPES_DI.IEthRawTransactionApi) private readonly ethRawTransactionApi: IEthRawTransactionApi,
 		@inject(TYPES_DI.IEthTransactionsApi) private readonly ethTransactions: IEthTransactionsApi,
 		@inject(TYPES_DI.IEthBlockApi) private readonly ethBlock: IEthBlockApi,
 	) {}
@@ -40,6 +42,7 @@ export class EthApiClient implements IEthApiClient {
 		this.ethTokenInfo.configure(config);
 		this.ethAddressInfo.configure(config);
 		this.ethContractApi.configure(config);
+		this.ethRawTransactionApi.configure(config);
 		this.ethTransactions.configure(config);
 		this.ethBlock.configure(config);
 	}
@@ -169,4 +172,14 @@ export class EthApiClient implements IEthApiClient {
  		return this.ethTransactions.getTransactionsIntersection(addresses, options);
  	}
 
+	/**
+	 * Method decode raw transaction.
+	 * @method decodeRawTransaction
+	 * @param {string} tr
+	 * @return {EthRawTransaction}
+	 */
+	@TryCatch
+	decodeRawTransaction(tr: string) {
+		return this.ethRawTransactionApi.decodeRawTransaction(tr);
+	}
 }
