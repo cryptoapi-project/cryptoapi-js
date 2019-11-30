@@ -24,6 +24,7 @@
     "start": "tsc && tsc -w -p .",
     "compile": "tsc -p .",
     "clean": "shx rm -rf dist",
+    "postinstall": "npm run build",
     "build": "npm run clean && tsc && tsc -m es6 --outDir dist/lib-esm && webpack",
     "predocs": "npm run compile",
     "preconformance-test": "npm run compile",
