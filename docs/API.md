@@ -13,6 +13,8 @@ This library provides api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.estimateGas">eth.estimateGas</a> ⇒<code><a href="#EstimateGasResponse">Promise&lt;EstimateGasResponse&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#eth.getBlock">eth.getBlock</a> ⇒<code><a href="#EthBlockInfo">Promise&lt;EthBlockInfo&gt;</a></code></dt></dt>
+<dd></dd>
 <dt><a href="#eth.getAddressesBalances">eth.getAddressesBalances(addresses: string[])</a> ⇒<code><a href="#EthAddressBalance">Promise&lt;EthAddressBalance[]&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getAddressesInfos">eth.getAddressesInfos(addresses: string[])</a> ⇒<code><a href="#EthAddressInfo">Promise&lt;EthAddressInfo[]&gt;</a></code></dt></dt>
@@ -68,6 +70,41 @@ Example response:
 }
 ```
 
+#### <a name="eth.getBlock">eth.getBlock</a>(blockNumber: Number) ⇒ <code>Promise&lt;<a href="#EthBlockInfo">EthBlockInfo</a>&gt;</code></dt></dt>
+Returns JSON data about block information.
+
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    const result = await crypto.api.eth.getBlock(5485938);
+```
+Example response:
+```
+{
+    difficulty: 1,
+    extra_data: '0xd883010908846765746888676f312e31332e34856c696e7578000000000000005344e40516cf25d3831c0a99553e3dc522e4a047f4881584319003a5a40544191695fc59149c7f4b892cbf9aee326742a4fea971bde5a06223f61101549f69a300',
+    gas_limit: 10000000,
+    gas_used: 1881766,
+    hash: '0xfe61a16336aabe235e01a3b3540e9581f7e4684df9c3d555eb68e3e33d8cebce',
+    logs_bloom: '0x00000000000000000000000080000000000000011001000000800000000000004000000000001000010000000000000000000000000080000000000000000000000010000000000000000208000000000001000000000000000001000000000000000000020000000001800000000800000000000000001040000010000020400000000040000000000000400000001000000800000001000000000000000400090000080000200000400000006440000400000000000000000000200000000000040002000000000000000000000000000000000000000100000000000020000000000000000000000000000000000000000008000000000000000000000000',
+    miner: '0x0000000000000000000000000000000000000000',
+    mix_hash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+    nonce: '0x0000000000000000',
+    number: 5485938,
+    parent_hash: '0x17d034907cfff120fcab3743391038b348967d3f9e150ff3312b69d775dd5840',
+    receipts_root: '0x61481ef8741cf344b69bf629cbd6cf9535af8ac485a2ac98d8534c0708fef125',
+    sha3_uncles: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
+    size: 9346,
+    state_root: '0x996ba95665d4d800afe83509a2ba4d0e680cd729edbda1ef6cb1c438edda2800',
+    timestamp: 1574428229,
+    total_difficulty: 9969080,
+    transaction_root: '0xba02eb65dbd8629bf13b0819e5a7e0158dfcfcc64b7c1922a794b2f6824f8b42',
+    transactions: ['0xec4f7a1a8bfbac44fd2d9af09a7291217668a6b834a54fa186a9cf613d65ca34'],
+    uncles: []
+}
+```
+
+
 #### <a name="eth.getAddressesBalances">getAddressesBalances(address: string[])</a> ⇒ <code><a href="#EthAddressBalance">Promise&lt;EthAddressBalance[]&gt;</a></code></dt></dt>
 Returns JSON data about a eth addresses balances informations.
 
@@ -81,7 +118,7 @@ Input data:
     import { Crypto } from 'cryptoapi';
     const crypto = new Crypto('******');
     const result =  crypto.api.eth.getAddressesBalances([
-                       		'0xa177AD7c3CA2cCa794C02a0FF4dF1C2B09D49C8f', 
+                       		'0xa177AD7c3CA2cCa794C02a0FF4dF1C2B09D49C8f',
                        		'0xf24A2674208B7B5EC2f2863DCb65938EF82dC180'
                        ]);
 ```
@@ -89,10 +126,10 @@ Example response:
 ```
 [
     {
-        address: "0xa177ad7c3ca2cca794c02a0ff4df1c2b09d49c8f", 
+        address: "0xa177ad7c3ca2cca794c02a0ff4df1c2b09d49c8f",
         balance: "0"
     }, {
-        address: "0xf24a2674208b7b5ec2f2863dcb65938ef82dc180", 
+        address: "0xf24a2674208b7b5ec2f2863dcb65938ef82dc180",
         balance: "2044716170999999824"
     }
 ]
@@ -197,7 +234,7 @@ Example response:
 ```
 
 #### <a name="eth.getTokensBalancesByHolderAddress">eth.getTokensBalancesByHolderAddress(address: string, options: PaginationOptions)</a> ⇒<code><a href="#EthTokensByHolder">Promise&lt;EthTokensByHolder&gt;</a></code></dt></dt>
- 
+
 Return list of tokens balances by holder address, when token balance is more than zero.
 
 Input data:
@@ -236,6 +273,8 @@ Example response:
 <dl>
 <dt><a href="#EthNetworkInfo">EthNetworkInfo</a> : <code>Object</code></dt>
 <dd></dd>
+<dt><a href="#EthBlockInfo">EthBlockInfo</a> : <code>Object</code></dt>
+<dd></dd>
 <dt><a href="#EthTokenInfo">EthTokenInfo</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthAddressBalance">EthAddressBalance</a> : <code>Object</code></dt>
@@ -266,6 +305,34 @@ Example response:
     gasPrice: Number;
     hashRate: Number;
     difficulty: Number;
+}
+```
+
+#### EthBlockInfo : <code>Object</code>
+<a name="EthBlockInfo"></a>
+
+```javascript
+{
+    size: Number;
+    difficulty: Number;
+    total_difficulty: Number;
+    uncles: String[];
+    number: Number;
+    hash: String;
+    parent_hash: String;
+    nonce: String;
+    sha3_uncles: String;
+    logs_bloom: String;
+    transaction_root: String;
+    state_root: String;
+    receipts_root: String;
+    miner: String;
+    mix_hash: String;
+    extra_data: String;
+    gas_limit: Number;
+    gas_used: Number;
+    timestamp: Number;
+    transactions: String[];
 }
 ```
 
@@ -345,7 +412,7 @@ Example response:
 
 ```javascript
 {
-   address: String; 
+   address: String;
    balance: String;
    holder: String;
 }

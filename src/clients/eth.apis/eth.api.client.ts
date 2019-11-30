@@ -7,6 +7,7 @@ import { PaginationOptions } from '../../dtos/paginations.options';
 
 import { IEthApiClient } from '../../interfaces/eth.apis/eth.api.client.interface';
 import { IEthMainInfoApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.main.info.interface';
+import { IEthBlockApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.block.interface';
 import { IEthTokenApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.token.api.interface';
 import { IEthAddressApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.address.api.interface';
 import { IServerConfig } from '../../interfaces/configs/crypto.config.interface';
@@ -23,6 +24,7 @@ export class EthApiClient implements IEthApiClient {
 		@inject(TYPES_DI.IEthTokenApi) private readonly ethTokenInfo: IEthTokenApi,
 		@inject(TYPES_DI.IEthAddressApi) private readonly ethAddressInfo: IEthAddressApi,
 		@inject(TYPES_DI.IEthContractApi) private readonly ethContractApi: IEthContractApi,
+		@inject(TYPES_DI.IEthBlockApi) private readonly ethBlock: IEthBlockApi,
 	) {}
 
 	/**
@@ -36,6 +38,7 @@ export class EthApiClient implements IEthApiClient {
 		this.ethTokenInfo.configure(config);
 		this.ethAddressInfo.configure(config);
 		this.ethContractApi.configure(config);
+		this.ethBlock.configure(config);
 	}
 
 	/**
@@ -126,4 +129,16 @@ export class EthApiClient implements IEthApiClient {
 	getTokensBalancesByHolderAddress(address: string, options?: PaginationOptions) {
 		return this.ethTokenInfo.getTokensBalancesByHolderAddress(address, options);
 	}
+
+	/**
+	 * Method to get block information.
+	 * @method getBlock
+	 * @param {Number} blockNumber
+	 * @return {Promise<EthBlockInfo>}
+	 */
+	@TryCatch
+	getBlock(blockNumber: number) {
+		return this.ethBlock.getBlock(blockNumber);
+	}
+
 }
