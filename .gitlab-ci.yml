@@ -1,0 +1,30 @@
+stages:
+  - test
+  - deploy
+
+eslint:
+  image: node:10.15
+  stage: test
+  script:
+    - npm i
+    - npm run lint
+  tags:
+    - docker
+  only:
+    - merge_requests
+
+publish:
+  stage: deploy
+  tags:
+    - pp-shell
+  only:
+    - tags
+  script:
+    - npm i
+    - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}'>.npmrc
+    - ./publish/publish.sh
+    - rm .npmrc
+  only:
+    - tags
+  tags:
+    - pp-develop
