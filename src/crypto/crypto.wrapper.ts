@@ -2,7 +2,11 @@ import { TYPES_DI } from '../constants/inversify.constants';
 
 import {
 	DEFAULT_TIMEOUT_REQUEST,
-	ETH_BASE_URL,
+	ETH_BASE_HTTP_URL,
+	ETH_BASE_WS_URL,
+	ETH_BASE_WS_RECONNECT,
+	ETH_BASE_WS_ATTEMPTS,
+	ETH_BASE_WS_TIMEOUT,
 } from '../config/capi.lib.config';
 
 import { ICrypto, IPublicCrypto } from '../interfaces/crypto.interface';
@@ -49,16 +53,28 @@ class CryptoWrapper implements IPublicCrypto {
 	}
 
 	private getEthConfig(eth: IServerConfig) {
-		const config: any = {};
+		const config: any = {
+			baseUrl: ETH_BASE_HTTP_URL,
+			events: {
+				url: ETH_BASE_WS_URL,
+				reconnect: ETH_BASE_WS_RECONNECT,
+				attempts: ETH_BASE_WS_ATTEMPTS,
+				timeout: ETH_BASE_WS_TIMEOUT,
+			},
+		};
 
-		config.baseUrl = (eth && eth.baseUrl) || ETH_BASE_URL;
+		if (!eth) {
+			return config;
+		}
 
-		if (eth && eth.events) {
+		if (eth.baseUrl) {
+			config.baseUrl = eth.baseUrl;
+		}
+
+		if (eth.events && Object.keys(eth.events).length) {
 			config.events = {
-				url: eth.events.url,
-				reconnect: eth.events.reconnect,
-				attempts: eth.events.attempts,
-				timeout: eth.events.timeout,
+				...config.events,
+				...eth.events,
 			};
 		}
 
