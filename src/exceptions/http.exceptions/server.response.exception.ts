@@ -1,4 +1,4 @@
-import { IErrorDetail } from '../interfaces/errors/error.detail.interface';
+import { IErrorDetail } from '../../interfaces/errors/error.detail.interface';
 
 export class ServerResponseException {
 	readonly status: number;

@@ -12,7 +12,7 @@ export class UrlHelper implements IUrlHelper {
 	 * @param {{[name: string]: any}} options?
 	 * @return {string}
 	 */
-	addOptionsToUrl(url: string, options?: {[name: string]: any}): string {
+	addOptionsToUrl(url: string, options?: { [p: string]: any }): string {
 		if (!options) { return  url; }
 		let transformUrl = `${url}?`;
 		Object.entries(options).forEach(([key, value]) => transformUrl = `${transformUrl}&${key}=${value}`);

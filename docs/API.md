@@ -28,9 +28,12 @@ This library provides api methods to work with CryptoAPI.
 <dt><a href="#eth.getTokensBalancesByHolderAddress">eth.getTokensBalancesByHolderAddress</a> ⇒<code><a href="#EthTokensByHolder">Promise&lt;EthTokensByHolder&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.decodeRawTransaction">eth.decodeRawTransaction</a> ⇒<code><a href="#EthRawTransaction">Promise&lt;EthRawTransaction&gt;</a></code></dt></dt>
+<dd></dd>
 <dt><a href="#eth.getTransactionsByAddresses">eth.getTransactionsByAddresses</a> ⇒<code><a href="#EthTransactionByAddresses">Promise&lt;EthTransactionByAddresses&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getTransactionsIntersection">eth.getTransactionsIntersection</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
+<dd></dd>
+<dt><a href="#eth.getTokenTransfers">eth.getTokenTransfers</a> ⇒<code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
 <dd></dd>
 </dl>
 
@@ -395,6 +398,53 @@ Example response:
 }
 ```
 
+
+#### <a name="eth.getTokenTransfers">eth.getTokenTransfers(tokenAddress: string, addresses: string[], options?: PaginationOptions)</a> ⇒ <code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
+
+Returns JSON data with list transfer by token address.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tokenAddress | <code>string</code> | [Token address] |
+| addresses | <code>string[]</code> | [Ethereum addresses] |
+
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    crypto.api.eth.getTokenTransfers('0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c', [], {
+        skip: 1,
+        limit: 1
+    });
+
+```
+
+Example response:
+```
+{
+ addresses: null
+    skip: 1
+    limit: 1
+    items: [
+        {
+            address: "0xda2a36bde6b0b87c72701d94fa4c2bc2d70d9b2c"
+            block_number: 5514501
+            execute_address: "0x1fe2407c888d6d7d41021d45e9f22781f6641629"
+            from: "0x0000000000000000000000000000000000000000"
+            log_index: 2
+            timestamp: "2019-11-27T12:11:26.000Z"
+            to: "0x08355184bdfd2f61324808cc8652b12db6d4f8cc"
+            transaction_hash: "0x45dff9751cffa8a933138d17ccfaff480114dc3240da78e2fde76c9e81462636"
+            transaction_index: 9
+            type: "ERC20"
+            value: "0x000000000000000000000000000000000000000000000001158e460913d00000"
+        }
+    ]
+    count: 2
+}
+```
+
 ## Typedefs
 
 <dl>
@@ -418,9 +468,12 @@ Example response:
 <dd></dd>
 <dt><a href="#EthTokensByHolder">EthTokensByHolder</a> : <code>Object</code></dt>
 <dd></dd>
+<dt><a href="#EthTokenTransfersResponse">EthTokenTransfersResponse</a> : <code>Object</code></dt>
+<dd></dd>
 <dt><a href="#PaginationOptions">PaginationOptions</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthRawTransaction">EthRawTransaction</a> : <code>Object</code></dt>
+<dd></dd>
 <dt><a href="#EthTransactionByAddresses">EthTransactionByAddresses</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTransactionsIntersection">EthTransactionsIntersection</a> : <code>Object</code></dt>
@@ -560,6 +613,32 @@ Example response:
 }
 ```
 
+#### EthTokenTransfersResponse : <code>Object</code>
+<a name="EthTokenTransfersResponse"></a>
+
+```javascript
+{
+    addresses: String[]|null;
+    skip: Number;
+    limit: Number;
+    count: Number;
+    items: Array<{
+        type: String;
+        execute_address: String;
+        from: String;
+        to: String;
+        value: String;
+        address: String;
+        block_number: Number;
+        transaction_hash: String;
+        transaction_index: Number;
+        log_index: Number;
+        timestamp: String;  
+    }> 
+}
+```
+
+
 #### PaginationOptions : <code>Object</code>
 <a name="PaginationOptions"></a>
 
@@ -615,27 +694,27 @@ Example response:
 
 ```javascript
 {
-    addresses: String[],
-    limit: Number,
-    skip: Number,
+    addresses: String[];
+    limit: Number;
+    skip: Number;
     items: Array<{
-        block_hash: String,
-        block_number: Number,
-        from: String,
-        to: String,
-        value: String,
-        hash: String,
-        input: String,
-        nonce: Number,
-        transaction_index: Number,
-        v: String,
-        s: String,
-        r: String,
-        gas: Number,
-        gas_price: String,
-        internal: Boolean,
-        utc: String,
-    }>,
-    count: Number,
+        block_hash: String;
+        block_number: Number;
+        from: String;
+        to: String;
+        value: String;
+        hash: String;
+        input: String;
+        nonce: Number;
+        transaction_index: Number;
+        v: String;
+        s: String;
+        r: String;
+        gas: Number;
+        gas_price: String;
+        internal: Boolean;
+        utc: String;
+    }>;
+    count: Number;
 }
 ```

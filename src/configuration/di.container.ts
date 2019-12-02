@@ -16,15 +16,14 @@ import { IEthBlockApi } from '../interfaces/eth.apis/eth.sub.apis/eth.block.inte
 import { IEthTokenApi } from 'interfaces/eth.apis/eth.sub.apis/eth.token.api.interface';
 import { IEthTransactionsApi } from '../interfaces/eth.apis/eth.sub.apis/eth.transactions.interface';
 
-import { IValidateHelper } from '../interfaces/providers/helpers/validate.helper.interface';
-import { IUrlHelper } from '../interfaces/providers/helpers/url.helper.interface';
-
 import { Crypto } from '../crypto/crypto';
 import { ApiClient } from '../clients/api.client';
 import { EventsClient } from '../clients/events.client';
 import { EthEventsClient } from '../clients/eth.events/eth.events.client';
 import { EthApiClient } from '../clients/eth.apis/eth.api.client';
 import { IHttpService } from '../interfaces/providers/http.service.interface';
+import { IValidateHelper } from '../interfaces/providers/helpers/validate.helper.interface';
+import { IUrlHelper } from '../interfaces/providers/helpers/url.helper.interface';
 
 import { EthMainInfoApi } from '../clients/eth.apis/eth.sub.apis/eth.main.info.api';
 import { EthAddressApi } from '../clients/eth.apis/eth.sub.apis/eth.address.api';
@@ -79,10 +78,10 @@ diContainer
 	.to(HttpService)
 	.inSingletonScope();
 
-/**
- * Inject helpers
+/*
+ * Inject providers.
  */
-diContainer.bind<IValidateHelper>(TYPES_DI.IValidateHelper).to(ValidateHelper);
-diContainer.bind<IUrlHelper>(TYPES_DI.IUrlHelper).to(UrlHelper);
+diContainer.bind<IValidateHelper>(TYPES_DI.IValidateHelper).to(ValidateHelper).inSingletonScope();
+diContainer.bind<IUrlHelper>(TYPES_DI.IUrlHelper).to(UrlHelper).inSingletonScope();
 
 export { diContainer };

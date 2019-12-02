@@ -2,7 +2,6 @@ import 'reflect-metadata';
 import { inject, injectable } from 'inversify';
 
 import { TYPES_DI } from '../../../constants/inversify.constants';
-import { InternalLibraryException } from '../../../exceptions/internal.library.exception';
 
 import {
 	EthTransactionByAddresses,
@@ -16,6 +15,7 @@ import { IUrlHelper } from '../../../interfaces/providers/helpers/url.helper.int
 import { IHttpService } from '../../../interfaces/providers/http.service.interface';
 
 import { AbstractApi } from '../../../abstracts/abstract.api';
+import { InternalLibraryException } from '../../../exceptions/library.exceptions/internal.library.exception';
 
 @injectable()
 export class EthTransactionsApi extends AbstractApi implements IEthTransactionsApi {

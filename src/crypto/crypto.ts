@@ -7,7 +7,7 @@ import { ICrypto } from '../interfaces/crypto.interface';
 import { IApiClient } from '../interfaces/clients/api.client.interface';
 import { IEventsClient } from '../interfaces/clients/events.client.interface';
 import { ICryptoConfig } from '../interfaces/configs/crypto.config.interface';
-import { UnauthorizedException } from '../exceptions/unauthorized.exception';
+import { UnauthorizedException } from '../exceptions/http.exceptions/unauthorized.exception';
 
 import { CryptoConfig } from '../dtos/crypto.config';
 
@@ -22,8 +22,7 @@ export class Crypto implements ICrypto {
 
 	/**
 	 * Configure Crypto client
-	 * @method
-	 * @name configure
+	 * @method configure
 	 * @param {ICryptoConfig} config
 	 * @return {void}
 	 */
@@ -34,8 +33,7 @@ export class Crypto implements ICrypto {
 
 	/**
 	 * Check token access.
-	 * @private method
-	 * @name _checkCredentials
+	 * @private method _checkCredentials
 	 * @return {Error|void}
 	 */
 	private _checkCredentials(): void {
@@ -45,10 +43,8 @@ export class Crypto implements ICrypto {
 	}
 
 	/**
-	 *
 	 * Check credentials before getting access to events clients.
-	 * @property
-	 * @name events
+	 * @property events
 	 * @return {IEventsClient}
 	 */
 	get events() {
@@ -57,10 +53,8 @@ export class Crypto implements ICrypto {
 	}
 
 	/**
-	 *
 	 * Check credentials before getting access to api clients.
-	 * @property
-	 * @name api
+	 * @property api
 	 * @return {IApiClient}
 	 */
 	get api() {

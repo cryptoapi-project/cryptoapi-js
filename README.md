@@ -30,7 +30,7 @@ const result = await crypto.api.eth.getNetworkInfo();
 
 ##### ES Module
 ```js
-import { Crypto } from 'crypto.js';
+import { Crypto } from 'cryptoapi';
 const crypto = new Crypto('***');
 const result = await crypto.api.eth.getNetworkInfo();
 ```

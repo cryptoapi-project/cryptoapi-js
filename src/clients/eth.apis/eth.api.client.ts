@@ -182,4 +182,17 @@ export class EthApiClient implements IEthApiClient {
 	decodeRawTransaction(tr: string) {
 		return this.ethRawTransactionApi.decodeRawTransaction(tr);
 	}
+
+	/*
+	 * Method to get token transfers by token address.
+	 * @method getTokenTransfers
+	 * @param {string} addressToken
+	 * @param {string[]} addresses
+	 * @param {PaginationOptions} options?
+	 * @return {Promise<EthTokenTransfersResponse>}
+	 */
+	@TryCatch
+	getTokenTransfers(addressToken: string, addresses: string[], options?: PaginationOptions) {
+		return this.ethTokenInfo.getTokenTransfers(addressToken, addresses, options);
+	}
 }
