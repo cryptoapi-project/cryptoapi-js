@@ -20,6 +20,7 @@ import { TryCatch } from '../../providers/decorators/try.catch';
 
 @injectable()
 export class EthApiClient implements IEthApiClient {
+
 	config: IServerConfig|null = null;
 
 	constructor(
@@ -27,6 +28,7 @@ export class EthApiClient implements IEthApiClient {
 		@inject(TYPES_DI.IEthTokenApi) private readonly ethTokenInfo: IEthTokenApi,
 		@inject(TYPES_DI.IEthAddressApi) private readonly ethAddressInfo: IEthAddressApi,
 		@inject(TYPES_DI.IEthContractApi) private readonly ethContractApi: IEthContractApi,
+		@inject(TYPES_DI.IEthRawTransactionApi) private readonly rawTransactionApi: IEthRawTransactionApi,
 		@inject(TYPES_DI.IEthRawTransactionApi) private readonly ethRawTransactionApi: IEthRawTransactionApi,
 		@inject(TYPES_DI.IEthTransactionsApi) private readonly ethTransactions: IEthTransactionsApi,
 		@inject(TYPES_DI.IEthBlockApi) private readonly ethBlock: IEthBlockApi,
@@ -43,6 +45,7 @@ export class EthApiClient implements IEthApiClient {
 		this.ethTokenInfo.configure(config);
 		this.ethAddressInfo.configure(config);
 		this.ethContractApi.configure(config);
+		this.rawTransactionApi.configure(config);
 		this.ethRawTransactionApi.configure(config);
 		this.ethTransactions.configure(config);
 		this.ethBlock.configure(config);
@@ -207,5 +210,16 @@ export class EthApiClient implements IEthApiClient {
 	@TryCatch
 	callContract(address: string, dataToCall: EthContractCall) {
 		return this.ethContractApi.callContract(address, dataToCall);
+	}
+
+	/*
+	 * Method to send raw transaction
+	 * @method sendRawTransaction
+	 * @param {string} tx
+	 * @return {Promise<string>}
+	 */
+	@TryCatch
+	sendRawTransaction(tx: string) {
+		return this.rawTransactionApi.sendRawTransaction(tx);
 	}
 }

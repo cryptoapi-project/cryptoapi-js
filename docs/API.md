@@ -29,6 +29,8 @@ This library provides api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.decodeRawTransaction">eth.decodeRawTransaction</a> ⇒<code><a href="#EthRawTransaction">Promise&lt;EthRawTransaction&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#eth.sendRawTransaction">eth.sendRawTransaction</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
+<dd></dd>
 <dt><a href="#eth.getTransactionsByAddresses">eth.getTransactionsByAddresses</a> ⇒<code><a href="#EthTransactionByAddresses">Promise&lt;EthTransactionByAddresses&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getTransactionsIntersection">eth.getTransactionsIntersection</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
@@ -280,6 +282,7 @@ Example response:
 #### <a name="eth.decodeRawTransaction">eth.decodeRawTransaction(tx: string)</a> ⇒ <code><a href="#EthRawTransaction">Promise&lt;EthRawTransaction&gt;</a></code></dt></dt>
 
 Returns JSON data of decode raw transaction by hash.
+
 Input data:
 
 | Param | Type | Description |
@@ -307,6 +310,31 @@ Example response:
     value: "0x45d964b800"
 }
  ```
+
+#### <a name="eth.sendRawTransaction">eth.sendRawTransaction(tx: string)</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
+ 
+Returns transaction hash.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tx | <code>string</code> | [Raw transaction] |
+
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    crypto.api.eth.sendRawTransaction('0xf86e8386ca038602bba7f5220083632ea0941de29f' +
+     '644d555fe9cc3241e1083de0868f959bfa8545d964b800801ca04ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637' +
+      'fdc35bdc49c4a04b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02');
+```
+
+Example response:
+
+```
+'0x8c30624b26ab1aed4dbbab32ed7f3bf32ec7f5bc043a4bb2b355e0aedf1e23d5'
+```
+
 #### <a name="eth.getTransactionsByAddresses">eth.getTransactionsByAddresses</a>(addresses: string[], positive: boolean, options: <a href="#PaginationOptions">PaginationOptions</a>) ⇒<code><a href="#EthTransactionByAddresses">Promise&lt;EthTransactionByAddresses&gt;</a></code></dt></dt>
 
 Return list of transactions by addresses.
