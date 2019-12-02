@@ -5,7 +5,6 @@ import { TYPES_DI } from '../../../constants/inversify.constants';
 import { EthTokenInfo } from '../../../dtos/eth/eth.token.info';
 import { EthTokenBalance } from '../../../dtos/eth/eth.token.balance';
 import { EthTokensByHolder } from '../../../dtos/eth/eth.tokens.by.holder';
-
 import { EthTokenTransfersResponse } from '../../../dtos/eth/eth.transfer.dto';
 
 import { IEthTokenApi } from '../../../interfaces/eth.apis/eth.sub.apis/eth.token.api.interface';
@@ -102,5 +101,4 @@ export class EthTokenApi extends AbstractApi  implements IEthTokenApi {
 
 		return new EthTokenTransfersResponse(tokenTransfers.data);
 	}
-
 }

@@ -4,6 +4,7 @@ import { TYPES_DI } from '../../constants/inversify.constants';
 
 import { EstimateGasRequest, EstimateGasResponse } from '../../dtos/eth/eth.estimate.gas.dto';
 import { PaginationOptions } from '../../dtos/paginations.options';
+import { EthContractCall } from '../../dtos/eth/eth.contract.dto';
 
 import { IEthApiClient } from '../../interfaces/eth.apis/eth.api.client.interface';
 import { IEthMainInfoApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.main.info.interface';
@@ -194,5 +195,17 @@ export class EthApiClient implements IEthApiClient {
 	@TryCatch
 	getTokenTransfers(addressToken: string, addresses: string[], options?: PaginationOptions) {
 		return this.ethTokenInfo.getTokenTransfers(addressToken, addresses, options);
+	}
+
+	/**
+	 * Method to call contract.
+	 * @method callContract
+	 * @param {string} address
+	 * @param {EthContractCall} dataToCall
+	 * @return {Promise<string>}
+	 */
+	@TryCatch
+	callContract(address: string, dataToCall: EthContractCall) {
+		return this.ethContractApi.callContract(address, dataToCall);
 	}
 }
