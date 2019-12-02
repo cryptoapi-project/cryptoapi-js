@@ -13,6 +13,8 @@ This library provides api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.estimateGas">eth.estimateGas</a> ⇒<code><a href="#EstimateGasResponse">Promise&lt;EstimateGasResponse&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#eth.getBlock">eth.getBlock</a> ⇒<code><a href="#EthBlockInfo">Promise&lt;EthBlockInfo&gt;</a></code></dt></dt>
+<dd></dd>
 <dt><a href="#eth.getAddressesBalances">eth.getAddressesBalances(addresses: string[])</a> ⇒<code><a href="#EthAddressBalance">Promise&lt;EthAddressBalance[]&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getAddressesInfos">eth.getAddressesInfos(addresses: string[])</a> ⇒<code><a href="#EthAddressInfo">Promise&lt;EthAddressInfo[]&gt;</a></code></dt></dt>
@@ -24,6 +26,14 @@ This library provides api methods to work with CryptoAPI.
 <dt><a href="#eth.getTokenBalanceByAddresses">eth.getTokenBalanceByAddresses</a> ⇒<code><a href="#EthTokenBalance">Promise&lt;EthTokenBalance&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getTokensBalancesByHolderAddress">eth.getTokensBalancesByHolderAddress</a> ⇒<code><a href="#EthTokensByHolder">Promise&lt;EthTokensByHolder&gt;</a></code></dt></dt>
+<dd></dd>
+<dt><a href="#eth.decodeRawTransaction">eth.decodeRawTransaction</a> ⇒<code><a href="#EthRawTransaction">Promise&lt;EthRawTransaction&gt;</a></code></dt></dt>
+<dd></dd>
+<dt><a href="#eth.getTransactionsByAddresses">eth.getTransactionsByAddresses</a> ⇒<code><a href="#EthTransactionByAddresses">Promise&lt;EthTransactionByAddresses&gt;</a></code></dt></dt>
+<dd></dd>
+<dt><a href="#eth.getTransactionsIntersection">eth.getTransactionsIntersection</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
+<dd></dd>
+<dt><a href="#eth.getTokenTransfers">eth.getTokenTransfers</a> ⇒<code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
 <dd></dd>
 </dl>
 
@@ -68,6 +78,41 @@ Example response:
 }
 ```
 
+#### <a name="eth.getBlock">eth.getBlock</a>(blockNumber: Number) ⇒ <code>Promise&lt;<a href="#EthBlockInfo">EthBlockInfo</a>&gt;</code></dt></dt>
+Returns JSON data about block information.
+
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    const result = await crypto.api.eth.getBlock(5485938);
+```
+Example response:
+```
+{
+    difficulty: 1,
+    extra_data: '0xd883010908846765746888676f312e31332e34856c696e7578000000000000005344e40516cf25d3831c0a99553e3dc522e4a047f4881584319003a5a40544191695fc59149c7f4b892cbf9aee326742a4fea971bde5a06223f61101549f69a300',
+    gas_limit: 10000000,
+    gas_used: 1881766,
+    hash: '0xfe61a16336aabe235e01a3b3540e9581f7e4684df9c3d555eb68e3e33d8cebce',
+    logs_bloom: '0x00000000000000000000000080000000000000011001000000800000000000004000000000001000010000000000000000000000000080000000000000000000000010000000000000000208000000000001000000000000000001000000000000000000020000000001800000000800000000000000001040000010000020400000000040000000000000400000001000000800000001000000000000000400090000080000200000400000006440000400000000000000000000200000000000040002000000000000000000000000000000000000000100000000000020000000000000000000000000000000000000000008000000000000000000000000',
+    miner: '0x0000000000000000000000000000000000000000',
+    mix_hash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+    nonce: '0x0000000000000000',
+    number: 5485938,
+    parent_hash: '0x17d034907cfff120fcab3743391038b348967d3f9e150ff3312b69d775dd5840',
+    receipts_root: '0x61481ef8741cf344b69bf629cbd6cf9535af8ac485a2ac98d8534c0708fef125',
+    sha3_uncles: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
+    size: 9346,
+    state_root: '0x996ba95665d4d800afe83509a2ba4d0e680cd729edbda1ef6cb1c438edda2800',
+    timestamp: 1574428229,
+    total_difficulty: 9969080,
+    transaction_root: '0xba02eb65dbd8629bf13b0819e5a7e0158dfcfcc64b7c1922a794b2f6824f8b42',
+    transactions: ['0xec4f7a1a8bfbac44fd2d9af09a7291217668a6b834a54fa186a9cf613d65ca34'],
+    uncles: []
+}
+```
+
+
 #### <a name="eth.getAddressesBalances">getAddressesBalances(address: string[])</a> ⇒ <code><a href="#EthAddressBalance">Promise&lt;EthAddressBalance[]&gt;</a></code></dt></dt>
 Returns JSON data about a eth addresses balances informations.
 
@@ -81,7 +126,7 @@ Input data:
     import { Crypto } from 'cryptoapi';
     const crypto = new Crypto('******');
     const result =  crypto.api.eth.getAddressesBalances([
-                       		'0xa177AD7c3CA2cCa794C02a0FF4dF1C2B09D49C8f', 
+                       		'0xa177AD7c3CA2cCa794C02a0FF4dF1C2B09D49C8f',
                        		'0xf24A2674208B7B5EC2f2863DCb65938EF82dC180'
                        ]);
 ```
@@ -89,10 +134,10 @@ Example response:
 ```
 [
     {
-        address: "0xa177ad7c3ca2cca794c02a0ff4df1c2b09d49c8f", 
+        address: "0xa177ad7c3ca2cca794c02a0ff4df1c2b09d49c8f",
         balance: "0"
     }, {
-        address: "0xf24a2674208b7b5ec2f2863dcb65938ef82dc180", 
+        address: "0xf24a2674208b7b5ec2f2863dcb65938ef82dc180",
         balance: "2044716170999999824"
     }
 ]
@@ -197,7 +242,7 @@ Example response:
 ```
 
 #### <a name="eth.getTokensBalancesByHolderAddress">eth.getTokensBalancesByHolderAddress(address: string, options: PaginationOptions)</a> ⇒<code><a href="#EthTokensByHolder">Promise&lt;EthTokensByHolder&gt;</a></code></dt></dt>
- 
+
 Return list of tokens balances by holder address, when token balance is more than zero.
 
 Input data:
@@ -231,10 +276,181 @@ Example response:
 }
 ```
 
+#### <a name="eth.decodeRawTransaction">eth.decodeRawTransaction(tx: string)</a> ⇒ <code><a href="#EthRawTransaction">Promise&lt;EthRawTransaction&gt;</a></code></dt></dt>
+
+Returns JSON data of decode raw transaction by hash.
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tr | <code>string</code> | [Raw transaction] |
+
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    crypto.api.eth.decodeRawTransaction('0xf86e8386ca038602bba7f5220083632ea0941de29f644d555fe9cc3241e1083de0868' +
+                   		'f959bfa8545d964b800801ca04ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637fdc35' +
+                   		'bdc49c4a04b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02');
+```
+Example response:
+```
+{
+    data: "0x"
+    gas_limit: "0x632ea0"
+    gas_price: "0x02bba7f52200"
+    nonce: 8833539
+    r: "0x4ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637fdc35bdc49c4"
+    s: "0x4b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02"
+    to: "0x1de29f644d555fe9cc3241e1083de0868f959bfa"
+    v: 28
+    value: "0x45d964b800"
+}
+ ```
+#### <a name="eth.getTransactionsByAddresses">eth.getTransactionsByAddresses</a>(addresses: string[], positive: boolean, options: <a href="#PaginationOptions">PaginationOptions</a>) ⇒<code><a href="#EthTransactionByAddresses">Promise&lt;EthTransactionByAddresses&gt;</a></code></dt></dt>
+
+Return list of transactions by addresses.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| addresses | <code>string[]</code> | [Ethereum Addresses] |
+| positive? | <code>boolean</code> | [If true, return only items with positive value] |
+| options? | <code><a href="#PaginationOptions">PaginationOptions</a></code> | [Count of skipping items and page items count] |
+
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    crypto.api.eth.getTransactionsByAddresses(['0x99608ad1026a47acf7839003546748158ad55504']);
+```
+
+Example response:
+```
+{
+    "addresses": [
+        "0x99608ad1026a47acf7839003546748158ad55504"
+    ],
+    "limit": 100,
+    "skip": 0,
+    "items": [
+        {
+            "block_number": 5485938,
+            "from": "0xcd66e50e51026673d60b3f993610b46b0f44096f",
+            "to": "0x99608ad1026a47acf7839003546748158ad55504",
+            "value": "1000000000000000000",
+            "hash": "0xec4f7a1a8bfbac44fd2d9af09a7291217668a6b834a54fa186a9cf613d65ca34",
+            "gas": 21000,
+            "gas_price": "22000000000",
+            "internal": false,
+            "utc": "2019-11-22T13:10:29.000Z"
+        }
+    ],
+    "count": 1
+}
+```
+
+#### <a name="eth.getTransactionsIntersection">eth.getTransactionsIntersection(addresses: string[], options: <a href="#PaginationOptions">PaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
+
+Return list of transactions interception by addresses.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| addresses | <code>string[]</code> | [Ethereum Addresses] |
+| options? | <code><a href="#PaginationOptions">PaginationOptions</a></code> | [Options params to paginating response] |
+
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    crypto.api.eth.getTransactionsIntersection(['0x99608ad1026a47acf7839003546748158ad55504', '0xcd66e50e51026673d60b3f993610b46b0f44096f']);
+```
+
+Example response:
+```
+{
+    "addresses": [
+        "0x99608ad1026a47acf7839003546748158ad55504",
+        "0xcd66e50e51026673d60b3f993610b46b0f44096f"
+    ],
+    "limit": 35,
+    "skip": 0,
+    "count": 1,
+    "items": [
+        {
+            "block_hash": "0xfe61a16336aabe235e01a3b3540e9581f7e4684df9c3d555eb68e3e33d8cebce",
+            "block_number": 5485938,
+            "utc": "2019-11-22T13:10:29.000Z",
+            "from": "0xcd66e50e51026673d60b3f993610b46b0f44096f",
+            "gas": 21000,
+            "gas_price": "22000000000",
+            "hash": "0xec4f7a1a8bfbac44fd2d9af09a7291217668a6b834a54fa186a9cf613d65ca34",
+            "input": "0x",
+            "nonce": 377,
+            "to": "0x99608ad1026a47acf7839003546748158ad55504",
+            "transaction_index": 0,
+            "value": "1000000000000000000",
+            "v": "0x2b",
+            "s": "0x55b0348bf5a0f5b3e64f2b6a324c2dc3114f301e5dfbd68b01e1d0b2a3f4a593",
+            "r": "0xa03fe81c87e60fce8d483ec933a65931e617f38af01c6a1cc37d6658f79bbda1"
+        }
+    ]
+}
+```
+
+
+#### <a name="eth.getTokenTransfers">eth.getTokenTransfers(tokenAddress: string, addresses: string[], options?: PaginationOptions)</a> ⇒ <code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
+
+Returns JSON data with list transfer by token address.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tokenAddress | <code>string</code> | [Token address] |
+| addresses | <code>string[]</code> | [Ethereum addresses] |
+
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    crypto.api.eth.getTokenTransfers('0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c', [], {
+        skip: 1,
+        limit: 1
+    });
+
+```
+
+Example response:
+```
+{
+ addresses: null
+    skip: 1
+    limit: 1
+    items: [
+        {
+            address: "0xda2a36bde6b0b87c72701d94fa4c2bc2d70d9b2c"
+            block_number: 5514501
+            execute_address: "0x1fe2407c888d6d7d41021d45e9f22781f6641629"
+            from: "0x0000000000000000000000000000000000000000"
+            log_index: 2
+            timestamp: "2019-11-27T12:11:26.000Z"
+            to: "0x08355184bdfd2f61324808cc8652b12db6d4f8cc"
+            transaction_hash: "0x45dff9751cffa8a933138d17ccfaff480114dc3240da78e2fde76c9e81462636"
+            transaction_index: 9
+            type: "ERC20"
+            value: "0x000000000000000000000000000000000000000000000001158e460913d00000"
+        }
+    ]
+    count: 2
+}
+```
+
 ## Typedefs
 
 <dl>
 <dt><a href="#EthNetworkInfo">EthNetworkInfo</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthBlockInfo">EthBlockInfo</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTokenInfo">EthTokenInfo</a> : <code>Object</code></dt>
 <dd></dd>
@@ -252,7 +468,15 @@ Example response:
 <dd></dd>
 <dt><a href="#EthTokensByHolder">EthTokensByHolder</a> : <code>Object</code></dt>
 <dd></dd>
+<dt><a href="#EthTokenTransfersResponse">EthTokenTransfersResponse</a> : <code>Object</code></dt>
+<dd></dd>
 <dt><a href="#PaginationOptions">PaginationOptions</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthRawTransaction">EthRawTransaction</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthTransactionByAddresses">EthTransactionByAddresses</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthTransactionsIntersection">EthTransactionsIntersection</a> : <code>Object</code></dt>
 <dd></dd>
 </dl>
 
@@ -266,6 +490,34 @@ Example response:
     gasPrice: Number;
     hashRate: Number;
     difficulty: Number;
+}
+```
+
+#### EthBlockInfo : <code>Object</code>
+<a name="EthBlockInfo"></a>
+
+```javascript
+{
+    size: Number;
+    difficulty: Number;
+    total_difficulty: Number;
+    uncles: String[];
+    number: Number;
+    hash: String;
+    parent_hash: String;
+    nonce: String;
+    sha3_uncles: String;
+    logs_bloom: String;
+    transaction_root: String;
+    state_root: String;
+    receipts_root: String;
+    miner: String;
+    mix_hash: String;
+    extra_data: String;
+    gas_limit: Number;
+    gas_used: Number;
+    timestamp: Number;
+    transactions: String[];
 }
 ```
 
@@ -345,7 +597,7 @@ Example response:
 
 ```javascript
 {
-   address: String; 
+   address: String;
    balance: String;
    holder: String;
 }
@@ -361,6 +613,32 @@ Example response:
 }
 ```
 
+#### EthTokenTransfersResponse : <code>Object</code>
+<a name="EthTokenTransfersResponse"></a>
+
+```javascript
+{
+    addresses: String[]|null;
+    skip: Number;
+    limit: Number;
+    count: Number;
+    items: Array<{
+        type: String;
+        execute_address: String;
+        from: String;
+        to: String;
+        value: String;
+        address: String;
+        block_number: Number;
+        transaction_hash: String;
+        transaction_index: Number;
+        log_index: Number;
+        timestamp: String;  
+    }> 
+}
+```
+
+
 #### PaginationOptions : <code>Object</code>
 <a name="PaginationOptions"></a>
 
@@ -368,5 +646,75 @@ Example response:
 {
    skip?: Number;
    limit?: Number;
+}
+```
+
+#### EthRawTransaction : <code>Object</code>
+<a name="EthRawTransaction"></a>
+
+```javascript
+{
+    nonce: Number;
+    gas_price: String;
+    gas_limit: String;
+    to: String;
+    value: String;
+    data: String;
+    v: Number;
+    r: String;
+    s: String;
+}
+```
+
+#### EthTransactionByAddresses : <code>Object</code>
+<a name="EthTransactionByAddresses"></a>
+
+```javascript
+{
+    addresses: String[];
+    limit: Number;
+    skip: Number;
+    items: Array<{
+        block_number: Number;
+        from: String;
+        to: String;
+        value: String;
+        hash: String;
+        gas: Number;
+        gas_price: String;
+        internal: Boolean;
+        utc: String;
+    }>;
+    count: Number;
+}
+```
+
+#### EthTransactionsIntersection : <code>Object</code>
+<a name="EthTransactionsIntersection"></a>
+
+```javascript
+{
+    addresses: String[];
+    limit: Number;
+    skip: Number;
+    items: Array<{
+        block_hash: String;
+        block_number: Number;
+        from: String;
+        to: String;
+        value: String;
+        hash: String;
+        input: String;
+        nonce: Number;
+        transaction_index: Number;
+        v: String;
+        s: String;
+        r: String;
+        gas: Number;
+        gas_price: String;
+        internal: Boolean;
+        utc: String;
+    }>;
+    count: Number;
 }
 ```

@@ -13,8 +13,7 @@ import {
 } from '../interfaces/configs/crypto.config.interface';
 
 import { diContainer } from '../configuration/di.container';
-import { UnauthorizedException } from '../exceptions/unauthorized.exception';
-import { UnprocessableException } from '../exceptions/unprocessable.exception';
+import { InvalidParamsException } from '../exceptions/library.exceptions/invalid.params.exceptions';
 
 class CryptoWrapper implements IPublicCrypto {
 	private crypto: ICrypto;
@@ -25,7 +24,7 @@ class CryptoWrapper implements IPublicCrypto {
 		const cryptoConfig: any = {};
 
 		if (!token) {
-			throw new UnprocessableException('Incorrect params.');
+			throw new InvalidParamsException('Invalid params.');
 		}
 
 		options = options || {};
@@ -42,12 +41,8 @@ class CryptoWrapper implements IPublicCrypto {
 		cryptoConfig.eth = this.getEthConfig(options.eth);
 
 		if (!cryptoConfig.token) {
-			throw new UnauthorizedException('Token is not exist.');
+			throw new InvalidParamsException('Token is not exist.');
 		}
-
-		diContainer
-			.bind<ICryptoConfig>(TYPES_DI.ICryptoConfig)
-			.toConstantValue(cryptoConfig);
 
 		this.crypto = diContainer.get<ICrypto>(TYPES_DI.ICrypto);
 		this.crypto.configure(cryptoConfig);
@@ -71,8 +66,7 @@ class CryptoWrapper implements IPublicCrypto {
 	}
 
 	/**
-	 * @property
-	 * @name events
+	 * @property events
 	 * @return {IEventsClient}
 	 */
 	get events() {
@@ -80,13 +74,13 @@ class CryptoWrapper implements IPublicCrypto {
 	}
 
 	/**
-	 * @property
-	 * @name api
+	 * @property api
 	 * @return {IApiClient}
 	 */
 	get api() {
 		return this.crypto.api;
 	}
+
 }
 
 export { CryptoWrapper as Crypto };

@@ -1,4 +1,9 @@
-export class UrlHelper {
+import { injectable } from 'inversify';
+
+import { IUrlHelper } from '../../interfaces/providers/helpers/url.helper.interface';
+
+@injectable()
+export class UrlHelper implements IUrlHelper {
 
 	/**
 	 * Add params to url
@@ -7,7 +12,7 @@ export class UrlHelper {
 	 * @param {{[name: string]: any}} options?
 	 * @return {string}
 	 */
-	static addOptionsToUrl(url: string, options?: {[name: string]: any}): string {
+	addOptionsToUrl(url: string, options?: { [p: string]: any }): string {
 		if (!options) { return  url; }
 		let transformUrl = `${url}?`;
 		Object.entries(options).forEach(([key, value]) => transformUrl = `${transformUrl}&${key}=${value}`);

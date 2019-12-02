@@ -1,7 +1,7 @@
 import { IServerConfig } from '../interfaces/configs/crypto.config.interface';
 import { IConfigurable } from '../interfaces/configs/configurable.interface';
 import { ServerConfig } from '../dtos/crypto.config';
-import { InternalLibraryException } from '../exceptions/internal.library.exception';
+import { InternalLibraryException } from '../exceptions/library.exceptions/internal.library.exception';
 import { injectable } from 'inversify';
 
 @injectable()

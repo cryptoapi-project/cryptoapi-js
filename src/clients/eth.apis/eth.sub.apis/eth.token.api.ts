@@ -6,17 +6,24 @@ import { EthTokenInfo } from '../../../dtos/eth/eth.token.info';
 import { EthTokenBalance } from '../../../dtos/eth/eth.token.balance';
 import { EthTokensByHolder } from '../../../dtos/eth/eth.tokens.by.holder';
 
+import { EthTokenTransfersResponse } from '../../../dtos/eth/eth.transfer.dto';
+
 import { IEthTokenApi } from '../../../interfaces/eth.apis/eth.sub.apis/eth.token.api.interface';
 import { IHttpService } from '../../../interfaces/providers/http.service.interface';
+import { IUrlHelper } from '../../../interfaces/providers/helpers/url.helper.interface';
+import { IValidateHelper } from '../../../interfaces/providers/helpers/validate.helper.interface';
+
 import { AbstractApi } from '../../../abstracts/abstract.api';
 import { PaginationOptions } from '../../../dtos/paginations.options';
-import { UrlHelper } from '../../../providers/helpers/UrlHelper';
+import { BaseLibraryException } from '../../../exceptions/library.exceptions/base.exception';
 
 @injectable()
 export class EthTokenApi extends AbstractApi  implements IEthTokenApi {
 
 	constructor(
 		@inject(TYPES_DI.IHttpService) private readonly httpClient: IHttpService,
+		@inject(TYPES_DI.IUrlHelper) private readonly urlHelper: IUrlHelper,
+		@inject(TYPES_DI.IValidateHelper) private readonly validateHelper: IValidateHelper,
 	) {
 		super();
 	}
@@ -65,11 +72,35 @@ export class EthTokenApi extends AbstractApi  implements IEthTokenApi {
 
 		let url = `${this.config!.baseUrl}${'/coins/eth/tokens/:address/balances'
 			.replace(':address', address)}`;
-		url = UrlHelper.addOptionsToUrl(url, options);
+		url = this.urlHelper.addOptionsToUrl(url, options);
 
 		const tokensBalances = await this.httpClient.agent.get<EthTokensByHolder>(url);
 
 		return new EthTokensByHolder(tokensBalances.data);
+	}
+
+	/**
+	 * Method to get token transfers by token address.
+	 * @method getTokenTransfers
+	 * @param {string} tokenAddress
+	 * @param {string[]} addresses
+	 * @param {PaginationOptions} options?
+	 * @return {Promise<EthTokenTransfersResponse>}
+	 */
+	async getTokenTransfers(tokenAddress: string, addresses: string[], options?: PaginationOptions): Promise<EthTokenTransfersResponse> {
+		this._checkConfig();
+
+		if (!this.validateHelper.isArray(addresses)) {
+			throw new BaseLibraryException('Addresses must be an array.');
+		}
+
+		let url = `${this.config!.baseUrl}${'/coins/eth/tokens/:token'.replace(':token', tokenAddress)}`;
+		url += addresses.length ? `/${addresses.join(',')}/transfers` : '/transfers';
+		url = this.urlHelper.addOptionsToUrl(url, options);
+
+		const tokenTransfers = await this.httpClient.agent.get<EthTokenTransfersResponse>(url);
+
+		return new EthTokenTransfersResponse(tokenTransfers.data);
 	}
 
 }

@@ -12,13 +12,18 @@ const TYPES_DI = {
 	IEthNotifyApi: Symbol.for('IEthNotifyApi'),
 	IEthContractApi: Symbol.for('IEthContractApi'),
 	IEthRawTransactionApi: Symbol.for('IEthRawTransactionApi'),
+	IEthBlockApi: Symbol.for('IEthBlockApi'),
 	IEthTokenApi: Symbol.for('IEthTokenApi'),
+	IEthTransactionsApi: Symbol.for('IEthTransactionsApi'),
 
 	IIdHelper: Symbol.for('IIdHelper'),
 	ISubsHelper: Symbol.for('ISubsHelper'),
 
 	IHttpService: Symbol.for('IHttpService'),
 	ICryptoConfig: Symbol.for('ICryptoConfig'),
+
+	IValidateHelper: Symbol.for('IValidateHelper'),
+	IUrlHelper: Symbol.for('IUrlHelper'),
 };
 
 export { TYPES_DI };

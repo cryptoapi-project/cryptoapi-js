@@ -7,10 +7,13 @@ import { PaginationOptions } from '../../dtos/paginations.options';
 
 import { IEthApiClient } from '../../interfaces/eth.apis/eth.api.client.interface';
 import { IEthMainInfoApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.main.info.interface';
+import { IEthBlockApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.block.interface';
 import { IEthTokenApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.token.api.interface';
 import { IEthAddressApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.address.api.interface';
+import { IEthTransactionsApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.transactions.interface';
 import { IServerConfig } from '../../interfaces/configs/crypto.config.interface';
 import { IEthContractApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.contract.api.interface';
+import { IEthRawTransactionApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.raw.transaction.interface';
 
 import { TryCatch } from '../../providers/decorators/try.catch';
 
@@ -23,6 +26,9 @@ export class EthApiClient implements IEthApiClient {
 		@inject(TYPES_DI.IEthTokenApi) private readonly ethTokenInfo: IEthTokenApi,
 		@inject(TYPES_DI.IEthAddressApi) private readonly ethAddressInfo: IEthAddressApi,
 		@inject(TYPES_DI.IEthContractApi) private readonly ethContractApi: IEthContractApi,
+		@inject(TYPES_DI.IEthRawTransactionApi) private readonly ethRawTransactionApi: IEthRawTransactionApi,
+		@inject(TYPES_DI.IEthTransactionsApi) private readonly ethTransactions: IEthTransactionsApi,
+		@inject(TYPES_DI.IEthBlockApi) private readonly ethBlock: IEthBlockApi,
 	) {}
 
 	/**
@@ -36,6 +42,9 @@ export class EthApiClient implements IEthApiClient {
 		this.ethTokenInfo.configure(config);
 		this.ethAddressInfo.configure(config);
 		this.ethContractApi.configure(config);
+		this.ethRawTransactionApi.configure(config);
+		this.ethTransactions.configure(config);
+		this.ethBlock.configure(config);
 	}
 
 	/**
@@ -125,5 +134,65 @@ export class EthApiClient implements IEthApiClient {
 	@TryCatch
 	getTokensBalancesByHolderAddress(address: string, options?: PaginationOptions) {
 		return this.ethTokenInfo.getTokensBalancesByHolderAddress(address, options);
+	}
+
+	/**
+	 * Method to get block information.
+	 * @method getBlock
+	 * @param {Number} blockNumber
+	 * @return {Promise<EthBlockInfo>}
+	 */
+	@TryCatch
+	getBlock(blockNumber: number) {
+		return this.ethBlock.getBlock(blockNumber);
+	}
+
+	/**
+	 * Method to get transactions by addresses.
+	 * @method getTransactionsByAddresses
+	 * @param {string[]} addresses
+	 * @param {boolean} positive?
+	 * @param {PaginationOptions} options?
+	 * @return {Promise{EthTransactionByAddresses}}
+	 */
+	@TryCatch
+	getTransactionsByAddresses(addresses: string[], positive?: boolean, options?: PaginationOptions) {
+		return this.ethTransactions.getTransactionsByAddresses(addresses, positive, options);
+	}
+
+	/**
+	 * Get transactions interception by addresses
+	 * @method getTransactionsIntersection
+	 * @param {string[]} addresses
+	 * @param {PaginationOptions} options
+	 * @return {Promise<EthTransactionsIntersection>}
+	 */
+ 	@TryCatch
+ 	getTransactionsIntersection(addresses: string[], options: PaginationOptions) {
+ 		return this.ethTransactions.getTransactionsIntersection(addresses, options);
+ 	}
+
+	/**
+	 * Method decode raw transaction.
+	 * @method decodeRawTransaction
+	 * @param {string} tr
+	 * @return {EthRawTransaction}
+	 */
+	@TryCatch
+	decodeRawTransaction(tr: string) {
+		return this.ethRawTransactionApi.decodeRawTransaction(tr);
+	}
+
+	/*
+	 * Method to get token transfers by token address.
+	 * @method getTokenTransfers
+	 * @param {string} addressToken
+	 * @param {string[]} addresses
+	 * @param {PaginationOptions} options?
+	 * @return {Promise<EthTokenTransfersResponse>}
+	 */
+	@TryCatch
+	getTokenTransfers(addressToken: string, addresses: string[], options?: PaginationOptions) {
+		return this.ethTokenInfo.getTokenTransfers(addressToken, addresses, options);
 	}
 }
