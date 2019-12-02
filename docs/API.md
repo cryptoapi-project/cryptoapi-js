@@ -35,6 +35,7 @@ This library provides api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.getTokenTransfers">eth.getTokenTransfers</a> ⇒<code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#eth.callContract">eth.callContract</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
 </dl>
 
 #### <a name="eth.getNetworkInfo">eth.getNetworkInfo()</a> ⇒ <code><a href="#EthNetworkInfo">Promise&lt;EthNetworkInfo&gt;</a></code></dt></dt>
@@ -417,13 +418,12 @@ Input data:
         skip: 1,
         limit: 1
     });
-
 ```
 
 Example response:
 ```
 {
- addresses: null
+    addresses: null
     skip: 1
     limit: 1
     items: [
@@ -443,6 +443,32 @@ Example response:
     ]
     count: 2
 }
+```
+
+#### <a name="eth.callContract">eth.callContract(address: string, dataToCall: EthContractCall)</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
+
+Executes a message call transaction.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| address | <code>string</code> | [Contract address] |
+| dataToCall | <code><a href="#EthContractCall">EthContractCall</a></code> | [Data to call contract] |
+
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    crypto.api.eth.callContract('0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c', {
+        "bytecode": "0x2c6ce78b000000000000000000000000be125ecedd3a2e8615f5736523dd04e4ce13753d",
+        "sender": "0xf876154263cf61e15e84695096cfdcb5ceed8d86",
+        "amount": 11
+      });
+```
+
+Example response:
+```
+    0x
 ```
 
 ## Typedefs
@@ -477,6 +503,8 @@ Example response:
 <dt><a href="#EthTransactionByAddresses">EthTransactionByAddresses</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTransactionsIntersection">EthTransactionsIntersection</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthContractCall">EthContractCall</a> : <code>Object</code></dt>
 <dd></dd>
 </dl>
 
@@ -716,5 +744,16 @@ Example response:
         utc: String;
     }>;
     count: Number;
+}
+```
+
+#### EthContractCall : <code>Object</code>
+<a name="EthContractCall"></a>
+
+```javascript
+{
+	sender: String;
+	amount: Number;
+	bytecode: String;
 }
 ```

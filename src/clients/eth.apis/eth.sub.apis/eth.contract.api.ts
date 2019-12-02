@@ -2,10 +2,11 @@ import { inject, injectable } from 'inversify';
 
 import { TYPES_DI } from '../../../constants/inversify.constants';
 
+import { EthContract, EthContractCall } from '../../../dtos/eth/eth.contract.dto';
+
 import { IEthContractApi } from '../../../interfaces/eth.apis/eth.sub.apis/eth.contract.api.interface';
 import { IHttpService } from '../../../interfaces/providers/http.service.interface';
 import { AbstractApi } from '../../../abstracts/abstract.api';
-import { EthContractInfo } from '../../../dtos/eth/eth.contract.info';
 
 @injectable()
 export class EthContractApi extends AbstractApi implements IEthContractApi {
@@ -19,13 +20,31 @@ export class EthContractApi extends AbstractApi implements IEthContractApi {
 	 * Method to get contract information, example as bytecode.
 	 * @method getContractInfo
 	 * @param {string} address
-	 * @return {Promise<EthContractInfo>}
+	 * @return {Promise<EthContract>}
 	 */
-	async getContractInfo(address: string): Promise<EthContractInfo> {
+	async getContractInfo(address: string): Promise<EthContract> {
 		this._checkConfig();
-		const contractInfo = await this.httpService.agent.get<EthContractInfo>(
+		const contractInfo = await this.httpService.agent.get<EthContract>(
 			`${this.config!.baseUrl}${'/coins/eth/contracts/:address/info'.replace(':address', address)}`,
 		);
-		return new EthContractInfo(contractInfo.data);
+		return new EthContract(contractInfo.data);
+	}
+
+	/**
+	 * Method to call contract.
+	 * @method callContract
+	 * @param {string} address
+	 * @param {EthContractCall} dataToCall
+	 * @return {Promise<string>}
+	 */
+	async callContract(address: string, dataToCall: EthContractCall): Promise<string> {
+		this._checkConfig();
+
+		const calledContract = await this.httpService.agent.post<string>(
+			`${this.config!.baseUrl}${'/coins/eth/contracts/:address/call'.replace(':address', address)}`,
+			dataToCall,
+		);
+
+		return calledContract.data;
 	}
 }
