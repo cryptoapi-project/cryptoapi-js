@@ -6,15 +6,18 @@ import { EthTokenInfo } from '../../../dtos/eth/eth.token.info';
 import { EthTokenBalance } from '../../../dtos/eth/eth.token.balance';
 import { EthTokensByHolder } from '../../../dtos/eth/eth.tokens.by.holder';
 import { EthTokenTransfersResponse } from '../../../dtos/eth/eth.transfer.dto';
+import { EthTokenSearchRequest, EthTokenSearchResponse } from '../../../dtos/eth/eth.token.search';
 
 import { IEthTokenApi } from '../../../interfaces/eth.apis/eth.sub.apis/eth.token.api.interface';
 import { IHttpService } from '../../../interfaces/providers/http.service.interface';
-import { IUrlHelper } from '../../../interfaces/providers/helpers/url.helper.interface';
+
+import { IUrlHelper } from 'interfaces/providers/helpers/url.helper.interface';
+
 import { IValidateHelper } from '../../../interfaces/providers/helpers/validate.helper.interface';
 
 import { AbstractApi } from '../../../abstracts/abstract.api';
 import { PaginationOptions } from '../../../dtos/paginations.options';
-import { EthTokenSearchRequest, EthTokenSearchResponse } from '../../../dtos/eth/eth.token.search';
+
 import { BaseLibraryException } from '../../../exceptions/library.exceptions/base.exception';
 
 @injectable()

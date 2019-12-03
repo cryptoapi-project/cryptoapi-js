@@ -14,6 +14,7 @@ import { IEthAddressApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.addre
 import { IEthTransactionsApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.transactions.interface';
 import { IServerConfig } from '../../interfaces/configs/crypto.config.interface';
 import { IEthContractApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.contract.api.interface';
+import { IEthNotifyApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.notify.api.interface';
 import { IEthRawTransactionApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.raw.transaction.interface';
 
 import { TryCatch } from '../../providers/decorators/try.catch';
@@ -29,6 +30,7 @@ export class EthApiClient implements IEthApiClient {
 		@inject(TYPES_DI.IEthTokenApi) private readonly ethTokenInfo: IEthTokenApi,
 		@inject(TYPES_DI.IEthAddressApi) private readonly ethAddressInfo: IEthAddressApi,
 		@inject(TYPES_DI.IEthContractApi) private readonly ethContractApi: IEthContractApi,
+		@inject(TYPES_DI.IEthNotifyApi) private readonly ethNotifyApi: IEthNotifyApi,
 		@inject(TYPES_DI.IEthRawTransactionApi) private readonly rawTransactionApi: IEthRawTransactionApi,
 		@inject(TYPES_DI.IEthRawTransactionApi) private readonly ethRawTransactionApi: IEthRawTransactionApi,
 		@inject(TYPES_DI.IEthTransactionsApi) private readonly ethTransactions: IEthTransactionsApi,
@@ -46,6 +48,7 @@ export class EthApiClient implements IEthApiClient {
 		this.ethTokenInfo.configure(config);
 		this.ethAddressInfo.configure(config);
 		this.ethContractApi.configure(config);
+		this.ethNotifyApi.configure(config);
 		this.rawTransactionApi.configure(config);
 		this.ethRawTransactionApi.configure(config);
 		this.ethTransactions.configure(config);
@@ -234,4 +237,17 @@ export class EthApiClient implements IEthApiClient {
 	searchToken(searchRequest: EthTokenSearchRequest) {
 		return this.ethTokenInfo.searchToken(searchRequest);
 	}
+
+	/**
+	 * Method to subscribe token.
+	 * @method subscribeToken
+	 * @param {string} token
+	 * @param {string[]} addresses
+	 * @return {Promise<EthSubscribeToken>}
+	 */
+	@TryCatch
+	subscribeToken(token: string, addresses: string[]) {
+		return this.ethNotifyApi.subscribeToken(token, addresses);
+	}
+
 }

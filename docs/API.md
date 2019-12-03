@@ -41,6 +41,8 @@ This library provides api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.searchToken">eth.searchToken</a> ⇒<code><a href="#EthTokenSearchResponse">Promise&lt;EthTokenSearchResponse&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#eth.subscribeToken">eth.subscribeToken</a> ⇒<code><a href="#EthSubscribeToken">Promise&lt;EthSubscribeToken&gt;</a></code></dt></dt>
+<dd></dd>
 </dl>
 
 #### <a name="eth.getNetworkInfo">eth.getNetworkInfo()</a> ⇒ <code><a href="#EthNetworkInfo">Promise&lt;EthNetworkInfo&gt;</a></code></dt></dt>
@@ -542,6 +544,33 @@ Example response:
 }
  ```
 
+#### <a name="eth.subscribeToken">eth.subscribeToken(token: string, addresses: string[])</a> ⇒ <code><a href="#EthSubscribeToken">Promise&lt;EthSubscribeToken&gt;</a></code></dt></dt>
+
+Subscribe push notification by token. Returns JSON data subscribed addresses and token.
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| token | <code>string</code> | [Firebase token] |
+| addresses | <code>string[]</code> | [Subscribed addresses] |
+
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    crypto.api.eth.subscribeToken('dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jk' +
+                  		'QkueHG00uHyv3VIuThFxgTf6X8udvDdJIiUrX3SEiEW7dPg3rRxIKsajd' +
+                  		'qc84kG1SuRz9JDoEgJXEa-CCNw1Jjn9vKXWrF23zDnNuhMaFksO-',
+                  		['0x13b5685d07fa4764a9da7385fd1be93e8829618f']);
+```
+Example response:
+```
+{
+    token: "dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jkQkueHG00uHyv3VIuThFxgTf6X8udvDdJIiUrX3SEiEW7dPg3rRxIKsajdqc84kG1SuRz9JDoEgJXEa-CCNw1Jjn9vKXWrF23zDnNuhMaFksO-",
+    addresses: ["0x13b5685d07fa4764a9da7385fd1be93e8829618f"]
+}
+ ```
+
+
 ## Typedefs
 
 <dl>
@@ -580,6 +609,8 @@ Example response:
 <dt><a href="#EthTokenSearchRequest">EthTokenSearchRequest</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTokenSearchResponse">EthTokenSearchResponse</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthSubscribeToken">EthSubscribeToken</a> : <code>Object</code></dt>
 <dd></dd>
 </dl>
 
@@ -864,3 +895,14 @@ Example response:
     }> 
 }
 ```
+
+#### EthSubscribeToken : <code>Object</code>
+<a name="EthSubscribeToken"></a>
+
+```javascript
+{
+	token: String;
+	addresses: String[];
+}
+```
+

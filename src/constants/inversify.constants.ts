@@ -18,7 +18,6 @@ const TYPES_DI = {
 
 	IHttpService: Symbol.for('IHttpService'),
 	ICryptoConfig: Symbol.for('ICryptoConfig'),
-
 	IValidateHelper: Symbol.for('IValidateHelper'),
 	IUrlHelper: Symbol.for('IUrlHelper'),
 };
