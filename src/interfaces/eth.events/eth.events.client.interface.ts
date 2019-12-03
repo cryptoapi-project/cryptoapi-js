@@ -1,8 +1,15 @@
 import {
-	AddressTransactionSubscription,
-	TokenTransferSubscription,
-	TransactionConrimationSubscription,
-} from '../../dtos/event.dtos';
+	EthAddressTransactionSubscription,
+	EthTokenTransferSubscription,
+	EthTransactionConfirmationSubscription,
+} from '../../dtos/eth/eth.subscription.dtos';
+import {
+	EthBlockNotification,
+	EthTransactionNotification,
+	EthTransferNotification,
+	EthTransactionConfirmationNotification,
+} from '../../dtos/eth/eth.notification.dtos';
+
 import { IEventsConfig } from '../configs/crypto.config.interface';
 
 export interface IEthEventsClient {
@@ -21,12 +28,21 @@ export interface IEthEventsClient {
 
 	unsubscribe(id: number): boolean;
 
-	onBlock(confirmations: number, cb: () => void): number;
+	onBlock(confirmations: number, cb: (notification: EthBlockNotification) => void): number;
 
-	onAddressTransactions({ address, confirmations }: AddressTransactionSubscription, cb: () => void): number;
+	onAddressTransactions(
+		{ address, confirmations }: EthAddressTransactionSubscription,
+		cb: (notification: EthTransactionNotification) => void,
+	): number;
 
-	onTokenTransfers({ token, address, confirmations }: TokenTransferSubscription, cb: () => void): number;
+	onTokenTransfers(
+		{ token, address, confirmations }: EthTokenTransferSubscription,
+		cb: (notification: EthTransferNotification) => void,
+	): number;
 
-	onTransactionConfirmations({ hash, confirmations }: TransactionConrimationSubscription, cb: () => void): number;
+	onTransactionConfirmations(
+		{ hash, confirmations }: EthTransactionConfirmationSubscription,
+		cb: (notification: EthTransactionConfirmationNotification) => void,
+	): number;
 
 }

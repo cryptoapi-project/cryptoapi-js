@@ -1,4 +1,4 @@
-export class AddressTransactionSubscription {
+export class EthAddressTransactionSubscription {
 	address: string;
 	confirmations: number;
 
@@ -9,7 +9,7 @@ export class AddressTransactionSubscription {
 
 }
 
-export class TokenTransferSubscription {
+export class EthTokenTransferSubscription {
 	token: string;
 	address: string;
 	confirmations: number;
@@ -22,7 +22,7 @@ export class TokenTransferSubscription {
 
 }
 
-export class TransactionConrimationSubscription {
+export class EthTransactionConfirmationSubscription {
 	hash: string;
 	confirmations: number;
 

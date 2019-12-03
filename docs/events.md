@@ -2,25 +2,15 @@
 
 Library provides websocket subscribers to work with CryptoAPI.
 
+#### Table of Contents
+1. [ETH Event Client](#eth-event-client)
+2. [Typedefs](#typedefs)
+
+
 ## ETH Event Client
 
-In order to use eth events client, you need to pass a connection.
-
-```javascript
-
-const options = {
-    eth: {
-        events: {
-            url: 'ws://localhost:8080',
-        },
-    },
-};
-
-const crypto = new Crypto('token', options);
-
-```
-
-Also configuration provides the ability to automatically reconnect.
+Eth events client provides the ability to pass a connection url.
+Also configuration allows you to set automatically reconnect.
 Set in options parameters for reconnect (count of attempts and timeout between them).
 
 ```javascript
@@ -76,9 +66,7 @@ All subscribers are listed below:
 </dl>
 
 
-## ETH Propetries
-
-#### <a name="eth.onBlock">onBlock</a> ⇒ <code>Number</code>
+#### <a name="eth.onBlock">onBlock</a>(confirmations: number, cb: (notification:  <a name="EthBlockNotification">EthBlockNotification</a>) => void) ⇒ <code>Number</code>
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -130,7 +118,7 @@ Returns subscription id.
 }
 ```
 
-#### <a name="eth.onAddressTransactions">onAddressTransactions</a> ⇒ <code>Number</code>
+#### <a name="eth.onAddressTransactions">onAddressTransactions</a>({ address, confirmations }: <a name="EthAddressTransactionSubscription">EthAddressTransactionSubscription</a>, cb: (notification: <a name="EthTransactionNotification">EthTransactionNotification</a>) => void, ⇒ <code>Number</code>
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -171,7 +159,7 @@ Returns subscription id.
 }
 ```
 
-#### <a name="eth.onTokenTransfers">onTokenTransfers</a> ⇒ <code>Number</code>
+#### <a name="eth.onTokenTransfers">onTokenTransfers</a>({ token, address, confirmations }: <a name="EthTokenTransferSubscription">EthTokenTransferSubscription</a>, cb: (notification: <a name="EthTransferNotification">EthTransferNotification</a>) => void) ⇒ <code>Number</code>
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -206,7 +194,7 @@ Returns subscription id.
 }
 ```
 
-#### <a name="eth.onTransactionConfirmations">onTransactionConfirmations</a> ⇒ <code>Number</code>
+#### <a name="eth.onTransactionConfirmations">onTransactionConfirmations</a>({ hash, confirmations }: <a name="EthTransactionConfirmationSubscription">EthTransactionConfirmationSubscription</a>, cb: (notification: <a name="EthTransactionConfirmationNotification">EthTransactionConfirmationNotification</a>) => void) ⇒ <code>Number</code>
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -270,4 +258,143 @@ console.log(crypto.events.eth.connected);
 ```javascript
 > crypto.events.eth.onDisconnected(() => { console.log('disconnected') });
 
+```
+
+## Typedefs
+
+<dl>
+<dt><a href="#EthBlockNotification">EthBlockNotification</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthAddressTransactionSubscription">EthAddressTransactionSubscription</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthTransactionNotification">EthTransactionNotification</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthTokenTransferSubscription">EthTokenTransferSubscription</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthTransferNotification">EthTransferNotification</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthTransactionConfirmationSubscription">EthTransactionConfirmationSubscription</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthTransactionConfirmationNotification">EthTransactionConfirmationNotification</a> : <code>Object</code></dt>
+<dd></dd>
+</dl>
+
+#### EthBlockNotification : <code>Object</code>
+<a name="EthBlockNotification"></a>
+
+```javascript
+{
+    size: Number;
+    difficulty: String;
+    totalDifficulty: String;
+    uncles: string[];
+    number: Number;
+    hash: String;
+    parentHash: String;
+    nonce: String;
+    sha3Uncles: String;
+    logsBloom: String;
+    stateRoot: String;
+    miner: String;
+    extraData: String;
+    gasLimit: Number;
+    gasUsed: Number;
+    timestamp: Number;
+	transactions: Array<{
+		blockHash: String;
+        blockNumber: Number;
+        from: String;
+        gas: Number;
+        gasPrice: String;
+        hash: String;
+        input: String;
+        nonce: Number;
+        to: String;
+        transactionIndex: Number;
+        value: String;
+        v: String;
+        r: String;
+        s: String;
+	}>;
+}
+```
+
+#### EthAddressTransactionSubscription : <code>Object</code>
+<a name="EthAddressTransactionSubscription"></a>
+
+```javascript
+{
+    address: String;
+    confirmations: Number;
+}
+```
+#### EthTransactionNotification : <code>Object</code>
+<a name="EthTransactionNotification"></a>
+
+```javascript
+{
+    utc: String;
+    from: String;
+    gas: Number;
+    hash: String;
+    input: String;
+    nonce: Number;
+    to: String;
+    value: String;
+    v: String;
+    s: String;
+    r: String;
+    internal_transactions: Array<{
+        to: String;
+        from: String;
+        value: String;
+        input: String;
+        type: String;
+    }>;
+}
+```
+#### EthTokenTransferSubscription : <code>Object</code>
+<a name="EthTokenTransferSubscription"></a>
+
+```javascript
+{
+    token: String;
+    address: String;
+    confirmations: Number;
+}
+```
+#### EthTransferNotification : <code>Object</code>
+<a name="EthTransferNotification"></a>
+
+```javascript
+{
+    type: String;
+    execute_address: String;
+    from: String;
+    to: String;
+    value: String;
+    address: String;
+    block_number: Number;
+    transaction_hash: String;
+    transaction_index: Number;
+    timestamp: String;
+}
+```
+#### EthTransactionConfirmationSubscription : <code>Object</code>
+<a name="EthTransactionConfirmationSubscription"></a>
+
+```javascript
+{
+    hash: String;
+    confirmations: Number;
+}
+```
+#### EthTransactionConfirmationNotification : <code>Object</code>
+<a name="EthTransactionConfirmationNotification"></a>
+
+```javascript
+{
+    hash: String;
+    confirmations: Number;
+}
 ```

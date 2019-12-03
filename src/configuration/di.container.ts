@@ -13,7 +13,7 @@ import { IEthMainInfoApi } from '../interfaces/eth.apis/eth.sub.apis/eth.main.in
 import { IEthContractApi } from '../interfaces/eth.apis/eth.sub.apis/eth.contract.api.interface';
 import { IEthRawTransactionApi } from '../interfaces/eth.apis/eth.sub.apis/eth.raw.transaction.interface';
 import { IEthBlockApi } from '../interfaces/eth.apis/eth.sub.apis/eth.block.interface';
-import { IEthTokenApi } from 'interfaces/eth.apis/eth.sub.apis/eth.token.api.interface';
+import { IEthTokenApi } from '../interfaces/eth.apis/eth.sub.apis/eth.token.api.interface';
 import { IEthTransactionsApi } from '../interfaces/eth.apis/eth.sub.apis/eth.transactions.interface';
 
 import { IIdHelper } from '../interfaces/providers/helpers/id.helper.interface';
