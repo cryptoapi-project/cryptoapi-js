@@ -5,7 +5,7 @@ Pure TypeScript crypto library for node.js and browsers. Can be used to subscrib
 #### Table of Contents
 1. [Usage](#Usage)
 2. [Full API Reference](#full-api-reference)
-3. [Development](#development)
+3. [Building](#building)
 4. [License](#license)
 
 ## Usage
@@ -52,16 +52,16 @@ const result = await crypto.api.eth.getNetworkInfo();
 ## Full API Reference
 [API](docs/API.md) - List with all api methods.
 
-## Development
-
-Use the following commands to build library:
+## Building
+To build the library or its components yourself, clone it from GitHub and install the development dependencies:
 
 ```bash
-$ npm install --save cryptoapi-lib
+$ git clone https://github.com/cryptoapi-project/cryptoapi-js.git
 $ cd cryptoapi-lib
-$ npm i
+$ npm install
 $ npm run build
 ```
+
 All compiled files will be located in the directory dist.
 
 ## License

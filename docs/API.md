@@ -547,8 +547,8 @@ Example response:
  ```
 
 #### <a name="eth.subscribeToken">eth.subscribeToken(token: string, addresses: string[])</a> ⇒ <code><a href="#EthSubscribeToken">Promise&lt;EthSubscribeToken&gt;</a></code></dt></dt>
-
 Subscribe push notification by token. Returns JSON data subscribed addresses and token.
+
 Input data:
 
 | Param | Type | Description |
