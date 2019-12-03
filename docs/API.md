@@ -346,8 +346,6 @@ Example response:
 ```
 
 #### <a name="eth.getTransactionsByAddresses">eth.getTransactionsByAddresses</a>(addresses: string[], positive: boolean, options: <a href="#PaginationOptions">PaginationOptions</a>) ⇒<code><a href="#EthTransactionByAddresses">Promise&lt;EthTransactionByAddresses&gt;</a></code></dt></dt>
-
-#### <a name="eth.getTransactionsByAddresses">eth.getTransactionsByAddresses</a>(addresses: string[], positive: boolean, options: <a href="#PaginationOptions">PaginationOptions</a>) ⇒<code><a href="#EthTransactionByAddresses">Promise&lt;EthTransactionByAddresses&gt;</a></code></dt></dt>
 Return list of transactions by addresses.
 
 Input data:
@@ -436,7 +434,6 @@ Example response:
     ]
 }
 ```
-
 
 #### <a name="eth.getTokenTransfers">eth.getTokenTransfers(tokenAddress: string, addresses: string[], options?: PaginationOptions)</a> ⇒ <code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
 Returns JSON data with list transfer by token address.

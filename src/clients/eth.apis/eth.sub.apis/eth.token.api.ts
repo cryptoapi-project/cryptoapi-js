@@ -17,7 +17,6 @@ import { IValidateHelper } from '../../../interfaces/providers/helpers/validate.
 
 import { AbstractApi } from '../../../abstracts/abstract.api';
 import { PaginationOptions } from '../../../dtos/paginations.options';
-
 import { BaseLibraryException } from '../../../exceptions/library.exceptions/base.exception';
 
 @injectable()

@@ -65,4 +65,4 @@ class CryptoWrapper implements IPublicCrypto {
 
 }
 
-export { CryptoWrapper as Crypto };
+export { CryptoWrapper as Client };
