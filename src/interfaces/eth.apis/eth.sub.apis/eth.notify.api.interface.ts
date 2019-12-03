@@ -5,4 +5,5 @@ import { EthSubscribeToken } from '../../../dtos/eth/eth.subscribe.token.dto';
 
 export interface IEthNotifyApi extends IConfigurable<IServerConfig> {
 	subscribeToken(token: string, addresses: string[]): Promise<EthSubscribeToken>;
+	unsubscribeToken(token: string, addresses: string[]): Promise<boolean>;
 }

@@ -43,6 +43,8 @@ This library provides api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.subscribeToken">eth.subscribeToken</a> ⇒<code><a href="#EthSubscribeToken">Promise&lt;EthSubscribeToken&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#eth.unsubscribeToken">eth.unsubscribeToken</a> ⇒<code>Promise&lt;boolean&gt;</code></dt></dt>
+<dd></dd>
 </dl>
 
 #### <a name="eth.getNetworkInfo">eth.getNetworkInfo()</a> ⇒ <code><a href="#EthNetworkInfo">Promise&lt;EthNetworkInfo&gt;</a></code></dt></dt>
@@ -570,6 +572,30 @@ Example response:
 }
  ```
 
+#### <a name="eth.unsubscribeToken">eth.unsubscribeToken(token: string, addresses: string[])</a> ⇒ <code>Promise&lt;boolean&gt;</code></dt></dt>
+
+Unsubscribe push notification by token. If success unsubscribe returns true, else false.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| token | <code>string</code> | [Firebase token] |
+| addresses | <code>string[]</code> | [Subscribed addresses] |
+
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    crypto.api.eth.unsubscribeToken('dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jk' +
+                  		'QkueHG00uHyv3VIuThFxgTf6X8udvDdJIiUrX3SEiEW7dPg3rRxIKsajd' +
+                  		'qc84kG1SuRz9JDoEgJXEa-CCNw1Jjn9vKXWrF23zDnNuhMaFksO-',
+                  		['0x13b5685d07fa4764a9da7385fd1be93e8829618f']);
+```
+Example response:
+```
+true
+ ```
+
 
 ## Typedefs
 
@@ -747,6 +773,31 @@ Example response:
 }
 ```
 
+#### EthTokenTransfersResponse : <code>Object</code>
+<a name="EthTokenTransfersResponse"></a>
+
+```javascript
+{
+    addresses: String[]|null;
+    skip: Number;
+    limit: Number;
+    count: Number;
+    items: Array<{
+        type: String;
+        execute_address: String;
+        from: String;
+        to: String;
+        value: String;
+        address: String;
+        block_number: Number;
+        transaction_hash: String;
+        transaction_index: Number;
+        log_index: Number;
+        timestamp: String;  
+    }> 
+}
+```
+
 #### PaginationOptions : <code>Object</code>
 <a name="PaginationOptions"></a>
 
@@ -871,31 +922,6 @@ Example response:
 }
 ``` 
 
-#### EthTokenTransfersResponse : <code>Object</code>
-<a name="EthTokenTransfersResponse"></a>
-
-```javascript
-{
-    addresses: String[]|null;
-    skip: Number;
-    limit: Number;
-    count: Number;
-    items: Array<{
-        type: String;
-        execute_address: String;
-        from: String;
-        to: String;
-        value: String;
-        address: String;
-        block_number: Number;
-        transaction_hash: String;
-        transaction_index: Number;
-        log_index: Number;
-        timestamp: String;  
-    }> 
-}
-```
-
 #### EthSubscribeToken : <code>Object</code>
 <a name="EthSubscribeToken"></a>
 
@@ -905,4 +931,3 @@ Example response:
 	addresses: String[];
 }
 ```
-

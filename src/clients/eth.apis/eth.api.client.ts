@@ -239,7 +239,7 @@ export class EthApiClient implements IEthApiClient {
 	}
 
 	/**
-	 * Method to subscribe token.
+	 * Method to subscribe push notification by token.
 	 * @method subscribeToken
 	 * @param {string} token
 	 * @param {string[]} addresses
@@ -250,4 +250,15 @@ export class EthApiClient implements IEthApiClient {
 		return this.ethNotifyApi.subscribeToken(token, addresses);
 	}
 
+	/**
+	 * Method to unsubscribe push notification by token.
+	 * @method unsubscribeToken
+	 * @param {string} token
+	 * @param {string[]} addresses
+	 * @return {Promise<EthSubscribeToken>}
+	 */
+	@TryCatch
+	unsubscribeToken(token: string, addresses: string[]) {
+		return this.ethNotifyApi.unsubscribeToken(token, addresses);
+	}
 }
