@@ -5,9 +5,8 @@ import { TYPES_DI } from '../../../constants/inversify.constants';
 
 import { EthRawTransaction } from '../../../dtos/eth/eth.raw.transaction';
 import { IEthRawTransactionApi } from '../../../interfaces/eth.apis/eth.sub.apis/eth.raw.transaction.interface';
-
-import { IHttpService } from '../../../interfaces/providers/http.service.interface';
 import { AbstractApi } from '../../../abstracts/abstract.api';
+import { IHttpService } from '../../../interfaces/providers/http.service.interface';
 
 @injectable()
 export class EthRawTransactionApi extends AbstractApi  implements IEthRawTransactionApi {
@@ -31,5 +30,20 @@ export class EthRawTransactionApi extends AbstractApi  implements IEthRawTransac
 			{tx},
 		);
 		return new EthRawTransaction(transaction.data);
+	}
+
+	/*
+	 * Method to send raw transaction
+	 * @method sendRawTransaction
+	 * @param {string} tx
+	 * @return {Promise<string>}
+	 */
+	async sendRawTransaction(tx: string): Promise<string> {
+		this._checkConfig();
+		const transaction = await this.httpService.agent.post(
+			`${this.config!.baseUrl}/coins/eth/transactions/raw/send`,
+			{ tx },
+		);
+		return transaction.data.hash;
 	}
 }

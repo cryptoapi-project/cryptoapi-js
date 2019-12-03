@@ -14,11 +14,11 @@ import { IValidateHelper } from '../../../interfaces/providers/helpers/validate.
 
 import { AbstractApi } from '../../../abstracts/abstract.api';
 import { PaginationOptions } from '../../../dtos/paginations.options';
+import { EthTokenSearchRequest, EthTokenSearchResponse } from '../../../dtos/eth/eth.token.search';
 import { BaseLibraryException } from '../../../exceptions/library.exceptions/base.exception';
 
 @injectable()
 export class EthTokenApi extends AbstractApi  implements IEthTokenApi {
-
 	constructor(
 		@inject(TYPES_DI.IHttpService) private readonly httpClient: IHttpService,
 		@inject(TYPES_DI.IUrlHelper) private readonly urlHelper: IUrlHelper,
@@ -100,5 +100,21 @@ export class EthTokenApi extends AbstractApi  implements IEthTokenApi {
 		const tokenTransfers = await this.httpClient.agent.get<EthTokenTransfersResponse>(url);
 
 		return new EthTokenTransfersResponse(tokenTransfers.data);
+	}
+
+	/*
+	 * Method to search token.
+	 * @method searchToken
+	 * @param {EthTokenSearchRequest} searchRequest
+	 * @return {Promise<EthTokenSearchResponse>}
+	 */
+	async searchToken(searchRequest: EthTokenSearchRequest): Promise<EthTokenSearchResponse> {
+		this._checkConfig();
+
+		let url = `${this.config!.baseUrl}${'/coins/eth/tokens/search'}`;
+		url = this.urlHelper.addOptionsToUrl(url, searchRequest);
+		const resultSearch = await this.httpClient.agent.get<EthTokenSearchResponse>(url);
+
+		return new EthTokenSearchResponse(resultSearch.data);
 	}
 }

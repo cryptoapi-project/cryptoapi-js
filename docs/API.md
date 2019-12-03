@@ -29,6 +29,8 @@ This library provides api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.decodeRawTransaction">eth.decodeRawTransaction</a> ⇒<code><a href="#EthRawTransaction">Promise&lt;EthRawTransaction&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#eth.sendRawTransaction">eth.sendRawTransaction</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
+<dd></dd>
 <dt><a href="#eth.getTransactionsByAddresses">eth.getTransactionsByAddresses</a> ⇒<code><a href="#EthTransactionByAddresses">Promise&lt;EthTransactionByAddresses&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getTransactionsIntersection">eth.getTransactionsIntersection</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
@@ -36,6 +38,9 @@ This library provides api methods to work with CryptoAPI.
 <dt><a href="#eth.getTokenTransfers">eth.getTokenTransfers</a> ⇒<code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.callContract">eth.callContract</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
+<dd></dd>
+<dt><a href="#eth.searchToken">eth.searchToken</a> ⇒<code><a href="#EthTokenSearchResponse">Promise&lt;EthTokenSearchResponse&gt;</a></code></dt></dt>
+<dd></dd>
 </dl>
 
 #### <a name="eth.getNetworkInfo">eth.getNetworkInfo()</a> ⇒ <code><a href="#EthNetworkInfo">Promise&lt;EthNetworkInfo&gt;</a></code></dt></dt>
@@ -212,7 +217,7 @@ Example response:
     holders_count: 1
     name: "premfina-secured-loan-notes-2019-bond-no6-7"
     symbol: "rmn"
-    totalSupply: "1000000000000000000"
+    total_supply: "1000000000000000000"
     type: "ERC20"
 }
 ```
@@ -280,6 +285,7 @@ Example response:
 #### <a name="eth.decodeRawTransaction">eth.decodeRawTransaction(tx: string)</a> ⇒ <code><a href="#EthRawTransaction">Promise&lt;EthRawTransaction&gt;</a></code></dt></dt>
 
 Returns JSON data of decode raw transaction by hash.
+
 Input data:
 
 | Param | Type | Description |
@@ -293,6 +299,7 @@ Input data:
                    		'f959bfa8545d964b800801ca04ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637fdc35' +
                    		'bdc49c4a04b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02');
 ```
+
 Example response:
 ```
 {
@@ -307,6 +314,31 @@ Example response:
     value: "0x45d964b800"
 }
  ```
+
+#### <a name="eth.sendRawTransaction">eth.sendRawTransaction(tx: string)</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
+ 
+Returns transaction hash.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tx | <code>string</code> | [Raw transaction] |
+
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    crypto.api.eth.sendRawTransaction('0xf86e8386ca038602bba7f5220083632ea0941de29f' +
+     '644d555fe9cc3241e1083de0868f959bfa8545d964b800801ca04ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637' +
+      'fdc35bdc49c4a04b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02');
+```
+
+Example response:
+
+```
+'0x8c30624b26ab1aed4dbbab32ed7f3bf32ec7f5bc043a4bb2b355e0aedf1e23d5'
+```
+
 #### <a name="eth.getTransactionsByAddresses">eth.getTransactionsByAddresses</a>(addresses: string[], positive: boolean, options: <a href="#PaginationOptions">PaginationOptions</a>) ⇒<code><a href="#EthTransactionByAddresses">Promise&lt;EthTransactionByAddresses&gt;</a></code></dt></dt>
 
 Return list of transactions by addresses.
@@ -471,6 +503,45 @@ Example response:
     0x
 ```
 
+#### <a name="eth.searchToken">eth.searchToken(searchRequest: EthTokenSearchRequest)</a> ⇒<code><a href="#EthTokenSearchResponse">Promise&lt;EthTokenSearchResponse&gt;</a></code></dt></dt>
+
+Returns JSON info tokens returned by query object.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| searchRequest | <code>EthTokenSearchRequest</code> | [Optional object request, that includes general information to search by type or query and pagination.] |
+```javascript
+    import { Crypto } from 'cryptoapi';
+    const crypto = new Crypto('******');
+    crypto.api.eth.searchToken({ query: 'ERC721', limit: 1 })
+```
+
+Example response:
+```
+{
+    count: 3
+    items: [
+        {
+            address: "0x863c78f81b731d3ca11be9a74fe6a92dc1d0cfc9"
+            create_transaction_hash: "0xe5c991986020f9ecce379da1a658920e5430254b4fadc26806c9ed53cdb9f0c7"
+            info: {
+                decimals: "0", 
+                total_supply: "0", 
+                symbol: "MNT721", 
+                name: "ERC721Mint"
+            }
+            status: true
+            type: "ERC721"
+        }
+    ]
+    limit: 1
+    query: "ERC721"
+    skip: 0
+}
+ ```
+
 ## Typedefs
 
 <dl>
@@ -505,6 +576,10 @@ Example response:
 <dt><a href="#EthTransactionsIntersection">EthTransactionsIntersection</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthContractCall">EthContractCall</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthTokenSearchRequest">EthTokenSearchRequest</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthTokenSearchResponse">EthTokenSearchResponse</a> : <code>Object</code></dt>
 <dd></dd>
 </dl>
 
@@ -581,9 +656,9 @@ Example response:
 ```javascript
 {
     from?: String;
-	to?: String;
-	value?: String | Number;
-	data?: String;
+    to?: String;
+    value?: String | Number;
+    data?: String;
 }
 ```
 
@@ -591,10 +666,10 @@ Example response:
 <a name="EstimateGasResponse"></a>
 
 ```javascript
-{
+{   
     estimate_gas: Number;
-	gas_price: String;
-	nonce: Number;
+    gas_price: String;
+    nonce: Number;
 }
 ```
 
@@ -640,32 +715,6 @@ Example response:
    items: EthAddressBalance[];
 }
 ```
-
-#### EthTokenTransfersResponse : <code>Object</code>
-<a name="EthTokenTransfersResponse"></a>
-
-```javascript
-{
-    addresses: String[]|null;
-    skip: Number;
-    limit: Number;
-    count: Number;
-    items: Array<{
-        type: String;
-        execute_address: String;
-        from: String;
-        to: String;
-        value: String;
-        address: String;
-        block_number: Number;
-        transaction_hash: String;
-        transaction_index: Number;
-        log_index: Number;
-        timestamp: String;  
-    }> 
-}
-```
-
 
 #### PaginationOptions : <code>Object</code>
 <a name="PaginationOptions"></a>
@@ -755,5 +804,63 @@ Example response:
 	sender: String;
 	amount: Number;
 	bytecode: String;
+}
+```
+
+
+#### EthTokenSearchRequest : <code>Object</code>
+<a name="EthTokenSearchRequest"></a>
+
+```javascript
+{
+        query?: String;
+        types?: String;
+        skip?: Number;  
+        limit?: Number;
+}
+```
+
+#### EthTokenSearchResponse : <code>Object</code>
+<a name="EthTokenSearchResponse"></a>
+
+```javascript
+{
+	query: String|null;
+	skip: Number;
+	limit: Number;
+	count: Number;
+	types: String[];
+	items: Array<{
+        address: String;
+        info: Any;
+        create_transaction_hash: String;
+        type: String;
+        status: Boolean;
+	}>
+}
+``` 
+
+#### EthTokenTransfersResponse : <code>Object</code>
+<a name="EthTokenTransfersResponse"></a>
+
+```javascript
+{
+    addresses: String[]|null;
+    skip: Number;
+    limit: Number;
+    count: Number;
+    items: Array<{
+        type: String;
+        execute_address: String;
+        from: String;
+        to: String;
+        value: String;
+        address: String;
+        block_number: Number;
+        transaction_hash: String;
+        transaction_index: Number;
+        log_index: Number;
+        timestamp: String;  
+    }> 
 }
 ```
