@@ -1,12 +1,10 @@
-// TODO totalSupply => total_supply
-
 export class EthTokenInfo {
 	readonly address: string;
 	readonly type: string;
 	readonly name: string;
 	readonly symbol: string;
 	readonly decimals: string;
-	readonly totalSupply: string;
+	readonly total_supply: string;
 	readonly create_transaction_hash: string;
 	readonly holders_count: number;
 
@@ -16,7 +14,7 @@ export class EthTokenInfo {
 		name: string,
 		symbol: string,
 		decimals: string,
-		totalSupply: string,
+		total_supply: string,
 		create_transaction_hash: string,
 		holders_count: number,
 	}) {
@@ -25,7 +23,7 @@ export class EthTokenInfo {
 		this.name = info.name;
 		this.symbol = info.symbol;
 		this.decimals = info.decimals;
-		this.totalSupply = info.totalSupply;
+		this.total_supply = info.total_supply;
 		this.create_transaction_hash = info.create_transaction_hash;
 		this.holders_count = info.holders_count;
 	}

@@ -11,8 +11,8 @@
   "engines": {
     "node": ">=8.10.0"
   },
-  "repository": "https://github.com/AlinaLoz/ts-library-starter",
-  "main": "dist/bundles/crypto-api.js",
+  "repository": "https://github.com/cryptoapi-project/cryptoapi-js",
+  "main": "dist/lib/src/index.js",
   "module": "dist/lib-esm/src/index.js",
   "es2015": "dist/lib/src/index.js",
   "files": [

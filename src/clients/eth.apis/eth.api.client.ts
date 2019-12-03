@@ -17,6 +17,7 @@ import { IEthContractApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.cont
 import { IEthRawTransactionApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.raw.transaction.interface';
 
 import { TryCatch } from '../../providers/decorators/try.catch';
+import { EthTokenSearchRequest } from '../../dtos/eth/eth.token.search';
 
 @injectable()
 export class EthApiClient implements IEthApiClient {
@@ -213,7 +214,7 @@ export class EthApiClient implements IEthApiClient {
 	}
 
 	/*
-	 * Method to send raw transaction
+	 * Method to send raw transaction.
 	 * @method sendRawTransaction
 	 * @param {string} tx
 	 * @return {Promise<string>}
@@ -221,5 +222,16 @@ export class EthApiClient implements IEthApiClient {
 	@TryCatch
 	sendRawTransaction(tx: string) {
 		return this.rawTransactionApi.sendRawTransaction(tx);
+	}
+
+	/*
+	 * Method to search token.
+	 * @method searchToken
+	 * @param {EthTokenSearchRequest} searchRequest
+	 * @return {Promise<EthTokenSearchResponse>}
+	 */
+	@TryCatch
+	searchToken(searchRequest: EthTokenSearchRequest) {
+		return this.ethTokenInfo.searchToken(searchRequest);
 	}
 }
