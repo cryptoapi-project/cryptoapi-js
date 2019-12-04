@@ -10,12 +10,16 @@ import {
 	ICryptoConfig,
 	ICryptoOptions,
 } from '../interfaces/configs/crypto.config.interface';
+import { IApiClient } from '../interfaces/clients/api.client.interface';
+import { IEventsClient } from '../interfaces/clients/events.client.interface';
 
 import { diContainer } from '../configuration/di.container';
 import { InvalidParamsException } from '../exceptions/library.exceptions/invalid.params.exceptions';
 
 class CryptoWrapper implements IPublicCrypto {
 	private crypto: ICrypto;
+	api: IApiClient | null;
+	events: IEventsClient | null;
 
 	constructor(config: ICryptoConfig);
 	constructor(token: string, options?: ICryptoOptions);
@@ -45,24 +49,9 @@ class CryptoWrapper implements IPublicCrypto {
 
 		this.crypto = diContainer.get<ICrypto>(TYPES_DI.ICrypto);
 		this.crypto.configure(cryptoConfig);
+		this.api = this.crypto.api;
+		this.events = this.crypto.events;
 	}
-
-	/**
-	 * @property events
-	 * @return {IEventsClient}
-	 */
-	get events() {
-		return this.crypto.events;
-	}
-
-	/**
-	 * @property api
-	 * @return {IApiClient}
-	 */
-	get api() {
-		return this.crypto.api;
-	}
-
 }
 
 export { CryptoWrapper as Client };

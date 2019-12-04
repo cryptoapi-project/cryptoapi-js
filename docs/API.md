@@ -52,8 +52,8 @@ Returns JSON data about a network information such as last block, count transact
 current hash rate, gas price, difficulty.
 
 ```javascript
-    import { Crypto } from 'cryptoapi-lib';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     const result = await crypto.api.eth.getNetworkInfo();
 ```
 
@@ -72,8 +72,8 @@ Example response:
 Returns JSON data about an estimate gas information.
 
 ```javascript
-    import { Crypto } from 'cryptoapi-lib';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     const result = await crypto.api.eth.estimateGas({
         from: '0x653a801625c60112a03097c51b7d3f3a19e07c9c',
     	to: '0xc6c65a3979a7ea0b2ff3040e6d3efdbebf87c345',
@@ -93,8 +93,8 @@ Example response:
 Returns JSON data about block information.
 
 ```javascript
-    import { Crypto } from 'cryptoapi-lib';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     const result = await crypto.api.eth.getBlock(5485938);
 ```
 
@@ -134,8 +134,8 @@ Input data:
 | addresses | <code>string[]</code> | [Tokens addresses] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi-lib';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     const result =  crypto.api.eth.getAddressesBalances([
                        		'0xa177AD7c3CA2cCa794C02a0FF4dF1C2B09D49C8f',
                        		'0xf24A2674208B7B5EC2f2863DCb65938EF82dC180'
@@ -165,8 +165,8 @@ Input data:
 | addresses | <code>string[]</code> | [Addresses] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi-lib';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.getAddressesInfos([
         '0xa177AD7c3CA2cCa794C02a0FF4dF1C2B09D49C8f',
     ]);
@@ -189,8 +189,8 @@ Example response:
 Returns JSON data about contract information.
 
 ```javascript
-    import { Crypto } from 'cryptoapi-lib';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.getContractInfo('0x772fe05f6663bdabdc99f7067baeb21a5484fbcc');
 ```
 
@@ -211,8 +211,8 @@ Input data:
 | address | <code>String</code> | [Token address] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi-lib';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     const result = await crypto.api.eth.getTokenInfoByTokenAddress('0x106c2dbabeb8c4932e3f68b76fb9665180b74587');
 ```
 
@@ -241,8 +241,8 @@ Input data:
 | holderAddress | <code>string</code> | [Holder address] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi-lib';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.getTokenBalanceByAddresses('0x5ae86537ea087929a34b597480fd23144d2dd216', '0xd89f43605f4ccc0935afceba98f3d5d04ce2e390');
 ```
 
@@ -266,8 +266,8 @@ Input data:
 | options? | <code><a href="#PaginationOptions">PaginationOptions</a></code> | [Options params to paginating response] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi-lib';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.getTokensBalancesByHolderAddress('0xd89f43605f4ccc0935afceba98f3d5d04ce2e390', {
 		skip: 0,
 	});
@@ -299,8 +299,8 @@ Input data:
 | tr | <code>string</code> | [Raw transaction] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi-lib';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.decodeRawTransaction('0xf86e8386ca038602bba7f5220083632ea0941de29f644d555fe9cc3241e1083de0868' +
         'f959bfa8545d964b800801ca04ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637fdc35' +
         'bdc49c4a04b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02');
@@ -332,8 +332,8 @@ Input data:
 | tx | <code>string</code> | [Raw transaction] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi-lib';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.sendRawTransaction('0xf86e8386ca038602bba7f5220083632ea0941de29f' +
      '644d555fe9cc3241e1083de0868f959bfa8545d964b800801ca04ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637' +
       'fdc35bdc49c4a04b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02');
@@ -357,8 +357,8 @@ Input data:
 | options? | <code><a href="#PaginationOptions">PaginationOptions</a></code> | [Count of skipping items and page items count] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi-lib';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.getTransactionsByAddresses(['0x99608ad1026a47acf7839003546748158ad55504']);
 ```
 
@@ -398,8 +398,8 @@ Input data:
 | options? | <code><a href="#PaginationOptions">PaginationOptions</a></code> | [Options params to paginating response] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi-lib';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.getTransactionsIntersection(['0x99608ad1026a47acf7839003546748158ad55504', '0xcd66e50e51026673d60b3f993610b46b0f44096f']);
 ```
 
@@ -446,8 +446,8 @@ Input data:
 | addresses | <code>string[]</code> | [Ethereum addresses] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi-lib';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.getTokenTransfers('0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c', [], {
         skip: 1,
         limit: 1
@@ -490,8 +490,8 @@ Input data:
 | dataToCall | <code><a href="#EthContractCall">EthContractCall</a></code> | [Data to call contract] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi-lib';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.callContract('0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c', {
         "bytecode": "0x2c6ce78b000000000000000000000000be125ecedd3a2e8615f5736523dd04e4ce13753d",
         "sender": "0xf876154263cf61e15e84695096cfdcb5ceed8d86",
@@ -505,7 +505,6 @@ Example response:
 ```
 
 #### <a name="eth.searchToken">eth.searchToken(searchRequest: EthTokenSearchRequest)</a> ⇒<code><a href="#EthTokenSearchResponse">Promise&lt;EthTokenSearchResponse&gt;</a></code></dt></dt>
-
 Returns JSON info tokens returned by query object.
 
 Input data:
@@ -514,8 +513,8 @@ Input data:
 | --- | --- | --- |
 | searchRequest | <code>EthTokenSearchRequest</code> | [Optional object request, that includes general information to search by type or query and pagination.] |
 ```javascript
-    import { Crypto } from 'cryptoapi-lib';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.searchToken({ query: 'ERC721', limit: 1 })
 ```
 
@@ -554,8 +553,8 @@ Input data:
 | addresses | <code>string[]</code> | [Subscribed addresses] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi-lib';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.subscribeToken('dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jk' +
                   		'QkueHG00uHyv3VIuThFxgTf6X8udvDdJIiUrX3SEiEW7dPg3rRxIKsajd' +
                   		'qc84kG1SuRz9JDoEgJXEa-CCNw1Jjn9vKXWrF23zDnNuhMaFksO-',
@@ -581,8 +580,8 @@ Input data:
 | addresses | <code>string[]</code> | [Subscribed addresses] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi-lib';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.unsubscribeToken('dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jk' +
                   		'QkueHG00uHyv3VIuThFxgTf6X8udvDdJIiUrX3SEiEW7dPg3rRxIKsajd' +
                   		'qc84kG1SuRz9JDoEgJXEa-CCNw1Jjn9vKXWrF23zDnNuhMaFksO-',

@@ -1,4 +1,4 @@
-import { EthContract, EthContractCall } from 'dtos/eth/eth.contract.dto';
+import { EthContract, EthContractCall } from '../../../dtos/eth/eth.contract.dto';
 
 import { IConfigurable } from '../../configs/configurable.interface';
 import { IServerConfig } from '../../configs/crypto.config.interface';

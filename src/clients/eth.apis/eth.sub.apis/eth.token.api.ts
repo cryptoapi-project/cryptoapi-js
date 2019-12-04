@@ -12,7 +12,6 @@ import { IEthTokenApi } from '../../../interfaces/eth.apis/eth.sub.apis/eth.toke
 import { IHttpService } from '../../../interfaces/providers/http.service.interface';
 
 import { IUrlHelper } from 'interfaces/providers/helpers/url.helper.interface';
-
 import { IValidateHelper } from '../../../interfaces/providers/helpers/validate.helper.interface';
 
 import { AbstractApi } from '../../../abstracts/abstract.api';

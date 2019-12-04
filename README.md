@@ -23,14 +23,14 @@ $ npm install --save cryptoapi-lib
 
 ```js
 const cryptoapi = require('cryptoapi-lib');
-const crypto = new crypto.Crypto('***');
+const crypto = new cryptoapi.Client('***');
 const result = await crypto.api.eth.getNetworkInfo();
 ```
 
 ##### ES Module
 ```js
-import { Crypto } from 'cryptoapi-lib';
-const crypto = new Crypto('***');
+import { Client } from 'cryptoapi-lib';
+const crypto = new Client('***');
 const result = await crypto.api.eth.getNetworkInfo();
 ```
 
@@ -45,7 +45,7 @@ Or if you're keeping things super simple, just include [this file](dist/bundles/
 
 #### Examples
 ```
-const crypto = new cryptoapi.Crypto('***')
+const crypto = new cryptoapi.Client('***')
 const result = await crypto.api.eth.getNetworkInfo();
 ```
 

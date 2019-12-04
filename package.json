@@ -19,8 +19,7 @@
   "types": "dist/lib/src/index.d.ts",
   "module": "dist/lib-esm/src/index.js",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "keywords": [],
   "scripts": {
