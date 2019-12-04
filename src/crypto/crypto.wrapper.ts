@@ -7,6 +7,7 @@ import {
 	ETH_BASE_WS_RECONNECT,
 	ETH_BASE_WS_ATTEMPTS,
 	ETH_BASE_WS_TIMEOUT,
+	ETH_BASE_WS_RESUBSCRIBE,
 } from '../config/capi.lib.config';
 
 import { ICrypto, IPublicCrypto } from '../interfaces/crypto.interface';
@@ -60,6 +61,7 @@ class CryptoWrapper implements IPublicCrypto {
 				reconnect: ETH_BASE_WS_RECONNECT,
 				attempts: ETH_BASE_WS_ATTEMPTS,
 				timeout: ETH_BASE_WS_TIMEOUT,
+				resubscribe: ETH_BASE_WS_RESUBSCRIBE,
 			},
 		};
 

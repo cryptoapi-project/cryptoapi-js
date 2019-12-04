@@ -3,6 +3,7 @@ export interface IEventsConfig {
 	reconnect?: boolean;
 	attempts?: number;
 	timeout?: number;
+	resubscribe?: boolean;
 }
 
 export interface IServerConfig {

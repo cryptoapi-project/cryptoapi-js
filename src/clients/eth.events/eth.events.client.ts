@@ -27,8 +27,12 @@ export class EthEventsClient implements IEthEventsClient {
 	private subscribers: Map<string | number, { params: any[], cb: (notification: any) => void }> = new Map();
 	private connectedSubscribers: Array<() => void> = [];
 	private disconnectedSubscribers: Array<() => void> = [];
+	private pendingSubscribers: Map<string | number, (error: string | null) => void> = new Map();
+	private pendingUnsubscribers: Map<string | number, (error: string | null) => void> = new Map();
+
 	private ws: WS | null = null;
 	private config: IEventsConfig | null = null;
+	private token: string | null = null;
 	private reconnectingInterval: any;
 	public connected: boolean = false;
 	public error: string = '';
@@ -49,10 +53,24 @@ export class EthEventsClient implements IEthEventsClient {
 	}
 
 	/**
-	 *  @method isValidMessage
+	 *  @method isValidResponse
 	 *  @param {any} data
 	 */
-	private isValidMessage(data: any) {
+	private isValidResponse(data: any) {
+		if (data.jsonrpc !== '2.0') {
+			return false;
+		}
+
+		const keys = Object.keys(data).filter((key) => ['error', 'result', 'id'].includes(key));
+
+		return keys.length === ['error', 'result', 'id'].length;
+	}
+
+	/**
+	 *  @method isValidNotification
+	 *  @param {any} data
+	 */
+	private isValidNotification(data: any) {
 		if (!data.method || !Object.values(SUBSCRIPTIONS).includes(data.method)) {
 			return false;
 		}
@@ -65,13 +83,45 @@ export class EthEventsClient implements IEthEventsClient {
 	}
 
 	/**
+	 *  @method setSubscription
+	 *  @param {string| number} id
+	 *  @param {any} params
+	 *  @param {Function} cb
+	 */
+	private async setSubscription(id: string | number, params: any[], cb: (notification: any) => void) {
+		return new Promise<string | number>((resolve, reject) => {
+			this.pendingSubscribers.set(id, (error) => {
+				if (error) {
+					reject(error);
+				} else {
+					this.pendingSubscribers.delete(id);
+					this.subscribers.set(id, { params, cb });
+					resolve(id);
+				}
+			});
+
+			this.send(METHODS.SUBSCRIBE, params, id);
+		});
+	}
+
+	/**
 	 *  @method onMessage
 	 *  @param {WS.MessageEvent} event
 	 */
 	private onMessage(event: WS.MessageEvent) {
 		const data = JSON.parse(event.data.toString());
 
-		if (!this.isValidMessage(data)) {
+		if (this.isValidResponse(data)) {
+			const cb = this.pendingSubscribers.get(data.id) || this.pendingUnsubscribers.get(data.id);
+
+			if (cb) {
+				cb(data.error);
+			}
+
+			return;
+		}
+
+		if (!this.isValidNotification(data)) {
 			return;
 		}
 
@@ -123,18 +173,29 @@ export class EthEventsClient implements IEthEventsClient {
 
 	/**
 	 *  @method connect
-	 *  @param {string} url
+	 *  @param {string | null} token
+	 *  @param {IEventsConfig | null} config
 	 */
-	connect(config: IEventsConfig | null) {
+	connect(token: string | null, config: IEventsConfig | null) {
+
+		if (!token) {
+			throw new Error('Token is required');
+		}
+
+		if (this.connected) {
+			throw new Error('Already connected');
+		}
+
 		if (!config || !config.url) {
 			return;
 		}
 
-		this.ws = new WS(config.url);
+		this.ws = new WS(`${config.url}?token=${token}`);
 		this.ws.onmessage = this.onMessage.bind(this);
 		this.ws.onopen = this.onOpen.bind(this);
 		this.ws.onclose = this.onClose.bind(this);
 		this.ws.onerror = (error) => { this.error = error.message; };
+		this.token = token;
 		this.config = config;
 	}
 
@@ -148,7 +209,7 @@ export class EthEventsClient implements IEthEventsClient {
 		}
 
 		let attempt = 1;
-		this.connect(this.config);
+		this.connect(this.token, this.config);
 
 		this.reconnectingInterval = setInterval(() => {
 			if (this.connected) {
@@ -162,7 +223,7 @@ export class EthEventsClient implements IEthEventsClient {
 				throw new Error('Connection attempts are over');
 			}
 
-			this.connect(this.config);
+			this.connect(this.token, this.config);
 		}, this.config!.timeout);
 	}
 
@@ -173,6 +234,7 @@ export class EthEventsClient implements IEthEventsClient {
 	close() {
 		this.ws!.close();
 		this.config = null;
+		this.token = null;
 		this.subscribers = new Map();
 		this.connectedSubscribers = [];
 		this.disconnectedSubscribers = [];
@@ -208,11 +270,8 @@ export class EthEventsClient implements IEthEventsClient {
 
 		const id = this.idHelper.get();
 		const params = [SUBSCRIPTIONS.BLOCK, confirmations];
-		this.subscribers.set(id, { params, cb });
 
-		this.send(METHODS.SUBSCRIBE, params, id);
-
-		return id;
+		return this.setSubscription(id, params, cb);
 	}
 
 	/**
@@ -236,11 +295,8 @@ export class EthEventsClient implements IEthEventsClient {
 
 		const id = this.idHelper.get();
 		const params = [SUBSCRIPTIONS.TRANSACTION, address, confirmations];
-		this.subscribers.set(id, { params, cb });
 
-		this.send(METHODS.SUBSCRIBE, params, id);
-
-		return id;
+		return this.setSubscription(id, params, cb);
 	}
 
 	/**
@@ -265,11 +321,8 @@ export class EthEventsClient implements IEthEventsClient {
 
 		const id = this.idHelper.get();
 		const params = [SUBSCRIPTIONS.TRANSFER, token, address, confirmations];
-		this.subscribers.set(id, { params, cb });
 
-		this.send(METHODS.SUBSCRIBE, params, id);
-
-		return id;
+		return this.setSubscription(id, params, cb);
 	}
 
 	/**
@@ -293,11 +346,8 @@ export class EthEventsClient implements IEthEventsClient {
 
 		const id = this.idHelper.get();
 		const params = [SUBSCRIPTIONS.CONFIRMATION, hash, confirmations];
-		this.subscribers.set(id, { params, cb });
 
-		this.send(METHODS.SUBSCRIBE, params, id);
-
-		return id;
+		return this.setSubscription(id, params, cb);
 	}
 
 	/**
@@ -311,12 +361,24 @@ export class EthEventsClient implements IEthEventsClient {
 
 		const sub = this.subscribers.get(id);
 
-		if (sub) {
-			this.send(METHODS.UNSUBSCRIBE, sub.params, id);
-			this.subscribers.delete(id);
+		if (!sub) {
+			return Promise.resolve(true);
 		}
 
-		return true;
+		return new Promise<boolean>((resolve, reject) => {
+			this.pendingUnsubscribers.set(id, (error) => {
+				if (error) {
+					reject(error);
+				} else {
+					this.pendingUnsubscribers.delete(id);
+					this.subscribers.delete(id);
+					resolve(true);
+				}
+			});
+
+			this.send(METHODS.UNSUBSCRIBE, sub.params, id);
+		});
+
 	}
 
 }

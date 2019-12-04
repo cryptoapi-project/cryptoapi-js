@@ -10,8 +10,9 @@ Library provides websocket subscribers to work with CryptoAPI.
 ## ETH Event Client
 
 Eth events client provides the ability to pass a connection url.
-Also configuration allows you to set automatically reconnect.
+Also configuration allows you to set automatically reconnect (by default switched off).
 Set in options parameters for reconnect (count of attempts and timeout between them).
+If you want automatically resubscribe, you can set following option (by default switched off).
 
 ```javascript
 
@@ -22,6 +23,7 @@ const options = {
             reconnect: true,
             attempts: 10,
             timeout: 1000,
+            resubscribe: true,
         },
     },
 };
@@ -66,7 +68,7 @@ All subscribers are listed below:
 </dl>
 
 
-#### <a name="eth.onBlock">onBlock</a>(confirmations: number, cb: (notification:  <a name="EthBlockNotification">EthBlockNotification</a>) => void) ⇒ <code>Number</code>
+#### <a name="eth.onBlock">onBlock</a>(confirmations: number, cb: (notification:  <a name="EthBlockNotification">EthBlockNotification</a>) => void) ⇒ <code>Promise&lt;Number&gt;</code>
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -76,7 +78,7 @@ All subscribers are listed below:
 Returns subscription id.
 
 ```javascript
-> const subscriptionId = crypto.events.eth.onBlock(1, (msg) => { console.log(msg) });
+> const subscriptionId = await crypto.events.eth.onBlock(1, (msg) => { console.log(msg) });
 
 // Notification example
 > {
@@ -118,7 +120,7 @@ Returns subscription id.
 }
 ```
 
-#### <a name="eth.onAddressTransactions">onAddressTransactions</a>({ address, confirmations }: <a name="EthAddressTransactionSubscription">EthAddressTransactionSubscription</a>, cb: (notification: <a name="EthTransactionNotification">EthTransactionNotification</a>) => void, ⇒ <code>Number</code>
+#### <a name="eth.onAddressTransactions">onAddressTransactions</a>({ address, confirmations }: <a name="EthAddressTransactionSubscription">EthAddressTransactionSubscription</a>, cb: (notification: <a name="EthTransactionNotification">EthTransactionNotification</a>) => void, ⇒ <code>Promise&lt;Number&gt;</code>
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -129,7 +131,7 @@ Returns subscription id.
 Returns subscription id.
 
 ```javascript
-> const subscriptionId = crypto.events.eth.onAddressTransactions({
+> const subscriptionId = await crypto.events.eth.onAddressTransactions({
     address: '0x1cDdD028E63D0Ff555B9DE49E9B436c4e14309Fc',
     confirmations: 1,
 }, (msg) => { console.log(msg) });
@@ -159,7 +161,7 @@ Returns subscription id.
 }
 ```
 
-#### <a name="eth.onTokenTransfers">onTokenTransfers</a>({ token, address, confirmations }: <a name="EthTokenTransferSubscription">EthTokenTransferSubscription</a>, cb: (notification: <a name="EthTransferNotification">EthTransferNotification</a>) => void) ⇒ <code>Number</code>
+#### <a name="eth.onTokenTransfers">onTokenTransfers</a>({ token, address, confirmations }: <a name="EthTokenTransferSubscription">EthTokenTransferSubscription</a>, cb: (notification: <a name="EthTransferNotification">EthTransferNotification</a>) => void) ⇒ <code>Promise&lt;Number&gt;</code>
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -171,7 +173,7 @@ Returns subscription id.
 Returns subscription id.
 
 ```javascript
-> const subscriptionId = crypto.events.eth.onTokenTransfers({
+> const subscriptionId = await crypto.events.eth.onTokenTransfers({
     token: '0x04c9f29d7b2f65a16258cdc389b1dc3f5a731bd0',
     address: '0x6182d3513fa43cbbb010b8c4d40a19e53e5605c3',
     confirmations: 2,
@@ -194,7 +196,7 @@ Returns subscription id.
 }
 ```
 
-#### <a name="eth.onTransactionConfirmations">onTransactionConfirmations</a>({ hash, confirmations }: <a name="EthTransactionConfirmationSubscription">EthTransactionConfirmationSubscription</a>, cb: (notification: <a name="EthTransactionConfirmationNotification">EthTransactionConfirmationNotification</a>) => void) ⇒ <code>Number</code>
+#### <a name="eth.onTransactionConfirmations">onTransactionConfirmations</a>({ hash, confirmations }: <a name="EthTransactionConfirmationSubscription">EthTransactionConfirmationSubscription</a>, cb: (notification: <a name="EthTransactionConfirmationNotification">EthTransactionConfirmationNotification</a>) => void) ⇒ <code>Promise&lt;Number&gt;</code>
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -205,7 +207,7 @@ Returns subscription id.
 Returns subscription id.
 
 ```javascript
-> const subscriptionId = crypto.events.eth.onTransactionConfirmations({
+> const subscriptionId = await crypto.events.eth.onTransactionConfirmations({
     hash: '0x4c29f5d1bc3228cca62e29d2c9f47a028edf68f85bab133053adfc541001eeb5',
     confirmations: 2,
 }, (msg) => { console.log(msg) });
@@ -218,7 +220,7 @@ Returns subscription id.
 
 ```
 
-#### <a name="eth.unsubscribe">unsubscribe</a> ⇒ <code>Boolean</code>
+#### <a name="eth.unsubscribe">unsubscribe</a> ⇒ <code>Promise&lt;Boolean&gt;</code>
 
 | Param | Type | Description |
 | --- | --- | --- |

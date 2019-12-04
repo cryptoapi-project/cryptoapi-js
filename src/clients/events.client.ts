@@ -22,8 +22,7 @@ export class EventsClient implements IEventsClient {
 		}
 
 		if (config.eth) {
-			this.eth.connect(config.eth.events!);
+			this.eth.connect(config.token, config.eth.events!);
 		}
-		// TODO work with token
 	}
 }

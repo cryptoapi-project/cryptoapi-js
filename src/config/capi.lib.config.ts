@@ -6,3 +6,4 @@ export const ETH_BASE_WS_URL = 'wss://697-crypto-api.pixelplex-test.by/ws/eth';
 export const ETH_BASE_WS_RECONNECT = false;
 export const ETH_BASE_WS_ATTEMPTS = 5;
 export const ETH_BASE_WS_TIMEOUT = 1000;
+export const ETH_BASE_WS_RESUBSCRIBE = false;
