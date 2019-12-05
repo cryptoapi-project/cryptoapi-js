@@ -155,6 +155,17 @@ export class EthApiClient implements IEthApiClient {
 		return this.ethBlock.getBlock(blockNumber);
 	}
 
+	/*
+	 * Method decode raw transaction.
+	 * @method decodeRawTransaction
+	 * @param {string} tr
+	 * @return {EthRawTransaction}
+	 */
+	@TryCatch
+	decodeRawTransaction(tr: string) {
+		return this.ethRawTransactionApi.decodeRawTransaction(tr);
+	}
+
 	/**
 	 * Method to get transactions by addresses.
 	 * @method getTransactionsByAddresses
@@ -181,14 +192,17 @@ export class EthApiClient implements IEthApiClient {
  	}
 
 	/**
-	 * Method decode raw transaction.
-	 * @method decodeRawTransaction
-	 * @param {string} tr
-	 * @return {EthRawTransaction}
+	 * Get transactions from one address to another
+	 * @method getTransactionsInterAddresses
+	 * @param {string} from
+	 * @param {string} to
+	 * @param {PaginationOptions} options
+	 * @return {Promise<EthTransactionsInterAddresses>}
 	 */
 	@TryCatch
-	decodeRawTransaction(tr: string) {
-		return this.ethRawTransactionApi.decodeRawTransaction(tr);
+	getTransactionsInterAddresses(from: string, to: string, options?: PaginationOptions) {
+		return this.ethTransactions.getTransactionsInterAddresses(from, to, options);
+
 	}
 
 	/*

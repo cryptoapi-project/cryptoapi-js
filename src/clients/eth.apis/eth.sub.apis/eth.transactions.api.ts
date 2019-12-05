@@ -6,6 +6,7 @@ import { TYPES_DI } from '../../../constants/inversify.constants';
 import {
 	EthTransactionByAddresses,
 	EthTransactionsIntersection,
+	EthTransactionsInterAddresses,
 } from '../../../dtos/eth/eth.transaction.dtos';
 import { PaginationOptions } from '../../../dtos/paginations.options';
 
@@ -47,7 +48,7 @@ export class EthTransactionsApi extends AbstractApi implements IEthTransactionsA
 		this._checkConfig();
 
 		if (!this.validateHelper.isArray(addresses) || !addresses.length) {
-			throw new InternalLibraryException(`Addresses are required.`);
+			throw new InternalLibraryException('Addresses are required.');
 		}
 
 		const query = `${this.urlHelper.addOptionsToUrl('', options)}&positive=${positive}`;
@@ -62,7 +63,7 @@ export class EthTransactionsApi extends AbstractApi implements IEthTransactionsA
 	 * Get transactions interception by addresses
 	 * @method getTransactionsIntersection
 	 * @param {string[]} addresses
-	 * @param {PaginationOptions} options
+	 * @param {PaginationOptions} options?
 	 * @return {Promise<EthTransactionsIntersection>}
 	 */
 	async getTransactionsIntersection(
@@ -72,7 +73,7 @@ export class EthTransactionsApi extends AbstractApi implements IEthTransactionsA
 		this._checkConfig();
 
 		if (!this.validateHelper.isArray(addresses) || !addresses.length) {
-			throw new InternalLibraryException(`Addresses are required.`);
+			throw new InternalLibraryException('Addresses are required.');
 		}
 
 		const query = options ? this.urlHelper.addOptionsToUrl('', options) : '';
@@ -80,6 +81,28 @@ export class EthTransactionsApi extends AbstractApi implements IEthTransactionsA
 			`${this.config!.baseUrl}/coins/eth/accounts/${addresses.join(',')}/transactions/external${query}`,
 		);
 		return new EthTransactionsIntersection(transactionsInfo.data);
+	}
+
+	/**
+	 * Get transactions from one address to another
+	 * @method getTransactionsInterAddresses
+	 * @param {string} from
+	 * @param {string} to
+	 * @param {PaginationOptions} options?
+	 * @return {Promise<EthTransactionsInterAddresses>}
+	 */
+	async getTransactionsInterAddresses(
+		from: string,
+		to: string,
+		options?: PaginationOptions,
+	): Promise<EthTransactionsInterAddresses> {
+		this._checkConfig();
+
+		const query = this.urlHelper.addOptionsToUrl('', {from, to, ...options});
+		const transactionsInfo = await this.httpService.agent.get<any>(
+			`${this.config!.baseUrl}/coins/eth/transactions${query}`,
+		);
+		return new EthTransactionsInterAddresses(transactionsInfo.data);
 	}
 
 }
