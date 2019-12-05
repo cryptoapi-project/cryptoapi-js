@@ -1,3 +1,83 @@
+export class EthInternalTransaction {
+	readonly to: string;
+	readonly from: string;
+	readonly value: string;
+	readonly input: string;
+	readonly is_suicide: boolean;
+	readonly type: string;
+
+	constructor(info: {
+		readonly to: string;
+		readonly from: string;
+		readonly value: string;
+		readonly input: string;
+		readonly is_suicide: boolean;
+		readonly type: string;
+	}) {
+		this.to = info.to;
+		this.from = info.from;
+		this.value = info.value;
+		this.input = info.input;
+		this.is_suicide = info.is_suicide;
+		this.type = info.type;
+	}
+}
+
+export class EthTransaction {
+	readonly block_hash: string;
+	readonly block_number: number;
+	readonly utc: string;
+	readonly from: string;
+	readonly gas: number;
+	readonly gas_price: any;
+	readonly hash: string;
+	readonly input: string;
+	readonly nonce: number;
+	readonly to: string;
+	readonly transaction_index: number;
+	readonly value: any;
+	readonly v: string;
+	readonly s: string;
+	readonly r: string;
+	readonly internal_transactions: EthInternalTransaction[];
+
+	constructor(info: {
+		readonly block_hash: string;
+		readonly block_number: number;
+		readonly utc: string;
+		readonly from: string;
+		readonly gas: number;
+		readonly gas_price: any;
+		readonly hash: string;
+		readonly input: string;
+		readonly nonce: number;
+		readonly to: string;
+		readonly transaction_index: number;
+		readonly value: any;
+		readonly v: string;
+		readonly s: string;
+		readonly r: string;
+		readonly internal_transactions: EthInternalTransaction[];
+	}) {
+		this.block_hash = info.block_hash;
+		this.block_number = info.block_number;
+		this.utc = info.utc;
+		this.from = info.from;
+		this.gas = info.gas;
+		this.gas_price = info.gas_price;
+		this.hash = info.hash;
+		this.input = info.input;
+		this.nonce = info.nonce;
+		this.to = info.to;
+		this.transaction_index = info.transaction_index;
+		this.value = info.value;
+		this.v = info.v;
+		this.s = info.s;
+		this.r = info.r;
+		this.internal_transactions = info.internal_transactions.map((t) => new EthInternalTransaction(t));
+	}
+}
+
 export class EthTransactionByAddresses {
 	readonly addresses: string[];
 	readonly limit: number;
@@ -52,12 +132,32 @@ export class EthTransactionByAddresses {
 }
 
 export class EthTransactionsIntersection {
-
 	readonly addresses: string[];
 	readonly skip: number;
 	readonly limit: number;
 	readonly count: number;
-	readonly items: Array<{
+	readonly items: EthTransaction[];
+
+	constructor({ addresses, skip, limit, items, count }: {
+		addresses: string[],
+		skip: number,
+		limit: number,
+		count: number,
+		items: EthTransaction[],
+	}) {
+		this.addresses = addresses;
+		this.skip = skip;
+		this.limit = limit;
+		this.count = count;
+		this.items = items.map(((item) => new EthTransaction(item)));
+	}
+}
+
+export class FullEthTransaction extends EthTransaction {
+	readonly receipt: any;
+
+	constructor(info: {
+		readonly receipt: any;
 		readonly block_hash: string;
 		readonly block_number: number;
 		readonly utc: string;
@@ -73,54 +173,11 @@ export class EthTransactionsIntersection {
 		readonly v: string;
 		readonly s: string;
 		readonly r: string;
-	}>;
-
-	constructor({ addresses, skip, limit, items, count }: {
-		addresses: string[],
-		skip: number,
-		limit: number,
-		count: number,
-		items: Array<{
-			block_hash: string,
-			block_number: number,
-			utc: string,
-			from: string,
-			gas: number,
-			gas_price: any,
-			hash: string,
-			input: string,
-			nonce: number,
-			to: string,
-			transaction_index: number,
-			value: any,
-			v: string,
-			s: string,
-			r: string,
-		}>,
+		readonly internal_transactions: EthInternalTransaction[];
 	}) {
-		this.addresses = addresses;
-		this.skip = skip;
-		this.limit = limit;
-		this.count = count;
-		this.items = items.map((item) => ({
-			block_hash: item.block_hash,
-			block_number: item.block_number,
-			utc: item.utc,
-			from: item.from,
-			gas: item.gas,
-			gas_price: item.gas_price,
-			hash: item.hash,
-			input: item.input,
-			nonce: item.nonce,
-			to: item.to,
-			transaction_index: item.transaction_index,
-			value: item.value,
-			v: item.v,
-			s: item.s,
-			r: item.r,
-		}));
+		super(info);
+		this.receipt = info.receipt;
 	}
-
 }
 
 export class EthTransactionsInterAddresses {

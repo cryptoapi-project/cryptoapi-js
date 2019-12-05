@@ -275,4 +275,15 @@ export class EthApiClient implements IEthApiClient {
 	unsubscribeToken(token: string, addresses: string[]) {
 		return this.ethNotifyApi.unsubscribeToken(token, addresses);
 	}
+
+	/**
+	 * Get full transaction info by hash.
+	 * @method getFullTransactionInfo
+	 * @param {string} hash
+	 * @return {Promise<FullEthTransaction>}
+	 */
+	@TryCatch
+	getFullTransactionInfo(hash: string) {
+		return this.ethTransactions.getFullTransactionInfo(hash);
+	}
 }

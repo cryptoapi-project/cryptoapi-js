@@ -19,7 +19,7 @@
     "import-name": false,
     "align": false,
     "no-parameter-reassignment": false,
-    "max-classes-per-file": [true, 5, "exclude-class-expressions"],
+    "max-classes-per-file": [true, 10, "exclude-class-expressions"],
     "variable-name": [true, "allow-leading-underscore", "allow-pascal-case", "allow-snake-case"]
   },
   "rulesDirectory": []

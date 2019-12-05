@@ -6,6 +6,7 @@ import { TYPES_DI } from '../../../constants/inversify.constants';
 import {
 	EthTransactionByAddresses,
 	EthTransactionsIntersection,
+	FullEthTransaction,
 	EthTransactionsInterAddresses,
 } from '../../../dtos/eth/eth.transaction.dtos';
 import { PaginationOptions } from '../../../dtos/paginations.options';
@@ -105,4 +106,19 @@ export class EthTransactionsApi extends AbstractApi implements IEthTransactionsA
 		return new EthTransactionsInterAddresses(transactionsInfo.data);
 	}
 
+	/**
+	 *  Get full transaction info by hash.
+	 * @method getFullTransactionInfo
+	 * @param {string} hash
+	 * @return {Promise<FullEthTransaction>}
+	 */
+	async getFullTransactionInfo(hash: string) {
+		this._checkConfig();
+
+		const transaction = await this.httpService.agent.get<FullEthTransaction>(
+			`${this.config!.baseUrl}/coins/eth/transactions/${hash}`,
+		);
+
+		return new FullEthTransaction(transaction.data);
+	}
 }

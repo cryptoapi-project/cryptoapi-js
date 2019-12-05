@@ -35,6 +35,8 @@ This library provides api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.getTransactionsIntersection">eth.getTransactionsIntersection</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#eth.getFullTransactionInfo">eth.getFullTransactionInfo</a> ⇒<code>Promise&lt;FullEthTransaction&gt;</code></dt></dt>
+<dd></dd>
 <dt><a href="#eth.getTransactionsInterAddresses">eth.getTransactionsInterAddresses</a> ⇒<code><a href="#EthTransactionsInterAddresses">Promise&lt;EthTransactionsInterAddresses&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getTokenTransfers">eth.getTokenTransfers</a> ⇒<code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
@@ -437,9 +439,10 @@ Example response:
 }
 ```
 
-#### <a name="eth.getTransactionsInterAddresses">eth.getTransactionsInterAddresses(from: string, to: string, options: <a href="#PaginationOptions">PaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsInterAddresses">Promise&lt;EthTransactionsInterAddresses&gt;</a></code></dt></dt>
 
+#### <a name="eth.getTransactionsInterAddresses">eth.getTransactionsInterAddresses(from: string, to: string, options: <a href="#PaginationOptions">PaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsInterAddresses">Promise&lt;EthTransactionsInterAddresses&gt;</a></code></dt></dt>
 Return list of transactions between addresses.
+
 
 Input data:
 
@@ -640,6 +643,48 @@ Example response:
 true
  ```
 
+
+#### <a name="eth.getFullTransactionInfo">eth.getFullTransactionInfo(hash: string)</a> ⇒<code><a href="#FullEthTransaction">Promise&lt;FullEthTransaction&gt;</a></code></dt></dt>
+Returns JSON data about full transaction information.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| hash | <code>string</code> | [Transaction hash] |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
+    crypto.api.eth.getFullTransactionInfo('0x2dd50756cfd189177d0de4d65b7926459d7bb01de197c26517d05cd2b1c77ebc')
+```
+
+Example response:
+```
+{
+    block_hash: "0xdb16f0d4465f2fd79f10ba539b169404a3e026db1be082e7fd6071b4c5f37db7"
+    block_number: 55
+    from: "0x31b98d14007bdee637298086988a0bbd31184523"
+    gas: 21000
+    gas_price: "20000000000"
+    hash: "0x2dd50756cfd189177d0de4d65b7926459d7bb01de197c26517d05cd2b1c77ebc"
+    input: "0x",
+    internal_transactions:[]
+    nonce: 0
+    r: "0x6217a3ed3379e98821117e66536aa59dc9f402eb1c998111e4e087bc5ec9b09e"
+    s: "0x92d3bccf7d31fd025ea79560583064a511a02a2001e31d91927e4b80c9ccaa7"
+    to: "0x2ed530faddb7349c1efdbf4410db2de835a004e4"
+    transaction_index: 0
+    utc: "2017-04-12T15:34:29.000Z"
+    v: "0x2b"
+    value: "1000000000000000000" 
+    receipt: {
+        contract_address: null
+        cumulative_gas_used: 21000
+        gas_used: 21000
+        logs: []
+    }
+```
 ## Typedefs
 
 <dl>
@@ -670,6 +715,12 @@ true
 <dt><a href="#EthRawTransaction">EthRawTransaction</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTransactionByAddresses">EthTransactionByAddresses</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthInternalTransaction">EthInternalTransaction</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthTransaction">EthTransaction</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#FullEthTransaction">FullEthTransaction</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTransactionsIntersection">EthTransactionsIntersection</a> : <code>Object</code></dt>
 <dd></dd>
@@ -892,6 +943,68 @@ true
     count: Number;
 }
 ```
+#### EthInternalTransaction : <code>Object</code>
+<a name="EthInternalTransaction"></a>
+
+```javascript
+{
+	to: String;
+	from: String;
+	value: String;
+	input: String;
+	is_suicide: Boolean;
+	type: String[];
+}
+```
+
+#### EthTransaction : <code>Object</code>
+<a name="EthTransaction"></a>
+
+```javascript
+{
+	block_hash: String;
+	block_number: Number;
+	utc: String;
+	from: String;
+	gas: Number;
+	gas_price: String;
+	hash: String;
+	input: String;
+	nonce: Number;
+	to: String;
+	transaction_index: Number;
+	value: String;
+    v: String;
+    s: String;
+	r: String;
+	internal_transactions: Array<EthInternalTransaction>;
+}
+```
+
+#### FullEthTransaction : <code>Object</code>
+<a name="EthInternalTransaction"></a>
+
+```javascript
+{
+    receipt: any;
+	block_hash: String;
+    block_number: Number;
+    utc: String;
+    from: String;
+    gas: Number;
+    gas_price: String;
+    hash: String;
+    input: String;
+    nonce: Number;
+    to: String;
+    transaction_index: Number;
+    value: String;
+    v: String;
+    s: String;
+    r: String;
+    internal_transactions: Array<EthInternalTransaction>;
+}
+```
 
 #### EthTransactionsIntersection : <code>Object</code>
 <a name="EthTransactionsIntersection"></a>
@@ -901,24 +1014,7 @@ true
     addresses: String[];
     limit: Number;
     skip: Number;
-    items: Array<{
-        block_hash: String;
-        block_number: Number;
-        from: String;
-        to: String;
-        value: String;
-        hash: String;
-        input: String;
-        nonce: Number;
-        transaction_index: Number;
-        v: String;
-        s: String;
-        r: String;
-        gas: Number;
-        gas_price: String;
-        internal: Boolean;
-        utc: String;
-    }>;
+    items: Array<EthTransaction>;
     count: Number;
 }
 ```
@@ -1008,3 +1104,4 @@ true
 	addresses: String[];
 }
 ```
+
