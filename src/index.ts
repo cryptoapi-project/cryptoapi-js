@@ -1,1 +1,1 @@
-export { Crypto } from './crypto/crypto.wrapper';
+export { Client } from './crypto/crypto.wrapper';

@@ -12,6 +12,6 @@ export interface IEthTokenApi extends IConfigurable<IServerConfig> {
 	getTokenInfoByTokenAddress(address: string): Promise<EthTokenInfo>;
 	getTokenBalanceByAddresses(tokenAddress: string, holderAddress: string): Promise<EthTokenBalance>;
 	getTokensBalancesByHolderAddress(address: string, options?: PaginationOptions): Promise<EthTokensByHolder>;
-	getTokenTransfers(tokenAddress: string, addresses: string[], options?: PaginationOptions): Promise<EthTokenTransfersResponse>;
 	searchToken(searchRequest: EthTokenSearchRequest): Promise<EthTokenSearchResponse>;
+	getTokenTransfers(tokenAddress: string, addresses: string[], options?: PaginationOptions): Promise<EthTokenTransfersResponse>;
 }

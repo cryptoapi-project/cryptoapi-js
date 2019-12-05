@@ -1,4 +1,4 @@
-# API cryptoapi
+# API cryptoapi-lib
 This library provides api methods to work with CryptoAPI.
 
 #### Table of Contents
@@ -41,14 +41,19 @@ This library provides api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.searchToken">eth.searchToken</a> ⇒<code><a href="#EthTokenSearchResponse">Promise&lt;EthTokenSearchResponse&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#eth.subscribeToken">eth.subscribeToken</a> ⇒<code><a href="#EthSubscribeToken">Promise&lt;EthSubscribeToken&gt;</a></code></dt></dt>
+<dd></dd>
+<dt><a href="#eth.unsubscribeToken">eth.unsubscribeToken</a> ⇒<code>Promise&lt;boolean&gt;</code></dt></dt>
+<dd></dd>
 </dl>
 
 #### <a name="eth.getNetworkInfo">eth.getNetworkInfo()</a> ⇒ <code><a href="#EthNetworkInfo">Promise&lt;EthNetworkInfo&gt;</a></code></dt></dt>
 Returns JSON data about a network information such as last block, count transactions,
 current hash rate, gas price, difficulty.
+
 ```javascript
-    import { Crypto } from 'cryptoapi';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     const result = await crypto.api.eth.getNetworkInfo();
 ```
 
@@ -67,8 +72,8 @@ Example response:
 Returns JSON data about an estimate gas information.
 
 ```javascript
-    import { Crypto } from 'cryptoapi';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     const result = await crypto.api.eth.estimateGas({
         from: '0x653a801625c60112a03097c51b7d3f3a19e07c9c',
     	to: '0xc6c65a3979a7ea0b2ff3040e6d3efdbebf87c345',
@@ -88,10 +93,11 @@ Example response:
 Returns JSON data about block information.
 
 ```javascript
-    import { Crypto } from 'cryptoapi';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     const result = await crypto.api.eth.getBlock(5485938);
 ```
+
 Example response:
 ```
 {
@@ -118,9 +124,8 @@ Example response:
 }
 ```
 
-
 #### <a name="eth.getAddressesBalances">getAddressesBalances(address: string[])</a> ⇒ <code><a href="#EthAddressBalance">Promise&lt;EthAddressBalance[]&gt;</a></code></dt></dt>
-Returns JSON data about a eth addresses balances informations.
+Returns JSON data about a eth addresses balances information.
 
 Input data:
 
@@ -129,13 +134,14 @@ Input data:
 | addresses | <code>string[]</code> | [Tokens addresses] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     const result =  crypto.api.eth.getAddressesBalances([
                        		'0xa177AD7c3CA2cCa794C02a0FF4dF1C2B09D49C8f',
                        		'0xf24A2674208B7B5EC2f2863DCb65938EF82dC180'
                        ]);
 ```
+
 Example response:
 ```
 [
@@ -159,8 +165,8 @@ Input data:
 | addresses | <code>string[]</code> | [Addresses] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.getAddressesInfos([
         '0xa177AD7c3CA2cCa794C02a0FF4dF1C2B09D49C8f',
     ]);
@@ -183,8 +189,8 @@ Example response:
 Returns JSON data about contract information.
 
 ```javascript
-    import { Crypto } from 'cryptoapi';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.getContractInfo('0x772fe05f6663bdabdc99f7067baeb21a5484fbcc');
 ```
 
@@ -203,11 +209,13 @@ Input data:
 | Param | Type | Description |
 | --- | --- | --- |
 | address | <code>String</code> | [Token address] |
+
 ```javascript
-    import { Crypto } from 'cryptoapi';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     const result = await crypto.api.eth.getTokenInfoByTokenAddress('0x106c2dbabeb8c4932e3f68b76fb9665180b74587');
 ```
+
 Example response:
 ```
 {
@@ -233,8 +241,8 @@ Input data:
 | holderAddress | <code>string</code> | [Holder address] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.getTokenBalanceByAddresses('0x5ae86537ea087929a34b597480fd23144d2dd216', '0xd89f43605f4ccc0935afceba98f3d5d04ce2e390');
 ```
 
@@ -248,7 +256,6 @@ Example response:
 ```
 
 #### <a name="eth.getTokensBalancesByHolderAddress">eth.getTokensBalancesByHolderAddress(address: string, options: PaginationOptions)</a> ⇒<code><a href="#EthTokensByHolder">Promise&lt;EthTokensByHolder&gt;</a></code></dt></dt>
-
 Return list of tokens balances by holder address, when token balance is more than zero.
 
 Input data:
@@ -259,8 +266,8 @@ Input data:
 | options? | <code><a href="#PaginationOptions">PaginationOptions</a></code> | [Options params to paginating response] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.getTokensBalancesByHolderAddress('0xd89f43605f4ccc0935afceba98f3d5d04ce2e390', {
 		skip: 0,
 	});
@@ -283,7 +290,6 @@ Example response:
 ```
 
 #### <a name="eth.decodeRawTransaction">eth.decodeRawTransaction(tx: string)</a> ⇒ <code><a href="#EthRawTransaction">Promise&lt;EthRawTransaction&gt;</a></code></dt></dt>
-
 Returns JSON data of decode raw transaction by hash.
 
 Input data:
@@ -293,11 +299,11 @@ Input data:
 | tr | <code>string</code> | [Raw transaction] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.decodeRawTransaction('0xf86e8386ca038602bba7f5220083632ea0941de29f644d555fe9cc3241e1083de0868' +
-                   		'f959bfa8545d964b800801ca04ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637fdc35' +
-                   		'bdc49c4a04b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02');
+        'f959bfa8545d964b800801ca04ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637fdc35' +
+        'bdc49c4a04b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02');
 ```
 
 Example response:
@@ -326,8 +332,8 @@ Input data:
 | tx | <code>string</code> | [Raw transaction] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.sendRawTransaction('0xf86e8386ca038602bba7f5220083632ea0941de29f' +
      '644d555fe9cc3241e1083de0868f959bfa8545d964b800801ca04ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637' +
       'fdc35bdc49c4a04b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02');
@@ -340,7 +346,6 @@ Example response:
 ```
 
 #### <a name="eth.getTransactionsByAddresses">eth.getTransactionsByAddresses</a>(addresses: string[], positive: boolean, options: <a href="#PaginationOptions">PaginationOptions</a>) ⇒<code><a href="#EthTransactionByAddresses">Promise&lt;EthTransactionByAddresses&gt;</a></code></dt></dt>
-
 Return list of transactions by addresses.
 
 Input data:
@@ -352,8 +357,8 @@ Input data:
 | options? | <code><a href="#PaginationOptions">PaginationOptions</a></code> | [Count of skipping items and page items count] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.getTransactionsByAddresses(['0x99608ad1026a47acf7839003546748158ad55504']);
 ```
 
@@ -383,7 +388,6 @@ Example response:
 ```
 
 #### <a name="eth.getTransactionsIntersection">eth.getTransactionsIntersection(addresses: string[], options: <a href="#PaginationOptions">PaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
-
 Return list of transactions interception by addresses.
 
 Input data:
@@ -394,8 +398,8 @@ Input data:
 | options? | <code><a href="#PaginationOptions">PaginationOptions</a></code> | [Options params to paginating response] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.getTransactionsIntersection(['0x99608ad1026a47acf7839003546748158ad55504', '0xcd66e50e51026673d60b3f993610b46b0f44096f']);
 ```
 
@@ -431,9 +435,7 @@ Example response:
 }
 ```
 
-
 #### <a name="eth.getTokenTransfers">eth.getTokenTransfers(tokenAddress: string, addresses: string[], options?: PaginationOptions)</a> ⇒ <code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
-
 Returns JSON data with list transfer by token address.
 
 Input data:
@@ -444,8 +446,8 @@ Input data:
 | addresses | <code>string[]</code> | [Ethereum addresses] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.getTokenTransfers('0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c', [], {
         skip: 1,
         limit: 1
@@ -478,7 +480,6 @@ Example response:
 ```
 
 #### <a name="eth.callContract">eth.callContract(address: string, dataToCall: EthContractCall)</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
-
 Executes a message call transaction.
 
 Input data:
@@ -489,8 +490,8 @@ Input data:
 | dataToCall | <code><a href="#EthContractCall">EthContractCall</a></code> | [Data to call contract] |
 
 ```javascript
-    import { Crypto } from 'cryptoapi';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.callContract('0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c', {
         "bytecode": "0x2c6ce78b000000000000000000000000be125ecedd3a2e8615f5736523dd04e4ce13753d",
         "sender": "0xf876154263cf61e15e84695096cfdcb5ceed8d86",
@@ -504,7 +505,6 @@ Example response:
 ```
 
 #### <a name="eth.searchToken">eth.searchToken(searchRequest: EthTokenSearchRequest)</a> ⇒<code><a href="#EthTokenSearchResponse">Promise&lt;EthTokenSearchResponse&gt;</a></code></dt></dt>
-
 Returns JSON info tokens returned by query object.
 
 Input data:
@@ -513,8 +513,8 @@ Input data:
 | --- | --- | --- |
 | searchRequest | <code>EthTokenSearchRequest</code> | [Optional object request, that includes general information to search by type or query and pagination.] |
 ```javascript
-    import { Crypto } from 'cryptoapi';
-    const crypto = new Crypto('******');
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
     crypto.api.eth.searchToken({ query: 'ERC721', limit: 1 })
 ```
 
@@ -540,6 +540,57 @@ Example response:
     query: "ERC721"
     skip: 0
 }
+ ```
+
+#### <a name="eth.subscribeToken">eth.subscribeToken(token: string, addresses: string[])</a> ⇒ <code><a href="#EthSubscribeToken">Promise&lt;EthSubscribeToken&gt;</a></code></dt></dt>
+Subscribe push notification by token. Returns JSON data subscribed addresses and token.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| token | <code>string</code> | [Firebase token] |
+| addresses | <code>string[]</code> | [Subscribed addresses] |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
+    crypto.api.eth.subscribeToken('dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jk' +
+                  		'QkueHG00uHyv3VIuThFxgTf6X8udvDdJIiUrX3SEiEW7dPg3rRxIKsajd' +
+                  		'qc84kG1SuRz9JDoEgJXEa-CCNw1Jjn9vKXWrF23zDnNuhMaFksO-',
+                  		['0x13b5685d07fa4764a9da7385fd1be93e8829618f']);
+```
+
+Example response:
+```
+{
+    token: "dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jkQkueHG00uHyv3VIuThFxgTf6X8udvDdJIiUrX3SEiEW7dPg3rRxIKsajdqc84kG1SuRz9JDoEgJXEa-CCNw1Jjn9vKXWrF23zDnNuhMaFksO-",
+    addresses: ["0x13b5685d07fa4764a9da7385fd1be93e8829618f"]
+}
+ ```
+
+#### <a name="eth.unsubscribeToken">eth.unsubscribeToken(token: string, addresses: string[])</a> ⇒ <code>Promise&lt;boolean&gt;</code></dt></dt>
+Unsubscribe push notification by token. If success unsubscribe returns true, else false.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| token | <code>string</code> | [Firebase token] |
+| addresses | <code>string[]</code> | [Subscribed addresses] |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
+    crypto.api.eth.unsubscribeToken('dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jk' +
+                  		'QkueHG00uHyv3VIuThFxgTf6X8udvDdJIiUrX3SEiEW7dPg3rRxIKsajd' +
+                  		'qc84kG1SuRz9JDoEgJXEa-CCNw1Jjn9vKXWrF23zDnNuhMaFksO-',
+                  		['0x13b5685d07fa4764a9da7385fd1be93e8829618f']);
+```
+
+Example response:
+```
+true
  ```
 
 ## Typedefs
@@ -580,6 +631,8 @@ Example response:
 <dt><a href="#EthTokenSearchRequest">EthTokenSearchRequest</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTokenSearchResponse">EthTokenSearchResponse</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthSubscribeToken">EthSubscribeToken</a> : <code>Object</code></dt>
 <dd></dd>
 </dl>
 
@@ -716,6 +769,31 @@ Example response:
 }
 ```
 
+#### EthTokenTransfersResponse : <code>Object</code>
+<a name="EthTokenTransfersResponse"></a>
+
+```javascript
+{
+    addresses: String[]|null;
+    skip: Number;
+    limit: Number;
+    count: Number;
+    items: Array<{
+        type: String;
+        execute_address: String;
+        from: String;
+        to: String;
+        value: String;
+        address: String;
+        block_number: Number;
+        transaction_hash: String;
+        transaction_index: Number;
+        log_index: Number;
+        timestamp: String;  
+    }> 
+}
+```
+
 #### PaginationOptions : <code>Object</code>
 <a name="PaginationOptions"></a>
 
@@ -807,7 +885,6 @@ Example response:
 }
 ```
 
-
 #### EthTokenSearchRequest : <code>Object</code>
 <a name="EthTokenSearchRequest"></a>
 
@@ -840,27 +917,12 @@ Example response:
 }
 ``` 
 
-#### EthTokenTransfersResponse : <code>Object</code>
-<a name="EthTokenTransfersResponse"></a>
+#### EthSubscribeToken : <code>Object</code>
+<a name="EthSubscribeToken"></a>
 
 ```javascript
 {
-    addresses: String[]|null;
-    skip: Number;
-    limit: Number;
-    count: Number;
-    items: Array<{
-        type: String;
-        execute_address: String;
-        from: String;
-        to: String;
-        value: String;
-        address: String;
-        block_number: Number;
-        transaction_hash: String;
-        transaction_index: Number;
-        log_index: Number;
-        timestamp: String;  
-    }> 
+	token: String;
+	addresses: String[];
 }
 ```

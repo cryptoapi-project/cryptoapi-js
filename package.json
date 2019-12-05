@@ -1,5 +1,5 @@
 {
-  "name": "cryptoapi",
+  "name": "cryptoapi-lib",
   "description": "Cryptoapi library",
   "version": "0.0.1",
   "author": {
@@ -11,13 +11,15 @@
   "engines": {
     "node": ">=8.10.0"
   },
-  "repository": "https://github.com/cryptoapi-project/cryptoapi-js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cryptoapi-project/cryptoapi-js.git"
+  },
   "main": "dist/lib/src/index.js",
+  "types": "dist/lib/src/index.d.ts",
   "module": "dist/lib-esm/src/index.js",
-  "es2015": "dist/lib/src/index.js",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "keywords": [],
   "scripts": {

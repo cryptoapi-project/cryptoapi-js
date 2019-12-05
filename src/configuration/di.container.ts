@@ -37,10 +37,9 @@ import { EthBlockApi } from '../clients/eth.apis/eth.sub.apis/eth.block.api';
 import { EthTokenApi } from '../clients/eth.apis/eth.sub.apis/eth.token.api';
 import { EthTransactionsApi } from '../clients/eth.apis/eth.sub.apis/eth.transactions.api';
 
-import { ValidateHelper } from '../providers/helpers/validate.helper';
-import { UrlHelper } from '../providers/helpers/url.helper';
-
 import { HttpService } from '../providers/services/http.service';
+import { UrlHelper } from '../providers/helpers/url.helper';
+import { ValidateHelper } from '../providers/helpers/validate.helper';
 
 import { IdHelper } from '../providers/helpers/id.helper';
 import { SubsHelper } from '../providers/helpers/subs.helper';
@@ -77,16 +76,9 @@ diContainer.bind<IEthTokenApi>(TYPES_DI.IEthTokenApi).to(EthTokenApi);
 diContainer.bind<IEthTransactionsApi>(TYPES_DI.IEthTransactionsApi).to(EthTransactionsApi);
 
 /**
- * Inject others providers.
- */
-diContainer
-	.bind<IHttpService>(TYPES_DI.IHttpService)
-	.to(HttpService)
-	.inSingletonScope();
-
-/*
  * Inject providers.
  */
+diContainer.bind<IHttpService>(TYPES_DI.IHttpService).to(HttpService).inSingletonScope();
 diContainer.bind<IValidateHelper>(TYPES_DI.IValidateHelper).to(ValidateHelper).inSingletonScope();
 diContainer.bind<IUrlHelper>(TYPES_DI.IUrlHelper).to(UrlHelper).inSingletonScope();
 diContainer.bind<IIdHelper>(TYPES_DI.IIdHelper).to(IdHelper).inSingletonScope();

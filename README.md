@@ -1,37 +1,36 @@
-# Cryptoapi
+# Cryptoapi-lib
 
 Pure TypeScript crypto library for node.js and browsers. Can be used to subscribe, unsubscribe eth events, get eth network information.
 
 #### Table of Contents
 1. [Usage](#Usage)
 2. [Full API Reference](#full-api-reference)
-3. [Development](#development)
+3. [Building](#building)
 4. [License](#license)
 
-
 ## Usage
-Below are some of the most common ways to usage cryptoapi.
+Below are some of the most common ways to usage cryptoapi-lib.
 
 ### Node
 #### Installation
-To include cryptoapi in Node, first install with npm.
+To include cryptoapi-lib in Node, first install with npm.
 ```
-$ npm install --save cryptoapi
+$ npm install --save cryptoapi-lib
 ```
 #### Examples
 
 ##### CommonJS
 
 ```js
-const cryptoapi = require('cryptoapi');
-const crypto = new crypto.Crypto('***');
+const cryptoapi = require('cryptoapi-lib');
+const crypto = new cryptoapi.Client('***');
 const result = await crypto.api.eth.getNetworkInfo();
 ```
 
 ##### ES Module
 ```js
-import { Crypto } from 'cryptoapi';
-const crypto = new Crypto('***');
+import { Client } from 'cryptoapi-lib';
+const crypto = new Client('***');
 const result = await crypto.api.eth.getNetworkInfo();
 ```
 
@@ -40,13 +39,13 @@ const result = await crypto.api.eth.getNetworkInfo();
 #### Installation
 Or if you're keeping things super simple, just include [this file](dist/bundles/crypto-api.js) as a script like so:
 ```html
-<script src="node_modules/cryptoapi/dist/bundles/crypto-api.js"></script>
-<script src="node_modules/cryptoapi/dist/bundles/crypto-api.min.js"></script>
+<script src="node_modules/cryptoapi-lib/dist/bundles/crypto-api.js"></script>
+<script src="node_modules/cryptoapi-lib/dist/bundles/crypto-api.min.js"></script>
 ```
 
 #### Examples
 ```
-const crypto = new cryptoapi.Crypto('***')
+const crypto = new cryptoapi.Client('***')
 const result = await crypto.api.eth.getNetworkInfo();
 ```
 
@@ -54,16 +53,16 @@ const result = await crypto.api.eth.getNetworkInfo();
 [API](docs/API.md) - List with all api methods.
 [Events](docs/API.md) - All about websocket notifications.
 
-## Development
-
-Use the following commands to build library:
+## Building
+To build the library or its components yourself, clone it from GitHub and install the development dependencies:
 
 ```bash
-$ npm install --save cryptoapi
-$ cd cryptoapi
-$ npm i
+$ git clone https://github.com/cryptoapi-project/cryptoapi-js.git
+$ cd cryptoapi-lib
+$ npm install
 $ npm run build
 ```
+
 All compiled files will be located in the directory dist.
 
 ## License
