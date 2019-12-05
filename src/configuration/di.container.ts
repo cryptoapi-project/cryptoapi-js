@@ -13,8 +13,11 @@ import { IEthMainInfoApi } from '../interfaces/eth.apis/eth.sub.apis/eth.main.in
 import { IEthContractApi } from '../interfaces/eth.apis/eth.sub.apis/eth.contract.api.interface';
 import { IEthRawTransactionApi } from '../interfaces/eth.apis/eth.sub.apis/eth.raw.transaction.interface';
 import { IEthBlockApi } from '../interfaces/eth.apis/eth.sub.apis/eth.block.interface';
-import { IEthTokenApi } from 'interfaces/eth.apis/eth.sub.apis/eth.token.api.interface';
+import { IEthTokenApi } from '../interfaces/eth.apis/eth.sub.apis/eth.token.api.interface';
 import { IEthTransactionsApi } from '../interfaces/eth.apis/eth.sub.apis/eth.transactions.interface';
+
+import { IIdHelper } from '../interfaces/providers/helpers/id.helper.interface';
+import { ISubsHelper } from '../interfaces/providers/helpers/subs.helper.interface';
 
 import { Crypto } from '../crypto/crypto';
 import { ApiClient } from '../clients/api.client';
@@ -37,6 +40,9 @@ import { EthTransactionsApi } from '../clients/eth.apis/eth.sub.apis/eth.transac
 import { HttpService } from '../providers/services/http.service';
 import { UrlHelper } from '../providers/helpers/url.helper';
 import { ValidateHelper } from '../providers/helpers/validate.helper';
+
+import { IdHelper } from '../providers/helpers/id.helper';
+import { SubsHelper } from '../providers/helpers/subs.helper';
 
 const diContainer = new Container();
 
@@ -75,5 +81,7 @@ diContainer.bind<IEthTransactionsApi>(TYPES_DI.IEthTransactionsApi).to(EthTransa
 diContainer.bind<IHttpService>(TYPES_DI.IHttpService).to(HttpService).inSingletonScope();
 diContainer.bind<IValidateHelper>(TYPES_DI.IValidateHelper).to(ValidateHelper).inSingletonScope();
 diContainer.bind<IUrlHelper>(TYPES_DI.IUrlHelper).to(UrlHelper).inSingletonScope();
+diContainer.bind<IIdHelper>(TYPES_DI.IIdHelper).to(IdHelper).inSingletonScope();
+diContainer.bind<ISubsHelper>(TYPES_DI.ISubsHelper).to(SubsHelper).inSingletonScope();
 
 export { diContainer };

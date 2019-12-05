@@ -16,6 +16,9 @@ const TYPES_DI = {
 	IEthTokenApi: Symbol.for('IEthTokenApi'),
 	IEthTransactionsApi: Symbol.for('IEthTransactionsApi'),
 
+	IIdHelper: Symbol.for('IIdHelper'),
+	ISubsHelper: Symbol.for('ISubsHelper'),
+
 	IHttpService: Symbol.for('IHttpService'),
 	ICryptoConfig: Symbol.for('ICryptoConfig'),
 	IValidateHelper: Symbol.for('IValidateHelper'),
