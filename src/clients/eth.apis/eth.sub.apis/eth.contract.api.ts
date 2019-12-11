@@ -2,7 +2,9 @@ import { inject, injectable } from 'inversify';
 
 import { TYPES_DI } from '../../../constants/inversify.constants';
 
-import { EthContract, EthContractCall } from '../../../dtos/eth/eth.contract.dto';
+import { TEthContractCall } from '../../../types/call.contract.type';
+
+import { EthContract } from '../../../dtos/eth/eth.contract.dto';
 
 import { IEthContractApi } from '../../../interfaces/eth.apis/eth.sub.apis/eth.contract.api.interface';
 import { IHttpService } from '../../../interfaces/providers/http.service.interface';
@@ -33,11 +35,10 @@ export class EthContractApi extends AbstractApi implements IEthContractApi {
 	/**
 	 * Method to call contract.
 	 * @method callContract
-	 * @param {string} address
-	 * @param {EthContractCall} dataToCall
+	 * @param {TEthContractCall} data
 	 * @return {Promise<string>}
 	 */
-	async callContract(address: string, dataToCall: EthContractCall): Promise<string> {
+	async callContract({ address, ...dataToCall }: TEthContractCall): Promise<string> {
 		this._checkConfig();
 
 		const calledContract = await this.httpService.agent.post<string>(

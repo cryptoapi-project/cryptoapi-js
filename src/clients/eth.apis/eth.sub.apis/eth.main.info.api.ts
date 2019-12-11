@@ -1,9 +1,10 @@
 import { inject, injectable } from 'inversify';
 
 import { TYPES_DI } from '../../../constants/inversify.constants';
+import { TEstimateGasRequest } from '../../../types/estimate.gas.request.type';
 
 import { EthNetworkInfo } from '../../../dtos/eth/eth.network.info';
-import { EstimateGasRequest, EstimateGasResponse } from '../../../dtos/eth/eth.estimate.gas.dto';
+import { EstimateGasResponse } from '../../../dtos/eth/eth.estimate.gas.dto';
 
 import { IEthMainInfoApi } from '../../../interfaces/eth.apis/eth.sub.apis/eth.main.info.interface';
 import { IHttpService } from '../../../interfaces/providers/http.service.interface';
@@ -35,10 +36,10 @@ export class EthMainInfoApi extends AbstractApi implements IEthMainInfoApi {
 	 * Estimate gas
 	 * @method
 	 * @name estimateGas
-	 * @param {EstimateGasRequest} transaction
+	 * @param {TEstimateGasRequest} transaction
 	 * @return {Promise<EstimateGasResponse>>}
 	 */
-	async estimateGas(transaction: EstimateGasRequest): Promise<EstimateGasResponse> {
+	async estimateGas(transaction: TEstimateGasRequest): Promise<EstimateGasResponse> {
 		this._checkConfig();
 		const estimate = await this.httpService.agent.post<EstimateGasResponse>(
 			`${this.config!.baseUrl}/coins/eth/estimate-gas`,

@@ -12,11 +12,8 @@ import {
 import { PING_INTERVAL, PONG_TIMEOUT } from '../constants/events.constants';
 
 import { ICrypto, IPublicCrypto } from '../interfaces/crypto.interface';
-import {
-	ICryptoConfig,
-	ICryptoOptions,
-	IServerConfig,
-} from '../interfaces/configs/crypto.config.interface';
+import { IServerConfig } from '../interfaces/configs/crypto.config.interface';
+import { TCryptoConfig } from '../types/crypto.config.type';
 import { IApiClient } from '../interfaces/clients/api.client.interface';
 import { IEventsClient } from '../interfaces/clients/events.client.interface';
 
@@ -28,8 +25,8 @@ class CryptoWrapper implements IPublicCrypto {
 	api: IApiClient | null;
 	events: IEventsClient | null;
 
-	constructor(config: ICryptoConfig);
-	constructor(token: string, options?: ICryptoOptions);
+	constructor(config: TCryptoConfig);
+	constructor(token: string, options?: TCryptoConfig);
 	constructor(token: any, options?: any) {
 		const cryptoConfig: any = {};
 

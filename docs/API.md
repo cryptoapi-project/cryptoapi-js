@@ -72,7 +72,7 @@ Example response:
 }
 ```
 
-#### <a name="eth.estimateGas">eth.estimateGas</a>(transaction: <a href="#EstimateGasRequest">EstimateGasRequest</a>) ⇒ <code>Promise&lt;<a href="#EstimateGasResponse">EstimateGasResponse</a>&gt;</code></dt></dt>
+#### <a name="eth.estimateGas">eth.estimateGas</a>(transaction: <a href="#TEstimateGasRequest">TEstimateGasRequest</a>) ⇒ <code>Promise&lt;<a href="#TEstimateGasRequest">EstimateGasResponse</a>&gt;</code></dt></dt>
 Returns JSON data about an estimate gas information.
 
 ```javascript
@@ -259,7 +259,7 @@ Example response:
 }
 ```
 
-#### <a name="eth.getTokensBalancesByHolderAddress">eth.getTokensBalancesByHolderAddress(address: string, options: PaginationOptions)</a> ⇒<code><a href="#EthTokensByHolder">Promise&lt;EthTokensByHolder&gt;</a></code></dt></dt>
+#### <a name="eth.getTokensBalancesByHolderAddress">eth.getTokensBalancesByHolderAddress(address: string, options: TPaginationOptions)</a> ⇒<code><a href="#EthTokensByHolder">Promise&lt;EthTokensByHolder&gt;</a></code></dt></dt>
 Return list of tokens balances by holder address, when token balance is more than zero.
 
 Input data:
@@ -267,7 +267,7 @@ Input data:
 | Param | Type | Description |
 | --- | --- | --- |
 | address | <code>string</code> | [Holder address] |
-| options? | <code><a href="#PaginationOptions">PaginationOptions</a></code> | [Options params to paginating response] |
+| options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Options params to paginating response] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
@@ -293,7 +293,7 @@ Example response:
 }
 ```
 
-#### <a name="eth.decodeRawTransaction">eth.decodeRawTransaction(tx: string)</a> ⇒ <code><a href="#EthRawTransaction">Promise&lt;EthRawTransaction&gt;</a></code></dt></dt>
+#### <a name="eth.decodeRawTransaction">eth.decodeRawTransaction(tr: string)</a> ⇒ <code><a href="#EthRawTransaction">Promise&lt;EthRawTransaction&gt;</a></code></dt></dt>
 Returns JSON data of decode raw transaction by hash.
 
 Input data:
@@ -325,7 +325,7 @@ Example response:
 }
  ```
 
-#### <a name="eth.sendRawTransaction">eth.sendRawTransaction(tx: string)</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
+#### <a name="eth.sendRawTransaction">eth.sendRawTransaction(tr: string)</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
 
 Returns transaction hash.
 
@@ -333,7 +333,7 @@ Input data:
 
 | Param | Type | Description |
 | --- | --- | --- |
-| tx | <code>string</code> | [Raw transaction] |
+| tr | <code>string</code> | [Raw transaction] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
@@ -349,7 +349,7 @@ Example response:
 '0x8c30624b26ab1aed4dbbab32ed7f3bf32ec7f5bc043a4bb2b355e0aedf1e23d5'
 ```
 
-#### <a name="eth.getTransactionsByAddresses">eth.getTransactionsByAddresses</a>(addresses: string[], positive: boolean, options: <a href="#PaginationOptions">PaginationOptions</a>) ⇒<code><a href="#EthTransactionByAddresses">Promise&lt;EthTransactionByAddresses&gt;</a></code></dt></dt>
+#### <a name="eth.getTransactionsByAddresses">eth.getTransactionsByAddresses</a>(addresses: string[], positive: boolean, options: <a href="#TPaginationOptions">TPaginationOptions</a>) ⇒<code><a href="#EthTransactionByAddresses">Promise&lt;EthTransactionByAddresses&gt;</a></code></dt></dt>
 Return list of transactions by addresses.
 
 Input data:
@@ -358,7 +358,7 @@ Input data:
 | --- | --- | --- |
 | addresses | <code>string[]</code> | [Ethereum Addresses] |
 | positive? | <code>boolean</code> | [If true, return only items with positive value] |
-| options? | <code><a href="#PaginationOptions">PaginationOptions</a></code> | [Count of skipping items and page items count] |
+| options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Count of skipping items and page items count] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
@@ -391,7 +391,7 @@ Example response:
 }
 ```
 
-#### <a name="eth.getTransactionsIntersection">eth.getTransactionsIntersection(addresses: string[], options: <a href="#PaginationOptions">PaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
+#### <a name="eth.getTransactionsIntersection">eth.getTransactionsIntersection(addresses: string[], options: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
 Return list of transactions interception by addresses.
 
 Input data:
@@ -399,7 +399,7 @@ Input data:
 | Param | Type | Description |
 | --- | --- | --- |
 | addresses | <code>string[]</code> | [Ethereum Addresses] |
-| options? | <code><a href="#PaginationOptions">PaginationOptions</a></code> | [Count of skipping items and page items count] |
+| options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Count of skipping items and page items count] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
@@ -440,9 +440,8 @@ Example response:
 ```
 
 
-#### <a name="eth.getTransactionsInterAddresses">eth.getTransactionsInterAddresses(from: string, to: string, options: <a href="#PaginationOptions">PaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsInterAddresses">Promise&lt;EthTransactionsInterAddresses&gt;</a></code></dt></dt>
+#### <a name="eth.getTransactionsInterAddresses">eth.getTransactionsInterAddresses(from: string, to: string, options: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsInterAddresses">Promise&lt;EthTransactionsInterAddresses&gt;</a></code></dt></dt>
 Return list of transactions between addresses.
-
 
 Input data:
 
@@ -450,7 +449,7 @@ Input data:
 | --- | --- | --- |
 | from | <code>string</code> | [Ethereum Address] |
 | to | <code>string</code> | [Ethereum Address] |
-| options? | <code><a href="#PaginationOptions">PaginationOptions</a></code> | [Count of skipping items and page items count] |
+| options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Count of skipping items and page items count] |
 
 ```javascript
     import { Client } from 'cryptoapi';
@@ -485,7 +484,7 @@ Example response:
 }
 ```
 
-#### <a name="eth.getTokenTransfers">eth.getTokenTransfers(tokenAddress: string, addresses: string[], options?: PaginationOptions)</a> ⇒ <code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
+#### <a name="eth.getTokenTransfers">eth.getTokenTransfers(tokenAddress: string, addresses: string[], options?: TPaginationOptions)</a> ⇒ <code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
 Returns JSON data with list transfer by token address.
 
 Input data:
@@ -529,20 +528,20 @@ Example response:
 }
 ```
 
-#### <a name="eth.callContract">eth.callContract(address: string, dataToCall: EthContractCall)</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
+#### <a name="eth.callContract">eth.callContract(dataToCall: TEthContractCall)</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
 Executes a message call transaction.
 
 Input data:
 
 | Param | Type | Description |
 | --- | --- | --- |
-| address | <code>string</code> | [Contract address] |
-| dataToCall | <code><a href="#EthContractCall">EthContractCall</a></code> | [Data to call contract] |
+| dataToCall | <code><a href="#TEthContractCall">TEthContractCall</a></code> | [Data to call contract] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('******');
-    crypto.api.eth.callContract('0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c', {
+    crypto.api.eth.callContract({
+        "address": "0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c",
         "bytecode": "0x2c6ce78b000000000000000000000000be125ecedd3a2e8615f5736523dd04e4ce13753d",
         "sender": "0xf876154263cf61e15e84695096cfdcb5ceed8d86",
         "amount": 11
@@ -554,18 +553,19 @@ Example response:
     0x
 ```
 
-#### <a name="eth.searchToken">eth.searchToken(searchRequest: EthTokenSearchRequest)</a> ⇒<code><a href="#EthTokenSearchResponse">Promise&lt;EthTokenSearchResponse&gt;</a></code></dt></dt>
+#### <a name="eth.searchToken">eth.searchToken(searchRequest: TTokenSearchRequest, options: TPaginationOptions)</a> ⇒<code><a href="#TTokenSearchRequest">Promise&lt;EthTokenSearchResponse&gt;</a></code></dt></dt>
 Returns JSON info tokens returned by query object.
 
 Input data:
 
 | Param | Type | Description |
 | --- | --- | --- |
-| searchRequest | <code>EthTokenSearchRequest</code> | [Optional object request, that includes general information to search by type or query and pagination.] |
+| searchRequest | <code><a href="#TTokenSearchRequest">TTokenSearchRequest</a></code> | [Optional object request, that includes general information to search by type or query and pagination.] |
+| options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Count of skipping items and page items count] |
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('******');
-    crypto.api.eth.searchToken({ query: 'ERC721', limit: 1 })
+    crypto.api.eth.searchToken({ query: 'ERC721' }, { limit: 1 })
 ```
 
 Example response:
@@ -698,7 +698,7 @@ Example response:
 <dd></dd>
 <dt><a href="#EthAddressInfo">EthAddressInfo</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#EstimateGasRequest">EstimateGasRequest</a> : <code>Object</code></dt>
+<dt><a href="#TEstimateGasRequest">TEstimateGasRequest</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EstimateGasResponse">EstimateGasResponse</a> : <code>Object</code></dt>
 <dd></dd>
@@ -710,7 +710,7 @@ Example response:
 <dd></dd>
 <dt><a href="#EthTokenTransfersResponse">EthTokenTransfersResponse</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#PaginationOptions">PaginationOptions</a> : <code>Object</code></dt>
+<dt><a href="#TPaginationOptions">TPaginationOptions</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthRawTransaction">EthRawTransaction</a> : <code>Object</code></dt>
 <dd></dd>
@@ -726,9 +726,9 @@ Example response:
 <dd></dd>
 <dt><a href="#EthTransactionsInterAddresses">EthTransactionsInterAddresses</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#EthContractCall">EthContractCall</a> : <code>Object</code></dt>
+<dt><a href="#TEthContractCall">TEthContractCall</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#EthTokenSearchRequest">EthTokenSearchRequest</a> : <code>Object</code></dt>
+<dt><a href="#TTokenSearchRequest">TTokenSearchRequest</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTokenSearchResponse">EthTokenSearchResponse</a> : <code>Object</code></dt>
 <dd></dd>
@@ -803,8 +803,8 @@ Example response:
 }
 ```
 
-#### EstimateGasRequest : <code>Object</code>
-<a name="EstimateGasRequest"></a>
+#### TEstimateGasRequest : <code>Object</code>
+<a name="TEstimateGasRequest"></a>
 
 ```javascript
 {
@@ -894,8 +894,8 @@ Example response:
 }
 ```
 
-#### PaginationOptions : <code>Object</code>
-<a name="PaginationOptions"></a>
+#### TPaginationOptions : <code>Object</code>
+<a name="TPaginationOptions"></a>
 
 ```javascript
 {
@@ -1052,26 +1052,25 @@ Example response:
     }>;
 }
 ```
-#### EthContractCall : <code>Object</code>
-<a name="EthContractCall"></a>
+#### TEthContractCall : <code>Object</code>
+<a name="TEthContractCall"></a>
 
 ```javascript
 {
+    address: string;
 	sender: String;
 	amount: Number;
 	bytecode: String;
 }
 ```
 
-#### EthTokenSearchRequest : <code>Object</code>
-<a name="EthTokenSearchRequest"></a>
+#### TTokenSearchRequest : <code>Object</code>
+<a name="TTokenSearchRequest"></a>
 
 ```javascript
 {
         query?: String;
         types?: String;
-        skip?: Number;  
-        limit?: Number;
 }
 ```
 

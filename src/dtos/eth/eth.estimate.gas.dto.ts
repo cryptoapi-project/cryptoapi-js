@@ -1,22 +1,3 @@
-export class EstimateGasRequest {
-	from?: string;
-	to?: string;
-	value?: string | number;
-	data?: string;
-
-	constructor({ from, to, value, data }: {
-		from?: string,
-		to?: string,
-		value?: string | number,
-		data?: string,
-	}) {
-		this.from = from;
-		this.to = to;
-		this.value = value;
-		this.data = data;
-	}
-}
-
 export class EstimateGasResponse {
 	estimate_gas: number;
 	gas_price: string;

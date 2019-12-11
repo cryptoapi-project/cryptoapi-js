@@ -1,6 +1,7 @@
 import { inject, injectable } from 'inversify';
 
 import { TYPES_DI } from '../../../constants/inversify.constants';
+import { TPaginationOptions } from '../../../types/paginations.options.type';
 
 import { EthTokenInfo } from '../../../dtos/eth/eth.token.info';
 import { EthTokenBalance } from '../../../dtos/eth/eth.token.balance';
@@ -15,7 +16,6 @@ import { IUrlHelper } from 'interfaces/providers/helpers/url.helper.interface';
 import { IValidateHelper } from '../../../interfaces/providers/helpers/validate.helper.interface';
 
 import { AbstractApi } from '../../../abstracts/abstract.api';
-import { PaginationOptions } from '../../../dtos/paginations.options';
 import { BaseLibraryException } from '../../../exceptions/library.exceptions/base.exception';
 
 @injectable()
@@ -64,10 +64,10 @@ export class EthTokenApi extends AbstractApi  implements IEthTokenApi {
 	 * Method to get tokens balances by holder address.
 	 * @method getTokensBalancesByHolderAddress
 	 * @param {string} address
-	 * @param {PaginationOptions} options?
+	 * @param {TPaginationOptions} options?
 	 * @return {Promise<EthTokensByHolder>}
 	 */
-	async getTokensBalancesByHolderAddress(address: string, options?: PaginationOptions): Promise<EthTokensByHolder> {
+	async getTokensBalancesByHolderAddress(address: string, options?: TPaginationOptions): Promise<EthTokensByHolder> {
 		this._checkConfig();
 
 		let url = `${this.config!.baseUrl}${'/coins/eth/tokens/:address/balances'
@@ -84,10 +84,10 @@ export class EthTokenApi extends AbstractApi  implements IEthTokenApi {
 	 * @method getTokenTransfers
 	 * @param {string} tokenAddress
 	 * @param {string[]} addresses
-	 * @param {PaginationOptions} options?
+	 * @param {TPaginationOptions} options?
 	 * @return {Promise<EthTokenTransfersResponse>}
 	 */
-	async getTokenTransfers(tokenAddress: string, addresses: string[], options?: PaginationOptions): Promise<EthTokenTransfersResponse> {
+	async getTokenTransfers(tokenAddress: string, addresses: string[], options?: TPaginationOptions): Promise<EthTokenTransfersResponse> {
 		this._checkConfig();
 
 		if (!this.validateHelper.isArray(addresses)) {
@@ -107,13 +107,14 @@ export class EthTokenApi extends AbstractApi  implements IEthTokenApi {
 	 * Method to search token.
 	 * @method searchToken
 	 * @param {EthTokenSearchRequest} searchRequest
+	 * @param {TPaginationOptions} options?
 	 * @return {Promise<EthTokenSearchResponse>}
 	 */
-	async searchToken(searchRequest: EthTokenSearchRequest): Promise<EthTokenSearchResponse> {
+	async searchToken(searchRequest: EthTokenSearchRequest, options?: TPaginationOptions): Promise<EthTokenSearchResponse> {
 		this._checkConfig();
 
 		let url = `${this.config!.baseUrl}${'/coins/eth/tokens/search'}`;
-		url = this.urlHelper.addOptionsToUrl(url, searchRequest);
+		url = this.urlHelper.addOptionsToUrl(url, { ...searchRequest, ...options });
 		const resultSearch = await this.httpClient.agent.get<EthTokenSearchResponse>(url);
 
 		return new EthTokenSearchResponse(resultSearch.data);

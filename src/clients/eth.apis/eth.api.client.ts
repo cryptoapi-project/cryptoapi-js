@@ -2,9 +2,11 @@ import { inject, injectable } from 'inversify';
 
 import { TYPES_DI } from '../../constants/inversify.constants';
 
-import { EstimateGasRequest, EstimateGasResponse } from '../../dtos/eth/eth.estimate.gas.dto';
-import { PaginationOptions } from '../../dtos/paginations.options';
-import { EthContractCall } from '../../dtos/eth/eth.contract.dto';
+import { TPaginationOptions } from '../../types/paginations.options.type';
+import { TEthContractCall } from '../../types/call.contract.type';
+import { TEstimateGasRequest } from 'types/estimate.gas.request.type';
+
+import { EstimateGasResponse } from '../../dtos/eth/eth.estimate.gas.dto';
 
 import { IEthApiClient } from '../../interfaces/eth.apis/eth.api.client.interface';
 import { IEthMainInfoApi } from '../../interfaces/eth.apis/eth.sub.apis/eth.main.info.interface';
@@ -68,11 +70,11 @@ export class EthApiClient implements IEthApiClient {
 	/**
 	 * Executes a message call or transaction and returns the amount of the gas used
 	 * @method estimateGas
-	 * @param {EstimateGasRequest} transaction
+	 * @param {TEstimateGasRequest} transaction
 	 * @return {Promise<EstimateGasResponse>}
 	 */
 	@TryCatch
-	estimateGas(transaction: EstimateGasRequest): Promise<EstimateGasResponse> {
+	estimateGas(transaction: TEstimateGasRequest): Promise<EstimateGasResponse> {
 		return this.ethMainInfo.estimateGas(transaction);
 	}
 
@@ -136,11 +138,11 @@ export class EthApiClient implements IEthApiClient {
 	 * Method to get list  tokens balances by holder address.
 	 * @method getTokensBalancesByHolderAddress
 	 * @param {string} address
-	 * @param {PaginationOptions} options?
+	 * @param {TPaginationOptions} options?
 	 * @return {Promise{EthTokensByHolder}}
 	 */
 	@TryCatch
-	getTokensBalancesByHolderAddress(address: string, options?: PaginationOptions) {
+	getTokensBalancesByHolderAddress(address: string, options?: TPaginationOptions) {
 		return this.ethTokenInfo.getTokensBalancesByHolderAddress(address, options);
 	}
 
@@ -171,11 +173,11 @@ export class EthApiClient implements IEthApiClient {
 	 * @method getTransactionsByAddresses
 	 * @param {string[]} addresses
 	 * @param {boolean} positive?
-	 * @param {PaginationOptions} options?
+	 * @param {TPaginationOptions} options?
 	 * @return {Promise{EthTransactionByAddresses}}
 	 */
 	@TryCatch
-	getTransactionsByAddresses(addresses: string[], positive?: boolean, options?: PaginationOptions) {
+	getTransactionsByAddresses(addresses: string[], positive?: boolean, options?: TPaginationOptions) {
 		return this.ethTransactions.getTransactionsByAddresses(addresses, positive, options);
 	}
 
@@ -183,11 +185,11 @@ export class EthApiClient implements IEthApiClient {
 	 * Get transactions interception by addresses
 	 * @method getTransactionsIntersection
 	 * @param {string[]} addresses
-	 * @param {PaginationOptions} options
+	 * @param {TPaginationOptions} options
 	 * @return {Promise<EthTransactionsIntersection>}
 	 */
  	@TryCatch
- 	getTransactionsIntersection(addresses: string[], options: PaginationOptions) {
+ 	getTransactionsIntersection(addresses: string[], options: TPaginationOptions) {
  		return this.ethTransactions.getTransactionsIntersection(addresses, options);
  	}
 
@@ -196,11 +198,11 @@ export class EthApiClient implements IEthApiClient {
 	 * @method getTransactionsInterAddresses
 	 * @param {string} from
 	 * @param {string} to
-	 * @param {PaginationOptions} options
+	 * @param {TPaginationOptions} options
 	 * @return {Promise<EthTransactionsInterAddresses>}
 	 */
 	@TryCatch
-	getTransactionsInterAddresses(from: string, to: string, options?: PaginationOptions) {
+	getTransactionsInterAddresses(from: string, to: string, options?: TPaginationOptions) {
 		return this.ethTransactions.getTransactionsInterAddresses(from, to, options);
 
 	}
@@ -210,46 +212,46 @@ export class EthApiClient implements IEthApiClient {
 	 * @method getTokenTransfers
 	 * @param {string} addressToken
 	 * @param {string[]} addresses
-	 * @param {PaginationOptions} options?
+	 * @param {TPaginationOptions} options?
 	 * @return {Promise<EthTokenTransfersResponse>}
 	 */
 	@TryCatch
-	getTokenTransfers(addressToken: string, addresses: string[], options?: PaginationOptions) {
+	getTokenTransfers(addressToken: string, addresses: string[], options?: TPaginationOptions) {
 		return this.ethTokenInfo.getTokenTransfers(addressToken, addresses, options);
 	}
 
 	/**
 	 * Method to call contract.
 	 * @method callContract
-	 * @param {string} address
-	 * @param {EthContractCall} dataToCall
+	 * @param {TEthContractCall} data
 	 * @return {Promise<string>}
 	 */
 	@TryCatch
-	callContract(address: string, dataToCall: EthContractCall) {
-		return this.ethContractApi.callContract(address, dataToCall);
+	callContract(data: TEthContractCall) {
+		return this.ethContractApi.callContract(data);
 	}
 
 	/*
 	 * Method to send raw transaction.
 	 * @method sendRawTransaction
-	 * @param {string} tx
+	 * @param {string} tr
 	 * @return {Promise<string>}
 	 */
 	@TryCatch
-	sendRawTransaction(tx: string) {
-		return this.rawTransactionApi.sendRawTransaction(tx);
+	sendRawTransaction(tr: string) {
+		return this.rawTransactionApi.sendRawTransaction(tr);
 	}
 
 	/*
 	 * Method to search token.
 	 * @method searchToken
 	 * @param {EthTokenSearchRequest} searchRequest
+	 * @param {TPaginationOptions} options?
 	 * @return {Promise<EthTokenSearchResponse>}
 	 */
 	@TryCatch
-	searchToken(searchRequest: EthTokenSearchRequest) {
-		return this.ethTokenInfo.searchToken(searchRequest);
+	searchToken(searchRequest: EthTokenSearchRequest, options?: TPaginationOptions) {
+		return this.ethTokenInfo.searchToken(searchRequest, options);
 	}
 
 	/**

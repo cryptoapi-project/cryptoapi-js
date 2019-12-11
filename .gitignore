@@ -42,5 +42,7 @@ coverage/*
 /build
 
 client.js
+client.ts
 index.html
 start.js
+.cache

@@ -20,7 +20,8 @@
     "align": false,
     "no-parameter-reassignment": false,
     "max-classes-per-file": [true, 10, "exclude-class-expressions"],
-    "variable-name": [true, "allow-leading-underscore", "allow-pascal-case", "allow-snake-case"]
+    "variable-name": [true, "allow-leading-underscore", "allow-pascal-case", "allow-snake-case"],
+    "interface-over-type-literal": false
   },
   "rulesDirectory": []
 }

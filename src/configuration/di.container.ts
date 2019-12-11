@@ -57,9 +57,7 @@ diContainer.bind<IEventsClient>(TYPES_DI.IEventsClient).to(EventsClient);
  * Inject service by module, example eth, btc and etc.
  */
 diContainer.bind<IEthApiClient>(TYPES_DI.IEthApiClient).to(EthApiClient);
-diContainer
-	.bind<IEthEventsClient>(TYPES_DI.IEthEventsClient)
-	.to(EthEventsClient);
+diContainer.bind<IEthEventsClient>(TYPES_DI.IEthEventsClient).to(EthEventsClient);
 
 /**
  * Inject sub api and socket clients.
@@ -68,9 +66,7 @@ diContainer.bind<IEthMainInfoApi>(TYPES_DI.IEthMainInfoApi).to(EthMainInfoApi);
 diContainer.bind<IEthAddressApi>(TYPES_DI.IEthAddressApi).to(EthAddressApi);
 diContainer.bind<IEthNotifyApi>(TYPES_DI.IEthNotifyApi).to(EthNotifyApi);
 diContainer.bind<IEthContractApi>(TYPES_DI.IEthContractApi).to(EthContractApi);
-diContainer
-	.bind<IEthRawTransactionApi>(TYPES_DI.IEthRawTransactionApi)
-	.to(EthRawTransactionApi);
+diContainer.bind<IEthRawTransactionApi>(TYPES_DI.IEthRawTransactionApi).to(EthRawTransactionApi);
 diContainer.bind<IEthBlockApi>(TYPES_DI.IEthBlockApi).to(EthBlockApi);
 diContainer.bind<IEthTokenApi>(TYPES_DI.IEthTokenApi).to(EthTokenApi);
 diContainer.bind<IEthTransactionsApi>(TYPES_DI.IEthTransactionsApi).to(EthTransactionsApi);

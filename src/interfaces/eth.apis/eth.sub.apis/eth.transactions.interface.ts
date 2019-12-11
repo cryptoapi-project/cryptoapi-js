@@ -7,12 +7,11 @@ import {
 	FullEthTransaction,
 	EthTransactionsInterAddresses,
 } from '../../../dtos/eth/eth.transaction.dtos';
-
-import { PaginationOptions } from '../../../dtos/paginations.options';
+import { TPaginationOptions } from '../../../types/paginations.options.type';
 
 export interface IEthTransactionsApi  extends IConfigurable<IServerConfig> {
-	getTransactionsByAddresses(addresses: string[],	positive?: boolean, options?: PaginationOptions): Promise<EthTransactionByAddresses>;
-	getTransactionsIntersection(addresses: string[], options?: PaginationOptions): Promise<EthTransactionsIntersection>;
+	getTransactionsByAddresses(addresses: string[],	positive?: boolean, options?: TPaginationOptions): Promise<EthTransactionByAddresses>;
+	getTransactionsIntersection(addresses: string[], options?: TPaginationOptions): Promise<EthTransactionsIntersection>;
 	getFullTransactionInfo(hash: string): Promise<FullEthTransaction>;
-	getTransactionsInterAddresses(from: string, to: string, options?: PaginationOptions): Promise<EthTransactionsInterAddresses>;
+	getTransactionsInterAddresses(from: string, to: string, options?: TPaginationOptions): Promise<EthTransactionsInterAddresses>;
 }

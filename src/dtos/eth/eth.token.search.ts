@@ -1,8 +1,8 @@
-import { PaginationOptions } from '../paginations.options';
-
-export class EthTokenSearchRequest extends PaginationOptions {
+export class EthTokenSearchRequest {
 	query?: string;
 	types?: string;
+	skip?: number;
+	limit?: number;
 
 	constructor(info: {
 		query?: string;
@@ -10,9 +10,10 @@ export class EthTokenSearchRequest extends PaginationOptions {
 		skip?: number;
 		limit?: number;
 	}) {
-		super(info);
 		this.query = info.query;
 		this.types = info.types;
+		this.skip = info.skip;
+		this.limit = info.limit;
 	}
 }
 

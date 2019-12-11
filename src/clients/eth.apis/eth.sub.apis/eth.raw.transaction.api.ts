@@ -19,30 +19,31 @@ export class EthRawTransactionApi extends AbstractApi  implements IEthRawTransac
 	/**
 	 * Method decode raw transaction.
 	 * @method decodeRawTransaction
-	 * @param {string} tx
+	 * @param {string} tr
 	 * @return {EthRawTransaction}
 	 */
-	async decodeRawTransaction(tx: string): Promise<EthRawTransaction> {
+	async decodeRawTransaction(tr: string): Promise<EthRawTransaction> {
 		this._checkConfig();
 
 		const transaction = await this.httpService.agent.post<EthRawTransaction>(
 			`${this.config!.baseUrl}/coins/eth/transactions/raw/decode`,
-			{tx},
+			{tx: tr},
 		);
+
 		return new EthRawTransaction(transaction.data);
 	}
 
 	/*
 	 * Method to send raw transaction
 	 * @method sendRawTransaction
-	 * @param {string} tx
+	 * @param {string} tr
 	 * @return {Promise<string>}
 	 */
-	async sendRawTransaction(tx: string): Promise<string> {
+	async sendRawTransaction(tr: string): Promise<string> {
 		this._checkConfig();
 		const transaction = await this.httpService.agent.post(
 			`${this.config!.baseUrl}/coins/eth/transactions/raw/send`,
-			{ tx },
+			{ tx: tr },
 		);
 		return transaction.data.hash;
 	}
