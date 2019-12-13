@@ -28,7 +28,7 @@ const options = {
     },
 };
 
-const client = new Client('token', options);
+const client = new Client('YOUR-API-KEY', options);
 
 ```
 
@@ -48,23 +48,23 @@ const options = {
     },
 };
 
-const client = new Client('token', options);
+const client = new Client('YOUR-API-KEY', options);
 
 ```
 
-Before using subscription, you need to connect:
+If you want to connect manually, use:
 
 ```javascript
-const client = new Client('token');
+const client = new Client('YOUR-API-KEY');
 
-client.events.eth.connect();
+await client.events.eth.connect();
 ```
 
 If you want to disconnect:
 
 ```javascript
 
-client.events.eth.disconnect();
+await client.events.eth.disconnect();
 
 ```
 
@@ -115,6 +115,9 @@ Returns subscription id.
 
 ```javascript
 > const subscriptionId = await client.events.eth.onBlock(1, (msg) => { console.log(msg) });
+
+// By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
+> client.events.eth.onBlock(1, (msg) => { console.log(msg) });
 
 // Notification example
 > {
@@ -172,6 +175,12 @@ Returns subscription id.
     confirmations: 1,
 }, (msg) => { console.log(msg) });
 
+// By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
+> client.events.eth.onAddressTransactions({
+    address: '0x1cDdD028E63D0Ff555B9DE49E9B436c4e14309Fc',
+    confirmations: 1,
+}, (msg) => { console.log(msg) });
+
 // Notification example
 > {
     utc: '2019-10-20T16:56:56.000Z',
@@ -215,6 +224,13 @@ Returns subscription id.
     confirmations: 2,
 }, (msg) => { console.log(msg) });
 
+// By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
+> client.events.eth.onTokenTransfers({
+    token: '0x04c9f29d7b2f65a16258cdc389b1dc3f5a731bd0',
+    address: '0x6182d3513fa43cbbb010b8c4d40a19e53e5605c3',
+    confirmations: 2,
+}, (msg) => { console.log(msg) });
+
 // Notification example
 > {
     type: 'ERC721',
@@ -242,6 +258,12 @@ Returns subscription id.
 
 ```javascript
 > const subscriptionId = await client.events.eth.onTransactionConfirmations({
+    hash: '0x4c29f5d1bc3228cca62e29d2c9f47a028edf68f85bab133053adfc541001eeb5',
+    confirmations: 2,
+}, (msg) => { console.log(msg) });
+
+// By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
+> client.events.eth.onTransactionConfirmations({
     hash: '0x4c29f5d1bc3228cca62e29d2c9f47a028edf68f85bab133053adfc541001eeb5',
     confirmations: 2,
 }, (msg) => { console.log(msg) });

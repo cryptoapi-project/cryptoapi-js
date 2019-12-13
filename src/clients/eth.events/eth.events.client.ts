@@ -31,6 +31,8 @@ export class EthEventsClient implements IEthEventsClient {
 	private pendingUnsubscribers: Map<string | number, (error: string | null) => void> = new Map();
 
 	private ws: WS | null = null;
+	private wsCb: (error?: any) => any = () => {};
+
 	private config: IEventsConfig | null = null;
 	private token: string | null = null;
 	private reconnectingInterval: any;
@@ -115,7 +117,11 @@ export class EthEventsClient implements IEthEventsClient {
 				}
 			});
 
-			this.send(METHODS.SUBSCRIBE, params, id);
+			if (this.connected) {
+				this.send(METHODS.SUBSCRIBE, params, id);
+			} else if (!this.connecting) {
+				this.connect();
+			}
 		});
 	}
 
@@ -176,7 +182,9 @@ export class EthEventsClient implements IEthEventsClient {
 	private onOpen() {
 		this.connecting = false;
 		this.connected = true;
+		this.wsCb();
 		this.connectedSubscribers.forEach((cb) => cb());
+		this.resubscribe();
 	}
 
 	/**
@@ -186,7 +194,17 @@ export class EthEventsClient implements IEthEventsClient {
 	private onClose() {
 		this.connecting = false;
 		this.connected = false;
+		this.wsCb();
 		this.disconnectedSubscribers.forEach((cb) => cb());
+
+		if (!this.config!.resubscribe) {
+			this.pendingSubscribers.forEach((cb) => { cb('Disconnected'); });
+			this.pendingUnsubscribers.forEach((cb) => { cb('Disconnected'); });
+
+			this.subscribers = new Map();
+			this.pendingUnsubscribers = new Map();
+			this.pendingSubscribers = new Map();
+		}
 
 		if (this.config!.reconnect) {
 			this.reconnect();
@@ -200,6 +218,7 @@ export class EthEventsClient implements IEthEventsClient {
 	private onError(error: any) {
 		this.connecting = false;
 		this.error = error.message || 'Error';
+		this.wsCb(this.error);
 	}
 
 	/**
@@ -207,6 +226,7 @@ export class EthEventsClient implements IEthEventsClient {
 	 */
 	resubscribe() {
 		this.pendingUnsubscribers.forEach((sub, id) => {
+			sub(null);
 			this.subscribers.delete(id);
 		});
 		this.pendingUnsubscribers = new Map();
@@ -244,28 +264,35 @@ export class EthEventsClient implements IEthEventsClient {
 			throw new Error('Url is required');
 		}
 
-		this.connecting = true;
+		return new Promise((resolve, reject) => {
+			this.connecting = true;
 
-		this.ws = new WS(`${this.config!.url}?token=${this.token}`);
-		this.ws.onmessage = this.onMessage.bind(this);
-		this.ws.onopen = this.onOpen.bind(this);
-		this.ws.onclose = this.onClose.bind(this);
-		this.ws.onerror = this.onError.bind(this);
+			this.ws = new WS(`${this.config!.url}?token=${this.token}`);
 
-		this.pingInterval = setInterval(() => {
-			if (!this.connected) {
-				clearInterval(this.pingInterval);
-			}
+			this.ws.onmessage = this.onMessage.bind(this);
+			this.ws.onclose = this.onClose.bind(this);
+			this.ws.onopen = this.onOpen.bind(this);
+			this.ws.onerror = this.onError.bind(this);
 
-			this.pong.id = this.idHelper.get();
+			this.wsCb = (error) => error ? reject(error) : resolve();
 
-			this.send(METHODS.PING, [], this.pong.id);
+			this.pingInterval = setInterval(() => {
+				if (!this.connected) {
+					clearInterval(this.pingInterval);
+					this.pingInterval = null;
+				}
 
-			this.pong.timeout = setTimeout(() => {
-				this.onClose();
-			}, this.config!.pong);
+				this.pong.id = this.idHelper.get();
 
-		}, this.config!.ping);
+				this.send(METHODS.PING, [], this.pong.id);
+
+				this.pong.timeout = setTimeout(() => {
+					this.onClose();
+				}, this.config!.pong);
+
+			}, this.config!.ping);
+		});
+
 	}
 
 	/**
@@ -278,30 +305,29 @@ export class EthEventsClient implements IEthEventsClient {
 		}
 
 		let attempt = 1;
-		this.connect();
+
+		if (!this.connecting) {
+			this.connect();
+		}
 
 		this.reconnectingInterval = setInterval(() => {
 			if (this.connected) {
 				clearInterval(this.reconnectingInterval);
 				this.reconnectingInterval = null;
-
-				if (this.config!.resubscribe) {
-					this.resubscribe();
-				} else {
-					this.subscribers = new Map();
-					this.pendingUnsubscribers = new Map();
-					this.pendingSubscribers = new Map();
-				}
-
 				return;
 			}
 
 			attempt += 1;
 			if (this.config!.attempts && attempt > this.config!.attempts) {
+				this.pendingSubscribers.forEach((cb) => { cb('Disconnected'); });
+				this.pendingUnsubscribers.forEach((cb) => { cb('Disconnected'); });
 				throw new Error('Connection attempts are over');
 			}
 
-			this.connect();
+			if (!this.connecting) {
+				this.connect();
+			}
+
 		}, this.config!.timeout);
 	}
 
@@ -310,7 +336,10 @@ export class EthEventsClient implements IEthEventsClient {
 	 * close ws
 	 */
 	disconnect() {
-		this.ws!.close();
+		return new Promise((resolve, reject) => {
+			this.wsCb = (error) => error ? reject(error) : resolve();
+			this.ws!.close();
+		});
 	}
 
 	/**
@@ -335,10 +364,6 @@ export class EthEventsClient implements IEthEventsClient {
 	 *  @param {Function} cb
 	 */
 	onBlock(confirmations: number, cb: (notification: EthBlockNotification) => void) {
-		if (!this.connected) {
-			throw new Error('Disconnected');
-		}
-
 		this.subsHelper.validateConfirmations(confirmations);
 		this.subsHelper.validateCallback(cb);
 
@@ -357,10 +382,6 @@ export class EthEventsClient implements IEthEventsClient {
 		{ address, confirmations }: EthAddressTransactionSubscription,
 		cb: (notification: EthTransactionNotification) => void,
 	) {
-		if (!this.connected) {
-			throw new Error('Disconnected');
-		}
-
 		this.subsHelper.validateAddress(address);
 		this.subsHelper.validateCallback(cb);
 
@@ -383,10 +404,6 @@ export class EthEventsClient implements IEthEventsClient {
 		{ token, address, confirmations }: EthTokenTransferSubscription,
 		cb: (notification: EthTransferNotification) => void,
 	) {
-		if (!this.connected) {
-			throw new Error('Disconnected');
-		}
-
 		this.subsHelper.validateAddress(token, 'token');
 		this.subsHelper.validateAddress(address);
 		this.subsHelper.validateCallback(cb);
@@ -410,10 +427,6 @@ export class EthEventsClient implements IEthEventsClient {
 		{ hash, confirmations }: EthTransactionConfirmationSubscription,
 		cb: (notification: EthTransactionConfirmationNotification) => void,
 	) {
-		if (!this.connected) {
-			throw new Error('Disconnected');
-		}
-
 		this.subsHelper.validateHash(hash);
 		this.subsHelper.validateCallback(cb);
 
@@ -432,10 +445,6 @@ export class EthEventsClient implements IEthEventsClient {
 	 *  @param {string | number | Function} param
 	 */
 	unsubscribe(param: string | number | ((notification: any) => void) ) {
-		if (!this.connected) {
-			throw new Error('Disconnected');
-		}
-
 		let sub: { params: any[], cb: (notification: any) => void } | undefined;
 		let id: string | number | undefined;
 
