@@ -516,7 +516,7 @@ Example response:
             execute_address: "0x1fe2407c888d6d7d41021d45e9f22781f6641629"
             from: "0x0000000000000000000000000000000000000000"
             log_index: 2
-            timestamp: "2019-11-27T12:11:26.000Z"
+            utc: "2019-11-27T12:11:26.000Z"
             to: "0x08355184bdfd2f61324808cc8652b12db6d4f8cc"
             transaction_hash: "0x45dff9751cffa8a933138d17ccfaff480114dc3240da78e2fde76c9e81462636"
             transaction_index: 9
@@ -677,7 +677,7 @@ Example response:
     transaction_index: 0
     utc: "2017-04-12T15:34:29.000Z"
     v: "0x2b"
-    value: "1000000000000000000" 
+    value: "1000000000000000000"
     receipt: {
         contract_address: null
         cumulative_gas_used: 21000
@@ -889,7 +889,7 @@ Example response:
         transaction_hash: String;
         transaction_index: Number;
         log_index: Number;
-        timestamp: String;  
+        utc: String;  
     }>
 }
 ```
@@ -1103,4 +1103,3 @@ Example response:
 	addresses: String[];
 }
 ```
-

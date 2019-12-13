@@ -178,7 +178,7 @@ export class EthTransferNotification {
 	block_number: number;
 	transaction_hash: string;
 	transaction_index: number;
-	timestamp: string;
+	utc: string;
 
 	constructor(notification: {
 		type: string;
@@ -190,7 +190,7 @@ export class EthTransferNotification {
 		block_number: number;
 		transaction_hash: string;
 		transaction_index: number;
-		timestamp: string;
+		utc: string;
 
 	}) {
 		this.type = notification.type;
@@ -202,7 +202,7 @@ export class EthTransferNotification {
 		this.block_number = notification.block_number;
 		this.transaction_hash = notification.transaction_hash;
 		this.transaction_index = notification.transaction_index;
-		this.timestamp = notification.timestamp;
+		this.utc = notification.utc;
 	}
 
 }

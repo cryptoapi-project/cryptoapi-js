@@ -174,7 +174,7 @@ Returns subscription id.
 
 // Notification example
 > {
-    utc: 'Sun, 20 Oct 2019 16:56:56 GMT',
+    utc: '2019-10-20T16:56:56.000Z',
     from: '0x9CCA9A56ceaBec5bFc23f9F2d2DA4E5a6C8C1195',
     gas: 6000000,
     hash: '0xc180ecec57dcdf4734616e7510fb44e48d32592e2456b99145a9b781d6b2f83e',
@@ -226,7 +226,7 @@ Returns subscription id.
     block_number: 5296853,
     transaction_hash: '0xdee94524c99227eab281a60722d9680f06c6a95e399c59bcc800976642d0a94a',
     transaction_index: 0,
-    timestamp: '2019-10-20T17:18:11.000Z'
+    utc: '2019-10-20T17:18:11.000Z'
 }
 ```
 
@@ -415,7 +415,7 @@ console.log(client.events.eth.connected);
     block_number: Number;
     transaction_hash: String;
     transaction_index: Number;
-    timestamp: String;
+    utc: String;
 }
 ```
 #### EthTransactionConfirmationSubscription : <code>Object</code>
