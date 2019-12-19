@@ -109,6 +109,7 @@ export class EthTransactionNotification {
 	utc: string;
 	from: string;
 	gas: number;
+	gas_price: string;
 	hash: string;
 	input: string;
 	nonce: number;
@@ -129,6 +130,7 @@ export class EthTransactionNotification {
 		utc: string;
 		from: string;
 		gas: number;
+		gas_price: string;
 		hash: string;
 		input: string;
 		nonce: number;
@@ -148,6 +150,7 @@ export class EthTransactionNotification {
 		this.utc = notification.utc;
 		this.from = notification.from;
 		this.gas = notification.gas;
+		this.gas_price = notification.gas_price;
 		this.hash = notification.hash;
 		this.input = notification.input;
 		this.nonce = notification.nonce;

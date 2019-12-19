@@ -186,6 +186,7 @@ Returns subscription id.
     utc: '2019-10-20T16:56:56.000Z',
     from: '0x9CCA9A56ceaBec5bFc23f9F2d2DA4E5a6C8C1195',
     gas: 6000000,
+    gas_price: "6000000000",
     hash: '0xc180ecec57dcdf4734616e7510fb44e48d32592e2456b99145a9b781d6b2f83e',
     input: '0x155fa82c',
     nonce: 12741,
@@ -396,6 +397,7 @@ console.log(client.events.eth.connected);
     utc: String;
     from: String;
     gas: Number;
+    gas_price: String;
     hash: String;
     input: String;
     nonce: Number;
