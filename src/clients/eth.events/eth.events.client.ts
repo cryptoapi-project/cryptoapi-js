@@ -100,7 +100,7 @@ export class EthEventsClient implements IEthEventsClient {
 
 	/**
 	 *  @method setSubscription
-	 *  @param {string| number} id
+	 *  @param {string | number} id
 	 *  @param {any} params
 	 *  @param {Function} cb
 	 */

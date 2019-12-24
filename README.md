@@ -1,17 +1,14 @@
-# Cryptoapi-lib
+# cryptoapi-lib
 
 Pure TypeScript crypto library for node.js and browsers. Can be used to subscribe, unsubscribe eth events, get eth network information.
 
 #### Table of Contents
-1. [Usage](#Usage)
-2. [Full API Reference](#full-api-reference)
-3. [Building](#building)
-4. [License](#license)
+1. [Installation](#installation)
+2. [Examples](#examples)
+3. [Usage](#usage)
+4. [Building](#building)
+5. [License](#license)
 
-## Usage
-Below are some of the most common ways to usage cryptoapi-lib.
-
-### Node
 #### Installation
 To include cryptoapi-lib in Node, first install with npm.
 ```
@@ -25,7 +22,7 @@ $ npm install --save cryptoapi-lib
 const cryptoapi = require('cryptoapi-lib');
 const crypto = new cryptoapi.Client('YOUR-API-KEY');
 const result = await crypto.api.eth.getNetworkInfo();
-crypto.events.eth.onBlock(1, (e) => { console.log(e) });
+crypto.events.eth.onBlock(1, (event) => { console.log(event); });
 ```
 
 ##### ES Module
@@ -33,42 +30,60 @@ crypto.events.eth.onBlock(1, (e) => { console.log(e) });
 import { Client } from 'cryptoapi-lib';
 const crypto = new Client('YOUR-API-KEY');
 const result = await crypto.api.eth.getNetworkInfo();
-crypto.events.eth.onBlock(1, (e) => { console.log(e) });
+crypto.events.eth.onBlock(1, (event) => { console.log(event); });
 ```
 
-### Browser
+##### Browser
 
-#### Installation
-Or if you're keeping things super simple, just include [this file](dist/bundles/crypto-api.js) as a script like so:
+If you're keeping things super simple, just include [this file](dist/bundles/cryptoapi-lib.js) as a script like so:
+
 ```html
-<script src="node_modules/cryptoapi-lib/dist/bundles/crypto-api.js"></script>
-<script src="node_modules/cryptoapi-lib/dist/bundles/crypto-api.min.js"></script>
+<script src="node_modules/cryptoapi-lib/dist/bundles/cryptoapi-lib.js"></script>
 ```
 
-#### Examples
+or
+
+```html
+<script src="node_modules/cryptoapi-lib/dist/bundles/cryptoapi-lib.min.js"></script>
 ```
-const crypto = new cryptoapi.Client('YOUR-API-KEY')
+
+#### Usage
+
+Before calling API methods and subscribing to events, you need to create client:
+
+```javascript
+const crypto = new cryptoapi.Client('YOUR-API-KEY');
+```
+
+* Call API method. For example, get Ethereum network info:
+
+```javascript
 const result = await crypto.api.eth.getNetworkInfo();
-crypto.events.eth.onBlock(1, (e) => { console.log(e) });
 ```
 
-## Full API Reference
-* [API](docs/API.md) - List with all api methods.
-* [Events](docs/events.md) - All about websocket notifications.
+Full documentation about API methods you find by [following link](docs/API.md).
 
-## Building
+* Set subscription on new Ethereum block:
+
+```javascript
+crypto.events.eth.onBlock(1, (event) => { console.log(event); });
+```
+
+Full documentation about websocket notifications you find by [following link](docs/events.md).
+
+#### Building
 To build the library or its components yourself, clone it from GitHub and install the development dependencies:
 
 ```bash
-$ git clone https://github.com/cryptoapi-project/cryptoapi-js.git
-$ cd cryptoapi-lib
+$ git clone https://github.com/cryptoapi-project/cryptoapi-js
+$ cd cryptoapi-js
 $ npm install
 $ npm run build
 ```
 
 All compiled files will be located in the directory dist.
 
-## License
+#### License
 The MIT License (MIT)
 
 Copyright (c) 2019 PixelPlex Inc. <https://pixelplex.io>

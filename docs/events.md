@@ -10,11 +10,12 @@ Library provides websocket subscribers to work with CryptoAPI.
 ## ETH Event Client
 
 Eth events client provides the ability to pass a connection url.
-Also configuration allows you to set automatically reconnect (by default switched off).
+Also configuration allows you to set automatically reconnect.
 Set in options parameters for reconnect (count of attempts and timeout between them).
-If you want automatically resubscribe, you can set following option (by default switched off).
+If you want automatically resubscribe, you can set following option.
 
 ```javascript
+import { Client } from 'cryptoapi-lib';
 
 const options = {
     eth: {
@@ -38,6 +39,7 @@ Ping - time interval between requests.
 Pong - time for getting a response.
 
 ```javascript
+import { Client } from 'cryptoapi-lib';
 
 const options = {
     eth: {
@@ -55,6 +57,8 @@ const client = new Client('YOUR-API-KEY', options);
 If you want to connect manually, use:
 
 ```javascript
+import { Client } from 'cryptoapi-lib';
+
 const client = new Client('YOUR-API-KEY');
 
 await client.events.eth.connect();
@@ -104,20 +108,22 @@ All subscribers are listed below:
 </dl>
 
 
-#### <a name="eth.onBlock">onBlock</a>(confirmations: number, cb: (notification:  <a name="EthBlockNotification">EthBlockNotification</a>) => void) ⇒ <code>Promise&lt;Number&gt;</code>
+#### <a name="eth.onBlock">onBlock</a>(confirmations: number, callback: (notification:  <a name="EthBlockNotification">EthBlockNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| confirmations | <code>Number</code> | [Minimal count of confirmations to notify] |
+| confirmations | <code>number</code> | [Minimal count of confirmations to notify - max value 100] |
 | callback | <code>Function</code> | [Notifications handler ] |
 
 Returns subscription id.
 
 ```javascript
-> const subscriptionId = await client.events.eth.onBlock(1, (msg) => { console.log(msg) });
+import { Client } from 'cryptoapi-lib';
+const crypto = new Client('YOUR-API-KEY');
+const subscriptionId = await client.events.eth.onBlock(1, (message) => { console.log(message) });
 
 // By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
-> client.events.eth.onBlock(1, (msg) => { console.log(msg) });
+client.events.eth.onBlock(1, (message) => { console.log(message) });
 
 // Notification example
 > {
@@ -155,31 +161,34 @@ Returns subscription id.
     extra_data:'0xd683010905846765746886676f312e3133856c696e757800000000000000000061bf6f11d1e3155b81f03506316b502f63a949ebf4de1aab70972ef18d6154cf22280eabdcadd1b699835bcf95cdc2da865d8b3d3fe8378940d9c132e208fa8801',
     gas_limit: 7000000,
     gas_used: 1275258,
-    timestamp: 1571584541
+    utc: '2019-10-20T18:15:41.000Z',
 }
 ```
 
-#### <a name="eth.onAddressTransactions">onAddressTransactions</a>({ address, confirmations }: <a name="EthAddressTransactionSubscription">EthAddressTransactionSubscription</a>, cb: (notification: <a name="EthTransactionNotification">EthTransactionNotification</a>) => void, ⇒ <code>Promise&lt;Number&gt;</code>
+#### <a name="eth.onAddressTransactions">onAddressTransactions</a>({ address, confirmations }: <a name="EthAddressTransactionSubscription">EthAddressTransactionSubscription</a>, callback: (notification: <a name="EthTransactionNotification">EthTransactionNotification</a>) => void, ⇒ <code>Promise&lt;number&gt;</code>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| address | <code>String</code> | [Ethereum address] |
-| confirmations | <code>Number</code> | [Minimal count of confirmations to notify] |
+| address | <code>string</code> | [Ethereum address] |
+| confirmations | <code>number</code> | [Minimal count of confirmations to notify - max value 100] |
 | callback | <code>Function</code> | [Notifications handler ] |
 
 Returns subscription id.
 
 ```javascript
-> const subscriptionId = await client.events.eth.onAddressTransactions({
+import { Client } from 'cryptoapi-lib';
+const crypto = new Client('YOUR-API-KEY');
+
+const subscriptionId = await client.events.eth.onAddressTransactions({
     address: '0x1cDdD028E63D0Ff555B9DE49E9B436c4e14309Fc',
     confirmations: 1,
-}, (msg) => { console.log(msg) });
+}, (message) => { console.log(message) });
 
 // By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
-> client.events.eth.onAddressTransactions({
+client.events.eth.onAddressTransactions({
     address: '0x1cDdD028E63D0Ff555B9DE49E9B436c4e14309Fc',
     confirmations: 1,
-}, (msg) => { console.log(msg) });
+}, (message) => { console.log(message) });
 
 // Notification example
 > {
@@ -207,30 +216,33 @@ Returns subscription id.
 }
 ```
 
-#### <a name="eth.onTokenTransfers">onTokenTransfers</a>({ token, address, confirmations }: <a name="EthTokenTransferSubscription">EthTokenTransferSubscription</a>, cb: (notification: <a name="EthTransferNotification">EthTransferNotification</a>) => void) ⇒ <code>Promise&lt;Number&gt;</code>
+#### <a name="eth.onTokenTransfers">onTokenTransfers</a>({ token, address, confirmations }: <a name="EthTokenTransferSubscription">EthTokenTransferSubscription</a>, callback: (notification: <a name="EthTransferNotification">EthTransferNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| token | <code>String</code> | [Token contract address] |
-| address | <code>String</code> | [Ethereum address] |
-| confirmations | <code>Number</code> | [Minimal count of confirmations to notify] |
+| token | <code>string</code> | [Token contract address] |
+| address | <code>string</code> | [Ethereum address] |
+| confirmations | <code>number</code> | [Minimal count of confirmations to notify - max value 100] |
 | callback | <code>Function</code> | [Notifications handler ] |
 
 Returns subscription id.
 
 ```javascript
-> const subscriptionId = await client.events.eth.onTokenTransfers({
+import { Client } from 'cryptoapi-lib';
+const crypto = new Client('YOUR-API-KEY');
+
+const subscriptionId = await client.events.eth.onTokenTransfers({
     token: '0x04c9f29d7b2f65a16258cdc389b1dc3f5a731bd0',
     address: '0x6182d3513fa43cbbb010b8c4d40a19e53e5605c3',
     confirmations: 2,
-}, (msg) => { console.log(msg) });
+}, (message) => { console.log(message) });
 
 // By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
-> client.events.eth.onTokenTransfers({
+client.events.eth.onTokenTransfers({
     token: '0x04c9f29d7b2f65a16258cdc389b1dc3f5a731bd0',
     address: '0x6182d3513fa43cbbb010b8c4d40a19e53e5605c3',
     confirmations: 2,
-}, (msg) => { console.log(msg) });
+}, (message) => { console.log(message) });
 
 // Notification example
 > {
@@ -247,27 +259,30 @@ Returns subscription id.
 }
 ```
 
-#### <a name="eth.onTransactionConfirmations">onTransactionConfirmations</a>({ hash, confirmations }: <a name="EthTransactionConfirmationSubscription">EthTransactionConfirmationSubscription</a>, cb: (notification: <a name="EthTransactionConfirmationNotification">EthTransactionConfirmationNotification</a>) => void) ⇒ <code>Promise&lt;Number&gt;</code>
+#### <a name="eth.onTransactionConfirmations">onTransactionConfirmations</a>({ hash, confirmations }: <a name="EthTransactionConfirmationSubscription">EthTransactionConfirmationSubscription</a>, callback: (notification: <a name="EthTransactionConfirmationNotification">EthTransactionConfirmationNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| hash | <code>String</code> | [Ethereum transaction hash] |
-| confirmations | <code>Number</code> | [Minimal count of confirmations to notify] |
+| hash | <code>string</code> | [Ethereum transaction hash] |
+| confirmations | <code>number</code> | [Minimal count of confirmations to notify - max value 100] |
 | callback | <code>Function</code> | [Notifications handler ] |
 
 Returns subscription id.
 
 ```javascript
-> const subscriptionId = await client.events.eth.onTransactionConfirmations({
+import { Client } from 'cryptoapi-lib';
+const crypto = new Client('YOUR-API-KEY');
+
+const subscriptionId = await client.events.eth.onTransactionConfirmations({
     hash: '0x4c29f5d1bc3228cca62e29d2c9f47a028edf68f85bab133053adfc541001eeb5',
     confirmations: 2,
-}, (msg) => { console.log(msg) });
+}, (message) => { console.log(message) });
 
 // By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
-> client.events.eth.onTransactionConfirmations({
+client.events.eth.onTransactionConfirmations({
     hash: '0x4c29f5d1bc3228cca62e29d2c9f47a028edf68f85bab133053adfc541001eeb5',
     confirmations: 2,
-}, (msg) => { console.log(msg) });
+}, (message) => { console.log(message) });
 
 // Notification example
 > {
@@ -277,20 +292,20 @@ Returns subscription id.
 
 ```
 
-#### <a name="eth.unsubscribe">unsubscribe</a> ⇒ <code>Promise&lt;Boolean&gt;</code>
+#### <a name="eth.unsubscribe">unsubscribe</a> ⇒ <code>Promise&lt;boolean&gt;</code>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| param | <code>Number</code> or <code>Function</code> | [Subscription ID] or [Subscription callback] |
+| param | <code>number</code> or <code>Function</code> | [Subscription ID] or [Subscription callback] |
 
 ```javascript
 client.events.eth.unsubscribe(1);
 // OR
 
-client.events.eth.unsubscribe((msg) => { console.log(msg) });
+client.events.eth.unsubscribe((message) => { console.log(message) });
 ```
 
-#### <a name="eth.connected">connected</a> ⇒ <code>Boolean</code>
+#### <a name="eth.connected">connected</a> ⇒ <code>boolean</code>
 
 ```javascript
 console.log(client.events.eth.connected);
@@ -345,37 +360,37 @@ console.log(client.events.eth.connected);
 
 ```javascript
 {
-    size: Number;
-    difficulty: String;
-    total_difficulty: String;
+    size: number;
+    difficulty: string;
+    total_difficulty: string;
     uncles: string[];
-    number: Number;
-    hash: String;
-    parent_hash: String;
-    nonce: String;
-    sha3U_uncles: String;
-    logs_bloom: String;
-    state_root: String;
-    miner: String;
-    extra_data: String;
-    gas_limit: Number;
-    gas_used: Number;
-    timestamp: Number;
+    number: number;
+    hash: string;
+    parent_hash: string;
+    nonce: string;
+    sha3U_uncles: string;
+    logs_bloom: string;
+    state_root: string;
+    miner: string;
+    extra_data: string;
+    gas_limit: number;
+    gas_used: number;
+    utc: string;
     transactions: Array<{
-        block_hash: String;
-        block_number: Number;
-        from: String;
-        gas: Number;
-        gas_price: String;
-        hash: String;
-        input: String;
-        nonce: Number;
-        to: String;
-        transaction_index: Number;
-        value: String;
-        v: String;
-        r: String;
-        s: String;
+        block_hash: string;
+        block_number: number;
+        from: string;
+        gas: number;
+        gas_price: string;
+        hash: string;
+        input: string;
+        nonce: number;
+        to: string;
+        transaction_index: number;
+        value: string;
+        v: string;
+        r: string;
+        s: string;
     }>;
 }
 ```
@@ -385,8 +400,8 @@ console.log(client.events.eth.connected);
 
 ```javascript
 {
-    address: String;
-    confirmations: Number;
+    address: string;
+    confirmations: number;
 }
 ```
 #### EthTransactionNotification : <code>Object</code>
@@ -394,24 +409,24 @@ console.log(client.events.eth.connected);
 
 ```javascript
 {
-    utc: String;
-    from: String;
-    gas: Number;
-    gas_price: String;
-    hash: String;
-    input: String;
-    nonce: Number;
-    to: String;
-    value: String;
-    v: String;
-    s: String;
-    r: String;
+    utc: string;
+    from: string;
+    gas: number;
+    gas_price: string;
+    hash: string;
+    input: string;
+    nonce: number;
+    to: string;
+    value: string;
+    v: string;
+    s: string;
+    r: string;
     internal_transactions: Array<{
-        to: String;
-        from: String;
-        value: String;
-        input: String;
-        type: String;
+        to: string;
+        from: string;
+        value: string;
+        input: string;
+        type: string;
     }>;
 }
 ```
@@ -420,9 +435,9 @@ console.log(client.events.eth.connected);
 
 ```javascript
 {
-    token: String;
-    address: String;
-    confirmations: Number;
+    token: string;
+    address: string;
+    confirmations: number;
 }
 ```
 #### EthTransferNotification : <code>Object</code>
@@ -430,16 +445,16 @@ console.log(client.events.eth.connected);
 
 ```javascript
 {
-    type: String;
-    execute_address: String;
-    from: String;
-    to: String;
-    value: String;
-    address: String;
-    block_number: Number;
-    transaction_hash: String;
-    transaction_index: Number;
-    utc: String;
+    type: string;
+    execute_address: string;
+    from: string;
+    to: string;
+    value: string;
+    address: string;
+    block_number: number;
+    transaction_hash: string;
+    transaction_index: number;
+    utc: string;
 }
 ```
 #### EthTransactionConfirmationSubscription : <code>Object</code>
@@ -447,8 +462,8 @@ console.log(client.events.eth.connected);
 
 ```javascript
 {
-    hash: String;
-    confirmations: Number;
+    hash: string;
+    confirmations: number;
 }
 ```
 #### EthTransactionConfirmationNotification : <code>Object</code>
@@ -456,7 +471,7 @@ console.log(client.events.eth.connected);
 
 ```javascript
 {
-    hash: String;
-    confirmations: Number;
+    hash: string;
+    confirmations: number;
 }
 ```

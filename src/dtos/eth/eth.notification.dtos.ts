@@ -15,7 +15,7 @@ export class EthBlockNotification {
 	extra_data: string;
 	gas_limit: number;
 	gas_used: number;
-	timestamp: number;
+	utc: string;
 	transactions: Array<{
 		block_hash: string;
 		block_number: number;
@@ -49,7 +49,7 @@ export class EthBlockNotification {
 		extra_data: string;
 		gas_limit: number;
 		gas_used: number;
-		timestamp: number;
+		utc: string;
 		transactions: Array<{
 			block_hash: string;
 			block_number: number;
@@ -83,7 +83,7 @@ export class EthBlockNotification {
 		this.extra_data = notification.extra_data;
 		this.gas_limit = notification.gas_limit;
 		this.gas_used = notification.gas_used;
-		this.timestamp = notification.timestamp;
+		this.utc = notification.utc;
 		this.transactions = notification.transactions.map((tr) => ({
 			block_hash: tr.block_hash,
 			block_number: tr.block_number,

@@ -3,7 +3,9 @@ This library provides api methods to work with CryptoAPI.
 
 #### Table of Contents
 1. [API](#api)
+    * [ETH API](#eth-api)
 2. [Typedefs](#typedefs)
+    * [ETH Typedefs](#eth-typedefs)
 
 ## API
 
@@ -64,10 +66,10 @@ current hash rate, gas price, difficulty.
 Example response:
 ```
 {
-    "lastBlock": 5282865,
-    "countTransactions": "11",
-    "gasPrice": "1000000000",
-    "hashRate": 0,
+    "last_block": 5282865,
+    "count_transactions": "11",
+    "gas_price": "1000000000",
+    "hashrate": 0,
     "difficulty": "1"
 }
 ```
@@ -93,7 +95,7 @@ Example response:
 }
 ```
 
-#### <a name="eth.getBlock">eth.getBlock</a>(blockNumber: Number) ⇒ <code>Promise&lt;<a href="#EthBlockInfo">EthBlockInfo</a>&gt;</code></dt></dt>
+#### <a name="eth.getBlock">eth.getBlock</a>(blockNumber: number) ⇒ <code>Promise&lt;<a href="#EthBlockInfo">EthBlockInfo</a>&gt;</code></dt></dt>
 Returns JSON data about block information.
 
 ```javascript
@@ -120,7 +122,7 @@ Example response:
     sha3_uncles: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
     size: 9346,
     state_root: '0x996ba95665d4d800afe83509a2ba4d0e680cd729edbda1ef6cb1c438edda2800',
-    timestamp: 1574428229,
+    utc: '2019-11-22T16:10:29.000Z',
     total_difficulty: 9969080,
     transaction_root: '0xba02eb65dbd8629bf13b0819e5a7e0158dfcfcc64b7c1922a794b2f6824f8b42',
     transactions: ['0xec4f7a1a8bfbac44fd2d9af09a7291217668a6b834a54fa186a9cf613d65ca34'],
@@ -140,10 +142,10 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result =  crypto.api.eth.getAddressesBalances([
-                       		'0xa177AD7c3CA2cCa794C02a0FF4dF1C2B09D49C8f',
-                       		'0xf24A2674208B7B5EC2f2863DCb65938EF82dC180'
-                       ]);
+    const result = await crypto.api.eth.getAddressesBalances([
+        '0xa177AD7c3CA2cCa794C02a0FF4dF1C2B09D49C8f',
+        '0xf24A2674208B7B5EC2f2863DCb65938EF82dC180'
+    ]);
 ```
 
 Example response:
@@ -171,7 +173,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    crypto.api.eth.getAddressesInfos([
+    const result = await crypto.api.eth.getAddressesInfos([
         '0xa177AD7c3CA2cCa794C02a0FF4dF1C2B09D49C8f',
     ]);
 ```
@@ -195,7 +197,7 @@ Returns JSON data about contract information.
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    crypto.api.eth.getContractInfo('0x772fe05f6663bdabdc99f7067baeb21a5484fbcc');
+    const result = await crypto.api.eth.getContractInfo('0x772fe05f6663bdabdc99f7067baeb21a5484fbcc');
 ```
 
 Example response:
@@ -212,7 +214,7 @@ Input data:
 
 | Param | Type | Description |
 | --- | --- | --- |
-| address | <code>String</code> | [Token address] |
+| address | <code>string</code> | [Token address] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
@@ -247,7 +249,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    crypto.api.eth.getTokenBalanceByAddresses('0x5ae86537ea087929a34b597480fd23144d2dd216', '0xd89f43605f4ccc0935afceba98f3d5d04ce2e390');
+    const result = await crypto.api.eth.getTokenBalanceByAddresses('0x5ae86537ea087929a34b597480fd23144d2dd216', '0xd89f43605f4ccc0935afceba98f3d5d04ce2e390');
 ```
 
 Example response:
@@ -272,7 +274,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    crypto.api.eth.getTokensBalancesByHolderAddress('0xd89f43605f4ccc0935afceba98f3d5d04ce2e390', {
+    const result = await crypto.api.eth.getTokensBalancesByHolderAddress('0xd89f43605f4ccc0935afceba98f3d5d04ce2e390', {
 		skip: 0,
 	});
 ```
@@ -305,7 +307,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    crypto.api.eth.decodeRawTransaction('0xf86e8386ca038602bba7f5220083632ea0941de29f644d555fe9cc3241e1083de0868' +
+    const result = await crypto.api.eth.decodeRawTransaction('0xf86e8386ca038602bba7f5220083632ea0941de29f644d555fe9cc3241e1083de0868' +
         'f959bfa8545d964b800801ca04ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637fdc35' +
         'bdc49c4a04b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02');
 ```
@@ -338,7 +340,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    crypto.api.eth.sendRawTransaction('0xf86e8386ca038602bba7f5220083632ea0941de29f' +
+    const result = await crypto.api.eth.sendRawTransaction('0xf86e8386ca038602bba7f5220083632ea0941de29f' +
      '644d555fe9cc3241e1083de0868f959bfa8545d964b800801ca04ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637' +
       'fdc35bdc49c4a04b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02');
 ```
@@ -363,7 +365,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    crypto.api.eth.getTransactionsByAddresses(['0x99608ad1026a47acf7839003546748158ad55504']);
+    const result = await crypto.api.eth.getTransactionsByAddresses(['0x99608ad1026a47acf7839003546748158ad55504']);
 ```
 
 Example response:
@@ -404,7 +406,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    crypto.api.eth.getTransactionsIntersection(['0x99608ad1026a47acf7839003546748158ad55504', '0xcd66e50e51026673d60b3f993610b46b0f44096f']);
+    const result = await crypto.api.eth.getTransactionsIntersection(['0x99608ad1026a47acf7839003546748158ad55504', '0xcd66e50e51026673d60b3f993610b46b0f44096f']);
 ```
 
 Example response:
@@ -454,7 +456,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi';
     const crypto = new Client('YOUR-API-KEY');
-    crypto.api.eth.getTransactionsInterAddresses('0xcd66e50e51026673d60b3f993610b46b0f44096f', '0x99608ad1026a47acf7839003546748158ad55504');
+    const result = await crypto.api.eth.getTransactionsInterAddresses('0xcd66e50e51026673d60b3f993610b46b0f44096f', '0x99608ad1026a47acf7839003546748158ad55504');
 ```
 
 Example response:
@@ -497,7 +499,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    crypto.api.eth.getTokenTransfers('0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c', [], {
+    const result = await crypto.api.eth.getTokenTransfers('0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c', [], {
         skip: 1,
         limit: 1
     });
@@ -540,7 +542,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    crypto.api.eth.callContract({
+    const result = await crypto.api.eth.callContract({
         "address": "0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c",
         "bytecode": "0x2c6ce78b000000000000000000000000be125ecedd3a2e8615f5736523dd04e4ce13753d",
         "sender": "0xf876154263cf61e15e84695096cfdcb5ceed8d86",
@@ -560,12 +562,12 @@ Input data:
 
 | Param | Type | Description |
 | --- | --- | --- |
-| searchRequest | <code><a href="#TTokenSearchRequest">TTokenSearchRequest</a></code> | [Optional object request, that includes general information to search by type or query and pagination.] |
+| searchRequest | <code><a href="#TTokenSearchRequest">TTokenSearchRequest</a></code> | [Optional object request, that includes general information to search by type (ERC20, ERC721) or query and pagination.] |
 | options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Count of skipping items and page items count] |
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    crypto.api.eth.searchToken({ query: 'ERC721' }, { limit: 1 })
+    const result = await crypto.api.eth.searchToken({ query: 'ERC721' }, { limit: 1 })
 ```
 
 Example response:
@@ -605,7 +607,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    crypto.api.eth.subscribeToken('dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jk' +
+    const result = await crypto.api.eth.subscribeToken('dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jk' +
                   		'QkueHG00uHyv3VIuThFxgTf6X8udvDdJIiUrX3SEiEW7dPg3rRxIKsajd' +
                   		'qc84kG1SuRz9JDoEgJXEa-CCNw1Jjn9vKXWrF23zDnNuhMaFksO-',
                   		['0x13b5685d07fa4764a9da7385fd1be93e8829618f']);
@@ -632,7 +634,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    crypto.api.eth.unsubscribeToken('dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jk' +
+    const result = await crypto.api.eth.unsubscribeToken('dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jk' +
                   		'QkueHG00uHyv3VIuThFxgTf6X8udvDdJIiUrX3SEiEW7dPg3rRxIKsajd' +
                   		'qc84kG1SuRz9JDoEgJXEa-CCNw1Jjn9vKXWrF23zDnNuhMaFksO-',
                   		['0x13b5685d07fa4764a9da7385fd1be93e8829618f']);
@@ -656,7 +658,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    crypto.api.eth.getFullTransactionInfo('0x2dd50756cfd189177d0de4d65b7926459d7bb01de197c26517d05cd2b1c77ebc')
+    const result = await crypto.api.eth.getFullTransactionInfo('0x2dd50756cfd189177d0de4d65b7926459d7bb01de197c26517d05cd2b1c77ebc')
 ```
 
 Example response:
@@ -686,6 +688,8 @@ Example response:
     }
 ```
 ## Typedefs
+
+#### ETH Typedefs
 
 <dl>
 <dt><a href="#EthNetworkInfo">EthNetworkInfo</a> : <code>Object</code></dt>
@@ -741,11 +745,11 @@ Example response:
 
 ```javascript
 {
-    lastBlock: Number;
-    countTransactions: String;
-    gasPrice: Number;
-    hashRate: Number;
-    difficulty: Number;
+    last_block: number;
+    count_transactions: string;
+    gas_price: number;
+    hashrate: number;
+    difficulty: number;
 }
 ```
 
@@ -754,26 +758,26 @@ Example response:
 
 ```javascript
 {
-    size: Number;
-    difficulty: Number;
-    total_difficulty: Number;
-    uncles: String[];
-    number: Number;
-    hash: String;
-    parent_hash: String;
-    nonce: String;
-    sha3_uncles: String;
-    logs_bloom: String;
-    transaction_root: String;
-    state_root: String;
-    receipts_root: String;
-    miner: String;
-    mix_hash: String;
-    extra_data: String;
-    gas_limit: Number;
-    gas_used: Number;
-    timestamp: Number;
-    transactions: String[];
+    size: number;
+    difficulty: number;
+    total_difficulty: number;
+    uncles: string[];
+    number: number;
+    hash: string;
+    parent_hash: string;
+    nonce: string;
+    sha3_uncles: string;
+    logs_bloom: string;
+    transaction_root: string;
+    state_root: string;
+    receipts_root: string;
+    miner: string;
+    mix_hash: string;
+    extra_data: string;
+    gas_limit: number;
+    gas_used: number;
+    utc: string;
+    transactions: string[];
 }
 ```
 
@@ -782,14 +786,14 @@ Example response:
 
 ```javascript
 {
-    address: String;
-    type: String;
-    name: String;
-    symbol: String;
-    decimals: String;
-    total_supply: String;
-    create_transaction_hash: String;
-    holders_count: Number;
+    address: string;
+    type: string;
+    name: string;
+    symbol: string;
+    decimals: string;
+    total_supply: string;
+    create_transaction_hash: string;
+    holders_count: number;
 }
 
 ```
@@ -798,8 +802,8 @@ Example response:
 
 ```javascript
 {
-    address: String;
-    balance: String;
+    address: string;
+    balance: string;
 }
 ```
 
@@ -808,10 +812,10 @@ Example response:
 
 ```javascript
 {
-    from?: String;
-    to?: String;
-    value?: String | Number;
-    data?: String;
+    from?: string;
+    to?: string;
+    value?: string | number;
+    data?: string;
 }
 ```
 
@@ -820,9 +824,9 @@ Example response:
 
 ```javascript
 {   
-    estimate_gas: Number;
-    gas_price: String;
-    nonce: Number;
+    estimate_gas: number;
+    gas_price: string;
+    nonce: number;
 }
 ```
 
@@ -831,11 +835,11 @@ Example response:
 
 ```javascript
 {
-    address: String;
-    balance: String;
-    is_contract: Boolean;
-    type: String;
-    count_transactions: Number;
+    address: string;
+    balance: string;
+    is_contract: boolean;
+    type: string;
+    count_transactions: number;
 }
 ```
 
@@ -844,7 +848,7 @@ Example response:
 
 ```javascript
 {
-    bytecode: String;
+    bytecode: string;
 }
 ```
 
@@ -853,9 +857,9 @@ Example response:
 
 ```javascript
 {
-   address: String;
-   balance: String;
-   holder: String;
+   address: string;
+   balance: string;
+   holder: string;
 }
 ```
 
@@ -864,7 +868,7 @@ Example response:
 
 ```javascript
 {
-   total: Number;
+   total: number;
    items: EthAddressBalance[];
 }
 ```
@@ -874,22 +878,22 @@ Example response:
 
 ```javascript
 {
-    addresses: String[]|null;
-    skip: Number;
-    limit: Number;
-    count: Number;
+    addresses: string[] | null;
+    skip: number;
+    limit: number;
+    count: number;
     items: Array<{
-        type: String;
-        execute_address: String;
-        from: String;
-        to: String;
-        value: String;
-        address: String;
-        block_number: Number;
-        transaction_hash: String;
-        transaction_index: Number;
-        log_index: Number;
-        utc: String;  
+        type: string;
+        execute_address: string;
+        from: string;
+        to: string;
+        value: string;
+        address: string;
+        block_number: number;
+        transaction_hash: string;
+        transaction_index: number;
+        log_index: number;
+        utc: string;  
     }>
 }
 ```
@@ -899,8 +903,8 @@ Example response:
 
 ```javascript
 {
-   skip?: Number;
-   limit?: Number;
+   skip?: number;
+   limit?: number;
 }
 ```
 
@@ -909,15 +913,15 @@ Example response:
 
 ```javascript
 {
-    nonce: Number;
-    gas_price: String;
-    gas_limit: String;
-    to: String;
-    value: String;
-    data: String;
-    v: Number;
-    r: String;
-    s: String;
+    nonce: number;
+    gas_price: string;
+    gas_limit: string;
+    to: string;
+    value: string;
+    data: string;
+    v: number;
+    r: string;
+    s: string;
 }
 ```
 
@@ -926,21 +930,21 @@ Example response:
 
 ```javascript
 {
-    addresses: String[];
-    limit: Number;
-    skip: Number;
+    addresses: string[];
+    limit: number;
+    skip: number;
     items: Array<{
-        block_number: Number;
-        from: String;
-        to: String;
-        value: String;
-        hash: String;
-        gas: Number;
-        gas_price: String;
-        internal: Boolean;
-        utc: String;
+        block_number: number;
+        from: string;
+        to: string;
+        value: string;
+        hash: string;
+        gas: number;
+        gas_price: string;
+        internal: boolean;
+        utc: string;
     }>;
-    count: Number;
+    count: number;
 }
 ```
 #### EthInternalTransaction : <code>Object</code>
@@ -948,12 +952,12 @@ Example response:
 
 ```javascript
 {
-	to: String;
-	from: String;
-	value: String;
-	input: String;
-	is_suicide: Boolean;
-	type: String[];
+	to: string;
+	from: string;
+	value: string;
+	input: string;
+	is_suicide: boolean;
+	type: string[];
 }
 ```
 
@@ -962,22 +966,22 @@ Example response:
 
 ```javascript
 {
-	block_hash: String;
-	block_number: Number;
-	utc: String;
-	from: String;
-	gas: Number;
-	gas_price: String;
-	hash: String;
-	input: String;
-	nonce: Number;
-	to: String;
-	transaction_index: Number;
-	value: String;
-    v: String;
-    s: String;
-	r: String;
-	internal_transactions: Array<EthInternalTransaction>;
+    block_hash: string;
+    block_number: number;
+    utc: string;
+    from: string;
+    gas: number;
+    gas_price: string;
+    hash: string;
+    input: string;
+    nonce: number;
+    to: string;
+    transaction_index: number;
+    value: string;
+    v: string;
+    s: string;
+    r: string;
+    internal_transactions: Array<EthInternalTransaction>;
 }
 ```
 
@@ -986,22 +990,37 @@ Example response:
 
 ```javascript
 {
-    receipt: any;
-	block_hash: String;
-    block_number: Number;
-    utc: String;
-    from: String;
-    gas: Number;
-    gas_price: String;
-    hash: String;
-    input: String;
-    nonce: Number;
-    to: String;
-    transaction_index: Number;
-    value: String;
-    v: String;
-    s: String;
-    r: String;
+    receipt: {
+        contract_address: string;
+        cumulative_gas_used: number;
+        gas_used: number;
+        logs: Array<{
+            topics: string[];
+            address: string;
+            data: string;
+            log_index: number;
+            transaction_hash: string;
+            transaction_index: number;
+            block_hash: string;
+            block_number: number;
+        }>;
+        status: boolean;
+    };
+    block_hash: string;
+    block_number: number;
+    utc: string;
+    from: string;
+    gas: number;
+    gas_price: string;
+    hash: string;
+    input: string;
+    nonce: number;
+    to: string;
+    transaction_index: number;
+    value: string;
+    v: string;
+    s: string;
+    r: string;
     internal_transactions: Array<EthInternalTransaction>;
 }
 ```
@@ -1011,11 +1030,11 @@ Example response:
 
 ```javascript
 {
-    addresses: String[];
-    limit: Number;
-    skip: Number;
+    addresses: string[];
+    limit: number;
+    skip: number;
     items: Array<EthTransaction>;
-    count: Number;
+    count: number;
 }
 ```
 
@@ -1024,30 +1043,30 @@ Example response:
 
 ```javascript
 {
-    total: Number;
+    total: number;
     items: Array<{
-        block_hash: String;
-        block_number: Number;
-        utc: String;
-        from: String;
-        gas: Number;
-        gas_price: String;
-        hash: String;
-        input: String;
-        nonce: Number;
-        to: String;
-        transaction_index: Number;
-        value: String;
-        v: String;
-        s: String;
-        r: String;
+        block_hash: string;
+        block_number: number;
+        utc: string;
+        from: string;
+        gas: number;
+        gas_price: string;
+        hash: string;
+        input: string;
+        nonce: number;
+        to: string;
+        transaction_index: number;
+        value: string;
+        v: string;
+        s: string;
+        r: string;
         internal_transactions: Array<{
-            to: String;
-            from: String;
-            value: String;
-            input: String;
-            is_suicide: Boolean;
-            type: String;
+            to: string;
+            from: string;
+            value: string;
+            input: string;
+            is_suicide: boolean;
+            type: string;
         }>;
     }>;
 }
@@ -1058,9 +1077,9 @@ Example response:
 ```javascript
 {
     address: string;
-	sender: String;
-	amount: Number;
-	bytecode: String;
+    sender: string;
+    amount: number;
+    bytecode: string;
 }
 ```
 
@@ -1069,8 +1088,8 @@ Example response:
 
 ```javascript
 {
-        query?: String;
-        types?: String;
+        query?: string;
+        types?: string;
 }
 ```
 
@@ -1079,18 +1098,23 @@ Example response:
 
 ```javascript
 {
-	query: String|null;
-	skip: Number;
-	limit: Number;
-	count: Number;
-	types: String[];
-	items: Array<{
-        address: String;
-        info: Any;
-        create_transaction_hash: String;
-        type: String;
-        status: Boolean;
-	}>
+    query: string | null;
+    skip: number;
+    limit: number;
+    count: number;
+    types: string[];
+    items: Array<{
+        address: string;
+        info: {
+            decimals?: string;
+            symbol?: string;
+            name?: string;
+            total_supply?: string;
+        };
+        create_transaction_hash: string;
+        type: string;
+        status: boolean;
+    }>
 }
 ```
 
@@ -1099,7 +1123,7 @@ Example response:
 
 ```javascript
 {
-	token: String;
-	addresses: String[];
+	token: string;
+	addresses: string[];
 }
 ```

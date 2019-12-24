@@ -4,8 +4,8 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
 	entry: {
-		'crypto-api': './src/index.ts',
-		'crypto-api.min': './src/index.ts'
+		'cryptoapi-lib': './src/index.ts',
+		'cryptoapi-lib.min': './src/index.ts'
 	},
 	output: {
 		path: path.resolve(__dirname, 'dist/bundles'),
