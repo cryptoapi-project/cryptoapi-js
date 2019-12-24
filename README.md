@@ -35,7 +35,7 @@ crypto.events.eth.onBlock(1, (event) => { console.log(event); });
 
 ##### Browser
 
-If you're keeping things super simple, just include [this file](dist/bundles/cryptoapi-lib.js) as a script like so:
+If you're keeping things super simple, just include a file as a script like so:
 
 ```html
 <script src="node_modules/cryptoapi-lib/dist/bundles/cryptoapi-lib.js"></script>
