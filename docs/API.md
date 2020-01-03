@@ -227,11 +227,13 @@ Example response:
 {
     address: "0x106c2dbabeb8c4932e3f68b76fb9665180b74587"
     create_transaction_hash: "0x3b010efb798c38509b1dbb0b517399cff2716dce4e0dff1ba6b4c09430880ffc"
-    decimals: "0"
+    info: {
+        decimals: "0"
+        name: "premfina-secured-loan-notes-2019-bond-no6-7"
+        symbol: "rmn"
+        total_supply: "1000000000000000000"
+    }
     holders_count: 1
-    name: "premfina-secured-loan-notes-2019-bond-no6-7"
-    symbol: "rmn"
-    total_supply: "1000000000000000000"
     type: "ERC20"
 }
 ```
@@ -738,6 +740,8 @@ Example response:
 <dd></dd>
 <dt><a href="#EthSubscribeToken">EthSubscribeToken</a> : <code>Object</code></dt>
 <dd></dd>
+<dt><a href="#EthMainTokenInfo">EthMainTokenInfo</a> : <code>Object</code></dt>
+<dd></dd>
 </dl>
 
 #### EthNetworkInfo : <code>Object</code>
@@ -788,10 +792,7 @@ Example response:
 {
     address: string;
     type: string;
-    name: string;
-    symbol: string;
-    decimals: string;
-    total_supply: string;
+    info: EthMainTokenInfo;          
     create_transaction_hash: string;
     holders_count: number;
 }
@@ -1098,23 +1099,18 @@ Example response:
 
 ```javascript
 {
-    query: string | null;
-    skip: number;
-    limit: number;
-    count: number;
-    types: string[];
-    items: Array<{
+	query: string | null;
+	skip: number;
+	limit: number;
+	count: number;
+	types: string[];
+	items: Array<{
         address: string;
-        info: {
-            decimals?: string;
-            symbol?: string;
-            name?: string;
-            total_supply?: string;
-        };
+        info: EthMainTokenInfo;
         create_transaction_hash: string;
         type: string;
         status: boolean;
-    }>
+	}>
 }
 ```
 
@@ -1125,5 +1121,17 @@ Example response:
 {
 	token: string;
 	addresses: string[];
+}
+```
+
+#### EthMainTokenInfo : <code>Object</code>
+<a name="EthMainTokenInfo"></a>
+
+```javascript
+{
+	name: string;
+	symbol: string;
+	decimals: string;
+	total_supply: string;
 }
 ```

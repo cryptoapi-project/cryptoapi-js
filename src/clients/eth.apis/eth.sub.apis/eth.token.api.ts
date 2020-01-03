@@ -32,7 +32,7 @@ export class EthTokenApi extends AbstractApi  implements IEthTokenApi {
 	 * Method to get token information by address.
 	 * @method getTokenInfoByTokenAddress
 	 * @param {string} address
-	 * @return {Promise<EthTokenInfo>>}
+	 * @return {Promise<EthTokenInfo>}
 	 */
 	async getTokenInfoByTokenAddress(address: string): Promise<EthTokenInfo> {
 		this._checkConfig();

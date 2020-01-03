@@ -1,3 +1,5 @@
+import { EthMainTokenInfo } from './eth.token.info';
+
 export class EthTokenSearchRequest {
 	query?: string;
 	types?: string;
@@ -19,20 +21,20 @@ export class EthTokenSearchRequest {
 
 export class TokenSearchItem {
 	address: string;
-	info: any;
+	info: EthMainTokenInfo;
 	create_transaction_hash: string;
 	type: string;
 	status: boolean;
 
 	constructor(info: {
 		address: string;
-		info: any;
+		info: EthMainTokenInfo;
 		create_transaction_hash: string;
 		type: string;
 		status: boolean;
 	}) {
 		this.address = info.address;
-		this.info = info.info;
+		this.info = new EthMainTokenInfo(info.info);
 		this.create_transaction_hash = info.create_transaction_hash;
 		this.type = info.type;
 		this.status = info.status;
