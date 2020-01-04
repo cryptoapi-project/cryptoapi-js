@@ -4,7 +4,6 @@ import { TYPES_DI } from '../../../../constants/inversify.constants';
 
 import { EthAddressBalance } from '../../../../dtos/eth/eth.address.balance';
 import { EthAddressInfo } from '../../../../dtos/eth/eth.address.info';
-
 import { IEthAddressApi } from '../../../../interfaces/clients/eth/apis/eth.sub.apis/eth.address.api.interface';
 
 import { IHttpService } from '../../../../interfaces/providers/http.service.interface';

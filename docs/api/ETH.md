@@ -1,15 +1,12 @@
-# API cryptoapi-lib
-This library provides api methods to work with CryptoAPI.
+# ETH API cryptoapi-lib
+This library provides eth api methods to work with CryptoAPI.
 
 #### Table of Contents
-1. [API](#api)
-    * [ETH API](#eth-api)
-2. [Typedefs](#typedefs)
-    * [ETH Typedefs](#eth-typedefs)
+* [API](#api)
+* [Typedefs](#typedefs)
 
 ## API
 
-#### ETH API
 <dl>
 <dt><a href="#eth.getNetworkInfo">eth.getNetworkInfo</a> ⇒<code><a href="#EthNetworkInfo">Promise&lt;EthNetworkInfo&gt;</a></code></dt></dt>
 <dd></dd>

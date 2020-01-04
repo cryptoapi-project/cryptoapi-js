@@ -1,14 +1,14 @@
 export class UtxoNetworkInfo {
-	last_block: number;
+	last_block: string;
 	count_transactions: string;
-	hashrate: number;
-	difficulty: number;
+	hashrate: string;
+	difficulty: string;
 
 	constructor(info: {
-		last_block: number;
+		last_block: string;
 		count_transactions: string;
-		hashrate: number;
-		difficulty: number;
+		hashrate: string;
+		difficulty: string;
 	}) {
 		this.last_block = info.last_block;
 		this.count_transactions = info.count_transactions;

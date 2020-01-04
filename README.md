@@ -61,7 +61,7 @@ const crypto = new cryptoapi.Client('YOUR-API-KEY');
 const result = await crypto.api.eth.getNetworkInfo();
 ```
 
-Full documentation about API methods you find by [following link](docs/API.md).
+Full documentation about API methods you find by [following link](docs/api/index.md).
 
 * Set subscription on new Ethereum block:
 

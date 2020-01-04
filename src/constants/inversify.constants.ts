@@ -18,6 +18,7 @@ const TYPES_DI = {
 	IEthTransactionsApi: Symbol.for('IEthTransactionsApi'),
 
 	IUtxoMainInfoApi: Symbol.for('IUtxoMainInfoApi'),
+	IUtxoBlockApi: Symbol.for('IUtxoBlockApi'),
 
 	IIdHelper: Symbol.for('IIdHelper'),
 	ISubsHelper: Symbol.for('ISubsHelper'),

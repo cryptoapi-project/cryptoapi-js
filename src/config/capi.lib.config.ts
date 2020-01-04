@@ -6,6 +6,7 @@ export enum TCoin {
 export const DEFAULT_TIMEOUT_REQUEST = 30000;
 
 export const BASE_HTTP_URL = 'https://697-crypto-api.pixelplex-test.by/api/v1';
+
 export const BASE_WS_RECONNECT = true;
 export const BASE_WS_ATTEMPTS = 5;
 export const BASE_WS_TIMEOUT = 1000;
