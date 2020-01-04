@@ -43,6 +43,8 @@ coverage/*
 
 client.js
 client.ts
+client2.ts
+client2.js
 index.html
 start.js
 .cache

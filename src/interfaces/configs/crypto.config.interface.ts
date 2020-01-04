@@ -10,12 +10,14 @@ export interface IEventsConfig {
 }
 
 export interface IServerConfig {
+	coin: string;
 	baseUrl: string;
 	events: IEventsConfig;
 }
 
 export interface ICryptoOptions {
 	eth: IServerConfig;
+	btc: IServerConfig;
 	timeout: number;
 }
 

@@ -5,6 +5,7 @@ const TYPES_DI = {
 	IEventsClient: Symbol.for('IEventsClient'),
 
 	IEthApiClient: Symbol.for('IEthApiClient'),
+	IUtxoApiClient: Symbol.for('IUtxoApiClient'),
 	IEthEventsClient: Symbol.for('IEthEventsClient'),
 
 	IEthAddressApi: Symbol.for('IEthAddressApi'),
@@ -15,6 +16,8 @@ const TYPES_DI = {
 	IEthBlockApi: Symbol.for('IEthBlockApi'),
 	IEthTokenApi: Symbol.for('IEthTokenApi'),
 	IEthTransactionsApi: Symbol.for('IEthTransactionsApi'),
+
+	IUtxoMainInfoApi: Symbol.for('IUtxoMainInfoApi'),
 
 	IIdHelper: Symbol.for('IIdHelper'),
 	ISubsHelper: Symbol.for('ISubsHelper'),

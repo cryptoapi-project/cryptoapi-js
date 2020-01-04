@@ -1,15 +1,6 @@
 import { TYPES_DI } from '../constants/inversify.constants';
 
-import {
-	DEFAULT_TIMEOUT_REQUEST,
-	ETH_BASE_HTTP_URL,
-	ETH_BASE_WS_URL,
-	ETH_BASE_WS_RECONNECT,
-	ETH_BASE_WS_ATTEMPTS,
-	ETH_BASE_WS_TIMEOUT,
-	ETH_BASE_WS_RESUBSCRIBE,
-} from '../config/capi.lib.config';
-import { PING_INTERVAL, PONG_TIMEOUT } from '../constants/events.constants';
+import { CONFIG_BY_COIN, DEFAULT_TIMEOUT_REQUEST, TCoin } from '../config/capi.lib.config';
 
 import { TPublicConfig } from '../types/crypto.config.type';
 import { ICrypto, IPublicCrypto } from '../interfaces/crypto.interface';
@@ -46,7 +37,8 @@ class CryptoWrapper implements IPublicCrypto {
 
 		cryptoConfig.timeout = options.timeout || DEFAULT_TIMEOUT_REQUEST;
 
-		cryptoConfig.eth = this.getEthConfig(options.eth);
+		cryptoConfig.eth = this.getConfigByCoin(TCoin.ETH, options.eth);
+		cryptoConfig.btc = this.getConfigByCoin(TCoin.BTC, options.btc);
 
 		if (!cryptoConfig.token) {
 			throw new InvalidParamsException('Token is not exist.');
@@ -59,35 +51,28 @@ class CryptoWrapper implements IPublicCrypto {
 	}
 
 	/**
-	 *  @method getEthConfig
-	 *  @param {IServerConfig} eth
+	 *  @method getConfigByCoin
+	 *  @param {TCoin} coin
+	 *  @param {IServerConfig} passedConfig
 	 */
-	private getEthConfig(eth: IServerConfig) {
+	private getConfigByCoin(coin: TCoin, passedConfig: IServerConfig) {
 		const config: any = {
-			baseUrl: ETH_BASE_HTTP_URL,
-			events: {
-				url: ETH_BASE_WS_URL,
-				reconnect: ETH_BASE_WS_RECONNECT,
-				attempts: ETH_BASE_WS_ATTEMPTS,
-				timeout: ETH_BASE_WS_TIMEOUT,
-				resubscribe: ETH_BASE_WS_RESUBSCRIBE,
-				ping: PING_INTERVAL,
-				pong: PONG_TIMEOUT,
-			},
+			coin,
+			...CONFIG_BY_COIN[coin],
 		};
 
-		if (!eth) {
+		if (!passedConfig) {
 			return config;
 		}
 
-		if (eth.baseUrl) {
-			config.baseUrl = eth.baseUrl;
+		if (passedConfig.baseUrl) {
+			config.baseUrl = passedConfig.baseUrl;
 		}
 
-		if (eth.events && Object.keys(eth.events).length) {
+		if (passedConfig.events && Object.keys(passedConfig.events).length) {
 			config.events = {
 				...config.events,
-				...eth.events,
+				...passedConfig.events,
 			};
 		}
 

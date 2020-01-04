@@ -14,4 +14,7 @@ export type TPublicConfig = {
 			pong?: number;
 		};
 	};
+	btc?: {
+		baseUrl?: string;
+	};
 };

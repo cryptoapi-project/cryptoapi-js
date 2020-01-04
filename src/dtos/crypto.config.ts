@@ -8,13 +8,16 @@ import {
 export class ServerConfig {
 	baseUrl: string;
 	events: IEventsConfig;
+	coin: string;
 
 	constructor(
 		config: {
+			coin: string,
 			baseUrl: string,
 			events: IEventsConfig,
 		},
 	) {
+		this.coin = config.coin;
 		this.baseUrl = config.baseUrl;
 		this.events = config.events;
 	}
@@ -25,16 +28,19 @@ export class CryptoConfig implements ICryptoConfig {
 	token: string;
 	timeout: number;
 	eth: IServerConfig;
+	btc: IServerConfig;
 
 	constructor(
 		config: {
 			token: string,
 			timeout: number,
-			eth: ServerConfig,
+			eth: IServerConfig,
+			btc: IServerConfig;
 		},
 	) {
 		this.token = config.token;
-		this.eth = config.eth;
+		this.eth = new ServerConfig(config.eth);
+		this.btc = new ServerConfig(config.btc);
 		this.timeout = config.timeout;
 	}
 }
