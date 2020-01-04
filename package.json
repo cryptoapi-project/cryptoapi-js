@@ -1,7 +1,7 @@
 {
   "name": "cryptoapi-lib",
   "description": "Cryptoapi library",
-  "version": "0.0.1-rc.2",
+  "version": "0.1.2",
   "author": {
     "name": "PixelPlex, Inc.",
     "email": "info@pixelplex.io",
@@ -13,8 +13,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cryptoapi-project/cryptoapi-js.git"
+    "url": "https://github.com/cryptoapi-project/cryptoapi-js"
   },
+  "homepage": "https://github.com/cryptoapi-project/cryptoapi-js",
   "main": "dist/lib/src/index.js",
   "types": "dist/lib/src/index.d.ts",
   "module": "dist/lib-esm/src/index.js",

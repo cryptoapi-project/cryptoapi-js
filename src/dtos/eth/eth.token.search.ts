@@ -1,8 +1,10 @@
-import { PaginationOptions } from '../paginations.options';
+import { EthMainTokenInfo } from './eth.token.info';
 
-export class EthTokenSearchRequest extends PaginationOptions {
+export class EthTokenSearchRequest {
 	query?: string;
 	types?: string;
+	skip?: number;
+	limit?: number;
 
 	constructor(info: {
 		query?: string;
@@ -10,28 +12,29 @@ export class EthTokenSearchRequest extends PaginationOptions {
 		skip?: number;
 		limit?: number;
 	}) {
-		super(info);
 		this.query = info.query;
 		this.types = info.types;
+		this.skip = info.skip;
+		this.limit = info.limit;
 	}
 }
 
 export class TokenSearchItem {
 	address: string;
-	info: any;
+	info: EthMainTokenInfo;
 	create_transaction_hash: string;
 	type: string;
 	status: boolean;
 
 	constructor(info: {
 		address: string;
-		info: any;
+		info: EthMainTokenInfo;
 		create_transaction_hash: string;
 		type: string;
 		status: boolean;
 	}) {
 		this.address = info.address;
-		this.info = info.info;
+		this.info = new EthMainTokenInfo(info.info);
 		this.create_transaction_hash = info.create_transaction_hash;
 		this.type = info.type;
 		this.status = info.status;

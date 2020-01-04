@@ -15,7 +15,7 @@ export class EthBlockNotification {
 	extra_data: string;
 	gas_limit: number;
 	gas_used: number;
-	timestamp: number;
+	utc: string;
 	transactions: Array<{
 		block_hash: string;
 		block_number: number;
@@ -49,7 +49,7 @@ export class EthBlockNotification {
 		extra_data: string;
 		gas_limit: number;
 		gas_used: number;
-		timestamp: number;
+		utc: string;
 		transactions: Array<{
 			block_hash: string;
 			block_number: number;
@@ -83,7 +83,7 @@ export class EthBlockNotification {
 		this.extra_data = notification.extra_data;
 		this.gas_limit = notification.gas_limit;
 		this.gas_used = notification.gas_used;
-		this.timestamp = notification.timestamp;
+		this.utc = notification.utc;
 		this.transactions = notification.transactions.map((tr) => ({
 			block_hash: tr.block_hash,
 			block_number: tr.block_number,
@@ -109,6 +109,7 @@ export class EthTransactionNotification {
 	utc: string;
 	from: string;
 	gas: number;
+	gas_price: string;
 	hash: string;
 	input: string;
 	nonce: number;
@@ -129,6 +130,7 @@ export class EthTransactionNotification {
 		utc: string;
 		from: string;
 		gas: number;
+		gas_price: string;
 		hash: string;
 		input: string;
 		nonce: number;
@@ -148,6 +150,7 @@ export class EthTransactionNotification {
 		this.utc = notification.utc;
 		this.from = notification.from;
 		this.gas = notification.gas;
+		this.gas_price = notification.gas_price;
 		this.hash = notification.hash;
 		this.input = notification.input;
 		this.nonce = notification.nonce;
@@ -178,7 +181,7 @@ export class EthTransferNotification {
 	block_number: number;
 	transaction_hash: string;
 	transaction_index: number;
-	timestamp: string;
+	utc: string;
 
 	constructor(notification: {
 		type: string;
@@ -190,7 +193,7 @@ export class EthTransferNotification {
 		block_number: number;
 		transaction_hash: string;
 		transaction_index: number;
-		timestamp: string;
+		utc: string;
 
 	}) {
 		this.type = notification.type;
@@ -202,7 +205,7 @@ export class EthTransferNotification {
 		this.block_number = notification.block_number;
 		this.transaction_hash = notification.transaction_hash;
 		this.transaction_index = notification.transaction_index;
-		this.timestamp = notification.timestamp;
+		this.utc = notification.utc;
 	}
 
 }

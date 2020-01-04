@@ -1,23 +1,21 @@
-// TODO change style filed object to snake_case
-
 export class EthNetworkInfo {
-	lastBlock: number;
-	countTransactions: string;
-	gasPrice: number;
-	hashRate: number;
+	last_block: number;
+	count_transactions: string;
+	gas_price: number;
+	hashrate: number;
 	difficulty: number;
 
 	constructor(info: {
-		lastBlock: number,
-		countTransactions: string,
-		gasPrice: number,
-		hashRate: number,
-		difficulty: number,
+		last_block: number;
+		count_transactions: string;
+		gas_price: number;
+		hashrate: number;
+		difficulty: number;
 	}) {
-		this.lastBlock = info.lastBlock;
-		this.countTransactions = info.countTransactions;
-		this.gasPrice = info.gasPrice;
-		this.hashRate = info.hashRate;
+		this.last_block = info.last_block;
+		this.count_transactions = info.count_transactions;
+		this.gas_price = info.gas_price;
+		this.hashrate = info.hashrate;
 		this.difficulty = info.difficulty;
 	}
 }

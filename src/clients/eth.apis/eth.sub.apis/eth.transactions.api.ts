@@ -9,7 +9,7 @@ import {
 	FullEthTransaction,
 	EthTransactionsInterAddresses,
 } from '../../../dtos/eth/eth.transaction.dtos';
-import { PaginationOptions } from '../../../dtos/paginations.options';
+import { TPaginationOptions } from '../../../types/paginations.options.type';
 
 import { IEthTransactionsApi } from '../../../interfaces/eth.apis/eth.sub.apis/eth.transactions.interface';
 import { IValidateHelper } from '../../../interfaces/providers/helpers/validate.helper.interface';
@@ -35,13 +35,13 @@ export class EthTransactionsApi extends AbstractApi implements IEthTransactionsA
 	 * @method getTransactionsByAddresses
 	 * @param {string[]} addresses
 	 * @param {boolean} positive?
-	 * @param {PaginationOptions} options?
+	 * @param {TPaginationOptions} options?
 	 * @return {Promise<EthTransactionByAddresses>}
 	 */
 	async getTransactionsByAddresses(
 		addresses: string[],
 		positive: boolean = false,
-		options: PaginationOptions = {
+		options: TPaginationOptions = {
 			skip: 0,
 			limit: 100,
 		},
@@ -64,12 +64,12 @@ export class EthTransactionsApi extends AbstractApi implements IEthTransactionsA
 	 * Get transactions interception by addresses
 	 * @method getTransactionsIntersection
 	 * @param {string[]} addresses
-	 * @param {PaginationOptions} options?
+	 * @param {TPaginationOptions} options?
 	 * @return {Promise<EthTransactionsIntersection>}
 	 */
 	async getTransactionsIntersection(
 		addresses: string[],
-		options?: PaginationOptions,
+		options?: TPaginationOptions,
 	): Promise<EthTransactionsIntersection> {
 		this._checkConfig();
 
@@ -89,13 +89,13 @@ export class EthTransactionsApi extends AbstractApi implements IEthTransactionsA
 	 * @method getTransactionsInterAddresses
 	 * @param {string} from
 	 * @param {string} to
-	 * @param {PaginationOptions} options?
+	 * @param {TPaginationOptions} options?
 	 * @return {Promise<EthTransactionsInterAddresses>}
 	 */
 	async getTransactionsInterAddresses(
 		from: string,
 		to: string,
-		options?: PaginationOptions,
+		options?: TPaginationOptions,
 	): Promise<EthTransactionsInterAddresses> {
 		this._checkConfig();
 

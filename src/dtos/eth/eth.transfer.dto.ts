@@ -9,7 +9,7 @@ export class EthTransfer {
 	transaction_hash: string;
 	transaction_index: number;
 	log_index: number;
-	timestamp: string;
+	utc: string;
 
 	constructor(info: {
 		type: string;
@@ -22,7 +22,7 @@ export class EthTransfer {
 		transaction_hash: string;
 		transaction_index: number;
 		log_index: number;
-		timestamp: string;
+		utc: string;
 	}) {
 		this.type = info.type;
 		this.execute_address = info.execute_address;
@@ -34,7 +34,7 @@ export class EthTransfer {
 		this.transaction_hash = info.transaction_hash;
 		this.transaction_index = info.transaction_index;
 		this.log_index = info.log_index;
-		this.timestamp = info.timestamp;
+		this.utc = info.utc;
 	}
 
 }

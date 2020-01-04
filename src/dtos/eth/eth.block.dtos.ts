@@ -17,7 +17,7 @@ export class EthBlockInfo {
 	extra_data: string;
 	gas_limit: number;
 	gas_used: number;
-	timestamp: number;
+	utc: string;
 	transactions: string[];
 
 	constructor({
@@ -39,7 +39,7 @@ export class EthBlockInfo {
 		extra_data,
 		gas_limit,
 		gas_used,
-		timestamp,
+		utc,
 		transactions,
 	}: {
 		size: number,
@@ -60,7 +60,7 @@ export class EthBlockInfo {
 		extra_data: string,
 		gas_limit: number,
 		gas_used: number,
-		timestamp: number,
+		utc: string,
 		transactions: string[],
 	}) {
 		this.size = size;
@@ -81,7 +81,7 @@ export class EthBlockInfo {
 		this.extra_data = extra_data;
 		this.gas_limit = gas_limit;
 		this.gas_used = gas_used;
-		this.timestamp = timestamp;
+		this.utc = utc;
 		this.transactions = transactions;
 	}
 }
