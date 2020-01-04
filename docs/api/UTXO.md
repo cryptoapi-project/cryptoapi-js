@@ -24,6 +24,9 @@ Below are examples with btc.
 <dt><a href="#btc.getTransactionsByBlockHeightOrHash">btc.getTransactionsByHashes</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction[]&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#btc.getAddressesInfos">btc.getAddressesInfos</a> ⇒<code><a href="#UtxoAddressInfo">Promise&lt;UtxoAddressInfo[]&gt;</a></code></dt></dt>
+<dd></dd>
+<dt><a href="#btc.getAddressesHistory">btc.getAddressesHistory</a> ⇒<code><a href="#UtxoAddressHistory">Promise&lt;UtxoAddressHistory&gt;</a></code></dt></dt>
+<dd></dd>
 </dl>
 
 #### <a name="btc.getNetworkInfo">btc.getNetworkInfo()</a> ⇒ <code><a href="#UtxoNetworkInfo">Promise&lt;UtxoNetworkInfo&gt;</a></code></dt></dt>
@@ -335,6 +338,68 @@ Example response:
 ]
 ```
 
+#### <a name="btc.getAddressesHistory">btc.getAddressesHistory</a>(addresses: string[], options: TPaginationOptions) ⇒ <code>Promise&lt;<a href="#UtxoAddressHistory">UtxoAddressHistory</a>&gt;</code></dt></dt>
+
+Return JSON data about btc addresses history.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- |  --- |
+| addresses |  <code>string[]</code>  | [Requested addresses.] |
+| options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Options params to paginating response] |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('YOUR-API-KEY');
+    const result = await crypto.api.btc.getAddressesHistory(['mstvLRTSSEaMGHEUmhUe5CCWYUJ8Z78Y8w', { skip: 1, limit:1 });
+```
+
+```
+{
+  count: 1,
+  items: [
+    {   
+        block_hash: "00000000000000b1cf4d4d75ba0bc6907757cc5a171841ffaca9ce2b179444f2",
+        block_height: 1381092,
+        block_time: "2018-08-06T06:01:25.000Z",
+        fee: 0,
+        hash: "1d2a7a543489ec17500b2b92cbcdf8393bf72bd07770d808373a82f19c1a24ff",
+        input_count: 1,
+        block_hash: "00000000000000b1cf4d4d75ba0bc6907757cc5a171841ffaca9ce2b179444f2",
+        block_height: 1381092,
+        block_time: "2018-08-06T06:01:25.000Z",
+        fee: 0,
+        hash: "1d2a7a543489ec17500b2b92cbcdf8393bf72bd07770d808373a82f19c1a24ff",
+        input_count: 1,
+        size: 283,
+        value: 2522100,
+        inputs: [
+            {
+                address: "n2PccFZybL2hpyR4g9K6aK35ChUuNvzMWE",
+                output_index: 1,
+                previous_transaction_hash: "9f70e49415fe406f739aa3752b0c3548e8f2824a6cecbde2ba99a09ea62f8dae",
+                script: "473044022079d12c837bea46711fcf4bff914e07e29d79aeed6f1a2093aee16d34ab8ad793022039f671e9391b6b245619cc4caf3c15dcc673239fe89a2e6c44f7079ff45bfb030121035d316cce2874025f670073b01cf1e093ed705fa9e8a9d602243da6e219f9baea",
+                sequence_number: 4294967295,
+            },
+        ],
+        outputs: [
+            {
+                address: "mstvLRTSSEaMGHEUmhUe5CCWYUJ8Z78Y8w",
+                satoshis: 2522100,
+                script: "76a91487c9066f56572bf09770e592418d948a846cf67f88ac", 
+            }, 
+            {
+                address: null,
+                satoshis: 0,
+                script: "6a4c500000940200011be6fccdbbcf2f8f83da85ae288e10cd19c7677f3395f5b7bd8b292b0c543bdc872cdf568a693dd14456536369115b",
+            }
+        ]
+    }
+  ]
+}
+```
+
 ## Typedefs
 
 <dl>
@@ -345,6 +410,10 @@ Example response:
 <dt><a href="#FullUtxoTransaction">FullUtxoTransaction</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#UtxoAddressInfo">UtxoAddressInfo</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#UtxoAddressHistory">UtxoAddressHistory</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#TPaginationOptions">TPaginationOptions</a> : <code>Object</code></dt>
 <dd></dd>
 </dl>
 
@@ -426,4 +495,25 @@ Example response:
     };
 }
 ```
+
+#### UtxoAddressHistory : <code>Object</code>
+<a name="UtxoAddressHistory"></a>
+
+```javascript
+{
+    count: number;
+    items: FullUtxoTransaction[];
+}
+```
+
+#### TPaginationOptions : <code>Object</code>
+<a name="TPaginationOptions"></a>
+
+```javascript
+{
+    skip?: number;
+    limit?: number;
+}
+```
+
 

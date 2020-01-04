@@ -8,6 +8,7 @@ import { IUtxoBlockApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.ap
 import { IUtxoMainInfoApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.main.info.interface';
 import { IUtxoTransactionsApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.transactions.interface';
 import { IUtxoAddressApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.address.api.interface';
+import { TPaginationOptions } from 'types/paginations.options.type';
 
 @injectable()
 export class UtxoApiClient implements IUtxoApiClient {
@@ -107,6 +108,18 @@ export class UtxoApiClient implements IUtxoApiClient {
 	@TryCatch
 	async getAddressesInfos(addresses: string[] = []) {
 		return this.utxoAddressApi.getAddressesInfos(addresses);
+	}
+
+	/**
+	 * Get addresses history.
+	 * @method getAddressesHistory
+	 * @param {string[]} addresses
+	 * @param {TPaginationOptions} options?
+	 * @return {Promise<UtxoAddressHistory>}
+	 */
+	@TryCatch
+	getAddressesHistory(addresses: string[], options?: TPaginationOptions) {
+		return this.utxoAddressApi.getAddressesHistory(addresses, options);
 	}
 
 }
