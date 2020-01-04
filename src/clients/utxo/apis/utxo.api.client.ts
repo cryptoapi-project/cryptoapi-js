@@ -7,6 +7,7 @@ import { TryCatch } from '../../../providers/decorators/try.catch';
 import { IUtxoBlockApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.block.interface';
 import { IUtxoMainInfoApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.main.info.interface';
 import { IUtxoTransactionsApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.transactions.interface';
+import { IUtxoAddressApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.address.api.interface';
 
 @injectable()
 export class UtxoApiClient implements IUtxoApiClient {
@@ -16,6 +17,7 @@ export class UtxoApiClient implements IUtxoApiClient {
 		@inject(TYPES_DI.IUtxoMainInfoApi) private readonly utxoMainInfo: IUtxoMainInfoApi,
 		@inject(TYPES_DI.IUtxoBlockApi) private readonly utxoBlockApi: IUtxoBlockApi,
 		@inject(TYPES_DI.IUtxoTransactionsApi) private readonly utxoTransactionsApi: IUtxoTransactionsApi,
+		@inject(TYPES_DI.IUtxoAddressApi) private readonly utxoAddressApi: IUtxoAddressApi,
 	) {}
 
 	/**
@@ -28,6 +30,7 @@ export class UtxoApiClient implements IUtxoApiClient {
 		this.utxoMainInfo.configure(config);
 		this.utxoBlockApi.configure(config);
 		this.utxoTransactionsApi.configure(config);
+		this.utxoAddressApi.configure(config);
 	}
 
 	/**
@@ -86,7 +89,7 @@ export class UtxoApiClient implements IUtxoApiClient {
 
 	/**
 	 * Get utxo transactions information by hashes.
-	 * @method getBlocks
+	 * @method getTransactionsByHashes
 	 * @ param {string[]} hashes
 	 * @return {Promise<FullUtxoTransaction[]>}
 	 */
@@ -94,4 +97,16 @@ export class UtxoApiClient implements IUtxoApiClient {
 	async getTransactionsByHashes(hashes: string[]) {
 		return this.utxoTransactionsApi.getTransactionsByHashes(hashes);
 	}
+
+	/**
+	 * Get addresses infos.
+	 * @method getAddressesInfos
+	 * @param {string[]} addresses
+	 * @return {Promise<UtxoAddressInfo[]>}
+	 */
+	@TryCatch
+	async getAddressesInfos(addresses: string[] = []) {
+		return this.utxoAddressApi.getAddressesInfos(addresses);
+	}
+
 }

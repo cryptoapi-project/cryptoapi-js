@@ -20,6 +20,7 @@ const TYPES_DI = {
 	IUtxoMainInfoApi: Symbol.for('IUtxoMainInfoApi'),
 	IUtxoBlockApi: Symbol.for('IUtxoBlockApi'),
 	IUtxoTransactionsApi: Symbol.for('IUtxoTransactionsApi'),
+	IUtxoAddressApi: Symbol.for('IUtxoAddressApi'),
 
 	IIdHelper: Symbol.for('IIdHelper'),
 	ISubsHelper: Symbol.for('ISubsHelper'),

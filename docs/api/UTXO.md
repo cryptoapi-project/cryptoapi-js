@@ -23,7 +23,7 @@ Below are examples with btc.
 <dd></dd>
 <dt><a href="#btc.getTransactionsByBlockHeightOrHash">btc.getTransactionsByHashes</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction[]&gt;</a></code></dt></dt>
 <dd></dd>
-
+<dt><a href="#btc.getAddressesInfos">btc.getAddressesInfos</a> ⇒<code><a href="#UtxoAddressInfo">Promise&lt;UtxoAddressInfo[]&gt;</a></code></dt></dt>
 </dl>
 
 #### <a name="btc.getNetworkInfo">btc.getNetworkInfo()</a> ⇒ <code><a href="#UtxoNetworkInfo">Promise&lt;UtxoNetworkInfo&gt;</a></code></dt></dt>
@@ -293,6 +293,48 @@ Example response:
 ]
 ```
 
+#### <a name="btc.getAddressesInfos">btc.getAddressesInfos</a>(addresses: string[]) ⇒ <code>Promise&lt;<a href="#UtxoAddressInfo[]">UtxoAddressInfo[]</a>&gt;</code></dt></dt>
+
+Return JSON data about btc addresses, such as balance. Field balance include spent, unspent, 
+confirmed, unconfirmed balance.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- |  --- |
+| addresses |  <code>string[]</code>  | Requested addresses. |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('YOUR-API-KEY');
+    const result = await crypto.api.btc.getAddressesInfos(['mj7x3dQvsSkEoBuuU3GBKMTqDXBArFC1zu','mnz4DK2sv9RkkPd96b1ZAgKQ4nRpCoA1kb']);
+```
+
+Example response:
+
+```javascript
+[
+  {
+    address: "mj7x3dQvsSkEoBuuU3GBKMTqDXBArFC1zu",
+    balance: {
+      spent: "0",
+      unspent: "5000000000",
+      confirmed: "0",
+      unconfirmed: "5000000000"
+    }
+  },
+  {
+    address: "mnz4DK2sv9RkkPd96b1ZAgKQ4nRpCoA1kb",
+    balance: {
+      spent: "0",
+      unspent: "5000000000",
+      confirmed: "5000000000",
+      unconfirmed: "0"
+    }
+  }
+]
+```
+
 ## Typedefs
 
 <dl>
@@ -301,6 +343,8 @@ Example response:
 <dt><a href="#UtxoBlockInfo">UtxoBlockInfo</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#FullUtxoTransaction">FullUtxoTransaction</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#UtxoAddressInfo">UtxoAddressInfo</a> : <code>Object</code></dt>
 <dd></dd>
 </dl>
 
@@ -367,3 +411,19 @@ Example response:
     }>;
 }
 ```
+
+#### UtxoAddressInfo : <code>Object</code>
+<a name="UtxoAddressInfo"></a>
+
+```javascript
+{
+    address: string;
+    balance: {
+        spent: string;
+        unspent: string;
+        confirmed: string;
+        unconfirmed: string;
+    };
+}
+```
+
