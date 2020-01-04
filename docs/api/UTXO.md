@@ -15,7 +15,9 @@ Below are examples with btc.
 <dd></dd>
 <dt><a href="#btc.getBlocks">btc.getBlocks</a> ⇒<code><a href="#UtxoBlockInfo">Promise&lt;UtxoBlockInfo[]&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#btc.getFullTransactionInfo">btc.getFullTransactionInfo(hash: string)</a> ⇒<code>Promise&lt;FullEthTransaction&gt;</code></dt></dt>
+<dt><a href="#btc.getFullTransactionInfo">btc.getFullTransactionInfo(hash: string)</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction&gt;</a></code></dt></dt>
+<dd></dd>
+<dt><a href="#btc.getTransactionsByHashes">btc.getTransactionsByHashes(hashes: string[])</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction[]&gt;</a></code></dt></dt>
 <dd></dd>
 </dl>
 
@@ -122,6 +124,83 @@ Example response:
     } 
   ]
 }
+```
+
+#### <a name="btc.getTransactionsByHashes">btc.getTransactionsByHashes</a>(hashes: string[]) ⇒ <code>Promise&lt;<a href="#FullUtxoTransaction">FullUtxoTransaction[]</a>&gt;</code></dt></dt>
+
+Returns JSON data about full transaction information by hashes.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| hashes | <code>string</code> | [Accepts transactions hashes.] |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('YOUR-API-KEY');
+    const result = await crypto.api.btc.getTransactionsByHashes(['20222eb90f5895556926c112bb5aa0df4ab5abc3107e21a6950aec3b2e3541e2', 'f0315ffc38709d70ad5647e22048358dd3745f3ce3874223c80a7c92fab0c8ba']);
+```
+
+Example response:
+
+```
+[
+	{
+		block_height: 2,
+		block_hash: "000000006c02c8ea6e4ff69651f7fcde348fb9d557a06e6957b65552002a7820",
+		block_time: "2011-02-02T23:22:26.000Z",
+		fee: 0,
+		size: 109,
+		n_lock_time: 0,
+		value: 5000000000,
+		hash: "20222eb90f5895556926c112bb5aa0df4ab5abc3107e21a6950aec3b2e3541e2",
+		input_count: 1,
+		output_count: 1,
+		inputs: [
+			{
+				previous_transaction_hash: "0000000000000000000000000000000000000000000000000000000000000000",
+				output_index: 4294967295,
+				sequence_number: 4294967295,
+				script: null
+			}
+		],
+		outputs: [
+			{
+				address: "msf4WtN1YQKXvNtvdFYt9JBnUD2FB41kjr",
+				satoshis: 5000000000,
+				script: "21038a7f6ef1c8ca0c588aa53fa860128077c9e6c11e6830f4d7ee4e763a56b7718fac"
+			}
+		]
+	},
+	{
+		block_height: 1,
+		block_hash: "00000000b873e79784647a6c82962c70d228557d24a747ea4d1b8bbe878e1206",
+		block_time: "2011-02-02T23:22:08.000Z",
+		fee: 0,
+		size: 109,
+		n_lock_time: 0,
+		value: 5000000000,
+		hash: "f0315ffc38709d70ad5647e22048358dd3745f3ce3874223c80a7c92fab0c8ba",
+		input_count: 1,
+		output_count: 1,
+		inputs: [
+			{
+				previous_transaction_hash: "0000000000000000000000000000000000000000000000000000000000000000",
+				output_index: 4294967295,
+				sequence_number: 4294967295,
+				script: null
+			}
+		],
+		outputs: [
+			{
+				address: "n3GNqMveyvaPvUbH469vDRadqpJMPc84JA",
+				satoshis: 5000000000,
+				script: "21021aeaf2f8638a129a3156fbe7e5ef635226b0bafd495ff03afe2c843d7e3a4b51ac"
+			}
+		]
+	}
+]
 ```
 
 ## Typedefs

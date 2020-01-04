@@ -4,4 +4,5 @@ import { FullUtxoTransaction } from '../../../../../dtos/utxo/utxo.transaction.d
 
 export interface IUtxoTransactionsApi extends IConfigurable<IServerConfig> {
 	getFullTransactionInfo(hash: string): Promise<FullUtxoTransaction>;
+	getTransactionsByHashes(hashes: string[]): Promise<FullUtxoTransaction[]>;
 }

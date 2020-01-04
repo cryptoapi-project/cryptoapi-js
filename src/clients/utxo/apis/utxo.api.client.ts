@@ -61,4 +61,15 @@ export class UtxoApiClient implements IUtxoApiClient {
 	async getFullTransactionInfo(hash: string) {
 		return this.utxoTransactionsApi.getFullTransactionInfo(hash);
 	}
+
+	/**
+	 * Get utxo transactions information by hashes.
+	 * @method getBlocks
+	 * @ param {string[]} hashes
+	 * @return {Promise<FullUtxoTransaction[]>}
+	 */
+	@TryCatch
+	async getTransactionsByHashes(hashes: string[]) {
+		return this.utxoTransactionsApi.getTransactionsByHashes(hashes);
+	}
 }
