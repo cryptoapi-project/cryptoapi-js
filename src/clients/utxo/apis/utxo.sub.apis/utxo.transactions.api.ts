@@ -55,4 +55,20 @@ export class UtxoTransactionsApi extends AbstractApi implements IUtxoTransaction
 
 		return transactions.data.map((tr) => new FullUtxoTransaction(tr));
 	}
+
+	/**
+	 * Get full transactions info by block height or hash.
+	 * @method getTransactionsByBlockHeightOrHash
+	 * @param {string|number} blockHeightOrHash
+	 * @return {Promise<FullUtxoTransaction[]>}
+	 */
+	async getTransactionsByBlockHeightOrHash(blockHeightOrHash: string|number): Promise<FullUtxoTransaction[]> {
+		this._checkConfig();
+
+		const transactions = await this.httpService.agent.get<FullUtxoTransaction[]>(
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/blocks/${blockHeightOrHash}/transactions`,
+		);
+
+		return transactions.data.map((tr) => new FullUtxoTransaction(tr));
+	}
 }

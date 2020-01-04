@@ -63,6 +63,17 @@ export class UtxoApiClient implements IUtxoApiClient {
 	}
 
 	/**
+	 * Get full transactions info by block height or hash.
+	 * @method getTransactionsByBlockHeightOrHash
+	 * @param {string|number} blockHeightOrHash
+	 * @return {Promise<FullUtxoTransaction[]>}
+	 */
+	@TryCatch
+	async getTransactionsByBlockHeightOrHash(blockHeightOrHash: string | number) {
+		return this.utxoTransactionsApi.getTransactionsByBlockHeightOrHash(blockHeightOrHash);
+	}
+
+	/**
 	 * Get utxo transactions information by hashes.
 	 * @method getBlocks
 	 * @ param {string[]} hashes

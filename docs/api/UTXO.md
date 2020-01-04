@@ -19,6 +19,9 @@ Below are examples with btc.
 <dd></dd>
 <dt><a href="#btc.getTransactionsByHashes">btc.getTransactionsByHashes(hashes: string[])</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction[]&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#btc.getTransactionsByBlockHeightOrHash">btc.getTransactionsByHashes(blockHeightOrHash: string|number)</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction[]&gt;</a></code></dt></dt>
+<dd></dd>
+
 </dl>
 
 #### <a name="btc.getNetworkInfo">btc.getNetworkInfo()</a> ⇒ <code><a href="#UtxoNetworkInfo">Promise&lt;UtxoNetworkInfo&gt;</a></code></dt></dt>
@@ -127,14 +130,13 @@ Example response:
 ```
 
 #### <a name="btc.getTransactionsByHashes">btc.getTransactionsByHashes</a>(hashes: string[]) ⇒ <code>Promise&lt;<a href="#FullUtxoTransaction">FullUtxoTransaction[]</a>&gt;</code></dt></dt>
-
 Returns JSON data about full transaction information by hashes.
 
 Input data:
 
 | Param | Type | Description |
 | --- | --- | --- |
-| hashes | <code>string</code> | [Accepts transactions hashes.] |
+| hashes | <code>string[]</code> | [Accepts transactions hashes.] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
@@ -200,6 +202,56 @@ Example response:
 			}
 		]
 	}
+```
+
+#### <a name="btc.getTransactionsByBlockHeightOrHash">btc.getTransactionsByBlockHeightOrHash</a>(blockHeightOrHash: string|number) ⇒ <code>Promise&lt;<a href="#FullUtxoTransaction[]">FullUtxoTransaction[]</a>&gt;</code></dt></dt>
+
+Returns JSON data about full transaction information by block height or hash.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- |  --- |
+| blockHeightOrHash |  `string⎮number` | Requested block height or hash. |
+
+```javascript
+
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('YOUR-API-KEY');
+    const result = await crypto.api.btc.getTransactionsByBlockHeightOrHash(1);
+```
+
+Example response:
+```javascript
+[
+    {
+        block_hash: "00000000b873e79784647a6c82962c70d228557d24a747ea4d1b8bbe878e1206"
+        block_height: 1
+        block_time: "2011-02-02T23:22:08.000Z"
+        fee: 0
+        hash: "f0315ffc38709d70ad5647e22048358dd3745f3ce3874223c80a7c92fab0c8ba"
+        input_count: 1
+        mempool_time: null
+        n_lock_time: 0
+        output_count: 1
+        size: 109
+        value: 5000000000
+        inputs: [
+            {
+                output_index: 4294967295
+                previous_transaction_hash: "0000000000000000000000000000000000000000000000000000000000000000"
+                script: null
+                sequence_number: 4294967295            
+            }
+        ]  
+        outputs: [
+            {
+                address: "n3GNqMveyvaPvUbH469vDRadqpJMPc84JA"
+                satoshis: 5000000000
+                script: "21021aeaf2f8638a129a3156fbe7e5ef635226b0bafd495ff03afe2c843d7e3a4b51ac"
+            }
+        ] 
+    }
 ]
 ```
 
