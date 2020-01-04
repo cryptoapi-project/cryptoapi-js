@@ -20,6 +20,7 @@ import { IEthTransactionsApi } from '../interfaces/clients/eth/apis/eth.sub.apis
 
 import { IUtxoMainInfoApi } from '../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.main.info.interface';
 import { IUtxoBlockApi } from '../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.block.interface';
+import { IUtxoTransactionsApi } from '../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.transactions.interface';
 
 import { IIdHelper } from '../interfaces/providers/helpers/id.helper.interface';
 import { ISubsHelper } from '../interfaces/providers/helpers/subs.helper.interface';
@@ -28,9 +29,9 @@ import { Crypto } from '../crypto/crypto';
 import { ApiClient } from '../clients/api.client';
 import { EventsClient } from '../clients/events.client';
 
-import { EthEventsClient } from '../clients/eth/events/eth.events.client';
 import { EthApiClient } from '../clients/eth/apis/eth.api.client';
 import { UtxoApiClient } from '../clients/utxo/apis/utxo.api.client';
+import { EthEventsClient } from '../clients/eth/events/eth.events.client';
 
 import { IHttpService } from '../interfaces/providers/http.service.interface';
 import { IValidateHelper } from '../interfaces/providers/helpers/validate.helper.interface';
@@ -47,6 +48,7 @@ import { EthTransactionsApi } from '../clients/eth/apis/eth.sub.apis/eth.transac
 
 import { UtxoMainInfoApi } from '../clients/utxo/apis/utxo.sub.apis/utxo.main.info.api';
 import { UtxoBlockApi } from '../clients/utxo/apis/utxo.sub.apis/utxo.block.api';
+import { UtxoTransactionsApi } from '../clients/utxo/apis/utxo.sub.apis/utxo.transactions.api';
 
 import { HttpService } from '../providers/services/http.service';
 import { UrlHelper } from '../providers/helpers/url.helper';
@@ -85,6 +87,7 @@ diContainer.bind<IEthTransactionsApi>(TYPES_DI.IEthTransactionsApi).to(EthTransa
 
 diContainer.bind<IUtxoMainInfoApi>(TYPES_DI.IUtxoMainInfoApi).to(UtxoMainInfoApi);
 diContainer.bind<IUtxoBlockApi>(TYPES_DI.IUtxoBlockApi).to(UtxoBlockApi);
+diContainer.bind<IUtxoTransactionsApi>(TYPES_DI.IUtxoTransactionsApi).to(UtxoTransactionsApi);
 
 /**
  * Inject providers.
