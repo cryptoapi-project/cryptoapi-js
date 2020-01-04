@@ -38,4 +38,21 @@ export class UtxoBlockApi extends AbstractApi implements IUtxoBlockApi {
 
 		return blocks.data.map((block: UtxoBlockInfo) => new UtxoBlockInfo(block));
 	}
+
+	/**
+	 * @method getBlock
+	 * Method to get block information by hash or height.
+	 * @param {string | number} heightOrHash
+	 * @return {Promise<UtxoBlockInfo[]>}
+	 */
+	async getBlock(heightOrHash: string | number): Promise<UtxoBlockInfo> {
+		this._checkConfig();
+
+		const block = await this.httpService.agent.get<UtxoBlockInfo>(
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/blocks/${heightOrHash}`,
+		);
+
+		return new UtxoBlockInfo(block.data);
+	}
+
 }

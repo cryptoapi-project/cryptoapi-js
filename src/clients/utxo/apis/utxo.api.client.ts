@@ -41,6 +41,17 @@ export class UtxoApiClient implements IUtxoApiClient {
 	}
 
 	/**
+	 * Get utxo block information by block hash or height.
+	 * @method getBlock
+	 * @ param {string|number} heightOrHash
+	 * @return {Promise<UtxoBlockInfo>}
+	 */
+	@TryCatch
+	async getBlock(heightOrHash: string|number) {
+		return this.utxoBlockApi.getBlock(heightOrHash);
+	}
+
+	/**
 	 * Get utxo blocks information by block hash and height.
 	 * @method getBlocks
 	 * @ param {Array<string|number>} requestedBlocks

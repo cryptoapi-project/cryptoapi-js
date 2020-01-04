@@ -13,13 +13,15 @@ Below are examples with btc.
 <dl>
 <dt><a href="#btc.getNetworkInfo">btc.getNetworkInfo</a> ⇒<code><a href="#UtxoNetworkInfo">Promise&lt;UtxoNetworkInfo&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#btc.getBlock">btc.getBlock</a> ⇒<code><a href="#UtxoBlockInfo">Promise&lt;UtxoBlockInfo&gt;</a></code></dt></dt>
+<dd></dd>
 <dt><a href="#btc.getBlocks">btc.getBlocks</a> ⇒<code><a href="#UtxoBlockInfo">Promise&lt;UtxoBlockInfo[]&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#btc.getFullTransactionInfo">btc.getFullTransactionInfo(hash: string)</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction&gt;</a></code></dt></dt>
+<dt><a href="#btc.getFullTransactionInfo">btc.getFullTransactionInfo</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#btc.getTransactionsByHashes">btc.getTransactionsByHashes(hashes: string[])</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction[]&gt;</a></code></dt></dt>
+<dt><a href="#btc.getTransactionsByHashes">btc.getTransactionsByHashes</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction[]&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#btc.getTransactionsByBlockHeightOrHash">btc.getTransactionsByHashes(blockHeightOrHash: string|number)</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction[]&gt;</a></code></dt></dt>
+<dt><a href="#btc.getTransactionsByBlockHeightOrHash">btc.getTransactionsByHashes</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction[]&gt;</a></code></dt></dt>
 <dd></dd>
 
 </dl>
@@ -41,6 +43,42 @@ Example response:
     difficulty: "7767482.042232129"
     hashrate: "39070123173302.89"
     last_block: "1381092"
+}
+```
+
+#### <a name="btc.getBlock">btc.getBlock</a>(heightOrHash: string|number) ⇒ <code>Promise&lt;<a href="#UtxoBlockInfo">UtxoBlockInfo</a>&gt;</code></dt></dt>
+
+Returns JSON data information about requested block.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| heightOrHash |  `string⎮number`| [Height or hash of requested block.] |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('YOUR-API-KEY');
+    const result = await crypto.api.btc.getBlock(1);
+```
+
+Example response:
+```javascript
+{
+   height: 1,
+   hash: '00000000b873e79784647a6c82962c70d228557d24a747ea4d1b8bbe878e1206',
+   bits: 486604799,
+   time: '2011-02-02T23:22:08.000Z',
+   merkle_root: 'f0315ffc38709d70ad5647e22048358dd3745f3ce3874223c80a7c92fab0c8ba',
+   nonce: 1924588547,
+   size: 190,
+   version: 1,
+   version: 1,
+   previous_block_hash: '000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943',
+   next_block_hash: '000000006c02c8ea6e4ff69651f7fcde348fb9d557a06e6957b65552002a7820',
+   reward: 5000000000,
+   transaction_count: 1,
+   transactions: [ 'f0315ffc38709d70ad5647e22048358dd3745f3ce3874223c80a7c92fab0c8ba' ] 
 }
 ```
 
