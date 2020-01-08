@@ -21,13 +21,15 @@ Below are examples with btc.
 <dd></dd>
 <dt><a href="#btc.getTransactionsByHashes">btc.getTransactionsByHashes</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction[]&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#btc.getTransactionsByBlockHeightOrHash">btc.getTransactionsByHashes</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction[]&gt;</a></code></dt></dt>
+<dt><a href="#btc.getTransactionsByBlockHeightOrHash">btc.getTransactionsByBlockHeightOrHash</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#btc.getAddressesInfos">btc.getAddressesInfos</a> ⇒<code><a href="#UtxoAddressInfo">Promise&lt;UtxoAddressInfo[]&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#btc.getAddressesHistory">btc.getAddressesHistory</a> ⇒<code><a href="#UtxoAddressHistory">Promise&lt;UtxoAddressHistory&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#btc.sendRawTransaction">btc.sendRawTransaction</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
+<dd></dd>
+<dt><a href="#btc.decodeRawTransaction">btc.decodeRawTransaction</a> ⇒<code><a href="#UtxoRawTransaction">Promise&lt;UtxoRawTransaction&gt;</a></code></dt></dt>
 <dd></dd>
 </dl>
 
@@ -427,6 +429,45 @@ Example response:
 '01000000014368d74c6a7b118610b325389613acff68a324eb'
 ```
 
+#### <a name="btc.decodeRawTransaction">btc.decodeRawTransaction(tr: string)</a> ⇒ <code><a href="#UtxoRawTransaction">Promise&lt;UtxoRawTransaction&gt;</a></code></dt></dt>
+Returns JSON data of decode raw transaction by hash.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tr | <code>string</code> | [Raw transaction] |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('YOUR-API-KEY');
+    const result = await crypto.api.btc.decodeRawTransaction('01000000014368d74c6a7b118610b325389613acff68a324eb86caf61e1494d1ff6bcb07e9010000006a4730440220463a47bd9ba114ba919b7bb6fc4f9e97754fb1e8eb78c5d4803cb3208fea7c8c0220271174def0bf6499b09b48fa87ad6f3ae8e3f16217228ed5c722aa9a4e1180fd01210309a18fa38989b25a7cc4f66fb193a9a26842113874908c430a25d65f66e4e5fbffffffff0101000000000000001976a91492bf5261a59bd600825dc81cfee868b7f123b97288ac00000000');
+```
+
+Example response:
+```
+{
+  hash: "4c308f5db4e539600b3aee40ed6c82d6cbe91d41d49e4050195a9830a6bdc2cd",
+  version: 1,
+  n_lock_time: 0,
+  inputs: [
+    {
+      previous_transaction_hash: "e907cb6bffd194141ef6ca86eb24a368ffac13963825b31086117b6a4cd76843",
+      output_index: 1,
+      sequence_number: 4294967295,
+      script: "4730440220463a47bd9ba114ba919b7bb6fc4f9e97754fb1e8eb78c5d4803cb3208fea7c8c0220271174def0bf6499b09b48fa87ad6f3ae8e3f16217228ed5c722aa9a4e1180fd01210309a18fa38989b25a7cc4f66fb193a9a26842113874908c430a25d65f66e4e5fb"
+    }
+  ],
+  outputs: [
+    {
+      satoshis: 1,
+      script: "76a91492bf5261a59bd600825dc81cfee868b7f123b97288ac",
+      script_pub_key: "OP_DUP OP_HASH160 20 0x92bf5261a59bd600825dc81cfee868b7f123b972 OP_EQUALVERIFY OP_CHECKSIG"
+    }
+  ]
+}
+ ```
+
 ## Typedefs
 
 <dl>
@@ -441,6 +482,8 @@ Example response:
 <dt><a href="#UtxoAddressHistory">UtxoAddressHistory</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#TPaginationOptions">TPaginationOptions</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#UtxoRawTransaction">UtxoRawTransaction</a> : <code>Object</code></dt>
 <dd></dd>
 </dl>
 
@@ -543,4 +586,24 @@ Example response:
 }
 ```
 
+#### UtxoRawTransaction : <code>Object</code>
+<a name="UtxoRawTransaction"></a>
 
+```javascript
+{
+    hash: string;
+    version: number;
+    n_lock_time: number;
+    inputs: Array<{
+        previous_transaction_hash: string;
+        output_index: number;
+        sequence_number: number;
+        script: string;
+    }>;
+    outputs: Array<{
+        satoshis: number;
+        script: string;
+        script_pub_key: string;
+    }>;
+}
+```

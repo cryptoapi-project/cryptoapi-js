@@ -81,6 +81,17 @@ export class UtxoApiClient implements IUtxoApiClient {
 		return this.utxoRawTransactionApi.sendRawTransaction(tr);
 	}
 
+	/*
+	 * Method decode raw transaction.
+	 * @method decodeRawTransaction
+	 * @param {string} tr
+	 * @return {UtxoRawTransaction}
+	 */
+	@TryCatch
+	decodeRawTransaction(tr: string) {
+		return this.utxoRawTransactionApi.decodeRawTransaction(tr);
+	}
+
 	/**
 	 * Get full utxo transaction information by hash.
 	 * @method getFullTransactionInfo
@@ -136,5 +147,4 @@ export class UtxoApiClient implements IUtxoApiClient {
 	getAddressesHistory(addresses: string[], options?: TPaginationOptions) {
 		return this.utxoAddressApi.getAddressesHistory(addresses, options);
 	}
-
 }

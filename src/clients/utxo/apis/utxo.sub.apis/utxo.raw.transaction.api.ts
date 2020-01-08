@@ -6,6 +6,7 @@ import { TYPES_DI } from '../../../../constants/inversify.constants';
 import { AbstractApi } from '../../../../abstracts/abstract.api';
 import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
 import { IUtxoRawTransactionApi } from '../../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.raw.transaction.interface';
+import { UtxoRawTransaction } from '../../../../dtos/utxo/utxo.raw.transaction';
 
 @injectable()
 export class UtxoRawTransactionApi extends AbstractApi  implements IUtxoRawTransactionApi {
@@ -29,4 +30,22 @@ export class UtxoRawTransactionApi extends AbstractApi  implements IUtxoRawTrans
 		);
 		return transaction.data.hash;
 	}
+
+	/**
+	 * Method decode raw transaction.
+	 * @method decodeRawTransaction
+	 * @param {string} tr
+	 * @return {UtxoRawTransaction}
+	 */
+	async decodeRawTransaction(tr: string): Promise<UtxoRawTransaction> {
+		this._checkConfig();
+
+		const transaction = await this.httpService.agent.post<UtxoRawTransaction>(
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/transactions/raw/decode`,
+			{ hash: tr },
+		);
+
+		return new UtxoRawTransaction(transaction.data);
+	}
+
 }
