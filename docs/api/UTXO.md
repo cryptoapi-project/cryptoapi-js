@@ -27,6 +27,8 @@ Below are examples with btc.
 <dd></dd>
 <dt><a href="#btc.getAddressesHistory">btc.getAddressesHistory</a> ⇒<code><a href="#UtxoAddressHistory">Promise&lt;UtxoAddressHistory&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#btc.sendRawTransaction">btc.sendRawTransaction</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
+<dd></dd>
 </dl>
 
 #### <a name="btc.getNetworkInfo">btc.getNetworkInfo()</a> ⇒ <code><a href="#UtxoNetworkInfo">Promise&lt;UtxoNetworkInfo&gt;</a></code></dt></dt>
@@ -398,6 +400,31 @@ Input data:
     }
   ]
 }
+```
+
+#### <a name="btc.sendRawTransaction">btc.sendRawTransaction(tr: string)</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
+
+Returns transaction hash.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tr | <code>string</code> | [hexstring] |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('YOUR-API-KEY');
+    const result = await crypto.api.btc.sendRawTransaction('01000000014368d74c6a7b118610b325389613acff68a324eb86caf61e1494d1ff6bcb07e9010000006a4730440220463a47bd9ba114ba919' +
+        'b7bb6fc4f9e97754fb1e8eb78c5d4803cb3208fea7c8c0220271174def0bf6499b09b48fa87ad6f3ae8e3f1' +
+        '6217228ed5c722aa9a4e1180fd01210309a18fa38989b25a7cc4f66fb193a9a26842113874908c430a25d65f6' +
+        '6e4e5fbffffffff0101000000000000001976a91492bf5261a59bd600825dc81cfee868b7f123b97288ac00000000');
+```
+
+Example response:
+
+```
+'01000000014368d74c6a7b118610b325389613acff68a324eb'
 ```
 
 ## Typedefs

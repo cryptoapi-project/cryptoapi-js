@@ -6,17 +6,20 @@ import { IServerConfig } from '../../../interfaces/configs/crypto.config.interfa
 import { TryCatch } from '../../../providers/decorators/try.catch';
 import { IUtxoBlockApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.block.interface';
 import { IUtxoMainInfoApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.main.info.interface';
+import { IUtxoRawTransactionApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.raw.transaction.interface';
 import { IUtxoTransactionsApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.transactions.interface';
 import { IUtxoAddressApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.address.api.interface';
 import { TPaginationOptions } from 'types/paginations.options.type';
 
 @injectable()
 export class UtxoApiClient implements IUtxoApiClient {
+
 	config: IServerConfig|null = null;
 
 	constructor(
 		@inject(TYPES_DI.IUtxoMainInfoApi) private readonly utxoMainInfo: IUtxoMainInfoApi,
 		@inject(TYPES_DI.IUtxoBlockApi) private readonly utxoBlockApi: IUtxoBlockApi,
+		@inject(TYPES_DI.IUtxoRawTransactionApi) private readonly utxoRawTransactionApi: IUtxoRawTransactionApi,
 		@inject(TYPES_DI.IUtxoTransactionsApi) private readonly utxoTransactionsApi: IUtxoTransactionsApi,
 		@inject(TYPES_DI.IUtxoAddressApi) private readonly utxoAddressApi: IUtxoAddressApi,
 	) {}
@@ -30,6 +33,7 @@ export class UtxoApiClient implements IUtxoApiClient {
 	configure(config: IServerConfig) {
 		this.utxoMainInfo.configure(config);
 		this.utxoBlockApi.configure(config);
+		this.utxoRawTransactionApi.configure(config);
 		this.utxoTransactionsApi.configure(config);
 		this.utxoAddressApi.configure(config);
 	}
@@ -64,6 +68,17 @@ export class UtxoApiClient implements IUtxoApiClient {
 	@TryCatch
 	async getBlocks(requestedBlocks: Array<string|number>) {
 		return this.utxoBlockApi.getBlocks(requestedBlocks);
+	}
+
+	/**
+	 * Method to send raw transaction.
+	 * @method sendRawTransaction
+	 * @param {string} tr
+	 * @return {Promise<string>}
+	 */
+	@TryCatch
+	sendRawTransaction(tr: string): Promise<string> {
+		return this.utxoRawTransactionApi.sendRawTransaction(tr);
 	}
 
 	/**

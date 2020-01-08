@@ -58,6 +58,8 @@ import { ValidateHelper } from '../providers/helpers/validate.helper';
 
 import { IdHelper } from '../providers/helpers/id.helper';
 import { SubsHelper } from '../providers/helpers/subs.helper';
+import { UtxoRawTransactionApi } from '../clients/utxo/apis/utxo.sub.apis/utxo.raw.transaction.api';
+import { IUtxoRawTransactionApi } from '../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.raw.transaction.interface';
 
 const diContainer = new Container();
 
@@ -89,6 +91,7 @@ diContainer.bind<IEthTransactionsApi>(TYPES_DI.IEthTransactionsApi).to(EthTransa
 
 diContainer.bind<IUtxoMainInfoApi>(TYPES_DI.IUtxoMainInfoApi).to(UtxoMainInfoApi);
 diContainer.bind<IUtxoBlockApi>(TYPES_DI.IUtxoBlockApi).to(UtxoBlockApi);
+diContainer.bind<IUtxoRawTransactionApi>(TYPES_DI.IUtxoRawTransactionApi).to(UtxoRawTransactionApi);
 diContainer.bind<IUtxoTransactionsApi>(TYPES_DI.IUtxoTransactionsApi).to(UtxoTransactionsApi);
 diContainer.bind<IUtxoAddressApi>(TYPES_DI.IUtxoAddressApi).to(UtxoAddressApi);
 /**
