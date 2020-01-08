@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 
 import { TYPES_DI } from '../../../../constants/inversify.constants';
-import { TEstimateGasRequest } from '../../../../types/estimate.gas.request.type';
+import { TEstimateGasRequest } from '../../../../types/eth/estimate.gas.request.type';
 
 import { EthNetworkInfo } from '../../../../dtos/eth/eth.network.info';
 import { EstimateGasResponse } from '../../../../dtos/eth/eth.estimate.gas.dto';

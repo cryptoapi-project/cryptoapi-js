@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 
 import { TYPES_DI } from '../../../../constants/inversify.constants';
 
-import { TEthContractCall } from '../../../../types/call.contract.type';
+import { TEthContractCall } from '../../../../types/eth/call.contract.type';
 import { EthContract } from '../../../../dtos/eth/eth.contract.dto';
 
 import { IEthContractApi } from '../../../../interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';

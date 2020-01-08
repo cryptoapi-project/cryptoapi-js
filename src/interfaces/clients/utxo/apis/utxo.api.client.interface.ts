@@ -5,6 +5,7 @@ import { IUtxoMainInfoApi } from './utxo.sub.apis/utxo.main.info.interface';
 import { IUtxoRawTransactionApi } from './utxo.sub.apis/utxo.raw.transaction.interface';
 import { IUtxoTransactionsApi } from './utxo.sub.apis/utxo.transactions.interface';
 import { IUtxoAddressApi } from './utxo.sub.apis/utxo.address.api.interface';
+import { IUtxoOutputsApi } from './utxo.sub.apis/utxo.outputs.interface';
 
 export interface IUtxoApiClient extends
 	IUtxoMainInfoApi,
@@ -12,5 +13,6 @@ export interface IUtxoApiClient extends
 	IUtxoRawTransactionApi,
 	IUtxoTransactionsApi,
 	IUtxoAddressApi,
+	IUtxoOutputsApi,
 	IConfigurable<IServerConfig> {
 }

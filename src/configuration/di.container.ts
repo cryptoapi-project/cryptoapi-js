@@ -22,6 +22,7 @@ import { IUtxoMainInfoApi } from '../interfaces/clients/utxo/apis/utxo.sub.apis/
 import { IUtxoBlockApi } from '../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.block.interface';
 import { IUtxoTransactionsApi } from '../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.transactions.interface';
 import { IUtxoAddressApi } from '../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.address.api.interface';
+import { IUtxoOutputsApi } from '../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.outputs.interface';
 
 import { IIdHelper } from '../interfaces/providers/helpers/id.helper.interface';
 import { ISubsHelper } from '../interfaces/providers/helpers/subs.helper.interface';
@@ -51,6 +52,7 @@ import { UtxoMainInfoApi } from '../clients/utxo/apis/utxo.sub.apis/utxo.main.in
 import { UtxoBlockApi } from '../clients/utxo/apis/utxo.sub.apis/utxo.block.api';
 import { UtxoTransactionsApi } from '../clients/utxo/apis/utxo.sub.apis/utxo.transactions.api';
 import { UtxoAddressApi } from '../clients/utxo/apis/utxo.sub.apis/utxo.address.api';
+import { UtxoOutputsApi } from '../clients/utxo/apis/utxo.sub.apis/utxo.outputs.api';
 
 import { HttpService } from '../providers/services/http.service';
 import { UrlHelper } from '../providers/helpers/url.helper';
@@ -94,6 +96,7 @@ diContainer.bind<IUtxoBlockApi>(TYPES_DI.IUtxoBlockApi).to(UtxoBlockApi);
 diContainer.bind<IUtxoRawTransactionApi>(TYPES_DI.IUtxoRawTransactionApi).to(UtxoRawTransactionApi);
 diContainer.bind<IUtxoTransactionsApi>(TYPES_DI.IUtxoTransactionsApi).to(UtxoTransactionsApi);
 diContainer.bind<IUtxoAddressApi>(TYPES_DI.IUtxoAddressApi).to(UtxoAddressApi);
+diContainer.bind<IUtxoOutputsApi>(TYPES_DI.IUtxoOutputsApi).to(UtxoOutputsApi);
 /**
  * Inject providers.
  */

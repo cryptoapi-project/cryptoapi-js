@@ -3,8 +3,8 @@ import { inject, injectable } from 'inversify';
 import { TYPES_DI } from '../../../constants/inversify.constants';
 
 import { TPaginationOptions } from '../../../types/paginations.options.type';
-import { TEthContractCall } from '../../../types/call.contract.type';
-import { TEstimateGasRequest } from '../../../types/estimate.gas.request.type';
+import { TEthContractCall } from '../../../types/eth/call.contract.type';
+import { TEstimateGasRequest } from '../../../types/eth/estimate.gas.request.type';
 
 import { EstimateGasResponse } from '../../../dtos/eth/eth.estimate.gas.dto';
 

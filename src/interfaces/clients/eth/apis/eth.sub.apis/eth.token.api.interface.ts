@@ -7,7 +7,7 @@ import { EthTokenTransfersResponse } from '../../../../../dtos/eth/eth.transfer.
 import { IConfigurable } from '../../../../configs/configurable.interface';
 import { IServerConfig } from '../../../../configs/crypto.config.interface';
 import { TPaginationOptions } from '../../../../../types/paginations.options.type';
-import { TTokenSearchRequest } from '../../../../../types/token.search.request.type';
+import { TTokenSearchRequest } from '../../../../../types/eth/token.search.request.type';
 
 export interface IEthTokenApi extends IConfigurable<IServerConfig> {
 	getTokenInfoByTokenAddress(address: string): Promise<EthTokenInfo>;

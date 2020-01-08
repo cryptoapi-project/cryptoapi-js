@@ -9,7 +9,9 @@ import { IUtxoMainInfoApi } from '../../../interfaces/clients/utxo/apis/utxo.sub
 import { IUtxoRawTransactionApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.raw.transaction.interface';
 import { IUtxoTransactionsApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.transactions.interface';
 import { IUtxoAddressApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.address.api.interface';
-import { TPaginationOptions } from 'types/paginations.options.type';
+import { TPaginationOptions } from '../../../types/paginations.options.type';
+import { IUtxoOutputsApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.outputs.interface';
+import { TUtxoOutputsOptions } from '../../../types/utxo/utxo.outputs.options';
 
 @injectable()
 export class UtxoApiClient implements IUtxoApiClient {
@@ -22,6 +24,7 @@ export class UtxoApiClient implements IUtxoApiClient {
 		@inject(TYPES_DI.IUtxoRawTransactionApi) private readonly utxoRawTransactionApi: IUtxoRawTransactionApi,
 		@inject(TYPES_DI.IUtxoTransactionsApi) private readonly utxoTransactionsApi: IUtxoTransactionsApi,
 		@inject(TYPES_DI.IUtxoAddressApi) private readonly utxoAddressApi: IUtxoAddressApi,
+		@inject(TYPES_DI.IUtxoOutputsApi) private readonly utxoOutputsApi: IUtxoOutputsApi,
 	) {}
 
 	/**
@@ -36,6 +39,7 @@ export class UtxoApiClient implements IUtxoApiClient {
 		this.utxoRawTransactionApi.configure(config);
 		this.utxoTransactionsApi.configure(config);
 		this.utxoAddressApi.configure(config);
+		this.utxoOutputsApi.configure(config);
 	}
 
 	/**
@@ -146,5 +150,16 @@ export class UtxoApiClient implements IUtxoApiClient {
 	@TryCatch
 	getAddressesHistory(addresses: string[], options?: TPaginationOptions) {
 		return this.utxoAddressApi.getAddressesHistory(addresses, options);
+	}
+
+	/**
+	 * Get outputs by addresses.
+	 * @param {string[]} addresses
+	 * @param {TUtxoOutputsOptions} options
+	 * @return {Promise<UtxoOutput[]>}
+	 */
+	@TryCatch
+	getOutputsByAddresses(addresses: string[], options: TUtxoOutputsOptions) {
+		return this.utxoOutputsApi.getOutputsByAddresses(addresses, options);
 	}
 }

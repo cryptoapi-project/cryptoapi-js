@@ -31,6 +31,8 @@ Below are examples with btc.
 <dd></dd>
 <dt><a href="#btc.decodeRawTransaction">btc.decodeRawTransaction</a> ⇒<code><a href="#UtxoRawTransaction">Promise&lt;UtxoRawTransaction&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#btc.getOutputsByAddresses">btc.getOutputsByAddresses</a> ⇒<code><a href="#UtxoOutput">Promise&lt;UtxoOutput[]&gt;</a></code></dt></dt>
+<dd></dd>
 </dl>
 
 #### <a name="btc.getNetworkInfo">btc.getNetworkInfo()</a> ⇒ <code><a href="#UtxoNetworkInfo">Promise&lt;UtxoNetworkInfo&gt;</a></code></dt></dt>
@@ -359,6 +361,7 @@ Input data:
     const result = await crypto.api.btc.getAddressesHistory(['mstvLRTSSEaMGHEUmhUe5CCWYUJ8Z78Y8w', { skip: 1, limit:1 });
 ```
 
+Example response:
 ```
 {
   count: 1,
@@ -403,7 +406,6 @@ Input data:
   ]
 }
 ```
-
 #### <a name="btc.sendRawTransaction">btc.sendRawTransaction(tr: string)</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
 
 Returns transaction hash.
@@ -468,6 +470,45 @@ Example response:
 }
  ```
 
+
+#### <a name="btc.getOutputsByAddresses">btc.getOutputsByAddresses</a>(addresses: string[], options: <code><a href="#TOutputsOptions">TOutputsOptions</a></code>) ⇒ <code>Promise&lt;<a href="#UtxoOutput">UtxoOutput[]</a>&gt;</code></dt></dt>
+
+Returns outputs list filtered by addresses and status.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- |  --- |
+| addresses |  <code>string[]</code>  | [Requested addresses.] |
+| options | <code><a href="#TOutputsOptions">TOutputsOptions</a></code> | [Options params to paginating response. Options include field `status` of outputs (`spent`/`unspent`)] |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('YOUR-API-KEY');
+    const result = await crypto.api.btc.getOutputsByAddresses(['mqHPFTRk23JZm9W1ANuEFtwTYwxjESSgKs'], { status: 'unspent', skip: 1});
+```
+
+Example response:
+
+```javascript
+[
+    {
+        address: "mqHPFTRk23JZm9W1ANuEFtwTYwxjESSgKs",
+        is_coinbase: false,
+        mempool_time: null,
+        mint_block_height: 510,
+        mint_index: 1,
+        mint_transaction_hash: "fd127bd2992876507ccf668d07e303e11ad8ffbbbb0f5660b0849fd6ba6480db",
+        script: "76a9146b2044146a4438e6e5bfbc65f147afeb64d14fbb88ac",
+        sequence_number: -1,
+        spent_block_height: -2,
+        spent_index: -1,
+        spent_transaction_hash: null,
+        value: 830656,
+    }
+]
+```
+
 ## Typedefs
 
 <dl>
@@ -480,6 +521,10 @@ Example response:
 <dt><a href="#UtxoAddressInfo">UtxoAddressInfo</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#UtxoAddressHistory">UtxoAddressHistory</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#TUtxoOutputsOptions">TUtxoOutputsOptions</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#UtxoOutput">UtxoOutput</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#TPaginationOptions">TPaginationOptions</a> : <code>Object</code></dt>
 <dd></dd>
@@ -576,13 +621,34 @@ Example response:
 }
 ```
 
-#### TPaginationOptions : <code>Object</code>
-<a name="TPaginationOptions"></a>
+#### TUtxoOutputsOptions : <code>Object</code>
+<a name="TUtxoOutputsOptions"></a>
 
 ```javascript
 {
     skip?: number;
     limit?: number;
+    status: 'spent'|'unspent'
+}
+```
+
+#### UtxoOutput : <code>Object</code>
+<a name="UtxoOutput"></a>
+
+```javascript
+{
+    address: string;
+    is_coinbase: boolean;
+    mint_index: number;
+    mint_block_height: number;
+    mint_transaction_hash: string|null;
+    script: string;
+    sequence_number: number;
+    spent_index: number;
+    spent_block_height: number;
+    spent_transaction_hash: string|null;
+    value: number;
+    mempool_time: Date|null;
 }
 ```
 
@@ -605,5 +671,15 @@ Example response:
         script: string;
         script_pub_key: string;
     }>;
+}
+```
+
+#### TPaginationOptions : <code>Object</code>
+<a name="TPaginationOptions"></a>
+
+```javascript
+{
+    skip?: number;
+    limit?: number;
 }
 ```
