@@ -36,6 +36,8 @@ This library provides eth api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.getFullTransactionInfo">eth.getFullTransactionInfo</a> ⇒<code>Promise&lt;FullEthTransaction&gt;</code></dt></dt>
 <dd></dd>
+<dt><a href="#eth.getTransactionReceipt">eth.getTransactionReceipt</a> ⇒<code>Promise&lt;EthTransactionReceipt&gt;</code></dt></dt>
+<dd></dd>
 <dt><a href="#eth.getTransactionsInterAddresses">eth.getTransactionsInterAddresses</a> ⇒<code><a href="#EthTransactionsInterAddresses">Promise&lt;EthTransactionsInterAddresses&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getTokenTransfers">eth.getTokenTransfers</a> ⇒<code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
@@ -686,6 +688,51 @@ Example response:
         logs: []
     }
 ```
+
+#### <a name="eth.getTransactionReceipt">eth.getTransactionReceipt(hash: string)</a> ⇒<code><a href="#EthTransactionReceipt">Promise&lt;EthTransactionReceipt&gt;</a></code></dt></dt>
+Returns JSON data about receipt transaction information.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| hash | <code>string</code> | [Transaction hash] |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
+    crypto.api.eth.getTransactionReceipt('0xee7f707e7b9961ddfefcc2b00057021b89818942ec0d2f686012878f2276de98')
+```
+
+Example response:
+```    
+{
+    block_hash: "0x3e98aa5b4c28786a7fc8577c79323c899439a0df6c778d50eaeb6d82fc58d600",
+    block_number: 5550242,
+    contract_address: null,
+    cumulative_gas_used: 610759,
+    from: "0x72803bf89e73bfe05fb2ad4fe49e95e5d8125e86",
+    gas_used: 327616,
+    hash: "0xee7f707e7b9961ddfefcc2b00057021b89818942ec0d2f686012878f2276de98",
+    status: true,
+    to: "0x0a1ccab0531eaa31c1af4a45f6d607e8706f6dad",
+    transaction_index: 2,
+    logs: [
+        {
+            address: "0x0a1ccab0531eaa31c1af4a45f6d607e8706f6dad",
+            block_hash: "0x3e98aa5b4c28786a7fc8577c79323c899439a0df6c778d50eaeb6d82fc58d600",
+            block_number: 5550242,
+            data: "0x00000000000000000000000000000000000000000000000000000000000001ed000000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000003",
+            log_index: 2,
+            transaction_hash: "0xee7f707e7b9961ddfefcc2b00057021b89818942ec0d2f686012878f2276de98",
+            transaction_index: 2,
+            topics: ["0x5c9141c7ee466c2b5d0e658534020f2c36a0454553fa4e5ce86ebd0e72a835bb"],
+        }
+    ]
+}
+```
+
+
 ## Typedefs
 
 #### ETH Typedefs
@@ -724,6 +771,8 @@ Example response:
 <dt><a href="#EthTransaction">EthTransaction</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#FullEthTransaction">FullEthTransaction</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthTransactionReceipt">EthTransactionReceipt</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTransactionsIntersection">EthTransactionsIntersection</a> : <code>Object</code></dt>
 <dd></dd>
@@ -1132,3 +1181,31 @@ Example response:
 	total_supply: string;
 }
 ```
+
+#### EthTransactionReceipt : <code>Object</code>
+<a name="EthTransactionReceipt"></a>
+
+```javascript
+    block_hash: string;
+    block_number: number;
+    contract_address: string|null;
+    cumulative_gas_used: number;
+    gas_used: number;
+    status: Boolean;
+    from: string;
+	hash: string;
+	to: string;
+	transaction_index: number;
+    logs: null|Array<{
+        address: string;
+        data: string;
+        topics: string[];
+        log_index: number;
+        transaction_hash: string;
+        transaction_index: number;
+        block_hash: string;
+        block_number: number;
+    }>;
+    
+```
+

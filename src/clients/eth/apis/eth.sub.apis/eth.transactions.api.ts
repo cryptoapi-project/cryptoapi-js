@@ -8,6 +8,7 @@ import {
 	EthTransactionsIntersection,
 	FullEthTransaction,
 	EthTransactionsInterAddresses,
+	EthTransactionReceipt,
 } from '../../../../dtos/eth/eth.transaction.dtos';
 import { TPaginationOptions } from '../../../../types/paginations.options.type';
 
@@ -121,4 +122,21 @@ export class EthTransactionsApi extends AbstractApi implements IEthTransactionsA
 
 		return new FullEthTransaction(transaction.data);
 	}
+
+	/**
+	 *  Get transaction receipt by hash.
+	 * @method getTransactionReceipt
+	 * @param {string} hash
+	 * @return {Promise<EthTransactionReceipt>}
+	 */
+	async getTransactionReceipt(hash: string): Promise<EthTransactionReceipt> {
+		this._checkConfig();
+
+		const transaction = await this.httpService.agent.get<EthTransactionReceipt>(
+			`${this.config!.baseUrl}/coins/eth/transactions/receipt/${hash}`,
+		);
+
+		return new EthTransactionReceipt(transaction.data);
+	}
+
 }

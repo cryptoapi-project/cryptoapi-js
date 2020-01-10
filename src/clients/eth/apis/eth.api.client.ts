@@ -15,12 +15,12 @@ import { IEthTokenApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/
 import { IEthAddressApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.address.api.interface';
 import { IEthTransactionsApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.transactions.interface';
 import { IServerConfig } from '../../../interfaces/configs/crypto.config.interface';
-import { IEthContractApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
 import { IEthNotifyApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.notify.api.interface';
 import { IEthRawTransactionApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.raw.transaction.interface';
 
 import { TryCatch } from '../../../providers/decorators/try.catch';
 import { EthTokenSearchRequest } from '../../../dtos/eth/eth.token.search';
+import { IEthContractApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
 
 @injectable()
 export class EthApiClient implements IEthApiClient {
@@ -288,4 +288,16 @@ export class EthApiClient implements IEthApiClient {
 	getFullTransactionInfo(hash: string) {
 		return this.ethTransactions.getFullTransactionInfo(hash);
 	}
+
+	/**
+	 * Get transaction receipt by hash.
+	 * @method getTransactionReceipt
+	 * @param {string} hash
+	 * @return {Promise<EthTransactionReceipt>}
+	 */
+	@TryCatch
+	getTransactionReceipt(hash: string) {
+		return this.ethTransactions.getTransactionReceipt(hash);
+	}
+
 }

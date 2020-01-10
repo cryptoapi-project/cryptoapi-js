@@ -6,8 +6,8 @@ import {
 	EthTransactionsIntersection,
 	FullEthTransaction,
 	EthTransactionsInterAddresses,
+	EthTransactionReceipt,
 } from '../../../../../dtos/eth/eth.transaction.dtos';
-
 import { TPaginationOptions } from '../../../../../types/paginations.options.type';
 
 export interface IEthTransactionsApi  extends IConfigurable<IServerConfig> {
@@ -15,4 +15,5 @@ export interface IEthTransactionsApi  extends IConfigurable<IServerConfig> {
 	getTransactionsIntersection(addresses: string[], options?: TPaginationOptions): Promise<EthTransactionsIntersection>;
 	getFullTransactionInfo(hash: string): Promise<FullEthTransaction>;
 	getTransactionsInterAddresses(from: string, to: string, options?: TPaginationOptions): Promise<EthTransactionsInterAddresses>;
+	getTransactionReceipt(hash: string): Promise<EthTransactionReceipt>;
 }

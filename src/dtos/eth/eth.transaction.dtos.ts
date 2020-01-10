@@ -265,3 +265,74 @@ export class EthTransactionsInterAddresses {
 	}
 
 }
+
+export class ReceiptLog {
+	address: string;
+	data: string;
+	topics: string[];
+	log_index: number;
+	transaction_hash: string;
+	transaction_index: number;
+	block_hash: string;
+	block_number: number;
+
+	constructor(info: {
+		address: string;
+		data: string;
+		topics: string[];
+		log_index: number;
+		transaction_hash: string;
+		transaction_index: number;
+		block_hash: string;
+		block_number: number;
+	}) {
+		this.address = info.address;
+		this.data = info.data;
+		this.topics = info.topics;
+		this.log_index = info.log_index;
+		this.transaction_hash = info.transaction_hash;
+		this.transaction_index = info.transaction_index;
+		this.block_hash = info.block_hash;
+		this.block_number = info.block_number;
+	}
+}
+
+export class EthTransactionReceipt {
+	readonly block_hash: string;
+	readonly block_number: number;
+	readonly contract_address: string|null;
+	readonly cumulative_gas_used: number;
+	readonly gas_used: number;
+	readonly status: boolean;
+	readonly from: string;
+	readonly hash: string;
+	readonly to: string;
+	readonly transaction_index: number;
+	readonly logs: ReceiptLog[]|null;
+
+	constructor(info: {
+		readonly block_hash: string;
+		readonly block_number: number;
+		readonly contract_address: string|null;
+		readonly gas_used: number;
+		readonly cumulative_gas_used: number;
+		readonly logs: ReceiptLog[]|null;
+		readonly status: boolean;
+		readonly from: string;
+		readonly hash: string;
+		readonly to: string;
+		readonly transaction_index: number;
+	}) {
+		this.block_hash = info.block_hash;
+		this.block_number = info.block_number;
+		this.contract_address = info.contract_address;
+		this.gas_used = info.gas_used;
+		this.cumulative_gas_used = info.cumulative_gas_used;
+		this.logs = info.logs ? info.logs.map((log) => new ReceiptLog(log)) : null;
+		this.status = info.status;
+		this.from = info.from;
+		this.hash = info.hash;
+		this.to = info.to;
+		this.transaction_index = info.transaction_index;
+	}
+}
