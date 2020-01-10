@@ -69,7 +69,7 @@ Full documentation about API methods you find by [following link](docs/api/index
 crypto.events.eth.onBlock(1, (event) => { console.log(event); });
 ```
 
-Full documentation about websocket notifications you find by [following link](docs/events.md).
+Full documentation about websocket notifications you find by [following link](docs/events/index.md).
 
 #### Building
 To build the library or its components yourself, clone it from GitHub and install the development dependencies:

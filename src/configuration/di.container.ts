@@ -34,6 +34,7 @@ import { EventsClient } from '../clients/events.client';
 import { EthApiClient } from '../clients/eth/apis/eth.api.client';
 import { UtxoApiClient } from '../clients/utxo/apis/utxo.api.client';
 import { EthEventsClient } from '../clients/eth/events/eth.events.client';
+import { UtxoEventsClient } from '../clients/utxo/events/utxo.events.client';
 
 import { IHttpService } from '../interfaces/providers/http.service.interface';
 import { IValidateHelper } from '../interfaces/providers/helpers/validate.helper.interface';
@@ -60,6 +61,7 @@ import { ValidateHelper } from '../providers/helpers/validate.helper';
 
 import { IdHelper } from '../providers/helpers/id.helper';
 import { SubsHelper } from '../providers/helpers/subs.helper';
+import { IUtxoEventsClient } from 'interfaces/clients/utxo/events/utxo.events.client.interface';
 import { UtxoRawTransactionApi } from '../clients/utxo/apis/utxo.sub.apis/utxo.raw.transaction.api';
 import { IUtxoRawTransactionApi } from '../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.raw.transaction.interface';
 
@@ -78,6 +80,7 @@ diContainer.bind<IEventsClient>(TYPES_DI.IEventsClient).to(EventsClient);
 diContainer.bind<IEthApiClient>(TYPES_DI.IEthApiClient).to(EthApiClient);
 diContainer.bind<IUtxoApiClient>(TYPES_DI.IUtxoApiClient).to(UtxoApiClient);
 diContainer.bind<IEthEventsClient>(TYPES_DI.IEthEventsClient).to(EthEventsClient);
+diContainer.bind<IUtxoEventsClient>(TYPES_DI.IUtxoEventsClient).to(UtxoEventsClient);
 
 /**
  * Inject sub api and socket clients.

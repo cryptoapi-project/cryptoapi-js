@@ -209,18 +209,3 @@ export class EthTransferNotification {
 	}
 
 }
-
-export class EthTransactionConfirmationNotification {
-
-	hash: string;
-	confirmations: number;
-
-	constructor(notification: {
-		hash: string;
-		confirmations: number;
-	}) {
-		this.hash = notification.hash;
-		this.confirmations = notification.confirmations;
-	}
-
-}

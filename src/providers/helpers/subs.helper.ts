@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { isHex, isAddress } from 'web3-utils';
+import { isHex } from 'web3-utils';
 
 import { MAX_CONFIRMATION } from '../../constants/events.constants';
 import { InvalidParamsException } from '../../exceptions/library.exceptions/invalid.params.exceptions';
@@ -37,10 +37,6 @@ export class SubsHelper implements ISubsHelper {
 	validateAddress(address: string, key: string = 'address') {
 		if (!address) {
 			throw new InvalidParamsException(`Param ${key} is required`);
-		}
-
-		if (!isAddress(address)) {
-			throw new InvalidParamsException(`Invalid ${key}`);
 		}
 	}
 
