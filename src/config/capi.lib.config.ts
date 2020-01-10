@@ -1,6 +1,7 @@
 export enum TCoin {
 	ETH = 'eth',
 	BTC = 'btc',
+	BCH = 'bch',
 }
 
 export const DEFAULT_TIMEOUT_REQUEST = 30000;
@@ -15,6 +16,7 @@ export const BASE_WS_RESUBSCRIBE = true;
 const WS_URLS = {
 	[TCoin.ETH]: 'wss://697-crypto-api.pixelplex-test.by/ws/eth',
 	[TCoin.BTC]: 'wss://697-crypto-api.pixelplex-test.by/ws/btc',
+	[TCoin.BCH]: 'wss://697-crypto-api.pixelplex-test.by/ws/bch',
 };
 
 export const BASE_CONFIG = {
@@ -43,7 +45,16 @@ export const BTC_CONFIG = {
 	},
 };
 
+export const BCH_CONFIG = {
+	...BASE_CONFIG,
+	events: {
+		...BASE_CONFIG.events,
+		url: WS_URLS[TCoin.BCH],
+	},
+};
+
 export const CONFIG_BY_COIN = {
 	[TCoin.ETH]: ETH_CONFIG,
 	[TCoin.BTC]: BTC_CONFIG,
+	[TCoin.BCH]: BCH_CONFIG,
 };

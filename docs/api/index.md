@@ -7,4 +7,5 @@ Full documentation about API methods you find by the following links:
 
 - [ETH API](ETH.md)
 - [BTC API](UTXO.md)
+- [BCH API](UTXO.md)
 

@@ -15,14 +15,17 @@ import { ICryptoConfig } from '../interfaces/configs/crypto.config.interface';
 export class ApiClient implements IApiClient {
 	eth: IEthApiClient;
 	btc: IUtxoApiClient;
+	bch: IUtxoApiClient;
 
 	constructor(
 		@inject(TYPES_DI.IHttpService) private readonly httpService: IHttpService,
 		@inject(TYPES_DI.IEthApiClient) eth: IEthApiClient,
 		@inject(TYPES_DI.IUtxoApiClient) btc: IUtxoApiClient,
+		@inject(TYPES_DI.IUtxoApiClient) bch: IUtxoApiClient,
 	) {
 		this.eth = eth;
 		this.btc = btc;
+		this.bch = bch;
 	}
 
 	/**
@@ -35,5 +38,6 @@ export class ApiClient implements IApiClient {
 		this.httpService.configure(config.token, config.timeout);
 		this.eth.configure(config.eth);
 		this.btc.configure(config.btc);
+		this.bch.configure(config.bch);
 	}
 }

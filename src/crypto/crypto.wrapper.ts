@@ -39,6 +39,7 @@ class CryptoWrapper implements IPublicCrypto {
 
 		cryptoConfig.eth = this.getConfigByCoin(TCoin.ETH, options.eth);
 		cryptoConfig.btc = this.getConfigByCoin(TCoin.BTC, options.btc);
+		cryptoConfig.bch = this.getConfigByCoin(TCoin.BCH, options.bch);
 
 		if (!cryptoConfig.token) {
 			throw new InvalidParamsException('Token is not exist.');

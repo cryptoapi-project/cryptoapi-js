@@ -1,7 +1,7 @@
 # Utxo API cryptoapi-lib
 
 This library provides utxo api methods to work with CryptoAPI.
-List supported utxo coins: btc. All supported utxo coins can work with next api methods. 
+List supported utxo coins: btc, bch. All supported utxo coins can work with next api methods. 
 Below are examples with btc.
 
 #### Table of Contents
@@ -11,27 +11,27 @@ Below are examples with btc.
 ## API
 
 <dl>
-<dt><a href="#btc.getNetworkInfo">btc.getNetworkInfo</a> ⇒<code><a href="#UtxoNetworkInfo">Promise&lt;UtxoNetworkInfo&gt;</a></code></dt></dt>
+<dt><a href="#btc.getNetworkInfo">getNetworkInfo</a> ⇒<code><a href="#UtxoNetworkInfo">Promise&lt;UtxoNetworkInfo&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#btc.getBlock">btc.getBlock</a> ⇒<code><a href="#UtxoBlockInfo">Promise&lt;UtxoBlockInfo&gt;</a></code></dt></dt>
+<dt><a href="#btc.getBlock">getBlock</a> ⇒<code><a href="#UtxoBlockInfo">Promise&lt;UtxoBlockInfo&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#btc.getBlocks">btc.getBlocks</a> ⇒<code><a href="#UtxoBlockInfo">Promise&lt;UtxoBlockInfo[]&gt;</a></code></dt></dt>
+<dt><a href="#btc.getBlocks">getBlocks</a> ⇒<code><a href="#UtxoBlockInfo">Promise&lt;UtxoBlockInfo[]&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#btc.getFullTransactionInfo">btc.getFullTransactionInfo</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction&gt;</a></code></dt></dt>
+<dt><a href="#btc.getFullTransactionInfo">getFullTransactionInfo</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#btc.getTransactionsByHashes">btc.getTransactionsByHashes</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction[]&gt;</a></code></dt></dt>
+<dt><a href="#btc.getTransactionsByHashes">getTransactionsByHashes</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction[]&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#btc.getTransactionsByBlockHeightOrHash">btc.getTransactionsByBlockHeightOrHash</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction&gt;</a></code></dt></dt>
+<dt><a href="#btc.getTransactionsByBlockHeightOrHash">getTransactionsByBlockHeightOrHash</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#btc.getAddressesInfos">btc.getAddressesInfos</a> ⇒<code><a href="#UtxoAddressInfo">Promise&lt;UtxoAddressInfo[]&gt;</a></code></dt></dt>
+<dt><a href="#btc.getAddressesInfos">getAddressesInfos</a> ⇒<code><a href="#UtxoAddressInfo">Promise&lt;UtxoAddressInfo[]&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#btc.getAddressesHistory">btc.getAddressesHistory</a> ⇒<code><a href="#UtxoAddressHistory">Promise&lt;UtxoAddressHistory&gt;</a></code></dt></dt>
+<dt><a href="#btc.getAddressesHistory">getAddressesHistory</a> ⇒<code><a href="#UtxoAddressHistory">Promise&lt;UtxoAddressHistory&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#btc.sendRawTransaction">btc.sendRawTransaction</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
+<dt><a href="#btc.sendRawTransaction">sendRawTransaction</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
 <dd></dd>
-<dt><a href="#btc.decodeRawTransaction">btc.decodeRawTransaction</a> ⇒<code><a href="#UtxoRawTransaction">Promise&lt;UtxoRawTransaction&gt;</a></code></dt></dt>
+<dt><a href="#btc.decodeRawTransaction">decodeRawTransaction</a> ⇒<code><a href="#UtxoRawTransaction">Promise&lt;UtxoRawTransaction&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#btc.getOutputsByAddresses">btc.getOutputsByAddresses</a> ⇒<code><a href="#UtxoOutput">Promise&lt;UtxoOutput[]&gt;</a></code></dt></dt>
+<dt><a href="#btc.getOutputsByAddresses">getOutputsByAddresses</a> ⇒<code><a href="#UtxoOutput">Promise&lt;UtxoOutput[]&gt;</a></code></dt></dt>
 <dd></dd>
 </dl>
 

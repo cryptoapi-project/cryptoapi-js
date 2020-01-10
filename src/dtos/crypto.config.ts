@@ -29,6 +29,7 @@ export class CryptoConfig implements ICryptoConfig {
 	timeout: number;
 	eth: IServerConfig;
 	btc: IServerConfig;
+	bch: IServerConfig;
 
 	constructor(
 		config: {
@@ -36,11 +37,13 @@ export class CryptoConfig implements ICryptoConfig {
 			timeout: number,
 			eth: IServerConfig,
 			btc: IServerConfig;
+			bch: IServerConfig;
 		},
 	) {
 		this.token = config.token;
 		this.eth = new ServerConfig(config.eth);
 		this.btc = new ServerConfig(config.btc);
+		this.bch = new ServerConfig(config.bch);
 		this.timeout = config.timeout;
 	}
 }
