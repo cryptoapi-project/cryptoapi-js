@@ -15,7 +15,12 @@ All subscribers are listed below:
 <dd></dd>
 </dl>
 <dl>
+<dt><a href="#onContractLog">eth.onContractLog</a></dt>
+<dd></dd>
+</dl>
+<dl>
 <dt><a href="#onTransactionConfirmations">eth.onTransactionConfirmations</a></dt>
+<dd></dd>
 <dd></dd>
 </dl>
 
@@ -143,6 +148,38 @@ client.events.eth.onTokenTransfers({
     transaction_hash: '0xdee94524c99227eab281a60722d9680f06c6a95e399c59bcc800976642d0a94a',
     transaction_index: 0,
     utc: '2019-10-20T17:18:11.000Z'
+}
+```
+
+#### <a name="onContractLog">onContractLog</a>({  address, confirmations, from, to, topics  }: EthContractLogSubscription, callback: (notification: EthContractLogNotification) => void) ⇒ <code>Promise&lt;number&gt;</code>
+
+```javascript
+import { Client } from 'cryptoapi-lib';
+const crypto = new Client('YOUR-API-KEY');
+
+const subscriptionId = await client.events.eth.onContractLog({
+    address: '0xda013d0850e75fe41dc9aa854ec5b6f49ef7dec4',
+}, (message) => { console.log(message) });
+
+// By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
+client.events.eth.onContractLog({
+    address: '0xda013d0850e75fe41dc9aa854ec5b6f49ef7dec4',
+}, (message) => { console.log(message) });
+
+// Notification example
+> {
+    address: '0xda013d0850e75fe41dc9aa854ec5b6f49ef7dec4',
+    data: '0x0000000000000000000000000000000000000000000000000de0b6b3a7640000',
+    topics: [
+        '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
+        '0x0000000000000000000000002fbeef743f5671904f7b306304dca402ae022fad',
+        '0x000000000000000000000000d6b814059955d97e639f275499f06b8735f10558',
+    ],
+    log_index: 0,
+    transaction_hash: '0x47415a673eeb36541a736f6de91eac9433a4513ad860b83b2d49a7a80d15a028',
+    transaction_index: 0,
+    block_hash: '0xdb3b3d962484a8d3f360103cc25a17eab1b6ef61950659bae56abe6d1e6fe5a9',
+    block_number: 5767886,
 }
 ```
 

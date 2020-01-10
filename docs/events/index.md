@@ -18,7 +18,7 @@ Also configuration allows you to set automatically reconnect.
 Set in options parameters for reconnect (count of attempts and timeout between them).
 If you want automatically resubscribe, you can set following option.
  Below are examples configure with eth client.
- 
+
 ```javascript
 import { Client } from 'cryptoapi-lib';
 
@@ -86,6 +86,10 @@ await client.events.eth.disconnect()
 </dl>
 <dl>
 <dt><a href="#onTokenTransfers">eth.onTokenTransfers</a></dt></dt>
+<dd></dd>
+</dl>
+<dl>
+<dt><a href="#onContractLog">eth.onContractLog</a></dt></dt>
 <dd></dd>
 </dl>
 <dl>
@@ -204,6 +208,25 @@ Examples:
 | --- | --- |
 | eth | [eth.onTokenTransfers](./examples/eth.md#ontokentransfers-token-address-confirmations-ethtokentransfersubscription-callback-notification-ethtransfernotification-void-promisenumber) |
 
+#### <a name="onContractLog">onContractLog</a>({  address, confirmations, from, to, topics  }: <a href="#EthContractLogSubscription">EthContractLogSubscription</a>, callback: (notification: <a href="#EthContractLogNotification">EthContractLogNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
+
+| Param | Type | Description |
+| --- | --- | --- |
+| address | <code>string</code> | [Address] |
+| confirmations | <code>number</code> | [Minimal count of confirmations to notify - max value 100] |
+| from | <code>number</code> | [Block number] |
+| to | <code>number</code> | [Block number] |
+| topics | <code>string[]</code> | [Hex strings, filter logs by them] |
+| callback | <code>Function</code> | [Notifications handler ] |
+
+Returns subscription id.
+
+Examples:
+
+|  | Examples |
+| --- | --- |
+| eth | [eth.onContractLog](./examples/eth.md#oncontractlog-address-confirmations-from-to-topics-ethcontractlogsubscription-callback-notification-ethcontractlognotification-void-promisenumber) |
+
 #### <a name="onTransactionConfirmations">onTransactionConfirmations</a>({ hash, confirmations }: <a href="#TransactionConfirmationSubscription">TransactionConfirmationSubscription</a>, callback: (notification: <a href="#TransactionConfirmationSubscription">TransactionConfirmationNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
 
 | Param | Type | Description |
@@ -286,6 +309,10 @@ console.log(client.events.eth.connected);
 <dt><a href="#EthTokenTransferSubscription">EthTokenTransferSubscription</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTransferNotification">EthTransferNotification</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthContractLogSubscription">EthContractLogSubscription</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthContractLogNotification">EthContractLogNotification</a> : <code>Object</code></dt>
 <dd></dd>
 </dl>
 
@@ -391,6 +418,36 @@ console.log(client.events.eth.connected);
     utc: string;
 }
 ```
+
+#### EthContractLogSubscription : <code>Object</code>
+<a name="EthContractLogSubscription"></a>
+
+```javascript
+{
+    address: string;
+	confirmations?: number;
+	from?: number;
+	to?: number;
+	topics?: string[];
+}
+```
+
+#### EthContractLogNotification : <code>Object</code>
+<a name="EthContractLogNotification"></a>
+
+```javascript
+{
+    address: string;
+	data: string;
+	topics: string[];
+	log_index: number;
+	transaction_hash: string;
+	transaction_index: number;
+	block_hash: string;
+	block_number: number;
+}
+```
+
 #### TransactionConfirmationSubscription : <code>Object</code>
 <a name="TransactionConfirmationSubscription"></a>
 

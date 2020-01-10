@@ -209,3 +209,36 @@ export class EthTransferNotification {
 	}
 
 }
+
+export class EthContractLogNotification {
+
+	address: string;
+	data: string;
+	topics: string[];
+	log_index: number;
+	transaction_hash: string;
+	transaction_index: number;
+	block_hash: string;
+	block_number: number;
+
+	constructor(notification: {
+		address: string;
+		data: string;
+		topics: string[];
+		log_index: number;
+		transaction_hash: string;
+		transaction_index: number;
+		block_hash: string;
+		block_number: number;
+	}) {
+		this.address = notification.address;
+		this.data = notification.data;
+		this.topics = notification.topics;
+		this.log_index = notification.log_index;
+		this.transaction_hash = notification.transaction_hash;
+		this.transaction_index = notification.transaction_index;
+		this.block_hash = notification.block_hash;
+		this.block_number = notification.block_number;
+	}
+
+}

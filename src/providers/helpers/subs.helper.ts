@@ -66,4 +66,35 @@ export class SubsHelper implements ISubsHelper {
 		}
 	}
 
+	/**
+	 * @method validateBlockNumber
+	 * @param {number} block
+	 * @param {number} max - optional
+	 * @return {void}
+	 */
+	validateBlockNumber(block: number, max?: number) {
+		if (!Number.isInteger(block)) {
+			throw new InvalidParamsException('Block number must be integer');
+		}
+
+		if (block < 0) {
+			throw new InvalidParamsException('Block number mustn\'t be negative');
+		}
+
+		if (max && block > max) {
+			throw new InvalidParamsException(`Block number max value is ${max}`);
+		}
+	}
+
+	/**
+	 * @method validateHex
+	 * @param {string} str
+	 * @return {void}
+	 */
+	validateHex(str: string) {
+		if (!isHex(str)) {
+			throw new InvalidParamsException('Invalid hex string');
+		}
+	}
+
 }

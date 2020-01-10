@@ -6,8 +6,16 @@ import WS from 'isomorphic-ws';
 import { SUBSCRIPTIONS } from '../../../constants/events.constants';
 import { TYPES_DI } from '../../../constants/inversify.constants';
 
-import { EthTokenTransferSubscription } from '../../../dtos/eth/eth.subscription.dtos';
-import { EthTransferNotification, EthBlockNotification, EthTransactionNotification } from '../../../dtos/eth/eth.notification.dtos';
+import {
+	EthTokenTransferSubscription,
+	EthContractLogSubscription,
+} from '../../../dtos/eth/eth.subscription.dtos';
+import {
+	EthTransferNotification,
+	EthBlockNotification,
+	EthTransactionNotification,
+	EthContractLogNotification,
+} from '../../../dtos/eth/eth.notification.dtos';
 
 import { IEthEventsClient } from '../../../interfaces/clients/eth/events/eth.events.client.interface';
 import { IIdHelper } from '../../../interfaces/providers/helpers/id.helper.interface';
@@ -35,9 +43,11 @@ export class EthEventsClient extends
 	 */
 	protected onMessage(event: WS.MessageEvent) {
 		const info = this._handleEventOnMessage(event);
+
 		if (!info) {
 			return;
 		}
+
 		switch (info.method) {
 			case SUBSCRIPTIONS.BLOCK:
 				info.sub!.cb(new EthBlockNotification(info.notification));
@@ -47,6 +57,9 @@ export class EthEventsClient extends
 				break;
 			case SUBSCRIPTIONS.TRANSFER:
 				info.sub!.cb(new EthTransferNotification(info.notification));
+				break;
+			case SUBSCRIPTIONS.CONTRACT_LOG:
+				info.sub!.cb(new EthContractLogNotification(info.notification));
 				break;
 			case SUBSCRIPTIONS.CONFIRMATION:
 				info.sub!.cb(new TransactionConfirmationNotification(info.notification));
@@ -75,7 +88,7 @@ export class EthEventsClient extends
 		info: EthTokenTransferSubscription = { confirmations: 0, address: '', token: '' },
 		cb: (notification: EthTransferNotification) => void,
 	) {
-		const {token, address, confirmations} = info;
+		const { token, address, confirmations } = info;
 		this.validateAddress(address);
 		this.validateAddress(token, 'token');
 		this.subsHelper.validateAddress(token, 'token');
@@ -90,4 +103,42 @@ export class EthEventsClient extends
 
 		return super.setSubscription(id, params, cb);
 	}
+
+	/**
+	 *  @method onContractLog
+	 *  @param {EthContractLogSubscription} info
+	 *  @param {Function} cb
+	 */
+	onContractLog(
+		info: EthContractLogSubscription,
+		cb: (notification: EthContractLogNotification) => void,
+	) {
+		const { address, confirmations, from, to, topics } = info;
+
+		this.validateAddress(address);
+		this.subsHelper.validateCallback(cb);
+
+		if (confirmations) {
+			this.subsHelper.validateConfirmations(confirmations);
+		}
+
+		if (from) {
+			this.subsHelper.validateBlockNumber(from);
+		}
+
+		if (to) {
+			this.subsHelper.validateBlockNumber(to);
+		}
+
+		if (topics) {
+			topics.forEach((t) => this.subsHelper.validateHex(t));
+		}
+
+		const id = this.idHelper.get();
+		const params = [SUBSCRIPTIONS.CONTRACT_LOG, address, confirmations, from, to, topics];
+
+		return super.setSubscription(id, params, cb);
+
+	}
+
 }

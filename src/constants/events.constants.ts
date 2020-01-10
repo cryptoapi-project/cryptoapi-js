@@ -3,6 +3,7 @@ export enum SUBSCRIPTIONS {
 	BLOCK = 'new_block',
 	TRANSFER = 'new_transfer',
 	CONFIRMATION = 'new_confirmation',
+	CONTRACT_LOG = 'new_contract_log',
 }
 
 export enum METHODS {
