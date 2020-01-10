@@ -20,6 +20,10 @@ This library provides eth api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.getContractInfo">eth.getContractInfo</a> ⇒<code><a href="#EthContractInfo">Promise&lt;EthContractInfo&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#eth.callContract">eth.callContract</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
+<dd></dd>
+<dt><a href="#eth.getContractLogs">eth.getContractLogs</a> ⇒<code><a href="#EthContractLog">Promise&lt;EthContractLog[]&gt;</a></code></dt></dt>
+<dd></dd>
 <dt><a href="#eth.getTokenInfoByTokenAddress">eth.getTokenInfoByTokenAddress(address: string)</a> ⇒<code><a href="#EthTokenInfo">Promise&lt;EthTokenInfo&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getTokenBalanceByAddresses">eth.getTokenBalanceByAddresses</a> ⇒<code><a href="#EthTokenBalance">Promise&lt;EthTokenBalance&gt;</a></code></dt></dt>
@@ -41,8 +45,6 @@ This library provides eth api methods to work with CryptoAPI.
 <dt><a href="#eth.getTransactionsInterAddresses">eth.getTransactionsInterAddresses</a> ⇒<code><a href="#EthTransactionsInterAddresses">Promise&lt;EthTransactionsInterAddresses&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getTokenTransfers">eth.getTokenTransfers</a> ⇒<code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
-<dd></dd>
-<dt><a href="#eth.callContract">eth.callContract</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.searchToken">eth.searchToken</a> ⇒<code><a href="#EthTokenSearchResponse">Promise&lt;EthTokenSearchResponse&gt;</a></code></dt></dt>
 <dd></dd>
@@ -544,16 +546,56 @@ Input data:
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
     const result = await crypto.api.eth.callContract({
-        "address": "0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c",
-        "bytecode": "0x2c6ce78b000000000000000000000000be125ecedd3a2e8615f5736523dd04e4ce13753d",
-        "sender": "0xf876154263cf61e15e84695096cfdcb5ceed8d86",
-        "amount": 11
+        address: "0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c",
+        bytecode: "0x2c6ce78b000000000000000000000000be125ecedd3a2e8615f5736523dd04e4ce13753d",
+        sender: "0xf876154263cf61e15e84695096cfdcb5ceed8d86",
+        amount: 11
       });
 ```
 
 Example response:
 ```
     0x
+```
+
+#### <a name="eth.getContractLogs">eth.getContractLogs(data: <a href="#TContractLogsRequest">TContractLogsRequest</a>)</a> ⇒<code><a href="#EthContractLog">Promise&lt;EthContractLog[]&gt;</a></code></dt></dt>
+
+Method to get log contracts by passed data.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| data | <code><a href="#TContractLogsRequest">TContractLogsRequest</a></code> | [Data to get contract logs] |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('YOUR-API-KEY');
+    const result = await crypto.api.eth.getContractLogs({
+        fromBlock: "5550100",
+        toBlock: "5550500",
+        address: ["0x23b814a57d53b1a7a860194f53401d0d639abed7"],
+      });
+```
+
+Example response:
+```
+[
+    {
+        "address": "0x23b814a57d53b1a7a860194f53401d0d639abed7",
+        "data": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x000000000000000000000000e5056d1fe48f562dd8acb1bbffa147223d448c1b"
+        ],
+        "log_index": 3,
+        "transaction_hash": "0xac2ed8354f31b656a47a2fbe761d16d6395ffe688433b85de62c061c661b8230",
+        "transaction_index": 3,
+        "block_hash": "0x3e98aa5b4c28786a7fc8577c79323c899439a0df6c778d50eaeb6d82fc58d600",
+        "block_number": 5550242
+      },
+]
 ```
 
 #### <a name="eth.searchToken">eth.searchToken(searchRequest: TTokenSearchRequest, options: TPaginationOptions)</a> ⇒<code><a href="#TTokenSearchRequest">Promise&lt;EthTokenSearchResponse&gt;</a></code></dt></dt>
@@ -753,6 +795,10 @@ Example response:
 <dt><a href="#EstimateGasResponse">EstimateGasResponse</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthContractInfo">EthContractInfo</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthContractLog">EthContractLog</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#TContractLogsRequest">TContractLogsRequest</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTokenBalance">EthTokenBalance</a> : <code>Object</code></dt>
 <dd></dd>
@@ -1209,3 +1255,30 @@ Example response:
     
 ```
 
+#### EthContractLog : <code>Object</code>
+<a name="EthContractLog"></a>
+
+```javascript
+{
+    address: string;
+    data: string;
+    topics: string[];
+    log_index: number;
+    transaction_hash: string;
+    transaction_index: number;
+    block_hash: string;
+    block_number: number;
+}
+```
+
+#### TContractLogsRequest : <code>Object</code>
+<a name="TContractLogsRequest"></a>
+
+```javascript
+{
+	fromBlock: number;
+	toBlock: number;
+	address: string[];
+	topics: string[];    
+}
+```

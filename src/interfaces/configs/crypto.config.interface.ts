@@ -1,5 +1,6 @@
 export interface IEventsConfig {
 	token: string;
+	network?: string;
 	url: string;
 	reconnect?: boolean;
 	attempts?: number;

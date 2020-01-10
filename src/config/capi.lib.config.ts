@@ -41,6 +41,7 @@ export const BTC_CONFIG = {
 	...BASE_CONFIG,
 	events: {
 		...BASE_CONFIG.events,
+		network: 'testnet',
 		url: WS_URLS[TCoin.BTC],
 	},
 };
@@ -49,6 +50,7 @@ export const BCH_CONFIG = {
 	...BASE_CONFIG,
 	events: {
 		...BASE_CONFIG.events,
+		network: 'testnet',
 		url: WS_URLS[TCoin.BCH],
 	},
 };

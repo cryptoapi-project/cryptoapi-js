@@ -12,6 +12,7 @@ export type TPublicConfig = {
 			resubscribe?: boolean;
 			ping?: number;
 			pong?: number;
+			network?: string;
 		};
 	};
 	btc?: {

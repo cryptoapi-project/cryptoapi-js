@@ -5,6 +5,8 @@ import { TYPES_DI } from '../../../constants/inversify.constants';
 import { TPaginationOptions } from '../../../types/paginations.options.type';
 import { TEthContractCall } from '../../../types/eth/call.contract.type';
 import { TEstimateGasRequest } from '../../../types/eth/estimate.gas.request.type';
+import { TContractLogsRequest } from '../../../types/eth/eth.contract.logs.request';
+import { IEthContractApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
 
 import { EstimateGasResponse } from '../../../dtos/eth/eth.estimate.gas.dto';
 
@@ -20,7 +22,6 @@ import { IEthRawTransactionApi } from '../../../interfaces/clients/eth/apis/eth.
 
 import { TryCatch } from '../../../providers/decorators/try.catch';
 import { EthTokenSearchRequest } from '../../../dtos/eth/eth.token.search';
-import { IEthContractApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
 
 @injectable()
 export class EthApiClient implements IEthApiClient {
@@ -300,4 +301,14 @@ export class EthApiClient implements IEthApiClient {
 		return this.ethTransactions.getTransactionReceipt(hash);
 	}
 
+	/**
+	 * Method to get contract logs.
+	 * @method getContractLogs
+	 * @param {TContractLogsRequest} data
+	 * @return {Promise<EthContractLog[]>}
+	 */
+	@TryCatch
+	getContractLogs(data: TContractLogsRequest) {
+		return this.ethContractApi.getContractLogs(data);
+	}
 }

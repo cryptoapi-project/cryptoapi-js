@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { Address, Networks } from 'bitcore-lib';
+import { Address } from 'bitcore-lib';
 import WS from 'isomorphic-ws';
 
 import {
@@ -59,7 +59,7 @@ export class UtxoEventsClient extends
 	public validateAddress(address: string, key: string = 'address') {
 		this.subsHelper.validateAddress(address);
 		// @ts-ignore
-		if (!Address.isValid(address, Networks.testnet)) {
+		if (!Address.isValid(address, this.config.network)) {
 			throw new InvalidParamsException(`Invalid ${key}`);
 		}
 	}

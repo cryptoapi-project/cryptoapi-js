@@ -3,16 +3,19 @@ import { inject, injectable } from 'inversify';
 import { TYPES_DI } from '../../../../constants/inversify.constants';
 
 import { TEthContractCall } from '../../../../types/eth/call.contract.type';
-import { EthContract } from '../../../../dtos/eth/eth.contract.dto';
+import { EthContract, EthContractLog } from '../../../../dtos/eth/eth.contract.dto';
 
 import { IEthContractApi } from '../../../../interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
 import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
 import { AbstractApi } from '../../../../abstracts/abstract.api';
+import { TContractLogsRequest } from 'types/eth/eth.contract.logs.request';
+import { IUrlHelper } from '../../../../interfaces/providers/helpers/url.helper.interface';
 
 @injectable()
 export class EthContractApi extends AbstractApi implements IEthContractApi {
 	constructor(
 		@inject(TYPES_DI.IHttpService) private readonly httpService: IHttpService,
+		@inject(TYPES_DI.IUrlHelper) private readonly urlHelper: IUrlHelper,
 	) {
 		super();
 	}
@@ -46,5 +49,22 @@ export class EthContractApi extends AbstractApi implements IEthContractApi {
 		);
 
 		return calledContract.data;
+	}
+
+	/**
+	 * Method to get contract logs.
+	 * @method getContractLogs
+	 * @param {TContractLogsRequest} data
+	 * @return {Promise<EthContractLog[]>}
+	 */
+	async getContractLogs(data: TContractLogsRequest): Promise<EthContractLog[]> {
+		this._checkConfig();
+
+		let url = `${this.config!.baseUrl}/coins/eth/contracts/logs`;
+		url = this.urlHelper.addOptionsToUrl(url, data);
+
+		const logs = await this.httpService.agent.get<EthContractLog[]>(url);
+
+		return logs.data.map((log) => new EthContractLog(log));
 	}
 }
