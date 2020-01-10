@@ -8,13 +8,12 @@ import { TYPES_DI } from '../../constants/inversify.constants';
 import { IIdHelper } from '../../interfaces/providers/helpers/id.helper.interface';
 import { ISubsHelper } from '../../interfaces/providers/helpers/subs.helper.interface';
 import { IEventsConfig } from '../../interfaces/configs/crypto.config.interface';
-import { AddressTransactionSubscription, TransactionConfirmationSubscription } from 'dtos/base/event.subscription.dtos';
+import { AddressTransactionSubscription, TransactionConfirmationSubscription } from '../../dtos/base/event.subscription.dtos';
 import { IBaseEventsClient } from '../../interfaces/clients/base/base.events.client.interface';
 import { TransactionConfirmationNotification } from '../../dtos/base/event.notification.dtos';
 
 @injectable()
-export abstract class BaseEventsClient
-	<BlockNotification, TransactionNotification>
+export abstract class BaseEventsClient<BlockNotification, TransactionNotification>
 	implements IBaseEventsClient<BlockNotification, TransactionNotification> {
 	protected subscribers: Map<string | number, { params: any[], cb: (notification: any) => void }> = new Map();
 	protected connectedSubscribers: Array<() => void> = [];

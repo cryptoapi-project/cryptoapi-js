@@ -12,13 +12,16 @@ import { ICryptoConfig } from '../interfaces/configs/crypto.config.interface';
 export class EventsClient implements IEventsClient {
 	eth: IEthEventsClient;
 	btc: IUtxoEventsClient;
+	bch: IUtxoEventsClient;
 
 	constructor(
 		@inject(TYPES_DI.IEthEventsClient) eth: IEthEventsClient,
 		@inject(TYPES_DI.IUtxoEventsClient) btc: IUtxoEventsClient,
+		@inject(TYPES_DI.IUtxoEventsClient) bch: IUtxoEventsClient,
 	) {
 		this.eth = eth;
 		this.btc = btc;
+		this.bch = bch;
 	}
 
 	/**
@@ -32,5 +35,6 @@ export class EventsClient implements IEventsClient {
 
 		this.eth.configure(config.eth.events, config.token);
 		this.btc.configure(config.btc.events, config.token);
+		this.bch.configure(config.bch.events, config.token);
 	}
 }

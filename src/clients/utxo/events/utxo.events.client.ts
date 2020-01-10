@@ -52,7 +52,7 @@ export class UtxoEventsClient extends
 	}
 
 	/**
-	 * @private _validateAddress
+	 * @private validateAddress
 	 * @param {string} address
 	 * @param {string} key
 	 */
@@ -63,5 +63,4 @@ export class UtxoEventsClient extends
 			throw new InvalidParamsException(`Invalid ${key}`);
 		}
 	}
-
 }
