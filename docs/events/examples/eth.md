@@ -23,6 +23,10 @@ All subscribers are listed below:
 <dd></dd>
 <dd></dd>
 </dl>
+<dl>
+<dt><a href="#onAddressBalance">eth.onAddressBalance</a></dt>
+<dd></dd>
+</dl>
 
 #### <a name="onBlock">onBlock</a>(confirmations: number, callback: (notification:  <a name="EthBlockNotification">EthBlockNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
 
@@ -74,7 +78,7 @@ client.events.eth.onBlock(1, (message) => { console.log(message) });
 }
 ```
 
-#### <a name="onAddressTransactions">onAddressTransactions</a>({ address, confirmations }: <a name="AddressTransactionSubscription">AddressTransactionSubscription</a>, callback: (notification: <a name="EthTransactionNotification">EthTransactionNotification</a>) => void, ⇒ <code>Promise&lt;number&gt;</code>
+#### <a name="onAddressTransactions">onAddressTransactions</a>({ address, confirmations }: <a name="AddressSubscription">AddressSubscription</a>, callback: (notification: <a name="EthTransactionNotification">EthTransactionNotification</a>) => void, ⇒ <code>Promise&lt;number&gt;</code>
 
 ```javascript
 import { Client } from 'cryptoapi-lib';
@@ -205,3 +209,29 @@ client.events.eth.onTransactionConfirmations({
     hash: '0x4c29f5d1bc3228cca62e29d2c9f47a028edf68f85bab133053adfc541001eeb5',
     confirmations: 3
 }
+```
+
+#### <a name="onAddressBalance">onAddressBalance</a>({ address, confirmations }: AddressSubscription, callback: (notification: BalanceSubscription) => void) ⇒ <code>Promise&lt;number&gt;</code>
+
+```javascript
+import { Client } from 'cryptoapi-lib';
+const crypto = new Client('YOUR-API-KEY');
+
+const subscriptionId = await client.events.eth.onAddressBalance({
+    address: '0x2fbeef743f5671904f7b306304dca402ae022fad',
+    confirmations: 2,
+}, (message) => { console.log(message) });
+
+// By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
+client.events.eth.onAddressBalance({
+    address: '0x2fbeef743f5671904f7b306304dca402ae022fad',
+    confirmations: 2,
+}, (message) => { console.log(message) });
+
+// Notification example
+> {
+    address: "0x2fbeef743f5671904f7b306304dca402ae022fad"
+    balance: "17952651870000000000"
+}
+
+```

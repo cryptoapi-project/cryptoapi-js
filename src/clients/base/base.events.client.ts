@@ -8,9 +8,9 @@ import { TYPES_DI } from '../../constants/inversify.constants';
 import { IIdHelper } from '../../interfaces/providers/helpers/id.helper.interface';
 import { ISubsHelper } from '../../interfaces/providers/helpers/subs.helper.interface';
 import { IEventsConfig } from '../../interfaces/configs/crypto.config.interface';
-import { AddressTransactionSubscription, TransactionConfirmationSubscription } from '../../dtos/base/event.subscription.dtos';
+import { AddressSubscription, TransactionConfirmationSubscription } from '../../dtos/base/event.subscription.dtos';
 import { IBaseEventsClient } from '../../interfaces/clients/base/base.events.client.interface';
-import { TransactionConfirmationNotification } from '../../dtos/base/event.notification.dtos';
+import { BalanceNotification, TransactionConfirmationNotification } from '../../dtos/base/event.notification.dtos';
 
 @injectable()
 export abstract class BaseEventsClient<BlockNotification, TransactionNotification>
@@ -363,7 +363,7 @@ export abstract class BaseEventsClient<BlockNotification, TransactionNotificatio
 	 *  @param {number} confirmations
 	 *  @param {Function} cb
 	 */
-	public onBlock(confirmations: number, cb: (notification: BlockNotification) => void) {
+	onBlock(confirmations: number, cb: (notification: BlockNotification) => void) {
 		this.subsHelper.validateConfirmations(confirmations);
 		this.subsHelper.validateCallback(cb);
 
@@ -374,25 +374,50 @@ export abstract class BaseEventsClient<BlockNotification, TransactionNotificatio
 	}
 
 	/**
-	 *  @method onAddressTransactions
-	 *  @param {AddressTransactionSubscription} info
+	 *  @method _setAddressSubscription
+	 *  @param {SUBSCRIPTIONS} type
+	 *  @param {AddressSubscription} info
 	 *  @param {Function} cb
 	 */
-	public onAddressTransactions(
-		info: AddressTransactionSubscription = { confirmations: 0, address: '' },
-		cb: (notification: TransactionNotification) => void,
-	) {
-		const { confirmations, address} = info;
-		this.subsHelper.validateCallback(cb);
+	private _setAddressSubscription(type: SUBSCRIPTIONS, info: AddressSubscription, cb: (param: any) => void) {
+		const { confirmations, address } = info;
+
 		this.validateAddress(address, 'address');
+		this.subsHelper.validateCallback(cb);
+
 		if (confirmations) {
 			this.subsHelper.validateConfirmations(confirmations);
 		}
 
 		const id = this.idHelper.get();
-		const params = [SUBSCRIPTIONS.TRANSACTION, address, confirmations];
+		const params = [type, address, confirmations];
 
 		return this.setSubscription(id, params, cb);
+
+	}
+
+	/**
+	 *  @method onAddressTransactions
+	 *  @param {AddressSubscription} info
+	 *  @param {Function} cb
+	 */
+	onAddressTransactions(
+		info: AddressSubscription = { confirmations: 0, address: '' },
+		cb: (notification: TransactionNotification) => void,
+	) {
+		return this._setAddressSubscription(SUBSCRIPTIONS.TRANSACTION, info, cb);
+	}
+
+	/**
+	 *  @method onAddressBalance
+	 *  @param {AddressSubscription} info
+	 *  @param {Function} cb
+	 */
+	onAddressBalance(
+		info: AddressSubscription,
+		cb: (notification: BalanceNotification) => void,
+	) {
+		return this._setAddressSubscription(SUBSCRIPTIONS.BALANCE, info, cb);
 	}
 
 	/**
@@ -400,7 +425,7 @@ export abstract class BaseEventsClient<BlockNotification, TransactionNotificatio
 	 *  @param {TransactionConfirmationSubscription} info
 	 *  @param {Function} cb
 	 */
-	public onTransactionConfirmations(
+	onTransactionConfirmations(
 		info: TransactionConfirmationSubscription = { confirmations: 0, hash: '' },
 		cb: (notification: TransactionConfirmationNotification) => void,
 	) {

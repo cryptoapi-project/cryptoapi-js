@@ -1,6 +1,6 @@
 import { IEventsConfig } from '../../configs/crypto.config.interface';
 import { IConfigurable } from '../../configs/configurable.interface';
-import { AddressTransactionSubscription, TransactionConfirmationSubscription } from '../../../dtos/base/event.subscription.dtos';
+import { AddressSubscription, TransactionConfirmationSubscription } from '../../../dtos/base/event.subscription.dtos';
 import { TransactionConfirmationNotification } from '../../../dtos/base/event.notification.dtos';
 
 export interface IBaseEventsClient<BlockNotification, TransactionNotification> extends IConfigurable<IEventsConfig> {
@@ -22,7 +22,7 @@ export interface IBaseEventsClient<BlockNotification, TransactionNotification> e
 	onBlock(confirmations: number, cb: (notification: BlockNotification) => void): Promise<string | number>;
 
 	onAddressTransactions(
-		{ address, confirmations }: AddressTransactionSubscription,
+		{ address, confirmations }: AddressSubscription,
 		cb: (notification: TransactionNotification) => void,
 	): Promise<string | number>;
 

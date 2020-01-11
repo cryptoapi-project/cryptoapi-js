@@ -1,4 +1,4 @@
-export class AddressTransactionSubscription {
+export class AddressSubscription {
 	address: string;
 	confirmations: number;
 

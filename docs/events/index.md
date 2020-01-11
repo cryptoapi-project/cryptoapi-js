@@ -85,6 +85,10 @@ await client.events.eth.disconnect()
 <dd></dd>
 </dl>
 <dl>
+<dt><a href="#onAddressBalance">eth.onAddressBalance</a></dt></dt>
+<dd></dd>
+</dl>
+<dl>
 <dt><a href="#onTokenTransfers">eth.onTokenTransfers</a></dt></dt>
 <dd></dd>
 </dl>
@@ -120,6 +124,10 @@ await client.events.eth.disconnect()
 </dl>
 <dl>
 <dt><a href="#onAddressTransactions">btc.onAddressTransactions</a></dt></dt>
+<dd></dd>
+</dl>
+<dl>
+<dt><a href="#onAddressBalance">btc.onAddressBalance</a></dt></dt>
 <dd></dd>
 </dl>
 <dl>
@@ -166,13 +174,12 @@ Examples:
 | eth | [eth.onBlock](examples/eth.md#onblockconfirmations-number-callback-notification-ethblocknotification-void-promisenumber) |
 | btc | [btc.onBlock](examples/utxo.md#onblockconfirmations-number-callback-notification-utxoblocknotification-void-promisenumber) |
 
-#### <a name="onAddressTransactions">onAddressTransactions</a>({ address, confirmations }: <a href='#AddressTransactionSubscription'>AddressTransactionSubscription</a>, callback: (notification: TransactionNotification) => void, ⇒ <code>Promise&lt;number&gt;</code>
+#### <a name="onAddressTransactions">onAddressTransactions</a>({ address, confirmations }: <a href='#AddressSubscription'>AddressSubscription</a>, callback: (notification: TransactionNotification) => void, ⇒ <code>Promise&lt;number&gt;</code>
 
 | Param | Type | Description |
 | --- | --- | --- |
 | address | <code>string</code> | [Address ] |
 | confirmations | <code>number</code> | [Minimal count of confirmations to notify - max value 100] |
-| callback | <code>Function</code> | [Notifications handler ] |
 | callback | <code>(notification: TransactionNotification => void </code>| [Notifications handler. TransactionNotification is generic type.] |
 
 Returns subscription id.
@@ -188,8 +195,26 @@ Examples:
 
 |  | Examples |
 | --- | --- |
-| eth | [eth.onAddressTransactions](./examples/eth.md#onaddresstransactions-address-confirmations-addresstransactionsubscription-callback-notification-ethtransactionnotification-void-promisenumber) |
-| btc | [btc.onAddressTransactions](./examples/utxo.md#onaddresstransactions-address-confirmations-addresstransactionsubscription-callback-notification-utxotransactionnotification-void-promisenumber) |
+| eth | [eth.onAddressTransactions](./examples/eth.md#onaddresstransactions-address-confirmations-addresssubscription-callback-notification-ethtransactionnotification-void-promisenumber) |
+| btc | [btc.onAddressTransactions](./examples/utxo.md#onaddresstransactions-address-confirmations-addresssubscription-callback-notification-utxotransactionnotification-void-promisenumber) |
+
+#### <a name="onAddressBalance">onAddressBalance</a>({ address, confirmations }: <a href='#AddressSubscription'>AddressSubscription</a>, callback: (notification: <a href="#BalanceNotification">BalanceNotification</a>) => void, ⇒ <code>Promise&lt;number&gt;</code>
+
+| Param | Type | Description |
+| --- | --- | --- |
+| address | <code>string</code> | Address |
+| confirmations | <code>number</code> | [Minimal count of confirmations to notify - max value 100] |
+| callback | <code>(notification: BalanceNotification) => void </code>| Notifications handler |
+
+Returns subscription id.
+
+Examples:
+
+|  | Examples |
+| --- | --- |
+| eth | [eth.onAddressBalance](./examples/eth.md#onaddressbalance-address-confirmations-addresssubscription-callback-notification-balancesubscription-void-promisenumber) |
+| btc | [btc.onAddressBalance](./examples/utxo.md#onaddressbalance-address-confirmations-addresssubscription-callback-notification-balancesubscription-void-promisenumber) |
+
 
 #### <a name="onTokenTransfers">onTokenTransfers</a>({ token, address, confirmations }: <a href="#EthTokenTransferSubscription">EthTokenTransferSubscription</a>, callback: (notification: <a href="#EthTransferNotification">EthTransferNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
 
@@ -292,7 +317,9 @@ console.log(client.events.eth.connected);
 ## Typedefs
 
 <dl>
-<dt><a href="#AddressTransactionSubscription">AddressTransactionSubscription</a> : <code>Object</code></dt>
+<dt><a href="#AddressSubscription">AddressSubscription</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#BalanceNotification">BalanceNotification</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#TransactionConfirmationNotification">TransactionConfirmationNotification</a> : <code>Object</code></dt>
 <dd></dd>
@@ -356,8 +383,8 @@ console.log(client.events.eth.connected);
 }
 ```
 
-#### AddressTransactionSubscription : <code>Object</code>
-<a name="AddressTransactionSubscription"></a>
+#### AddressSubscription : <code>Object</code>
+<a name="AddressSubscription"></a>
 
 ```javascript
 {
@@ -365,6 +392,17 @@ console.log(client.events.eth.connected);
     confirmations: number;
 }
 ```
+
+#### BalanceNotification : <code>Object</code>
+<a name="BalanceNotification"></a>
+
+```javascript
+{
+    address: string;
+    balance: string;
+}
+```
+
 #### EthTransactionNotification : <code>Object</code>
 <a name="EthTransactionNotification"></a>
 

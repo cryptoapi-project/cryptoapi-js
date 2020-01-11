@@ -23,7 +23,10 @@ import { ISubsHelper } from '../../../interfaces/providers/helpers/subs.helper.i
 import { BaseEventsClient } from '../../base/base.events.client';
 
 import { InvalidParamsException } from '../../../exceptions/library.exceptions/invalid.params.exceptions';
-import { TransactionConfirmationNotification } from '../../../dtos/base/event.notification.dtos';
+import {
+	BalanceNotification,
+	TransactionConfirmationNotification,
+} from '../../../dtos/base/event.notification.dtos';
 
 @injectable()
 export class EthEventsClient extends
@@ -63,6 +66,9 @@ export class EthEventsClient extends
 				break;
 			case SUBSCRIPTIONS.CONFIRMATION:
 				info.sub!.cb(new TransactionConfirmationNotification(info.notification));
+				break;
+			case SUBSCRIPTIONS.BALANCE:
+				info.sub!.cb(new BalanceNotification(info.notification));
 				break;
 		}
 	}

@@ -15,7 +15,10 @@ import { ISubsHelper } from '../../../interfaces/providers/helpers/subs.helper.i
 import { IUtxoEventsClient } from '../../../interfaces/clients/utxo/events/utxo.events.client.interface';
 
 import { InvalidParamsException } from '../../../exceptions/library.exceptions/invalid.params.exceptions';
-import { TransactionConfirmationNotification } from '../../../dtos/base/event.notification.dtos';
+import {
+	TransactionConfirmationNotification,
+	BalanceNotification,
+} from '../../../dtos/base/event.notification.dtos';
 
 @injectable()
 export class UtxoEventsClient extends
@@ -47,6 +50,9 @@ export class UtxoEventsClient extends
 				break;
 			case SUBSCRIPTIONS.CONFIRMATION:
 				info.sub!.cb(new TransactionConfirmationNotification(info.notification));
+				break;
+			case SUBSCRIPTIONS.BALANCE:
+				info.sub!.cb(new BalanceNotification(info.notification));
 				break;
 		}
 	}

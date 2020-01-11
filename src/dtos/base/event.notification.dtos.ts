@@ -12,3 +12,18 @@ export class TransactionConfirmationNotification {
 	}
 
 }
+
+export class BalanceNotification {
+
+	address: string;
+	balance: string;
+
+	constructor(notification: {
+		address: string;
+		balance: string;
+	}) {
+		this.address = notification.address;
+		this.balance = notification.balance;
+	}
+
+}

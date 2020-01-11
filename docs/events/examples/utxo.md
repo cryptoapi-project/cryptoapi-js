@@ -14,6 +14,10 @@ All subscribers are listed below:
 <dt><a href="#onTransactionConfirmations">btc.onTransactionConfirmations</a></dt>
 <dd></dd>
 </dl>
+<dl>
+<dt><a href="#onAddressBalance">btc.onAddressBalance</a></dt>
+<dd></dd>
+</dl>
 
 #### <a name="onBlock">onBlock</a>(confirmations: number, callback: (notification: UtxoBlockNotification) => void) ⇒ <code>Promise&lt;number&gt;</code>
 
@@ -59,7 +63,7 @@ client.events.btc.onBlock(1, (message) => { console.log(message) });
                 "myqzZmRvoXmrhsrM5STiMGtNRxCFArHWRd",
                 "msTiK9Wk3xL6g54GEBiXvWkxR3baSUhFrk",
                 "mwhdUvp73wiR6gKWWzz7PhUSGc4caUCEw6",
-            ], 
+            ],
             inputs: [
                 {
                     address: null,
@@ -82,7 +86,7 @@ client.events.btc.onBlock(1, (message) => { console.log(message) });
 }
 ```
 
-#### <a name="onAddressTransactions">onAddressTransactions</a>({ address, confirmations }: <a name="AddressTransactionSubscription">AddressTransactionSubscription</a>, callback: (notification: UtxoTransactionNotification) => void, ⇒ <code>Promise&lt;number&gt;</code>
+#### <a name="onAddressTransactions">onAddressTransactions</a>({ address, confirmations }: <a name="AddressSubscription">AddressSubscription</a>, callback: (notification: UtxoTransactionNotification) => void, ⇒ <code>Promise&lt;number&gt;</code>
 
 ```javascript
 import { Client } from 'cryptoapi-lib';
@@ -117,7 +121,7 @@ client.events.btc.onAddressTransactions({
           "myqzZmRvoXmrhsrM5STiMGtNRxCFArHWRd",
           "msTiK9Wk3xL6g54GEBiXvWkxR3baSUhFrk",
           "mwhdUvp73wiR6gKWWzz7PhUSGc4caUCEw6",
-      ], 
+      ],
       inputs: [
           {
               address: null,
@@ -163,4 +167,27 @@ client.events.btc.onTransactionConfirmations({
 
 ```
 
+#### <a name="onAddressBalance">onAddressBalance</a>({ address, confirmations }: AddressSubscription, callback: (notification: BalanceSubscription) => void) ⇒ <code>Promise&lt;number&gt;</code>
 
+```javascript
+import { Client } from 'cryptoapi-lib';
+const crypto = new Client('YOUR-API-KEY');
+
+const subscriptionId = await client.events.btc.onAddressBalance({
+    address: '12dRugNcdxK39288NjcDV4GX7rMsKCGn6B',
+    confirmations: 2,
+}, (message) => { console.log(message) });
+
+// By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
+client.events.btc.onAddressBalance({
+    address: '12dRugNcdxK39288NjcDV4GX7rMsKCGn6B',
+    confirmations: 2,
+}, (message) => { console.log(message) });
+
+// Notification example
+> {
+    address: "12dRugNcdxK39288NjcDV4GX7rMsKCGn6B"
+    balance: "1280223665"
+}
+
+```

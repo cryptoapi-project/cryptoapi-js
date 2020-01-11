@@ -4,6 +4,8 @@ export enum SUBSCRIPTIONS {
 	TRANSFER = 'new_transfer',
 	CONFIRMATION = 'new_confirmation',
 	CONTRACT_LOG = 'new_contract_log',
+	BALANCE = 'new_balance',
+	TOKEN_BALANCE = 'new_token_balance',
 }
 
 export enum METHODS {
