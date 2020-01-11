@@ -93,6 +93,10 @@ await client.events.eth.disconnect()
 <dd></dd>
 </dl>
 <dl>
+<dt><a href="#onTokenBalance">eth.onTokenBalance</a></dt>
+<dd></dd>
+</dl>
+<dl>
 <dt><a href="#onContractLog">eth.onContractLog</a></dt></dt>
 <dd></dd>
 </dl>
@@ -216,7 +220,7 @@ Examples:
 | btc | [btc.onAddressBalance](./examples/utxo.md#onaddressbalance-address-confirmations-addresssubscription-callback-notification-balancesubscription-void-promisenumber) |
 
 
-#### <a name="onTokenTransfers">onTokenTransfers</a>({ token, address, confirmations }: <a href="#EthTokenTransferSubscription">EthTokenTransferSubscription</a>, callback: (notification: <a href="#EthTransferNotification">EthTransferNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
+#### <a name="onTokenTransfers">onTokenTransfers</a>({ token, address, confirmations }: <a href="#EthTokenSubscription">EthTokenSubscription</a>, callback: (notification: <a href="#EthTransferNotification">EthTransferNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -232,6 +236,23 @@ Examples:
 |  | Examples |
 | --- | --- |
 | eth | [eth.onTokenTransfers](./examples/eth.md#ontokentransfers-token-address-confirmations-ethtokentransfersubscription-callback-notification-ethtransfernotification-void-promisenumber) |
+
+#### <a name="onTokenBalance">onTokenBalance</a>({ token, address, confirmations }: <a href="#EthTokenSubscription">EthTokenSubscription</a>, callback: (notification: <a href="#EthTokenBalanceNotification">EthTokenBalanceNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
+
+| Param | Type | Description |
+| --- | --- | --- |
+| token | <code>string</code> | [Token contract address] |
+| address | <code>string</code> | [Address] |
+| confirmations | <code>number</code> | [Minimal count of confirmations to notify - max value 100] |
+| callback | <code>Function</code> | [Notifications handler ] |
+
+Returns subscription id.
+
+Examples:
+
+|  | Examples |
+| --- | --- |
+| eth | [eth.onTokenBalance](./examples/eth.md#ontokenbalance-token-address-confirmations-ethtokensubscription-callback-notification-ethtokenbalancenotification-void-promisenumber) |
 
 #### <a name="onContractLog">onContractLog</a>({  address, confirmations, from, to, topics  }: <a href="#EthContractLogSubscription">EthContractLogSubscription</a>, callback: (notification: <a href="#EthContractLogNotification">EthContractLogNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
 
@@ -333,9 +354,11 @@ console.log(client.events.eth.connected);
 <dd></dd>
 <dt><a href="#UtxoTransactionNotification">UtxoTransactionNotification</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#EthTokenTransferSubscription">EthTokenTransferSubscription</a> : <code>Object</code></dt>
+<dt><a href="#EthTokenSubscription">EthTokenSubscription</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTransferNotification">EthTransferNotification</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthTokenBalanceNotification">EthTokenBalanceNotification</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthContractLogSubscription">EthContractLogSubscription</a> : <code>Object</code></dt>
 <dd></dd>
@@ -429,8 +452,8 @@ console.log(client.events.eth.connected);
     }>;
 }
 ```
-#### EthTokenTransferSubscription : <code>Object</code>
-<a name="EthTokenTransferSubscription"></a>
+#### EthTokenSubscription : <code>Object</code>
+<a name="EthTokenSubscription"></a>
 
 ```javascript
 {
@@ -454,6 +477,17 @@ console.log(client.events.eth.connected);
     transaction_hash: string;
     transaction_index: number;
     utc: string;
+}
+```
+
+#### EthTokenBalanceNotification : <code>Object</code>
+<a name="EthTokenBalanceNotification"></a>
+
+```javascript
+{
+    address: string;
+    holder: string;
+    balance: string;
 }
 ```
 

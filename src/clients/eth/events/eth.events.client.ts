@@ -7,7 +7,7 @@ import { SUBSCRIPTIONS } from '../../../constants/events.constants';
 import { TYPES_DI } from '../../../constants/inversify.constants';
 
 import {
-	EthTokenTransferSubscription,
+	EthTokenSubscription,
 	EthContractLogSubscription,
 } from '../../../dtos/eth/eth.subscription.dtos';
 import {
@@ -15,6 +15,7 @@ import {
 	EthBlockNotification,
 	EthTransactionNotification,
 	EthContractLogNotification,
+	EthTokenBalanceNotification,
 } from '../../../dtos/eth/eth.notification.dtos';
 
 import { IEthEventsClient } from '../../../interfaces/clients/eth/events/eth.events.client.interface';
@@ -38,6 +39,18 @@ export class EthEventsClient extends
 		@inject(TYPES_DI.ISubsHelper) subsHelper: ISubsHelper,
 	) {
 		super(idHelper, subsHelper);
+	}
+
+	/**
+	 * @private protected
+	 * @param {string} address
+	 * @param {string} key
+	 */
+	protected validateAddress(address: string, key: string = 'address') {
+		this.subsHelper.validateAddress(address);
+		if (!isAddress(address)) {
+			throw new InvalidParamsException(`Invalid ${key}`);
+		}
 	}
 
 	/**
@@ -70,44 +83,53 @@ export class EthEventsClient extends
 			case SUBSCRIPTIONS.BALANCE:
 				info.sub!.cb(new BalanceNotification(info.notification));
 				break;
+			case SUBSCRIPTIONS.TOKEN_BALANCE:
+				info.sub!.cb(new EthTokenBalanceNotification(info.notification));
 		}
 	}
 
 	/**
-	 * @private protected
-	 * @param {string} address
-	 * @param {string} key
+	 *  @method _setAddressSubscription
+	 *  @param {SUBSCRIPTIONS} type
+	 *  @param {EthTokenSubscription} info
+	 *  @param {Function} cb
 	 */
-	protected validateAddress(address: string, key: string = 'address') {
-		this.subsHelper.validateAddress(address);
-		if (!isAddress(address)) {
-			throw new InvalidParamsException(`Invalid ${key}`);
+	private _setTokenSubscription(type: SUBSCRIPTIONS, info: EthTokenSubscription, cb: (param: any) => void) {
+		const { token, address, confirmations } = info;
+		this.validateAddress(info.address);
+		this.validateAddress(info.token, 'token');
+		this.subsHelper.validateCallback(cb);
+
+		if (info.confirmations) {
+			this.subsHelper.validateConfirmations(confirmations);
 		}
+		const id = this.idHelper.get();
+		const params = [type, token, address, confirmations];
+		return super.setSubscription(id, params, cb);
 	}
 
 	/**
 	 *  @method onTokenTransfers
-	 *  @param {EthTokenTransferSubscription} info
+	 *  @param {EthTokenSubscription} info
 	 *  @param {Function} cb
 	 */
 	onTokenTransfers(
-		info: EthTokenTransferSubscription = { confirmations: 0, address: '', token: '' },
+		info: EthTokenSubscription = { confirmations: 0, address: '', token: '' },
 		cb: (notification: EthTransferNotification) => void,
 	) {
-		const { token, address, confirmations } = info;
-		this.validateAddress(address);
-		this.validateAddress(token, 'token');
-		this.subsHelper.validateAddress(token, 'token');
-		this.subsHelper.validateCallback(cb);
+		return this._setTokenSubscription(SUBSCRIPTIONS.TRANSFER, info, cb);
+	}
 
-		if (confirmations) {
-			this.subsHelper.validateConfirmations(confirmations);
-		}
-
-		const id = this.idHelper.get();
-		const params = [SUBSCRIPTIONS.TRANSFER, token, address, confirmations];
-
-		return super.setSubscription(id, params, cb);
+	/**
+	 * @method onTokenBalance
+	 *  @param {EthTokenSubscription} info
+	 *  @param {Function} cb
+	 */
+	onTokenBalance(
+		info: EthTokenSubscription = { confirmations: 0, address: '', token: '' },
+		cb: (notification: EthTokenBalanceNotification) => void,
+	) {
+		return this._setTokenSubscription(SUBSCRIPTIONS.TOKEN_BALANCE, info, cb);
 	}
 
 	/**
@@ -146,5 +168,4 @@ export class EthEventsClient extends
 		return super.setSubscription(id, params, cb);
 
 	}
-
 }

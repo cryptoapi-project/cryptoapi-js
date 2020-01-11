@@ -6,4 +6,5 @@ import { IUtxoEventsClient } from './utxo/events/utxo.events.client.interface';
 export interface IEventsClient extends IConfigurable<ICryptoConfig>  {
 	eth: IEthEventsClient;
 	btc: IUtxoEventsClient;
+	bch: IUtxoEventsClient;
 }

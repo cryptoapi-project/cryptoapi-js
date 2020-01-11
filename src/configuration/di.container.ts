@@ -1,4 +1,7 @@
 import { Container } from 'inversify';
+import bitcoreLib from 'bitcore-lib';
+// @ts-ignore
+import bitcoreLibCash from 'bitcore-lib-cash';
 
 import { TYPES_DI } from '../constants/inversify.constants';
 
@@ -108,5 +111,8 @@ diContainer.bind<IValidateHelper>(TYPES_DI.IValidateHelper).to(ValidateHelper).i
 diContainer.bind<IUrlHelper>(TYPES_DI.IUrlHelper).to(UrlHelper).inSingletonScope();
 diContainer.bind<IIdHelper>(TYPES_DI.IIdHelper).to(IdHelper).inSingletonScope();
 diContainer.bind<ISubsHelper>(TYPES_DI.ISubsHelper).to(SubsHelper).inSingletonScope();
+
+diContainer.bind(TYPES_DI.ICoreLibBch).toConstantValue(bitcoreLibCash);
+diContainer.bind(TYPES_DI.ICoreLibBtc).toConstantValue(bitcoreLib);
 
 export { diContainer };

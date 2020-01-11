@@ -242,3 +242,19 @@ export class EthContractLogNotification {
 	}
 
 }
+
+export class EthTokenBalanceNotification {
+	address: string;
+	holder: string;
+	balance: string;
+
+	constructor(notification: {
+		address: string;
+		holder: string;
+		balance: string;
+	}) {
+		this.address = notification.address;
+		this.holder = notification.holder;
+		this.balance = notification.balance;
+	}
+}

@@ -28,6 +28,9 @@ const TYPES_DI = {
 	IIdHelper: Symbol.for('IIdHelper'),
 	ISubsHelper: Symbol.for('ISubsHelper'),
 
+	ICoreLibBtc: Symbol.for('ICoreLibBtc'),
+	ICoreLibBch: Symbol.for('ICoreLibBch'),
+
 	IHttpService: Symbol.for('IHttpService'),
 	ICryptoConfig: Symbol.for('ICryptoConfig'),
 	IValidateHelper: Symbol.for('IValidateHelper'),

@@ -6,4 +6,6 @@ import {
 } from '../../../../dtos/utxo/utxo.notification.dtos';
 
 export interface IUtxoEventsClient extends IBaseEventsClient
-	<UtxoBlockNotification, UtxoTransactionNotification> {}
+	<UtxoBlockNotification, UtxoTransactionNotification> {
+	configureCoreClient(coreClient: any): void;
+}

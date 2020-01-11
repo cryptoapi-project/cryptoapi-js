@@ -1,5 +1,4 @@
 import { inject, injectable } from 'inversify';
-import { Address } from 'bitcore-lib';
 import WS from 'isomorphic-ws';
 
 import {
@@ -25,11 +24,22 @@ export class UtxoEventsClient extends
 	BaseEventsClient <UtxoBlockNotification, UtxoTransactionNotification>
 	implements IUtxoEventsClient {
 
+	private coreLib: any;
+
 	constructor(
 		@inject(TYPES_DI.IIdHelper) idHelper: IIdHelper,
 		@inject(TYPES_DI.ISubsHelper) subsHelper: ISubsHelper,
 	) {
 		super(idHelper, subsHelper);
+	}
+
+	/**
+	 *
+	 * @method coreClient
+	 * param {any} coreClient
+	 */
+	configureCoreClient(coreClient: any) {
+		this.coreLib = coreClient;
 	}
 
 	/**
@@ -64,8 +74,7 @@ export class UtxoEventsClient extends
 	 */
 	public validateAddress(address: string, key: string = 'address') {
 		this.subsHelper.validateAddress(address);
-		// @ts-ignore
-		if (!Address.isValid(address, this.config.network)) {
+		if (!this.coreLib.Address.isValid(address, this.config!.network)) {
 			throw new InvalidParamsException(`Invalid ${key}`);
 		}
 	}

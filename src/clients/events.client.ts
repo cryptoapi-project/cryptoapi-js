@@ -24,6 +24,12 @@ export class EventsClient implements IEventsClient {
 		this.bch = bch;
 	}
 
+	@inject(TYPES_DI.ICoreLibBch)
+	private _coreLibBch: any;
+
+	@inject(TYPES_DI.ICoreLibBtc)
+	private _coreLibBtc: any;
+
 	/**
 	 *  @method configure
 	 *  @param {ICryptoConfig} config
@@ -36,5 +42,7 @@ export class EventsClient implements IEventsClient {
 		this.eth.configure(config.eth.events, config.token);
 		this.btc.configure(config.btc.events, config.token);
 		this.bch.configure(config.bch.events, config.token);
+		this.bch.configureCoreClient(this._coreLibBch);
+		this.btc.configureCoreClient(this._coreLibBtc);
 	}
 }

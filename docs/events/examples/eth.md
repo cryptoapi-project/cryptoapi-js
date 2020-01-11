@@ -15,6 +15,10 @@ All subscribers are listed below:
 <dd></dd>
 </dl>
 <dl>
+<dt><a href="#onTokenBalance">eth.onTokenBalance</a></dt>
+<dd></dd>
+</dl>
+<dl>
 <dt><a href="#onContractLog">eth.onContractLog</a></dt>
 <dd></dd>
 </dl>
@@ -152,6 +156,33 @@ client.events.eth.onTokenTransfers({
     transaction_hash: '0xdee94524c99227eab281a60722d9680f06c6a95e399c59bcc800976642d0a94a',
     transaction_index: 0,
     utc: '2019-10-20T17:18:11.000Z'
+}
+```
+
+#### <a name="onTokenBalance">onTokenBalance</a>({ token, address, confirmations }: <a name="EthTokenSubscription">EthTokenSubscription</a>, callback: (notification: <a name="EthTokenBalanceNotification">EthTokenBalanceNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
+
+```javascript
+import { Client } from 'cryptoapi-lib';
+const crypto = new Client('YOUR-API-KEY');
+
+const subscriptionId = await client.events.eth.onTokenBalance({
+    token: '0xa96d69556441473c14dad36a95ead179cd458e01',
+    address: '0x3e182ce283e93a9fd30a9030b1a4dc3f48462db4',
+    confirmations: 2,
+}, (message) => { console.log(message) });
+
+// By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
+client.events.eth.onTokenBalance({
+    token: '0xa96d69556441473c14dad36a95ead179cd458e01',
+    address: '0x3e182ce283e93a9fd30a9030b1a4dc3f48462db4',
+    confirmations: 2,
+}, (message) => { console.log(message) });
+
+// Notification example
+> {
+    address: "0xa96d69556441473c14dad36a95ead179cd458e01",
+    balance: "510000000000000000000",
+    holder: "0x3e182ce283e93a9fd30a9030b1a4dc3f48462db4"
 }
 ```
 
