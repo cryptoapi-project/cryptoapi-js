@@ -48,9 +48,9 @@ This library provides eth api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.searchToken">eth.searchToken</a> ⇒<code><a href="#EthTokenSearchResponse">Promise&lt;EthTokenSearchResponse&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#eth.subscribeToken">eth.subscribeToken</a> ⇒<code><a href="#EthSubscribeToken">Promise&lt;EthSubscribeToken&gt;</a></code></dt></dt>
+<dt><a href="#eth.subscribePushNotifications">eth.subscribePushNotifications</a> ⇒<code><a href="#EthSubscribeToken">Promise&lt;EthSubscribeToken&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#eth.unsubscribeToken">eth.unsubscribeToken</a> ⇒<code>Promise&lt;boolean&gt;</code></dt></dt>
+<dt><a href="#eth.unsubscribePushNotifications">eth.unsubscribePushNotifications</a> ⇒<code>Promise&lt;boolean&gt;</code></dt></dt>
 <dd></dd>
 </dl>
 
@@ -633,7 +633,7 @@ Example response:
 }
  ```
 
-#### <a name="eth.subscribeToken">eth.subscribeToken(token: string, addresses: string[])</a> ⇒ <code><a href="#EthSubscribeToken">Promise&lt;EthSubscribeToken&gt;</a></code></dt></dt>
+#### <a name="eth.subscribePushNotifications">eth.subscribePushNotifications(token: string, addresses: string[])</a> ⇒ <code><a href="#EthSubscribeToken">Promise&lt;EthSubscribeToken&gt;</a></code></dt></dt>
 Subscribe push notification by token. Returns JSON data subscribed addresses and token.
 
 Input data:
@@ -646,7 +646,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.subscribeToken('dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jk' +
+    const result = await crypto.api.eth.subscribePushNotifications('dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jk' +
                   		'QkueHG00uHyv3VIuThFxgTf6X8udvDdJIiUrX3SEiEW7dPg3rRxIKsajd' +
                   		'qc84kG1SuRz9JDoEgJXEa-CCNw1Jjn9vKXWrF23zDnNuhMaFksO-',
                   		['0x13b5685d07fa4764a9da7385fd1be93e8829618f']);
@@ -660,7 +660,7 @@ Example response:
 }
  ```
 
-#### <a name="eth.unsubscribeToken">eth.unsubscribeToken(token: string, addresses: string[])</a> ⇒ <code>Promise&lt;boolean&gt;</code></dt></dt>
+#### <a name="eth.unsubscribePushNotifications">eth.unsubscribePushNotifications(token: string, addresses: string[])</a> ⇒ <code>Promise&lt;boolean&gt;</code></dt></dt>
 Unsubscribe push notification by token. If success unsubscribe returns true, else false.
 
 Input data:
@@ -673,7 +673,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.unsubscribeToken('dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jk' +
+    const result = await crypto.api.eth.unsubscribePushNotifications('dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jk' +
                   		'QkueHG00uHyv3VIuThFxgTf6X8udvDdJIiUrX3SEiEW7dPg3rRxIKsajd' +
                   		'qc84kG1SuRz9JDoEgJXEa-CCNw1Jjn9vKXWrF23zDnNuhMaFksO-',
                   		['0x13b5685d07fa4764a9da7385fd1be93e8829618f']);

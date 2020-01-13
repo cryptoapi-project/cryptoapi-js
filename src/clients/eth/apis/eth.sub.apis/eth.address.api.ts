@@ -8,12 +8,15 @@ import { IEthAddressApi } from '../../../../interfaces/clients/eth/apis/eth.sub.
 
 import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
 import { AbstractApi } from '../../../../abstracts/abstract.api';
+import { IValidateHelper } from '../../../../interfaces/providers/helpers/validate.helper.interface';
+import { BaseLibraryException } from '../../../../exceptions/library.exceptions/base.exception';
 
 @injectable()
 export class EthAddressApi  extends AbstractApi implements IEthAddressApi {
 
 	constructor(
 		@inject(TYPES_DI.IHttpService) private readonly httpService: IHttpService,
+		@inject(TYPES_DI.IValidateHelper) private readonly validateHelper: IValidateHelper,
 	) {
 		super();
 	}
@@ -26,6 +29,10 @@ export class EthAddressApi  extends AbstractApi implements IEthAddressApi {
 	 */
 	async getAddressesBalances(addresses: string[]): Promise<EthAddressBalance[]> {
 		this._checkConfig();
+		if (!this.validateHelper.isArray(addresses)) {
+			throw new BaseLibraryException('Addresses must be an array.');
+		}
+
 		const addressesBalances = await this.httpService.agent.get<EthAddressBalance[]>(
 			`${this.config!.baseUrl}${'/coins/eth/addresses/:addresses/balance'
 				.replace(':addresses', addresses.join(','))}`,
@@ -41,8 +48,13 @@ export class EthAddressApi  extends AbstractApi implements IEthAddressApi {
 	 */
 	async getAddressesInfos(addresses: string[]): Promise<EthAddressInfo[]> {
 		this._checkConfig();
+
+		if (!this.validateHelper.isArray(addresses)) {
+			throw new BaseLibraryException('Addresses must be an array.');
+		}
+
 		const addressesInfos = await this.httpService.agent.get<EthAddressInfo[]>(
-			`${this.config!.baseUrl}${'/coins/eth/addresses/:addresses/info'.replace(':addresses', addresses.join(','))}`);
+			`${this.config!.baseUrl}${'/coins/eth/addresses/:addresses'.replace(':addresses', addresses.join(','))}`);
 		return addressesInfos.data.map((data: EthAddressInfo) => new EthAddressInfo(data));
 	}
 

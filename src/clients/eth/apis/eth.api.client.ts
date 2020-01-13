@@ -257,26 +257,26 @@ export class EthApiClient implements IEthApiClient {
 
 	/**
 	 * Method to subscribe push notification by token.
-	 * @method subscribeToken
+	 * @method subscribePushNotifications
 	 * @param {string} token
 	 * @param {string[]} addresses
 	 * @return {Promise<EthSubscribeToken>}
 	 */
 	@TryCatch
-	subscribeToken(token: string, addresses: string[]) {
-		return this.ethNotifyApi.subscribeToken(token, addresses);
+	subscribePushNotifications(token: string, addresses: string[]) {
+		return this.ethNotifyApi.subscribePushNotifications(token, addresses);
 	}
 
 	/**
 	 * Method to unsubscribe push notification by token.
-	 * @method unsubscribeToken
+	 * @method unsubscribePushNotifications
 	 * @param {string} token
 	 * @param {string[]} addresses
 	 * @return {Promise<EthSubscribeToken>}
 	 */
 	@TryCatch
-	unsubscribeToken(token: string, addresses: string[]) {
-		return this.ethNotifyApi.unsubscribeToken(token, addresses);
+	unsubscribePushNotifications(token: string, addresses: string[]) {
+		return this.ethNotifyApi.unsubscribePushNotifications(token, addresses);
 	}
 
 	/**

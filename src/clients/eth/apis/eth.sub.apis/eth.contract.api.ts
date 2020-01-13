@@ -29,7 +29,7 @@ export class EthContractApi extends AbstractApi implements IEthContractApi {
 	async getContractInfo(address: string): Promise<EthContract> {
 		this._checkConfig();
 		const contractInfo = await this.httpService.agent.get<EthContract>(
-			`${this.config!.baseUrl}${'/coins/eth/contracts/:address/info'.replace(':address', address)}`,
+			`${this.config!.baseUrl}${'/coins/eth/contracts/:address'.replace(':address', address)}`,
 		);
 		return new EthContract(contractInfo.data);
 	}

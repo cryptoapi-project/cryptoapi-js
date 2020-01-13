@@ -22,12 +22,12 @@ export class EthNotifyApi extends AbstractApi  implements IEthNotifyApi {
 
 	/**
 	 * Method to subscribe push notification by token.
-	 * @method subscribeToken
+	 * @method subscribePushNotifications
 	 * @param {string} token
 	 * @param {string[]} addresses
 	 * @return {Promise<EthSubscribeToken>}
 	 */
-	async subscribeToken(token: string, addresses: string[]): Promise<EthSubscribeToken> {
+	async subscribePushNotifications(token: string, addresses: string[]): Promise<EthSubscribeToken> {
 		this._checkConfig();
 
 		if (!this.validateHelper.isArray(addresses)) {
@@ -35,9 +35,9 @@ export class EthNotifyApi extends AbstractApi  implements IEthNotifyApi {
 		}
 
 		const subscribeToken = await this.httpService.agent.post<EthSubscribeToken>(
-			`${this.config!.baseUrl}/coins/eth/addresses/:addresses/subscribe`
+			`${this.config!.baseUrl}/coins/eth/push-notifications/addresses/:addresses/balance`
 				.replace(':addresses', addresses.join(',')),
-			 { token },
+			 { firebase_token: token },
 		);
 
 		return new EthSubscribeToken(subscribeToken.data);
@@ -45,22 +45,21 @@ export class EthNotifyApi extends AbstractApi  implements IEthNotifyApi {
 
 	/**
 	 * Method to unsubscribe push notification by token.
-	 * @method unsubscribeToken
+	 * @method unsubscribePushNotifications
 	 * @param {string} token
 	 * @param {string[]} addresses
 	 * @return {Promise<EthSubscribeToken>}
 	 */
-	async unsubscribeToken(token: string, addresses: string[]): Promise<boolean> {
+	async unsubscribePushNotifications(token: string, addresses: string[]): Promise<boolean> {
 		this._checkConfig();
 
 		if (!this.validateHelper.isArray(addresses)) {
 			throw new BaseLibraryException(`Addresses must be an array.`);
 		}
 
-		const unsubscribeToken = await this.httpService.agent.post<EthSubscribeToken>(
-			`${this.config!.baseUrl}/coins/eth/addresses/:addresses/unsubscribe`
+		const unsubscribeToken = await this.httpService.agent.delete<EthSubscribeToken>(
+			`${this.config!.baseUrl}/coins/eth/push-notifications/addresses/:addresses/balance?firebase_token=${token}`
 				.replace(':addresses', addresses.join(',')),
-			{ token },
 		);
 
 		return unsubscribeToken.status === CODE.OK;
