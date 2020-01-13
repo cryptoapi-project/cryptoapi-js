@@ -35,7 +35,7 @@ export class EthNotifyApi extends AbstractApi  implements IEthNotifyApi {
 		}
 
 		const subscribeToken = await this.httpService.agent.post<EthSubscribeToken>(
-			`${this.config!.baseUrl}/coins/eth/accounts/:addresses/subscribe`
+			`${this.config!.baseUrl}/coins/eth/addresses/:addresses/subscribe`
 				.replace(':addresses', addresses.join(',')),
 			 { token },
 		);
@@ -58,7 +58,7 @@ export class EthNotifyApi extends AbstractApi  implements IEthNotifyApi {
 		}
 
 		const unsubscribeToken = await this.httpService.agent.post<EthSubscribeToken>(
-			`${this.config!.baseUrl}/coins/eth/accounts/:addresses/unsubscribe`
+			`${this.config!.baseUrl}/coins/eth/addresses/:addresses/unsubscribe`
 				.replace(':addresses', addresses.join(',')),
 			{ token },
 		);

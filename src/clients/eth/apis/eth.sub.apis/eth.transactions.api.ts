@@ -56,7 +56,7 @@ export class EthTransactionsApi extends AbstractApi implements IEthTransactionsA
 		const query = `${this.urlHelper.addOptionsToUrl('', options)}&positive=${positive}`;
 
 		const transactionsInfo = await this.httpService.agent.get<any>(
-			`${this.config!.baseUrl}/coins/eth/accounts/${addresses.join(',')}/transfers${query}`,
+			`${this.config!.baseUrl}/coins/eth/addresses/${addresses.join(',')}/transfers${query}`,
 		);
 		return new EthTransactionByAddresses(transactionsInfo.data);
 	}
@@ -80,7 +80,7 @@ export class EthTransactionsApi extends AbstractApi implements IEthTransactionsA
 
 		const query = options ? this.urlHelper.addOptionsToUrl('', options) : '';
 		const transactionsInfo = await this.httpService.agent.get<any>(
-			`${this.config!.baseUrl}/coins/eth/accounts/${addresses.join(',')}/transactions/external${query}`,
+			`${this.config!.baseUrl}/coins/eth/addresses/${addresses.join(',')}/transactions/external${query}`,
 		);
 		return new EthTransactionsIntersection(transactionsInfo.data);
 	}

@@ -27,7 +27,7 @@ export class EthAddressApi  extends AbstractApi implements IEthAddressApi {
 	async getAddressesBalances(addresses: string[]): Promise<EthAddressBalance[]> {
 		this._checkConfig();
 		const addressesBalances = await this.httpService.agent.get<EthAddressBalance[]>(
-			`${this.config!.baseUrl}${'/coins/eth/accounts/:addresses/balance'
+			`${this.config!.baseUrl}${'/coins/eth/addresses/:addresses/balance'
 				.replace(':addresses', addresses.join(','))}`,
 		);
 		return addressesBalances.data.map((data: EthAddressBalance) => new EthAddressBalance(data));
@@ -42,7 +42,7 @@ export class EthAddressApi  extends AbstractApi implements IEthAddressApi {
 	async getAddressesInfos(addresses: string[]): Promise<EthAddressInfo[]> {
 		this._checkConfig();
 		const addressesInfos = await this.httpService.agent.get<EthAddressInfo[]>(
-			`${this.config!.baseUrl}${'/coins/eth/accounts/:addresses/info'.replace(':addresses', addresses.join(','))}`);
+			`${this.config!.baseUrl}${'/coins/eth/addresses/:addresses/info'.replace(':addresses', addresses.join(','))}`);
 		return addressesInfos.data.map((data: EthAddressInfo) => new EthAddressInfo(data));
 	}
 

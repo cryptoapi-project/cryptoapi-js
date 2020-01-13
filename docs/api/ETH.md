@@ -28,7 +28,7 @@ This library provides eth api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.getTokenBalanceByAddresses">eth.getTokenBalanceByAddresses</a> ⇒<code><a href="#EthTokenBalance">Promise&lt;EthTokenBalance&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#eth.getTokensBalancesByHolderAddress">eth.getTokensBalancesByHolderAddress</a> ⇒<code><a href="#EthTokensByHolder">Promise&lt;EthTokensByHolder&gt;</a></code></dt></dt>
+<dt><a href="#eth.getTokenBalancesByHolders">eth.getTokenBalancesByHolders</a> ⇒<code><a href="#EthTokenBalanceByHoldersOut">Promise&lt;EthTokenBalanceByHoldersOut&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.decodeRawTransaction">eth.decodeRawTransaction</a> ⇒<code><a href="#EthRawTransaction">Promise&lt;EthRawTransaction&gt;</a></code></dt></dt>
 <dd></dd>
@@ -264,38 +264,34 @@ Example response:
 }
 ```
 
-#### <a name="eth.getTokensBalancesByHolderAddress">eth.getTokensBalancesByHolderAddress(address: string, options: TPaginationOptions)</a> ⇒<code><a href="#EthTokensByHolder">Promise&lt;EthTokensByHolder&gt;</a></code></dt></dt>
-Return list of tokens balances by holder address, when token balance is more than zero.
+#### <a name="eth.getTokenBalancesByHolders">eth.getTokenBalancesByHolders(holders: string[], options: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#EthBalanceTokensByHolder">Promise&lt;EthBalanceTokensByHolder[]&gt;</a></code></dt></dt>
+Return list of tokens balances by holders addresses.
 
 Input data:
 
 | Param | Type | Description |
 | --- | --- | --- |
-| address | <code>string</code> | [Holder address] |
-| options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Options params to paginating response] |
+| holders | <code>string[]</code> | [Holder address] |
+| options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Count of skipping items and page items count] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getTokensBalancesByHolderAddress('0xd89f43605f4ccc0935afceba98f3d5d04ce2e390', {
-		skip: 0,
-	});
+    const result = await crypto.api.eth.getTokenBalancesByHolders(['0xd89f43605f4ccc0935afceba98f3d5d04ce2e390'], { limit: 10 });
 ```
 
 Example response:
 ```
-{
+[
+    total: 10,
     items: [
         {
-            address: "0x5ae86537ea087929a34b597480fd23144d2dd216"
-            balance: "100000000000000000000"
-        }, {
-            address: "0xd7238c83f70a4d30192527c48fd6d30c57a75a29"
-            balance: "100000000000000000000"
+            holder: "0xd89f43605f4ccc0935afceba98f3d5d04ce2e390",
+            address: "0x5ae86537ea087929a34b597480fd23144d2dd216",
+            balance: "100000000000000000000",
         }
     ]
-    total: 2
-}
+]
 ```
 
 #### <a name="eth.decodeRawTransaction">eth.decodeRawTransaction(tr: string)</a> ⇒ <code><a href="#EthRawTransaction">Promise&lt;EthRawTransaction&gt;</a></code></dt></dt>
@@ -802,7 +798,7 @@ Example response:
 <dd></dd>
 <dt><a href="#EthTokenBalance">EthTokenBalance</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#EthTokensByHolder">EthTokensByHolder</a> : <code>Object</code></dt>
+<dt><a href="#EthBalanceTokensByHolder">EthBalanceTokensByHolder</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTokenTransfersResponse">EthTokenTransfersResponse</a> : <code>Object</code></dt>
 <dd></dd>
@@ -956,13 +952,13 @@ Example response:
 }
 ```
 
-#### EthTokensByHolder : <code>Object</code>
-<a name="EthTokensByHolder"></a>
+#### EthBalanceTokensByHolder : <code>Object</code>
+<a name="EthBalanceTokensByHolder"></a>
 
 ```javascript
 {
    total: number;
-   items: EthAddressBalance[];
+   items: EthTokenBalance[];
 }
 ```
 

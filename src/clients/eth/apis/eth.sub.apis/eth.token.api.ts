@@ -5,7 +5,6 @@ import { TPaginationOptions } from '../../../../types/paginations.options.type';
 
 import { EthTokenInfo } from '../../../../dtos/eth/eth.token.info';
 import { EthTokenBalance } from '../../../../dtos/eth/eth.token.balance';
-import { EthTokensByHolder } from '../../../../dtos/eth/eth.tokens.by.holder';
 import { EthTokenTransfersResponse } from '../../../../dtos/eth/eth.transfer.dto';
 import { EthTokenSearchRequest, EthTokenSearchResponse } from '../../../../dtos/eth/eth.token.search';
 
@@ -17,6 +16,7 @@ import { IValidateHelper } from '../../../../interfaces/providers/helpers/valida
 import { AbstractApi } from '../../../../abstracts/abstract.api';
 import { BaseLibraryException } from '../../../../exceptions/library.exceptions/base.exception';
 import { IUrlHelper } from '../../../../interfaces/providers/helpers/url.helper.interface';
+import { EthTokenBalanceByHoldersOut } from '../../../../dtos/eth/eth.tokens.by.holders';
 
 @injectable()
 export class EthTokenApi extends AbstractApi  implements IEthTokenApi {
@@ -62,21 +62,25 @@ export class EthTokenApi extends AbstractApi  implements IEthTokenApi {
 
 	/**
 	 * Method to get tokens balances by holder address.
-	 * @method getTokensBalancesByHolderAddress
-	 * @param {string} address
-	 * @param {TPaginationOptions} options?
-	 * @return {Promise<EthTokensByHolder>}
+	 * @method getTokenBalancesByHolders
+	 * @param {string[]} holders
+	 * @param {TPaginationOptions} options
+	 * @return {Promise<EthTokenBalanceByHoldersOut>}
 	 */
-	async getTokensBalancesByHolderAddress(address: string, options?: TPaginationOptions): Promise<EthTokensByHolder> {
+	async getTokenBalancesByHolders(holders: string[], options?: TPaginationOptions): Promise<EthTokenBalanceByHoldersOut> {
 		this._checkConfig();
 
-		let url = `${this.config!.baseUrl}${'/coins/eth/tokens/:address/balances'
-			.replace(':address', address)}`;
+		if (!this.validateHelper.isArray(holders)) {
+			throw new BaseLibraryException('holders must be an array.');
+		}
+
+		let url = `${this.config!.baseUrl}${'/coins/eth/addresses/:addresses/balance/tokens'
+			.replace(':addresses', holders.join(','))}`;
 		url = this.urlHelper.addOptionsToUrl(url, options);
 
-		const tokensBalances = await this.httpClient.agent.get<EthTokensByHolder>(url);
+		const data = await this.httpClient.agent.get<EthTokenBalanceByHoldersOut>(url);
 
-		return new EthTokensByHolder(tokensBalances.data);
+		return  new EthTokenBalanceByHoldersOut(data.data);
 	}
 
 	/**

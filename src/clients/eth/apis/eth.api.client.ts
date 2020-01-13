@@ -138,13 +138,13 @@ export class EthApiClient implements IEthApiClient {
 	/**
 	 * Method to get list  tokens balances by holder address.
 	 * @method getTokensBalancesByHolderAddress
-	 * @param {string} address
-	 * @param {TPaginationOptions} options?
-	 * @return {Promise{EthTokensByHolder}}
+	 * @param {string[]} holders
+	 * @param {TPaginationOptions} options
+	 * @return {Promise{EthTokenBalanceByHoldersOut}}
 	 */
 	@TryCatch
-	getTokensBalancesByHolderAddress(address: string, options?: TPaginationOptions) {
-		return this.ethTokenInfo.getTokensBalancesByHolderAddress(address, options);
+	getTokenBalancesByHolders(holders: string[], options?: TPaginationOptions) {
+		return this.ethTokenInfo.getTokenBalancesByHolders(holders, options);
 	}
 
 	/**
