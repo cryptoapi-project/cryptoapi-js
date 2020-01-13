@@ -1,6 +1,6 @@
 export type TContractLogsRequest = {
-	fromBlock?: number;
-	toBlock?: number;
+	from_block?: number;
+	to_block?: number;
 	address?: string[];
 	topics?: string[];
 };

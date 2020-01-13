@@ -568,8 +568,8 @@ Input data:
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
     const result = await crypto.api.eth.getContractLogs({
-        fromBlock: "5550100",
-        toBlock: "5550500",
+        from_block: "5550100",
+        to_block: "5550500",
         address: ["0x23b814a57d53b1a7a860194f53401d0d639abed7"],
       });
 ```
@@ -1272,8 +1272,8 @@ Example response:
 
 ```javascript
 {
-	fromBlock: number;
-	toBlock: number;
+	from_block: number;
+	to_block: number;
 	address: string[];
 	topics: string[];    
 }
