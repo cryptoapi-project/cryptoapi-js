@@ -19,7 +19,7 @@ Below are examples with btc.
 <dd></dd>
 <dt><a href="#btc.getFullTransactionInfo">getFullTransactionInfo</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#btc.getTransactionsByHashes">getTransactionsByHashes</a> ⇒<code><a href="#FullUtxoTransaction">Promise&lt;FullUtxoTransaction[]&gt;</a></code></dt></dt>
+<dt><a href="#btc.getTransactions">getTransactions</a> ⇒<code><a href="#Transactions">Promise&lt;Transactions&gt;</a></code></dt></dt>
 <dd></dd>
 <dd></dd>
 <dt><a href="#btc.getAddressesInfos">getAddressesInfos</a> ⇒<code><a href="#UtxoAddressInfo">Promise&lt;UtxoAddressInfo[]&gt;</a></code></dt></dt>
@@ -175,26 +175,34 @@ Example response:
 }
 ```
 
-#### <a name="btc.getTransactionsByHashes">btc.getTransactionsByHashes</a>(hashes: string[]) ⇒ <code>Promise&lt;<a href="#FullUtxoTransaction">FullUtxoTransaction[]</a>&gt;</code></dt></dt>
-Returns JSON data about full transaction information by hashes.
+#### <a name="btc.getTransactions">btc.getTransactions</a>(params: <a href="#TTransactionsRequest">TTransactionsRequest</a>) ⇒ <code>Promise&lt;<a href="#Transactions">Transactions</a>&gt;</code></dt></dt>
+Returns JSON data about transactions by params.
 
 Input data:
 
 | Param | Type | Description |
 | --- | --- | --- |
-| hashes | <code>string[]</code> | [Accepts transactions hashes.] |
+| params | <code><a href="#TTransactionsRequest">TTransactionsRequest</a></code> | [Request params] |
+| options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Options params to paginating response] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.btc.getTransactionsByHashes(['20222eb90f5895556926c112bb5aa0df4ab5abc3107e21a6950aec3b2e3541e2', 'f0315ffc38709d70ad5647e22048358dd3745f3ce3874223c80a7c92fab0c8ba']);
+    const result = await crypto.api.btc.getTransactions({ blockHeightOrHash: 2, from: null, to: null }, { limit: 15, skip: 0 });
 ```
 
 Example response:
 
 ```
-[
-	{
+
+{
+  "block_height_or_hash": 2,
+  "skip": 0,
+  "limit": 15,
+  "from": null,
+  "to": null,
+  "items": [
+    {
 		block_height: 2,
 		block_hash: "000000006c02c8ea6e4ff69651f7fcde348fb9d557a06e6957b65552002a7820",
 		block_time: "2011-02-02T23:22:26.000Z",
@@ -220,34 +228,10 @@ Example response:
 				script: "21038a7f6ef1c8ca0c588aa53fa860128077c9e6c11e6830f4d7ee4e763a56b7718fac"
 			}
 		]
-	},
-	{
-		block_height: 1,
-		block_hash: "00000000b873e79784647a6c82962c70d228557d24a747ea4d1b8bbe878e1206",
-		block_time: "2011-02-02T23:22:08.000Z",
-		fee: 0,
-		size: 109,
-		n_lock_time: 0,
-		value: 5000000000,
-		hash: "f0315ffc38709d70ad5647e22048358dd3745f3ce3874223c80a7c92fab0c8ba",
-		input_count: 1,
-		output_count: 1,
-		inputs: [
-			{
-				previous_transaction_hash: "0000000000000000000000000000000000000000000000000000000000000000",
-				output_index: 4294967295,
-				sequence_number: 4294967295,
-				script: null
-			}
-		],
-		outputs: [
-			{
-				address: "n3GNqMveyvaPvUbH469vDRadqpJMPc84JA",
-				satoshis: 5000000000,
-				script: "21021aeaf2f8638a129a3156fbe7e5ef635226b0bafd495ff03afe2c843d7e3a4b51ac"
-			}
-		]
 	}
+  ]
+}
+
 ```
 
 #### <a name="btc.getAddressesInfos">btc.getAddressesInfos</a>(addresses: string[]) ⇒ <code>Promise&lt;<a href="#UtxoAddressInfo[]">UtxoAddressInfo[]</a>&gt;</code></dt></dt>
@@ -477,6 +461,10 @@ Example response:
 <dt><a href="#TPaginationOptions">TPaginationOptions</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#UtxoRawTransaction">UtxoRawTransaction</a> : <code>Object</code></dt>
+<dd></dd> 
+<dt><a href="#TTransactionsRequest">TTransactionsRequest</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#Transactions">Transactions</a> : <code>Object</code></dt>
 <dd></dd>
 </dl>
 
@@ -631,3 +619,28 @@ Example response:
     limit?: number;
 }
 ```
+
+#### TTransactionsRequest : <code>Object</code>
+<a name="TTransactionsRequest"></a>
+
+```javascript
+{
+    blockHeightOrHash?: string;
+    to?: string;
+    from?: string;
+}
+```
+
+#### Transactions : <code>Object</code>
+<a name="Transactions"></a>
+
+```javascript
+{
+    items: FullUtxoTransaction[];
+    to: string;
+    from: string;
+    skip: number;
+    limit: number;
+}
+```
+

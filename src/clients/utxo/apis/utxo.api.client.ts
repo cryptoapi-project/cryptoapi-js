@@ -12,6 +12,7 @@ import { IUtxoAddressApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.
 import { TPaginationOptions } from '../../../types/paginations.options.type';
 import { IUtxoOutputsApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.outputs.interface';
 import { TUtxoOutputsOptions } from '../../../types/utxo/utxo.outputs.options';
+import { TTransactionsRequest } from '../../../types/utxo/utxo.transactions.request';
 
 @injectable()
 export class UtxoApiClient implements IUtxoApiClient {
@@ -108,14 +109,15 @@ export class UtxoApiClient implements IUtxoApiClient {
 	}
 
 	/**
-	 * Get utxo transactions information by hashes.
-	 * @method getTransactionsByHashes
-	 * @ param {string[]} hashes
+	 * Get utxo transactions information by params.
+	 * @method getTransactions
+	 * @param {TTransactionsRequest} params
+	 * @param {TPaginationOptions} options?
 	 * @return {Promise<FullUtxoTransaction[]>}
 	 */
 	@TryCatch
-	async getTransactionsByHashes(hashes: string[]) {
-		return this.utxoTransactionsApi.getTransactionsByHashes(hashes);
+	async getTransactions(params: TTransactionsRequest, options?: TPaginationOptions) {
+		return this.utxoTransactionsApi.getTransactions(params, options);
 	}
 
 	/**

@@ -64,3 +64,20 @@ export class FullUtxoTransaction {
 	}
 
 }
+
+export class Transactions {
+
+	skip: number;
+	limit: number;
+	to: string;
+	from: string;
+	items: FullUtxoTransaction[];
+
+	constructor(params: { skip: number, limit: number, to: string, from: string, items: FullUtxoTransaction[]}) {
+		this.skip = params.skip;
+		this.limit = params.limit;
+		this.to = params.to;
+		this.from = params.from;
+		this.items = params.items;
+	}
+}

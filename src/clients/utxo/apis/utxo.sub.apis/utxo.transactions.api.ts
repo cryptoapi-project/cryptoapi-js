@@ -1,12 +1,14 @@
 import { inject, injectable } from 'inversify';
+import qs from 'query-string';
 import { AbstractApi } from '../../../../abstracts/abstract.api';
 import { TYPES_DI } from '../../../../constants/inversify.constants';
 import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
 import { IUrlHelper } from '../../../../interfaces/providers/helpers/url.helper.interface';
 import { IUtxoTransactionsApi } from '../../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.transactions.interface';
-import { FullUtxoTransaction } from '../../../../dtos/utxo/utxo.transaction.dtos';
+import { FullUtxoTransaction, Transactions } from '../../../../dtos/utxo/utxo.transaction.dtos';
 import { IValidateHelper } from '../../../../interfaces/providers/helpers/validate.helper.interface';
-import { BaseLibraryException } from '../../../../exceptions/library.exceptions/base.exception';
+import { TPaginationOptions } from '../../../../types/paginations.options.type';
+import { TTransactionsRequest } from '../../../../types/utxo/utxo.transactions.request';
 
 @injectable()
 export class UtxoTransactionsApi extends AbstractApi implements IUtxoTransactionsApi {
@@ -36,24 +38,45 @@ export class UtxoTransactionsApi extends AbstractApi implements IUtxoTransaction
 	}
 
 	/**
-	 *  Get full transaction info by hashes.
-	 * @method getTransactionsByHashes
-	 * @param {string[]} hashes
+	 * Get utxo transactions information by params.
+	 * @method getTransactions
+	 * @param {TTransactionsRequest} params
+	 * @param {TPaginationOptions} options?
 	 * @return {Promise<FullUtxoTransaction[]>}
 	 */
-	async getTransactionsByHashes(hashes: string[]) {
+	async getTransactions(params?: TTransactionsRequest, options?: TPaginationOptions) {
 		this._checkConfig();
 
-		if (!this.validateHelper.isArray(hashes) || !hashes.length) {
-			throw new BaseLibraryException(`Hashes are required`);
+		let query = '';
+		const queryObject: any = {};
+
+		const addParamIfNotUndefined = (object: any, value: any, assignParamName: string) => {
+			if (typeof value !== 'undefined') {
+				object[assignParamName] = value;
+			}
+			return object;
+		};
+
+		if (params) {
+			addParamIfNotUndefined(queryObject, params.blockHeightOrHash, 'block_height_or_hash');
+			addParamIfNotUndefined(queryObject, params.to, 'to');
+			addParamIfNotUndefined(queryObject, params.from, 'from');
 		}
 
-		const joinedHashes = hashes.join(',');
-		const transactions = await this.httpService.agent.get<FullUtxoTransaction[]>(
-			`${this.config!.baseUrl}/coins/${this.config!.coin}/transactions?hashes=${joinedHashes}`,
+		if (options) {
+			addParamIfNotUndefined(queryObject, options.skip, 'skip');
+			addParamIfNotUndefined(queryObject, options.limit, 'limit');
+		}
+
+		if (Object.keys(queryObject).length) {
+			query = qs.stringify(queryObject);
+		}
+
+		const transactions = await this.httpService.agent.get<Transactions>(
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/transactions?${query}`,
 		);
 
-		return transactions.data.map((tr) => new FullUtxoTransaction(tr));
+		return new Transactions(transactions.data);
 	}
 
 }
