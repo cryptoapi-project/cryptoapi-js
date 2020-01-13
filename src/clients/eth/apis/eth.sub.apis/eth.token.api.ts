@@ -5,7 +5,11 @@ import { TPaginationOptions } from '../../../../types/paginations.options.type';
 
 import { EthTokenInfo } from '../../../../dtos/eth/eth.token.info';
 import { EthTokenBalance } from '../../../../dtos/eth/eth.token.balance';
-import { EthTokenTransfersResponse } from '../../../../dtos/eth/eth.transfer.dto';
+import {
+	EthTokenTransfersByAddressesRequest,
+	EthTokenTransfersRequest,
+	EthTokenTransfersResponse,
+} from '../../../../dtos/eth/eth.transfer.dto';
 import { EthTokenSearchRequest, EthTokenSearchResponse } from '../../../../dtos/eth/eth.token.search';
 
 import { IEthTokenApi } from '../../../../interfaces/clients/eth/apis/eth.sub.apis/eth.token.api.interface';
@@ -86,20 +90,19 @@ export class EthTokenApi extends AbstractApi  implements IEthTokenApi {
 	/**
 	 * Method to get token transfers by token address.
 	 * @method getTokenTransfers
-	 * @param {string} tokenAddress
-	 * @param {string[]} addresses
+	 * @param {EthTokenTransfersRequest} transfersRequest
 	 * @param {TPaginationOptions} options?
 	 * @return {Promise<EthTokenTransfersResponse>}
 	 */
-	async getTokenTransfers(tokenAddress: string, addresses: string[], options?: TPaginationOptions): Promise<EthTokenTransfersResponse> {
+	async getTokenTransfers(transfersRequest: EthTokenTransfersRequest, options?: TPaginationOptions): Promise<EthTokenTransfersResponse> {
 		this._checkConfig();
 
-		if (!this.validateHelper.isArray(addresses)) {
+		if (transfersRequest.addresses && !this.validateHelper.isArray(transfersRequest.addresses)) {
 			throw new BaseLibraryException('Addresses must be an array.');
 		}
 
-		let url = `${this.config!.baseUrl}${'/coins/eth/tokens/:token'.replace(':token', tokenAddress)}`;
-		url += addresses.length ? `/${addresses.join(',')}/transfers` : '/transfers';
+		let url = `${this.config!.baseUrl}${'/coins/eth/tokens/:token'.replace(':token', transfersRequest.tokenAddress)}`;
+		url += transfersRequest.addresses?.length ? `/${transfersRequest.addresses?.join(',')}/transfers` : '/transfers';
 		url = this.urlHelper.addOptionsToUrl(url, options);
 
 		const tokenTransfers = await this.httpClient.agent.get<EthTokenTransfersResponse>(url);
@@ -107,7 +110,35 @@ export class EthTokenApi extends AbstractApi  implements IEthTokenApi {
 		return new EthTokenTransfersResponse(tokenTransfers.data);
 	}
 
-	/*
+	/**
+	 * Method to get token transfers by token address and addresses.
+	 * @method getTokenTransfersByAddresses
+	 * @param {EthTokenTransfersByAddressesRequest} transfersRequest
+	 * @param {TPaginationOptions} options?
+	 * @return {Promise<EthTokenTransfersResponse>}
+	 */
+	async getTokenTransfersByAddresses(
+		transfersRequest: EthTokenTransfersByAddressesRequest,
+		options?: TPaginationOptions,
+	): Promise<EthTokenTransfersResponse> {
+		this._checkConfig();
+
+		if (!this.validateHelper.isArray(transfersRequest.addresses)) {
+			throw new BaseLibraryException('Addresses must be an array.');
+		}
+
+		let url = `${this.config!.baseUrl}${`/coins/eth/addresses/:addresses/transfers/tokens/:token`
+			.replace(':addresses', transfersRequest.addresses.join(','))
+			.replace(':token', transfersRequest.tokenAddress)
+		}`;
+		url = this.urlHelper.addOptionsToUrl(url, options);
+
+		const tokenTransfers = await this.httpClient.agent.get<EthTokenTransfersResponse>(url);
+
+		return new EthTokenTransfersResponse(tokenTransfers.data);
+	}
+
+	/**
 	 * Method to search token.
 	 * @method searchToken
 	 * @param {EthTokenSearchRequest} searchRequest

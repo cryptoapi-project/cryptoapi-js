@@ -46,6 +46,8 @@ This library provides eth api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.getTokenTransfers">eth.getTokenTransfers</a> ⇒<code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#eth.getTokenTransfersByAddresses">eth.getTokenTransfersByAddresses</a> ⇒<code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
+<dd></dd>
 <dt><a href="#eth.searchToken">eth.searchToken</a> ⇒<code><a href="#EthTokenSearchResponse">Promise&lt;EthTokenSearchResponse&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.subscribePushNotifications">eth.subscribePushNotifications</a> ⇒<code><a href="#EthSubscribeToken">Promise&lt;EthSubscribeToken&gt;</a></code></dt></dt>
@@ -485,20 +487,19 @@ Example response:
 }
 ```
 
-#### <a name="eth.getTokenTransfers">eth.getTokenTransfers(tokenAddress: string, addresses: string[], options?: TPaginationOptions)</a> ⇒ <code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
+#### <a name="eth.getTokenTransfers">eth.getTokenTransfers(transfersRequest: EthTokenTransfersRequest, options?: TPaginationOptions)</a> ⇒ <code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
 Returns JSON data with list transfer by token address.
 
 Input data:
 
 | Param | Type | Description |
 | --- | --- | --- |
-| tokenAddress | <code>string</code> | [Token address] |
-| addresses | <code>string[]</code> | [Ethereum addresses] |
+| transfersRequest | <code><a href="#EthTokenTransfersRequest">EthTokenTransfersRequest</a></code> | [Token address and ethereum addresses] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getTokenTransfers('0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c', [], {
+    const result = await crypto.api.eth.getTokenTransfers({tokenAddress: '0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c'}, {
         skip: 1,
         limit: 1
     });
@@ -526,6 +527,52 @@ Example response:
         }
     ]
     count: 2
+}
+```
+
+#### <a name="eth.getTokenTransfersByAddresses">eth.getTokenTransfersByAddresses(transfersRequest: EthTokenTransfersByAddressesRequest, options?: TPaginationOptions)</a> ⇒ <code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
+Returns JSON data with list transfer by token address and ethereum addresses.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| transfersRequest | <code><a href="#EthTokenTransfersByAddressesRequest">EthTokenTransfersByAddressesRequest</a></code> | [Token address and ethereum addresses] |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('YOUR-API-KEY');
+    const result = await crypto.api.eth.getTokenTransfersByAddresses({
+        tokenAddress: '0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c',
+        addresses: ['0x08355184bdfd2f61324808cc8652b12db6d4f8cc']
+    }, {
+        skip: 1,
+        limit: 1
+    });
+```
+
+Example response:
+```
+{
+    addresses: ['0x08355184bdfd2f61324808cc8652b12db6d4f8cc']
+    skip: 1
+    limit: 1
+    items: [
+        {
+            address: "0xda2a36bde6b0b87c72701d94fa4c2bc2d70d9b2c"
+            block_number: 5514501
+            execute_address: "0x1fe2407c888d6d7d41021d45e9f22781f6641629"
+            from: "0x0000000000000000000000000000000000000000"
+            log_index: 2
+            utc: "2019-11-27T12:11:26.000Z"
+            to: "0x08355184bdfd2f61324808cc8652b12db6d4f8cc"
+            transaction_hash: "0x45dff9751cffa8a933138d17ccfaff480114dc3240da78e2fde76c9e81462636"
+            transaction_index: 9
+            type: "ERC20"
+            value: "0x000000000000000000000000000000000000000000000001158e460913d00000"
+        }
+    ]
+    count: 1
 }
 ```
 
@@ -800,6 +847,10 @@ Example response:
 <dd></dd>
 <dt><a href="#EthBalanceTokensByHolder">EthBalanceTokensByHolder</a> : <code>Object</code></dt>
 <dd></dd>
+<dt><a href="#EthTokenTransfersRequest">EthTokenTransfersRequest</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthTokenTransfersByAddressesRequest">EthTokenTransfersByAddressesRequest</a> : <code>Object</code></dt>
+<dd></dd>
 <dt><a href="#EthTokenTransfersResponse">EthTokenTransfersResponse</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#TPaginationOptions">TPaginationOptions</a> : <code>Object</code></dt>
@@ -959,6 +1010,26 @@ Example response:
 {
    total: number;
    items: EthTokenBalance[];
+}
+```
+
+#### EthTokenTransfersRequest : <code>Object</code>
+<a name="EthTokenTransfersRequest"></a>
+
+```javascript
+{
+    tokenAddress: string;
+    addresses?: string[] || null;
+}
+```
+
+#### EthTokenTransfersByAddressesRequest : <code>Object</code>
+<a name="EthTokenTransfersByAddressesRequest"></a>
+
+```javascript
+{
+    addresses: string[];
+    tokenAddress: string;
 }
 ```
 

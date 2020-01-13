@@ -22,6 +22,7 @@ import { IEthRawTransactionApi } from '../../../interfaces/clients/eth/apis/eth.
 
 import { TryCatch } from '../../../providers/decorators/try.catch';
 import { EthTokenSearchRequest } from '../../../dtos/eth/eth.token.search';
+import { EthTokenTransfersByAddressesRequest, EthTokenTransfersRequest } from '../../../dtos/eth/eth.transfer.dto';
 
 @injectable()
 export class EthApiClient implements IEthApiClient {
@@ -158,7 +159,7 @@ export class EthApiClient implements IEthApiClient {
 		return this.ethBlock.getBlock(blockNumber);
 	}
 
-	/*
+	/**
 	 * Method decode raw transaction.
 	 * @method decodeRawTransaction
 	 * @param {string} tr
@@ -208,17 +209,28 @@ export class EthApiClient implements IEthApiClient {
 
 	}
 
-	/*
+	/**
 	 * Method to get token transfers by token address.
 	 * @method getTokenTransfers
-	 * @param {string} addressToken
-	 * @param {string[]} addresses
+	 * @param {EthTokenTransfersRequest} transfersRequest
 	 * @param {TPaginationOptions} options?
 	 * @return {Promise<EthTokenTransfersResponse>}
 	 */
 	@TryCatch
-	getTokenTransfers(addressToken: string, addresses: string[], options?: TPaginationOptions) {
-		return this.ethTokenInfo.getTokenTransfers(addressToken, addresses, options);
+	getTokenTransfers(transfersRequest: EthTokenTransfersRequest, options?: TPaginationOptions) {
+		return this.ethTokenInfo.getTokenTransfers(transfersRequest, options);
+	}
+
+	/**
+	 * Method to get token transfers by token address and addresses.
+	 * @method getTokenTransfersByAddresses
+	 * @param {EthTokenTransfersByAddressesRequest} transfersRequest
+	 * @param {TPaginationOptions} options?
+	 * @return {Promise<EthTokenTransfersResponse>}
+	 */
+	@TryCatch
+	getTokenTransfersByAddresses(transfersRequest: EthTokenTransfersByAddressesRequest, options?: TPaginationOptions) {
+		return this.ethTokenInfo.getTokenTransfersByAddresses(transfersRequest, options);
 	}
 
 	/**
@@ -232,7 +244,7 @@ export class EthApiClient implements IEthApiClient {
 		return this.ethContractApi.callContract(data);
 	}
 
-	/*
+	/**
 	 * Method to send raw transaction.
 	 * @method sendRawTransaction
 	 * @param {string} tr
@@ -243,7 +255,7 @@ export class EthApiClient implements IEthApiClient {
 		return this.rawTransactionApi.sendRawTransaction(tr);
 	}
 
-	/*
+	/**
 	 * Method to search token.
 	 * @method searchToken
 	 * @param {EthTokenSearchRequest} searchRequest
