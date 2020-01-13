@@ -491,7 +491,17 @@ Example response:
             "value": "1000000000000000000",
             "v": "0x2b",
             "s": "0x55b0348bf5a0f5b3e64f2b6a324c2dc3114f301e5dfbd68b01e1d0b2a3f4a593",
-            "r": "0xa03fe81c87e60fce8d483ec933a65931e617f38af01c6a1cc37d6658f79bbda1"
+            "r": "0xa03fe81c87e60fce8d483ec933a65931e617f38af01c6a1cc37d6658f79bbda1",
+            "internal_transactions": [
+                {
+                    "to": "0x8272aa59c6baaf0d17db9b8fdb8a745213494239",
+                    "from": "0x13b5685d07fa4764a9da7385fd1be93e8829618f",
+                    "value": "0",
+                    "input": "0x00",
+                    "is_suicide": false,
+                    "type": "CREATE",
+                }
+            ]
         }
     ]
 }
