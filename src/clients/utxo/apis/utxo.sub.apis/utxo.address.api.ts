@@ -37,7 +37,7 @@ export class UtxoAddressApi extends AbstractApi implements IUtxoAddressApi {
 
 		const joinedAddresses = addresses.join(',');
 		const infos = await this.httpService.agent.get<any>(
-			`${this.config!.baseUrl}/coins/${this.config!.coin}/addresses/${joinedAddresses}/info`,
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/addresses/${joinedAddresses}`,
 		);
 
 		return infos.data.map((info: UtxoAddressInfo) => new UtxoAddressInfo(info));
@@ -60,7 +60,7 @@ export class UtxoAddressApi extends AbstractApi implements IUtxoAddressApi {
 
 		const joinedAddresses = addresses.join(',');
 		const history = await this.httpService.agent.get<UtxoAddressHistory>(
-			`${this.config!.baseUrl}/coins/${this.config!.coin}/addresses/${joinedAddresses}/history${query}`,
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/addresses/${joinedAddresses}/transactions${query}`,
 		);
 
 		return new UtxoAddressHistory(history.data);

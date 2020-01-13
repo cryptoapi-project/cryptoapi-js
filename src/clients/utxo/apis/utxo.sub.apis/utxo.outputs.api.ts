@@ -37,7 +37,7 @@ export class UtxoOutputsApi extends AbstractApi implements IUtxoOutputsApi {
 
 		const joinedAddresses = addresses.join(',');
 		const outputs = await this.httpService.agent.get<UtxoOutput[]>(
-			`${this.config!.baseUrl}/coins/${this.config!.coin}/outputs/${joinedAddresses}${query}`,
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/addresses/${joinedAddresses}/outputs${query}`,
 		);
 
 		return outputs.data.map((output) => new UtxoOutput(output));
