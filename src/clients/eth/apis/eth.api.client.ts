@@ -160,6 +160,17 @@ export class EthApiClient implements IEthApiClient {
 	}
 
 	/**
+	 * Method to get all block.
+	 * @method getBlock
+	 * @param {TPaginationOptions} options
+	 * @return {Promise<EthBlockInfo>}
+	 */
+	@TryCatch
+	getBlocks(options: TPaginationOptions) {
+		return this.ethBlock.getBlocks(options);
+	}
+
+	/*
 	 * Method decode raw transaction.
 	 * @method decodeRawTransaction
 	 * @param {string} tr

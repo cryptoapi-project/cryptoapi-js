@@ -14,6 +14,8 @@ This library provides eth api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.getBlock">eth.getBlock</a> ⇒<code><a href="#EthBlockInfo">Promise&lt;EthBlockInfo&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#eth.getBlocks">eth.getBlocks</a> ⇒<code><a href="#EthBlocksResponse">Promise&lt;EthBlocksResponse&gt;</a></code></dt></dt>
+<dd></dd>
 <dt><a href="#eth.getAddressesBalances">eth.getAddressesBalances(addresses: string[])</a> ⇒<code><a href="#EthAddressBalance">Promise&lt;EthAddressBalance[]&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getAddressesInfos">eth.getAddressesInfos(addresses: string[])</a> ⇒<code><a href="#EthAddressInfo">Promise&lt;EthAddressInfo[]&gt;</a></code></dt></dt>
@@ -130,6 +132,54 @@ Example response:
     transaction_root: '0xba02eb65dbd8629bf13b0819e5a7e0158dfcfcc64b7c1922a794b2f6824f8b42',
     transactions: ['0xec4f7a1a8bfbac44fd2d9af09a7291217668a6b834a54fa186a9cf613d65ca34'],
     uncles: []
+}
+```
+
+#### <a name="eth.getBlocks">eth.getBlocks</a>(options: <a href="#TPaginationOptions">TPaginationOptions</a>) ⇒ <code>Promise&lt;<a href="#EthBlocksResponse">EthBlocksResponse</a>&gt;</code></dt></dt>
+Returns JSON data about all blocks.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Count of skipping items and page items count] |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('YOUR-API-KEY');
+    const result = await crypto.api.eth.getBlocks({ limit: 1 });
+```
+
+Example response:
+```
+{
+    "count": 180543,
+    "limit": 1,
+    "skip": 0,
+    "items": [
+        {
+            "size": 752,
+            "difficulty": 2,
+            "total_difficulty": 352552,
+            "uncles": [],
+            "number": 180543,
+            "hash": "0x82d5ad2dbfc374e444bf4946649cb8d4dd02deee2e779a306872eb866293421e",
+            "parent_hash": "0xafa0e6b9c2b6f73685c7c190390ff66c2209b3ee8fc68cc5bf63e37149e81cca",
+            "nonce": "0x0000000000000000",
+            "sha3_uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+            "logs_bloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "transaction_root": "0x2734247c8d8449b92898ae65e05b88b348de39b40fd9486c381ecd8f01882a59",
+            "state_root": "0xf4593ae357ba7689e22ed9cc82edffb68c23c6ad5fd88032f040c3095f7ab38e",
+            "receipts_root": "0x3648a4f622fffe716a45384d348c762c27123bbcfa152fd681444c4590c3cc35",
+            "miner": "0x0000000000000000000000000000000000000000",
+            "mix_hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "extra_data": "0xd783010600846765746887676f312e372e33856c696e7578000000000000000029b55d707cbdfb8ff078803c04dae209125424776a7e3574383711695d19a4087b3b7bbe6f18b3057458c613149f91dc60f633ea8b125424b93f31d28cc4726f00",
+            "gas_limit": 4712388,
+            "gas_used": 4707786,
+            "utc": "2017-05-13T23:37:12.000Z",
+            "transactions": [
+            "0x41cd77fd4532498b75551a030c8b5acf89adb99bb5331de237df38224a798587"
+            ]
+        }
+    ]
 }
 ```
 
@@ -832,6 +882,8 @@ Example response:
 <dd></dd>
 <dt><a href="#EthBlockInfo">EthBlockInfo</a> : <code>Object</code></dt>
 <dd></dd>
+<dt><a href="#EthBlocksResponse">EthBlocksResponse</a> : <code>Object</code></dt>
+<dd></dd>
 <dt><a href="#EthTokenInfo">EthTokenInfo</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthAddressBalance">EthAddressBalance</a> : <code>Object</code></dt>
@@ -926,6 +978,18 @@ Example response:
     gas_used: number;
     utc: string;
     transactions: string[];
+}
+```
+
+#### EthBlocksResponse : <code>Object</code>
+<a name="EthBlocksResponse"></a>
+
+```javascript
+{
+    count: number;
+    items: EthBlockInfo[];
+    skip: number;
+    limit: number;
 }
 ```
 

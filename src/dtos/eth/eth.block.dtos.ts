@@ -85,3 +85,22 @@ export class EthBlockInfo {
 		this.transactions = transactions;
 	}
 }
+
+export class EthBlocksResponse {
+	count: number;
+	items: EthBlockInfo[];
+	skip: number;
+	limit: number;
+
+	constructor(info: {
+		count: number;
+		items: EthBlockInfo[];
+		skip: number;
+		limit: number;
+	}) {
+		this.count = info.count;
+		this.items = info.items;
+		this.skip = info.skip;
+		this.limit = info.limit;
+	}
+}
