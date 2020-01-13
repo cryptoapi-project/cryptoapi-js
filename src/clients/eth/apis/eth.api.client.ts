@@ -128,12 +128,12 @@ export class EthApiClient implements IEthApiClient {
 	 * Method to get balance token by holder and token addresses.
 	 * @method getTokenBalanceByAddresses
 	 * @param {string} tokenAddress
-	 * @param {string} holderAddress
+	 * @param {string[]} holderAddresses
 	 * @return {Promise<EthTokenBalance>}
 	 */
 	@TryCatch
-	getTokenBalanceByAddresses(tokenAddress: string, holderAddress: string) {
-		return this.ethTokenInfo.getTokenBalanceByAddresses(tokenAddress, holderAddress);
+	getTokenBalanceByAddresses(tokenAddress: string, holderAddresses: string[]) {
+		return this.ethTokenInfo.getTokenBalanceByAddresses(tokenAddress, holderAddresses);
 	}
 
 	/**

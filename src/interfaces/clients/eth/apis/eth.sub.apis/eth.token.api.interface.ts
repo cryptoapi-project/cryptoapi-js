@@ -15,7 +15,7 @@ import { EthTokenBalanceByHoldersOut } from '../../../../../dtos/eth/eth.tokens.
 
 export interface IEthTokenApi extends IConfigurable<IServerConfig> {
 	getTokenInfoByTokenAddress(address: string): Promise<EthTokenInfo>;
-	getTokenBalanceByAddresses(tokenAddress: string, holderAddress: string): Promise<EthTokenBalance>;
+	getTokenBalanceByAddresses(tokenAddress: string, holderAddresses: string[]): Promise<EthTokenBalance>;
 	getTokenBalancesByHolders(holders: string[], options?: TPaginationOptions): Promise<EthTokenBalanceByHoldersOut>;
 	searchToken(searchRequest: TTokenSearchRequest, options?: TPaginationOptions): Promise<EthTokenSearchResponse>;
 	getTokenTransfers(transfersRequest: EthTokenTransfersRequest, options?: TPaginationOptions): Promise<EthTokenTransfersResponse>;

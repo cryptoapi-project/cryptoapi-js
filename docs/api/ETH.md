@@ -241,7 +241,7 @@ Example response:
 }
 ```
 
-#### <a name="eth.getTokenBalanceByAddresses">eth.getTokenBalanceByAddresses(tokenAddress: string, holderAddress: string)</a> ⇒ <code><a href="#EthTokeBalance">Promise&lt;EthTokeBalance&gt;</a></code></dt></dt>
+#### <a name="eth.getTokenBalanceByAddresses">eth.getTokenBalanceByAddresses(tokenAddress: string, holderAddresses: string[])</a> ⇒ <code><a href="#EthBalanceTokensByHolder">Promise&lt;EthBalanceTokensByHolder&gt;</a></code></dt></dt>
 Returns JSON data about balance token by token and holder addresses.
 
 Input data:
@@ -249,20 +249,25 @@ Input data:
 | Param | Type | Description |
 | --- | --- | --- |
 | tokenAddress | <code>string</code> | [Token address] |
-| holderAddress | <code>string</code> | [Holder address] |
+| holderAddresses | <code>string[]</code> | [Holder addresses] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getTokenBalanceByAddresses('0x5ae86537ea087929a34b597480fd23144d2dd216', '0xd89f43605f4ccc0935afceba98f3d5d04ce2e390');
+    const result = await crypto.api.eth.getTokenBalanceByAddresses('0x5ae86537ea087929a34b597480fd23144d2dd216', ['0xd89f43605f4ccc0935afceba98f3d5d04ce2e390']);
 ```
 
 Example response:
 ```
 {
-    address: "0x5ae86537ea087929a34b597480fd23144d2dd216"
-    balance: "100000000000000000000"
-    holder: "0xd89f43605f4ccc0935afceba98f3d5d04ce2e390"
+    "total": 1,
+    "items": [
+        {
+            address: "0x5ae86537ea087929a34b597480fd23144d2dd216"
+            balance: "100000000000000000000"
+            holder: "0xd89f43605f4ccc0935afceba98f3d5d04ce2e390"
+        }
+    ]
 }
 ```
 

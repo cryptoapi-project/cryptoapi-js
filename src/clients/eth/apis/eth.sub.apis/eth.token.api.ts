@@ -50,16 +50,20 @@ export class EthTokenApi extends AbstractApi  implements IEthTokenApi {
 	 * Method to get balance token by holder and token addresses.
 	 * @method getTokenBalanceByAddresses
 	 * @param {string} tokenAddress
-	 * @param {string} holderAddress
+	 * @param {string} holderAddresses
 	 * @return {Promise<EthTokenBalance>}
 	 */
-	async getTokenBalanceByAddresses(tokenAddress: string, holderAddress: string): Promise<EthTokenBalance> {
+	async getTokenBalanceByAddresses(tokenAddress: string, holderAddresses: string[]): Promise<EthTokenBalance> {
 		this._checkConfig();
 
+		if (!this.validateHelper.isArray(holderAddresses)) {
+			throw new BaseLibraryException('holder addresses must be an array.');
+		}
+
 		const tokenInfo = await this.httpClient.agent.get<EthTokenBalance>(
-			`${this.config!.baseUrl}${'/coins/eth/tokens/:token/:address/balance'
+			`${this.config!.baseUrl}${'/coins/eth/addresses/:addresses/balance/tokens/:token'
 				.replace(':token', tokenAddress)
-				.replace(':address', holderAddress)}`,
+				.replace(':addresses', holderAddresses.join(','))}`,
 		);
 		return new EthTokenBalance(tokenInfo.data);
 	}
