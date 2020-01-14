@@ -65,7 +65,7 @@
     "websocket": "^1.0.30",
     "ws": "^7.2.0"
   },
-  "devDependencies": {    
+  "devDependencies": {
     "codecov": "^3.0.0",
     "eslint": "^6.0.0",
     "eslint-config-prettier": "^6.0.0",
