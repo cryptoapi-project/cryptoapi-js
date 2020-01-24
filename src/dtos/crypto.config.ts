@@ -28,6 +28,7 @@ export class CryptoConfig implements ICryptoConfig {
 	token: string;
 	timeout: number;
 	eth: IServerConfig;
+	klay: IServerConfig;
 	btc: IServerConfig;
 	bch: IServerConfig;
 
@@ -36,12 +37,14 @@ export class CryptoConfig implements ICryptoConfig {
 			token: string,
 			timeout: number,
 			eth: IServerConfig,
+			klay: IServerConfig,
 			btc: IServerConfig;
 			bch: IServerConfig;
 		},
 	) {
 		this.token = config.token;
 		this.eth = new ServerConfig(config.eth);
+		this.klay = new ServerConfig(config.klay);
 		this.btc = new ServerConfig(config.btc);
 		this.bch = new ServerConfig(config.bch);
 		this.timeout = config.timeout;

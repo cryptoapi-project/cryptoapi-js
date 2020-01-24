@@ -12,6 +12,7 @@ import { IEventsClient } from '../interfaces/clients/events.client.interface';
 import { IEthApiClient } from '../interfaces/clients/eth/apis/eth.api.client.interface';
 import { IUtxoApiClient } from '../interfaces/clients/utxo/apis/utxo.api.client.interface';
 import { IEthEventsClient } from '../interfaces/clients/eth/events/eth.events.client.interface';
+import { IKlayEventsClient } from '../interfaces/clients/klay/events/klay.events.client.interface';
 import { IEthNotifyApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.notify.api.interface';
 import { IEthAddressApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.address.api.interface';
 import { IEthMainInfoApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.main.info.interface';
@@ -37,6 +38,7 @@ import { EventsClient } from '../clients/events.client';
 import { EthApiClient } from '../clients/eth/apis/eth.api.client';
 import { UtxoApiClient } from '../clients/utxo/apis/utxo.api.client';
 import { EthEventsClient } from '../clients/eth/events/eth.events.client';
+import { KlayEventsClient } from '../clients/klay/events/klay.events.client';
 import { UtxoEventsClient } from '../clients/utxo/events/utxo.events.client';
 
 import { IHttpService } from '../interfaces/providers/http.service.interface';
@@ -83,6 +85,7 @@ diContainer.bind<IEventsClient>(TYPES_DI.IEventsClient).to(EventsClient);
 diContainer.bind<IEthApiClient>(TYPES_DI.IEthApiClient).to(EthApiClient);
 diContainer.bind<IUtxoApiClient>(TYPES_DI.IUtxoApiClient).to(UtxoApiClient);
 diContainer.bind<IEthEventsClient>(TYPES_DI.IEthEventsClient).to(EthEventsClient);
+diContainer.bind<IKlayEventsClient>(TYPES_DI.IKlayEventsClient).to(KlayEventsClient);
 diContainer.bind<IUtxoEventsClient>(TYPES_DI.IUtxoEventsClient).to(UtxoEventsClient);
 
 /**

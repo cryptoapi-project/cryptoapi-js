@@ -38,6 +38,7 @@ class CryptoWrapper implements IPublicCrypto {
 		cryptoConfig.timeout = options.timeout || DEFAULT_TIMEOUT_REQUEST;
 
 		cryptoConfig.eth = this.getConfigByCoin(TCoin.ETH, options.eth);
+		cryptoConfig.klay = this.getConfigByCoin(TCoin.KLAY, options.klay);
 		cryptoConfig.btc = this.getConfigByCoin(TCoin.BTC, options.btc);
 		cryptoConfig.bch = this.getConfigByCoin(TCoin.BCH, options.bch);
 

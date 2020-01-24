@@ -18,6 +18,7 @@ export interface IServerConfig {
 
 export interface ICryptoOptions {
 	eth: IServerConfig;
+	klay: IServerConfig;
 	btc: IServerConfig;
 	bch: IServerConfig;
 	timeout: number;

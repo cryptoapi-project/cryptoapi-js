@@ -51,7 +51,7 @@ export abstract class BaseEventsClient<BlockNotification, TransactionNotificatio
 	 *  @param {string} address
 	 *  @param {string} key
 	 */
-	protected abstract validateAddress(address: string, key: string): void;
+	protected abstract validateAddress(address: string, key?: string): void;
 
 	/**
 	 *  @method configure

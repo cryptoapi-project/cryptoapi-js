@@ -2,6 +2,7 @@ export enum TCoin {
 	ETH = 'eth',
 	BTC = 'btc',
 	BCH = 'bch',
+	KLAY = 'klay',
 }
 
 export const DEFAULT_TIMEOUT_REQUEST = 30000;
@@ -17,6 +18,7 @@ const WS_URLS = {
 	[TCoin.ETH]: 'wss://697-crypto-api.pixelplex-test.by/ws/eth',
 	[TCoin.BTC]: 'wss://697-crypto-api.pixelplex-test.by/ws/btc',
 	[TCoin.BCH]: 'wss://697-crypto-api.pixelplex-test.by/ws/bch',
+	[TCoin.KLAY]: 'wss://697-crypto-api.pixelplex-test.by/ws/klay',
 };
 
 export const BASE_CONFIG = {
@@ -34,6 +36,14 @@ export const ETH_CONFIG = {
 	events: {
 		...BASE_CONFIG.events,
 		url: WS_URLS[TCoin.ETH],
+	},
+};
+
+export const KLAY_CONFIG = {
+	...BASE_CONFIG,
+	events: {
+		...BASE_CONFIG.events,
+		url: WS_URLS[TCoin.KLAY],
 	},
 };
 
@@ -57,6 +67,7 @@ export const BCH_CONFIG = {
 
 export const CONFIG_BY_COIN = {
 	[TCoin.ETH]: ETH_CONFIG,
+	[TCoin.KLAY]: KLAY_CONFIG,
 	[TCoin.BTC]: BTC_CONFIG,
 	[TCoin.BCH]: BCH_CONFIG,
 };

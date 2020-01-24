@@ -7,6 +7,7 @@ const TYPES_DI = {
 	IEthApiClient: Symbol.for('IEthApiClient'),
 	IUtxoApiClient: Symbol.for('IUtxoApiClient'),
 	IEthEventsClient: Symbol.for('IEthEventsClient'),
+	IKlayEventsClient: Symbol.for('IKlayEventsClient'),
 	IUtxoEventsClient: Symbol.for('IUtxoEventsClient'),
 
 	IEthAddressApi: Symbol.for('IEthAddressApi'),

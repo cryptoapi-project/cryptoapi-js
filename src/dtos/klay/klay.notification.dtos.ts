@@ -1,16 +1,20 @@
-export class EthBlockNotification {
+export class KlayBlockNotification {
 
 	size: number;
-	difficulty: string;
-	total_difficulty: string;
-	uncles: string[];
+	block_score: string;
+	total_block_score: string;
 	number: number;
 	hash: string;
 	parent_hash: string;
 	nonce: string;
-	sha3_uncles: string;
+	reward: string;
+	governance_data: string;
+	vote_data: string;
+	timestamp_fos: string;
 	logs_bloom: string;
+	transaction_root: string;
 	state_root: string;
+	receipt_root: string;
 	miner: string;
 	extra_data: string;
 	gas_limit: number;
@@ -28,23 +32,24 @@ export class EthBlockNotification {
 		to: string;
 		transaction_index: number;
 		value: string;
-		v: string;
-		r: string;
-		s: string;
 	}>;
 
 	constructor(notification: {
 		size: number;
-		difficulty: string;
-		total_difficulty: string;
-		uncles: string[];
+		block_score: string;
+		total_block_score: string;
 		number: number;
 		hash: string;
 		parent_hash: string;
 		nonce: string;
-		sha3_uncles: string;
+		reward: string;
+		governance_data: string;
+		vote_data: string;
+		timestamp_fos: string;
 		logs_bloom: string;
+		transaction_root: string;
 		state_root: string;
+		receipt_root: string;
 		miner: string;
 		extra_data: string;
 		gas_limit: number;
@@ -62,23 +67,24 @@ export class EthBlockNotification {
 			to: string;
 			transaction_index: number;
 			value: string;
-			v: string;
-			r: string;
-			s: string;
 		}>;
 
 	}) {
 		this.size = notification.size;
-		this.difficulty = notification.difficulty;
-		this.total_difficulty = notification.total_difficulty;
-		this.uncles = notification.uncles;
+		this.block_score = notification.block_score;
+		this.total_block_score = notification.total_block_score;
 		this.number = notification.number;
 		this.hash = notification.hash;
 		this.parent_hash = notification.parent_hash;
 		this.nonce = notification.nonce;
-		this.sha3_uncles = notification.sha3_uncles;
+		this.reward = notification.reward;
+		this.governance_data = notification.governance_data;
+		this.vote_data = notification.vote_data;
+		this.timestamp_fos = notification.timestamp_fos;
 		this.logs_bloom = notification.logs_bloom;
+		this.transaction_root = notification.transaction_root;
 		this.state_root = notification.state_root;
+		this.receipt_root = notification.receipt_root;
 		this.miner = notification.miner;
 		this.extra_data = notification.extra_data;
 		this.gas_limit = notification.gas_limit;
@@ -96,15 +102,12 @@ export class EthBlockNotification {
 			to: tr.to,
 			transaction_index: tr.transaction_index,
 			value: tr.value,
-			v: tr.v,
-			r: tr.r,
-			s: tr.s,
 		}));
 	}
 
 }
 
-export class EthTransactionNotification {
+export class KlayTransactionNotification {
 
 	utc: string;
 	from: string;
@@ -115,9 +118,6 @@ export class EthTransactionNotification {
 	nonce: number;
 	to: string;
 	value: string;
-	v: string;
-	s: string;
-	r: string;
 	internal_transactions: Array<{
 		to: string;
 		from: string;
@@ -136,9 +136,6 @@ export class EthTransactionNotification {
 		nonce: number;
 		to: string;
 		value: string;
-		v: string;
-		s: string;
-		r: string;
 		internal_transactions: Array<{
 			to: string;
 			from: string;
@@ -156,9 +153,6 @@ export class EthTransactionNotification {
 		this.nonce = notification.nonce;
 		this.to = notification.to;
 		this.value = notification.value;
-		this.v = notification.v;
-		this.s = notification.s;
-		this.r = notification.r;
 		this.internal_transactions = notification.internal_transactions.map((tr) => ({
 			to: tr.to,
 			from: tr.from,
