@@ -9,12 +9,12 @@ import { ICrypto } from '../interfaces/crypto.interface';
 import { IApiClient } from '../interfaces/clients/api.client.interface';
 import { IEventsClient } from '../interfaces/clients/events.client.interface';
 
-import { IEthApiClient } from '../interfaces/clients/eth/apis/eth.api.client.interface';
+import { IEthApiClient } from '../interfaces/clients/eth.api.clients/eth.api.client.interface';
 import { IUtxoApiClient } from '../interfaces/clients/utxo/apis/utxo.api.client.interface';
 import { IEthEventsClient } from '../interfaces/clients/eth/events/eth.events.client.interface';
 import { IEthNotifyApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.notify.api.interface';
 import { IEthAddressApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.address.api.interface';
-import { IEthMainInfoApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.main.info.interface';
+import { IEthMainInfoApi, IMainInfoApi } from '../interfaces/clients/eth.api.clients/sub.api.clients/main.info.interface';
 import { IEthContractApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
 import { IEthRawTransactionApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.raw.transaction.interface';
 import { IEthBlockApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.block.interface';
@@ -34,7 +34,7 @@ import { Crypto } from '../crypto/crypto';
 import { ApiClient } from '../clients/api.client';
 import { EventsClient } from '../clients/events.client';
 
-import { EthApiClient } from '../clients/eth/apis/eth.api.client';
+import { EthApiClient } from '../clients/eth.api.clients/api.client';
 import { UtxoApiClient } from '../clients/utxo/apis/utxo.api.client';
 import { EthEventsClient } from '../clients/eth/events/eth.events.client';
 import { UtxoEventsClient } from '../clients/utxo/events/utxo.events.client';
@@ -43,14 +43,15 @@ import { IHttpService } from '../interfaces/providers/http.service.interface';
 import { IValidateHelper } from '../interfaces/providers/helpers/validate.helper.interface';
 import { IUrlHelper } from '../interfaces/providers/helpers/url.helper.interface';
 
-import { EthMainInfoApi } from '../clients/eth/apis/eth.sub.apis/eth.main.info.api';
-import { EthAddressApi } from '../clients/eth/apis/eth.sub.apis/eth.address.api';
-import { EthNotifyApi } from '../clients/eth/apis/eth.sub.apis/eth.notify.api';
-import { EthContractApi } from '../clients/eth/apis/eth.sub.apis/eth.contract.api';
-import { EthRawTransactionApi } from '../clients/eth/apis/eth.sub.apis/eth.raw.transaction.api';
-import { EthBlockApi } from '../clients/eth/apis/eth.sub.apis/eth.block.api';
-import { EthTokenApi } from '../clients/eth/apis/eth.sub.apis/eth.token.api';
-import { EthTransactionsApi } from '../clients/eth/apis/eth.sub.apis/eth.transactions.api';
+import { MainInfoApi } from '../clients/eth.api.clients/sub.api.clients/main.info.api';
+
+import { EthAddressApi } from '../clients/eth/apis/sub.apis/eth.address.api';
+import { EthNotifyApi } from '../clients/eth/apis/sub.apis/eth.notify.api';
+import { EthContractApi } from '../clients/eth/apis/sub.apis/eth.contract.api';
+import { EthRawTransactionApi } from '../clients/eth/apis/sub.apis/eth.raw.transaction.api';
+import { EthBlockApi } from '../clients/eth/apis/sub.apis/eth.block.api';
+import { EthTokenApi } from '../clients/eth/apis/sub.apis/eth.token.api';
+import { EthTransactionsApi } from '../clients/eth/apis/sub.apis/eth.transactions.api';
 
 import { UtxoMainInfoApi } from '../clients/utxo/apis/utxo.sub.apis/utxo.main.info.api';
 import { UtxoBlockApi } from '../clients/utxo/apis/utxo.sub.apis/utxo.block.api';
@@ -80,7 +81,7 @@ diContainer.bind<IEventsClient>(TYPES_DI.IEventsClient).to(EventsClient);
 /**
  * Inject service by module, example eth, utxo and etc.
  */
-diContainer.bind<IEthApiClient>(TYPES_DI.IEthApiClient).to(EthApiClient);
+diContainer.bind<IApiClient>(TYPES_DI.`IEth`ApiClient).to(EthApiClient);
 diContainer.bind<IUtxoApiClient>(TYPES_DI.IUtxoApiClient).to(UtxoApiClient);
 diContainer.bind<IEthEventsClient>(TYPES_DI.IEthEventsClient).to(EthEventsClient);
 diContainer.bind<IUtxoEventsClient>(TYPES_DI.IUtxoEventsClient).to(UtxoEventsClient);
@@ -88,7 +89,12 @@ diContainer.bind<IUtxoEventsClient>(TYPES_DI.IUtxoEventsClient).to(UtxoEventsCli
 /**
  * Inject sub api and socket clients.
  */
-diContainer.bind<IEthMainInfoApi>(TYPES_DI.IEthMainInfoApi).to(EthMainInfoApi);
+
+diContainer.bind<IEthApiFactory>(TYPES_DI.IApiFactory).to(EthApiFactory);
+
+diContainer.bind(TYPES_DI.IMainInfoApi).to(MainInfoApi);
+
+
 diContainer.bind<IEthAddressApi>(TYPES_DI.IEthAddressApi).to(EthAddressApi);
 diContainer.bind<IEthNotifyApi>(TYPES_DI.IEthNotifyApi).to(EthNotifyApi);
 diContainer.bind<IEthContractApi>(TYPES_DI.IEthContractApi).to(EthContractApi);

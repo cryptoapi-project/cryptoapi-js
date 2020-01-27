@@ -21,7 +21,7 @@ import {
 import { IEthEventsClient } from '../../../interfaces/clients/eth/events/eth.events.client.interface';
 import { IIdHelper } from '../../../interfaces/providers/helpers/id.helper.interface';
 import { ISubsHelper } from '../../../interfaces/providers/helpers/subs.helper.interface';
-import { BaseEventsClient } from '../../base/base.events.client';
+import { BaseEventsClient } from '../../base.events.clients/base.events.client';
 
 import { InvalidParamsException } from '../../../exceptions/library.exceptions/invalid.params.exceptions';
 import {

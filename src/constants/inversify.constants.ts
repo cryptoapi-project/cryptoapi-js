@@ -9,8 +9,13 @@ const TYPES_DI = {
 	IEthEventsClient: Symbol.for('IEthEventsClient'),
 	IUtxoEventsClient: Symbol.for('IUtxoEventsClient'),
 
+	IEthApiFactory: Symbol.for('IEthApiFactory'),
+	IKlayApiFactory: Symbol.for('IKlayApiFactory'),
+
 	IEthAddressApi: Symbol.for('IEthAddressApi'),
-	IEthMainInfoApi: Symbol.for('IEthMainInfoApi'),
+
+	IMainInfoApi: Symbol.for('IMainInfoApi'),
+
 	IEthNotifyApi: Symbol.for('IEthNotifyApi'),
 	IEthContractApi: Symbol.for('IEthContractApi'),
 	IEthRawTransactionApi: Symbol.for('IEthRawTransactionApi'),

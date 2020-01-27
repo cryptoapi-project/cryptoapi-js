@@ -7,7 +7,7 @@ import {
 } from '../../../dtos/utxo/utxo.notification.dtos';
 import { SUBSCRIPTIONS } from '../../../constants/events.constants';
 
-import { BaseEventsClient } from '../../base/base.events.client';
+import { BaseEventsClient } from '../../base.events.clients/base.events.client';
 import { TYPES_DI } from '../../../constants/inversify.constants';
 import { IIdHelper } from '../../../interfaces/providers/helpers/id.helper.interface';
 import { ISubsHelper } from '../../../interfaces/providers/helpers/subs.helper.interface';

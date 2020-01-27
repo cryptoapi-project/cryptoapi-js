@@ -5,7 +5,7 @@ import { TYPES_DI } from '../constants/inversify.constants';
 
 import { IApiClient } from '../interfaces/clients/api.client.interface';
 
-import { IEthApiClient } from '../interfaces/clients/eth/apis/eth.api.client.interface';
+import { IEthApiClient } from '../interfaces/clients/eth.api.clients/eth.api.client.interface';
 import { IUtxoApiClient } from '../interfaces/clients/utxo/apis/utxo.api.client.interface';
 
 import { IHttpService } from '../interfaces/providers/http.service.interface';
@@ -14,6 +14,7 @@ import { ICryptoConfig } from '../interfaces/configs/crypto.config.interface';
 @injectable()
 export class ApiClient implements IApiClient {
 	eth: IEthApiClient;
+
 	btc: IUtxoApiClient;
 	bch: IUtxoApiClient;
 

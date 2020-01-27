@@ -1,36 +1,49 @@
 import { inject, injectable } from 'inversify';
 
-import { TYPES_DI } from '../../../constants/inversify.constants';
+import { TYPES_DI } from '../../constants/inversify.constants';
 
-import { TPaginationOptions } from '../../../types/paginations.options.type';
-import { TEthContractCall } from '../../../types/eth/call.contract.type';
-import { TEstimateGasRequest } from '../../../types/eth/estimate.gas.request.type';
-import { TContractLogsRequest } from '../../../types/eth/eth.contract.logs.request';
-import { IEthContractApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
+import { TPaginationOptions } from '../../types/paginations.options.type';
+import { TEthContractCall } from '../../types/eth/call.contract.type';
+import { TEstimateGasRequest } from '../../types/eth/estimate.gas.request.type';
+import { TContractLogsRequest } from '../../types/eth/eth.contract.logs.request';
+import { IEthContractApi } from '../../interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
 
-import { EstimateGasResponse } from '../../../dtos/eth/eth.estimate.gas.dto';
+import { EstimateGasResponse } from '../../dtos/eth/eth.estimate.gas.dto';
 
-import { IEthApiClient } from '../../../interfaces/clients/eth/apis/eth.api.client.interface';
-import { IEthMainInfoApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.main.info.interface';
-import { IEthBlockApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.block.interface';
-import { IEthTokenApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.token.api.interface';
-import { IEthAddressApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.address.api.interface';
-import { IEthTransactionsApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.transactions.interface';
-import { IServerConfig } from '../../../interfaces/configs/crypto.config.interface';
-import { IEthNotifyApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.notify.api.interface';
-import { IEthRawTransactionApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.raw.transaction.interface';
+import { IApiClient } from '../../interfaces/clients/eth.api.clients/eth.api.client.interface';
+import { IMainInfoApi } from '../../interfaces/clients/eth.api.clients/sub.api.clients/main.info.interface';
+import { IEthBlockApi } from '../../interfaces/clients/eth/apis/eth.sub.apis/eth.block.interface';
+import { IEthTokenApi } from '../../interfaces/clients/eth/apis/eth.sub.apis/eth.token.api.interface';
+import { IEthAddressApi } from '../../interfaces/clients/eth/apis/eth.sub.apis/eth.address.api.interface';
+import { IEthTransactionsApi } from '../../interfaces/clients/eth/apis/eth.sub.apis/eth.transactions.interface';
+import { IServerConfig } from '../../interfaces/configs/crypto.config.interface';
+import { IEthNotifyApi } from '../../interfaces/clients/eth/apis/eth.sub.apis/eth.notify.api.interface';
+import { IEthRawTransactionApi } from '../../interfaces/clients/eth/apis/eth.sub.apis/eth.raw.transaction.interface';
 
-import { TryCatch } from '../../../providers/decorators/try.catch';
-import { EthTokenSearchRequest } from '../../../dtos/eth/eth.token.search';
-import { EthTokenTransfersByAddressesRequest, EthTokenTransfersRequest } from '../../../dtos/eth/eth.transfer.dto';
+import { TryCatch } from '../../providers/decorators/try.catch';
+import { EthTokenSearchRequest } from '../../dtos/eth/eth.token.search';
+import { EthTokenTransfersByAddressesRequest, EthTokenTransfersRequest } from '../../dtos/eth/eth.transfer.dto';
 
 @injectable()
-export class EthApiClient implements IEthApiClient {
+export class FactoryApiClient<
+	NetworkInfo,
+	EstimateGasRequest,
+	EstimateGasResponse
+> implements IApiClient<
+	NetworkInfo,
+	EstimateGasRequest,
+	EstimateGasResponse
+> {
 
 	config: IServerConfig|null = null;
 
 	constructor(
-		@inject(TYPES_DI.IEthMainInfoApi) private readonly ethMainInfo: IEthMainInfoApi,
+		@inject(TYPES_DI.IMainInfoApi) private readonly mainInfo: IMainInfoApi<
+			NetworkInfo,
+			EstimateGasRequest,
+			EstimateGasResponse
+		>,
+
 		@inject(TYPES_DI.IEthTokenApi) private readonly ethTokenInfo: IEthTokenApi,
 		@inject(TYPES_DI.IEthAddressApi) private readonly ethAddressInfo: IEthAddressApi,
 		@inject(TYPES_DI.IEthContractApi) private readonly ethContractApi: IEthContractApi,
@@ -48,7 +61,7 @@ export class EthApiClient implements IEthApiClient {
 	 * @return {void}
 	 */
 	configure(config: IServerConfig) {
-		this.ethMainInfo.configure(config);
+		this.mainInfo.configure(config);
 		this.ethTokenInfo.configure(config);
 		this.ethAddressInfo.configure(config);
 		this.ethContractApi.configure(config);
@@ -59,14 +72,18 @@ export class EthApiClient implements IEthApiClient {
 		this.ethBlock.configure(config);
 	}
 
+	setFactory(factory: any) {
+		this.mainInfo.setFactory(factory);
+	}
+
 	/**
 	 * Get eth network full information.
 	 * @method getNetworkInfo
-	 * @return {Promise<EthNetworkInfo>}
+	 * @return {Promise<NetworkInfo>}
 	 */
 	@TryCatch
 	async getNetworkInfo() {
-		return this.ethMainInfo.getNetworkInfo();
+		return this.mainInfo.getNetworkInfo();
 	}
 
 	/**
@@ -76,8 +93,8 @@ export class EthApiClient implements IEthApiClient {
 	 * @return {Promise<EstimateGasResponse>}
 	 */
 	@TryCatch
-	estimateGas(transaction: TEstimateGasRequest): Promise<EstimateGasResponse> {
-		return this.ethMainInfo.estimateGas(transaction);
+	estimateGas(transaction: EstimateGasRequest) {
+		return this.mainInfo.estimateGas(transaction);
 	}
 
 	/**
