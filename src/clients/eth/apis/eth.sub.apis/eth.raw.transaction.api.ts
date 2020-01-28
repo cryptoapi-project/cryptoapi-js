@@ -1,11 +1,11 @@
-import 'reflect-metadata';
 import { inject, injectable } from 'inversify';
+import 'reflect-metadata';
 
 import { TYPES_DI } from '../../../../constants/inversify.constants';
 
+import { AbstractApi } from '../../../../abstracts/abstract.api';
 import { EthRawTransaction } from '../../../../dtos/eth/eth.raw.transaction';
 import { IEthRawTransactionApi } from '../../../../interfaces/clients/eth/apis/eth.sub.apis/eth.raw.transaction.interface';
-import { AbstractApi } from '../../../../abstracts/abstract.api';
 import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
 
 @injectable()

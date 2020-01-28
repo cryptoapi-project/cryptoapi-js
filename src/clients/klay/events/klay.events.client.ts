@@ -1,9 +1,9 @@
 // tslint:disable-next-line
 const caver = require('caver-js');
 
-import 'reflect-metadata';
 import { inject, injectable } from 'inversify';
 import WS from 'isomorphic-ws';
+import 'reflect-metadata';
 
 import { SUBSCRIPTIONS } from '../../../constants/events.constants';
 import { TYPES_DI } from '../../../constants/inversify.constants';
@@ -13,20 +13,20 @@ import {
 	KlayTransactionNotification,
 } from '../../../dtos/klay/klay.notification.dtos';
 
+import { IKlayEventsClient } from '../../../interfaces/clients/klay/events/klay.events.client.interface';
 import { IIdHelper } from '../../../interfaces/providers/helpers/id.helper.interface';
 import { ISubsHelper } from '../../../interfaces/providers/helpers/subs.helper.interface';
-import { IKlayEventsClient } from '../../../interfaces/clients/klay/events/klay.events.client.interface';
 
-import { BaseContractEventsClient } from '../../base/base.contract.events.client';
+import { BaseContractEventsClient } from '../../base.event.clients/base.contract.events.client';
 
-import { InvalidParamsException } from '../../../exceptions/library.exceptions/invalid.params.exceptions';
 import {
 	BalanceNotification,
-	TransactionConfirmationNotification,
-	TransferNotification,
 	ContractLogNotification,
 	TokenBalanceNotification,
+	TransactionConfirmationNotification,
+	TransferNotification,
 } from '../../../dtos/base/event.notification.dtos';
+import { InvalidParamsException } from '../../../exceptions/library.exceptions/invalid.params.exceptions';
 
 @injectable()
 export class KlayEventsClient extends

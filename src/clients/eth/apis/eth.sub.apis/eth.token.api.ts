@@ -3,14 +3,14 @@ import { inject, injectable } from 'inversify';
 import { TYPES_DI } from '../../../../constants/inversify.constants';
 import { TPaginationOptions } from '../../../../types/paginations.options.type';
 
-import { EthTokenInfo } from '../../../../dtos/eth/eth.token.info';
 import { EthTokenBalance } from '../../../../dtos/eth/eth.token.balance';
+import { EthTokenInfo } from '../../../../dtos/eth/eth.token.info';
+import { EthTokenSearchRequest, EthTokenSearchResponse } from '../../../../dtos/eth/eth.token.search';
 import {
 	EthTokenTransfersByAddressesRequest,
 	EthTokenTransfersRequest,
 	EthTokenTransfersResponse,
 } from '../../../../dtos/eth/eth.transfer.dto';
-import { EthTokenSearchRequest, EthTokenSearchResponse } from '../../../../dtos/eth/eth.token.search';
 
 import { IEthTokenApi } from '../../../../interfaces/clients/eth/apis/eth.sub.apis/eth.token.api.interface';
 import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
@@ -18,9 +18,9 @@ import { IHttpService } from '../../../../interfaces/providers/http.service.inte
 import { IValidateHelper } from '../../../../interfaces/providers/helpers/validate.helper.interface';
 
 import { AbstractApi } from '../../../../abstracts/abstract.api';
+import { EthTokenBalanceByHoldersOut } from '../../../../dtos/eth/eth.tokens.by.holders';
 import { BaseLibraryException } from '../../../../exceptions/library.exceptions/base.exception';
 import { IUrlHelper } from '../../../../interfaces/providers/helpers/url.helper.interface';
-import { EthTokenBalanceByHoldersOut } from '../../../../dtos/eth/eth.tokens.by.holders';
 
 @injectable()
 export class EthTokenApi extends AbstractApi  implements IEthTokenApi {

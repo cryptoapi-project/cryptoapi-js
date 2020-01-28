@@ -6,10 +6,10 @@ import { TYPES_DI } from '../../../../constants/inversify.constants';
 import { EthSubscribeToken } from '../../../../dtos/eth/eth.subscribe.token.dto';
 import { BaseLibraryException } from '../../../../exceptions/library.exceptions/base.exception';
 
-import { IEthNotifyApi } from '../../../../interfaces/clients/eth/apis/eth.sub.apis/eth.notify.api.interface';
-import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
-import { IValidateHelper } from '../../../../interfaces/providers/helpers/validate.helper.interface';
 import { AbstractApi } from '../../../../abstracts/abstract.api';
+import { IEthNotifyApi } from '../../../../interfaces/clients/eth/apis/eth.sub.apis/eth.notify.api.interface';
+import { IValidateHelper } from '../../../../interfaces/providers/helpers/validate.helper.interface';
+import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
 
 @injectable()
 export class EthNotifyApi extends AbstractApi  implements IEthNotifyApi {

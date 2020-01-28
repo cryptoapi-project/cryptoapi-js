@@ -1,23 +1,23 @@
 import { inject, injectable } from 'inversify';
 import WS from 'isomorphic-ws';
 
+import { SUBSCRIPTIONS } from '../../../constants/events.constants';
 import {
 	UtxoBlockNotification,
 	UtxoTransactionNotification,
 } from '../../../dtos/utxo/utxo.notification.dtos';
-import { SUBSCRIPTIONS } from '../../../constants/events.constants';
 
-import { BaseEventsClient } from '../../base/base.events.client';
 import { TYPES_DI } from '../../../constants/inversify.constants';
+import { IUtxoEventsClient } from '../../../interfaces/clients/utxo/events/utxo.events.client.interface';
 import { IIdHelper } from '../../../interfaces/providers/helpers/id.helper.interface';
 import { ISubsHelper } from '../../../interfaces/providers/helpers/subs.helper.interface';
-import { IUtxoEventsClient } from '../../../interfaces/clients/utxo/events/utxo.events.client.interface';
+import { BaseEventsClient } from '../../base.event.clients/base.events.client';
 
-import { InvalidParamsException } from '../../../exceptions/library.exceptions/invalid.params.exceptions';
 import {
-	TransactionConfirmationNotification,
 	BalanceNotification,
+	TransactionConfirmationNotification,
 } from '../../../dtos/base/event.notification.dtos';
+import { InvalidParamsException } from '../../../exceptions/library.exceptions/invalid.params.exceptions';
 
 @injectable()
 export class UtxoEventsClient extends

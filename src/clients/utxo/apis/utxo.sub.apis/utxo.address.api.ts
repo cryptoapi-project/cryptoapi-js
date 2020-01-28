@@ -1,16 +1,16 @@
 import { inject, injectable } from 'inversify';
 
-import { TYPES_DI } from '../../../../constants/inversify.constants';
 import { AbstractApi } from '../../../../abstracts/abstract.api';
-import { IUtxoAddressApi } from '../../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.address.api.interface';
-import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
-import { UtxoAddressInfo } from '../../../../dtos/utxo/utxo.address.info';
-import { IValidateHelper } from '../../../../interfaces/providers/helpers/validate.helper.interface';
-import { BaseLibraryException } from '../../../../exceptions/library.exceptions/base.exception';
-import { TPaginationOptions } from '../../../../types/paginations.options.type';
+import { TYPES_DI } from '../../../../constants/inversify.constants';
 import { UtxoAddressHistory } from '../../../../dtos/utxo/utxo.address.history';
-import { IUrlHelper } from '../../../../interfaces/providers/helpers/url.helper.interface';
+import { UtxoAddressInfo } from '../../../../dtos/utxo/utxo.address.info';
+import { BaseLibraryException } from '../../../../exceptions/library.exceptions/base.exception';
 import { InternalLibraryException } from '../../../../exceptions/library.exceptions/internal.library.exception';
+import { IUtxoAddressApi } from '../../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.address.api.interface';
+import { IUrlHelper } from '../../../../interfaces/providers/helpers/url.helper.interface';
+import { IValidateHelper } from '../../../../interfaces/providers/helpers/validate.helper.interface';
+import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
+import { TPaginationOptions } from '../../../../types/paginations.options.type';
 
 @injectable()
 export class UtxoAddressApi extends AbstractApi implements IUtxoAddressApi {

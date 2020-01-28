@@ -1,7 +1,7 @@
-import 'reflect-metadata';
 import { inject, injectable } from 'inversify';
-import { isAddress } from 'web3-utils';
 import WS from 'isomorphic-ws';
+import 'reflect-metadata';
+import { isAddress } from 'web3-utils';
 
 import { SUBSCRIPTIONS } from '../../../constants/events.constants';
 import { TYPES_DI } from '../../../constants/inversify.constants';
@@ -11,20 +11,20 @@ import {
 	EthTransactionNotification,
 } from '../../../dtos/eth/eth.notification.dtos';
 
+import { IEthEventsClient } from '../../../interfaces/clients/eth/events/eth.events.client.interface';
 import { IIdHelper } from '../../../interfaces/providers/helpers/id.helper.interface';
 import { ISubsHelper } from '../../../interfaces/providers/helpers/subs.helper.interface';
-import { IEthEventsClient } from '../../../interfaces/clients/eth/events/eth.events.client.interface';
 
-import { BaseContractEventsClient } from '../../base/base.contract.events.client';
+import { BaseContractEventsClient } from '../../base.event.clients/base.contract.events.client';
 
-import { InvalidParamsException } from '../../../exceptions/library.exceptions/invalid.params.exceptions';
 import {
 	BalanceNotification,
-	TransactionConfirmationNotification,
-	TransferNotification,
 	ContractLogNotification,
 	TokenBalanceNotification,
+	TransactionConfirmationNotification,
+	TransferNotification,
 } from '../../../dtos/base/event.notification.dtos';
+import { InvalidParamsException } from '../../../exceptions/library.exceptions/invalid.params.exceptions';
 
 @injectable()
 export class EthEventsClient extends BaseContractEventsClient<EthBlockNotification, EthTransactionNotification> implements IEthEventsClient {

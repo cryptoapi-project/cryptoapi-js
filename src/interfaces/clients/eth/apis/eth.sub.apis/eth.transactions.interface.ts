@@ -3,10 +3,10 @@ import { IServerConfig } from '../../../../configs/crypto.config.interface';
 
 import {
 	EthTransactionByAddresses,
+	EthTransactionReceipt,
+	EthTransactionsInterAddresses,
 	EthTransactionsIntersection,
 	FullEthTransaction,
-	EthTransactionsInterAddresses,
-	EthTransactionReceipt,
 } from '../../../../../dtos/eth/eth.transaction.dtos';
 import { TPaginationOptions } from '../../../../../types/paginations.options.type';
 

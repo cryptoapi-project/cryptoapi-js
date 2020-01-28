@@ -8,8 +8,8 @@ import { IEthBlockApi } from '../../../../interfaces/clients/eth/apis/eth.sub.ap
 import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
 
 import { AbstractApi } from '../../../../abstracts/abstract.api';
-import { TPaginationOptions } from '../../../../types/paginations.options.type';
 import { IUrlHelper } from '../../../../interfaces/providers/helpers/url.helper.interface';
+import { TPaginationOptions } from '../../../../types/paginations.options.type';
 
 @injectable()
 export class EthBlockApi extends AbstractApi implements IEthBlockApi {

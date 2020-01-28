@@ -1,7 +1,7 @@
 import { EthBlockInfo, EthBlocksResponse } from '../../../../../dtos/eth/eth.block.dtos';
 
-import { IServerConfig } from '../../../../configs/crypto.config.interface';
 import { IConfigurable } from '../../../../configs/configurable.interface';
+import { IServerConfig } from '../../../../configs/crypto.config.interface';
 
 import { TPaginationOptions } from '../../../../../types/paginations.options.type';
 

@@ -1,18 +1,18 @@
-import 'reflect-metadata';
 import { inject, injectable } from 'inversify';
+import 'reflect-metadata';
 
 import { SUBSCRIPTIONS } from '../../constants/events.constants';
 import { TYPES_DI } from '../../constants/inversify.constants';
 
 import {
-	TransferNotification,
 	ContractLogNotification,
 	TokenBalanceNotification,
+	TransferNotification,
 } from '../../dtos/base/event.notification.dtos';
 
 import {
-	TokenSubscription,
 	ContractLogSubscription,
+	TokenSubscription,
 } from '../../dtos/base/event.subscription.dtos';
 
 import { IBaseContractEventsClient } from '../../interfaces/clients/base/base.contract.events.client.interface';

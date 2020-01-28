@@ -1,5 +1,5 @@
-import { EthTokenInfo } from '../../../../../dtos/eth/eth.token.info';
 import { EthTokenBalance } from '../../../../../dtos/eth/eth.token.balance';
+import { EthTokenInfo } from '../../../../../dtos/eth/eth.token.info';
 import { EthTokenSearchResponse } from '../../../../../dtos/eth/eth.token.search';
 import {
 	EthTokenTransfersByAddressesRequest,
@@ -7,11 +7,11 @@ import {
 	EthTokenTransfersResponse,
 } from '../../../../../dtos/eth/eth.transfer.dto';
 
+import { EthTokenBalanceByHoldersOut } from '../../../../../dtos/eth/eth.tokens.by.holders';
+import { TTokenSearchRequest } from '../../../../../types/eth/token.search.request.type';
+import { TPaginationOptions } from '../../../../../types/paginations.options.type';
 import { IConfigurable } from '../../../../configs/configurable.interface';
 import { IServerConfig } from '../../../../configs/crypto.config.interface';
-import { TPaginationOptions } from '../../../../../types/paginations.options.type';
-import { TTokenSearchRequest } from '../../../../../types/eth/token.search.request.type';
-import { EthTokenBalanceByHoldersOut } from '../../../../../dtos/eth/eth.tokens.by.holders';
 
 export interface IEthTokenApi extends IConfigurable<IServerConfig> {
 	getTokenInfoByTokenAddress(address: string): Promise<EthTokenInfo>;

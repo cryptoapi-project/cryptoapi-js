@@ -1,12 +1,12 @@
 import { inject, injectable } from 'inversify';
 
-import { TYPES_DI } from '../../../../constants/inversify.constants';
 import { AbstractApi } from '../../../../abstracts/abstract.api';
-import { IUtxoBlockApi } from '../../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.block.interface';
-import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
+import { TYPES_DI } from '../../../../constants/inversify.constants';
 import { UtxoBlockInfo } from '../../../../dtos/utxo/utxo.block.dtos';
 import { BaseLibraryException } from '../../../../exceptions/library.exceptions/base.exception';
+import { IUtxoBlockApi } from '../../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.block.interface';
 import { IValidateHelper } from '../../../../interfaces/providers/helpers/validate.helper.interface';
+import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
 
 @injectable()
 export class UtxoBlockApi extends AbstractApi implements IUtxoBlockApi {

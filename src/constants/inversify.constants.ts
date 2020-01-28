@@ -5,6 +5,10 @@ const TYPES_DI = {
 	IEventsClient: Symbol.for('IEventsClient'),
 
 	IEthApiClient: Symbol.for('IEthApiClient'),
+	IKlayApiClient: Symbol.for('IKlayApiClient'),
+	IEthApiFactoryDto: Symbol.for('IEthApiFactoryDto'),
+	IKlayApiFactoryDto: Symbol.for('IKlayApiFactoryDto'),
+
 	IUtxoApiClient: Symbol.for('IUtxoApiClient'),
 	IEthEventsClient: Symbol.for('IEthEventsClient'),
 	IKlayEventsClient: Symbol.for('IKlayEventsClient'),

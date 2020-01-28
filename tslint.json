@@ -10,7 +10,7 @@
     "no-empty-interface": false,
     "quotemark": [true, "single"],
     "member-access": [false],
-    "ordered-imports": [false],
+    "ordered-imports": [true],
     "max-line-length": [true, 150],
     "member-ordering": [false],
     "interface-name": [false],

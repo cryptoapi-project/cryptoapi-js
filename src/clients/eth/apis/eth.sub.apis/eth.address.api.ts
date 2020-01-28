@@ -6,10 +6,10 @@ import { EthAddressBalance } from '../../../../dtos/eth/eth.address.balance';
 import { EthAddressInfo } from '../../../../dtos/eth/eth.address.info';
 import { IEthAddressApi } from '../../../../interfaces/clients/eth/apis/eth.sub.apis/eth.address.api.interface';
 
-import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
 import { AbstractApi } from '../../../../abstracts/abstract.api';
-import { IValidateHelper } from '../../../../interfaces/providers/helpers/validate.helper.interface';
 import { BaseLibraryException } from '../../../../exceptions/library.exceptions/base.exception';
+import { IValidateHelper } from '../../../../interfaces/providers/helpers/validate.helper.interface';
+import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
 
 @injectable()
 export class EthAddressApi  extends AbstractApi implements IEthAddressApi {
