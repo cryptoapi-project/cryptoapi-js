@@ -4,12 +4,11 @@ import 'reflect-metadata';
 import { TYPES_DI } from '../../../../constants/inversify.constants';
 
 import { AbstractApi } from '../../../../abstracts/abstract.api';
-import { EthRawTransaction } from '../../../../dtos/eth/eth.raw.transaction';
 import { IEthRawTransactionApi } from '../../../../interfaces/clients/eth/apis/eth.sub.apis/eth.raw.transaction.interface';
 import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
 
 @injectable()
-export class EthRawTransactionApi extends AbstractApi  implements IEthRawTransactionApi {
+export class EthRawTransactionApi<TRawTransaction> extends AbstractApi  implements IEthRawTransactionApi<TRawTransaction> {
 	constructor(
 		@inject(TYPES_DI.IHttpService) private readonly httpService: IHttpService,
 	) {
@@ -20,17 +19,18 @@ export class EthRawTransactionApi extends AbstractApi  implements IEthRawTransac
 	 * Method decode raw transaction.
 	 * @method decodeRawTransaction
 	 * @param {string} tr
-	 * @return {EthRawTransaction}
+	 * @return {TRawTransaction}
 	 */
-	async decodeRawTransaction(tr: string): Promise<EthRawTransaction> {
+	async decodeRawTransaction(tr: string): Promise<TRawTransaction> {
 		this._checkConfig();
 
-		const transaction = await this.httpService.agent.post<EthRawTransaction>(
-			`${this.config!.baseUrl}/coins/eth/transactions/raw/decode`,
+		const transaction = await this.httpService.agent.post(
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/transactions/raw/decode`,
 			{tx: tr},
 		);
 
-		return new EthRawTransaction(transaction.data);
+		//  new EthRawTransaction(transaction.data)
+		return transaction.data;
 	}
 
 	/*
@@ -42,7 +42,7 @@ export class EthRawTransactionApi extends AbstractApi  implements IEthRawTransac
 	async sendRawTransaction(tr: string): Promise<string> {
 		this._checkConfig();
 		const transaction = await this.httpService.agent.post(
-			`${this.config!.baseUrl}/coins/eth/transactions/raw/send`,
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/transactions/raw/send`,
 			{ tx: tr },
 		);
 		return transaction.data.hash;

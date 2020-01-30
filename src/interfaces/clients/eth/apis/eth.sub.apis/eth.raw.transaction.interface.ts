@@ -1,8 +1,7 @@
-import { EthRawTransaction } from '../../../../../dtos/eth/eth.raw.transaction';
 import { IConfigurable } from '../../../../configs/configurable.interface';
 import { IServerConfig } from '../../../../configs/crypto.config.interface';
 
-export interface IEthRawTransactionApi extends IConfigurable<IServerConfig> {
+export interface IEthRawTransactionApi<TRawTransaction> extends IConfigurable<IServerConfig> {
 	sendRawTransaction(tr: string): Promise<string>;
-	decodeRawTransaction(tr: string): Promise<EthRawTransaction> ;
+	decodeRawTransaction(tr: string): Promise<TRawTransaction> ;
 }
