@@ -5,11 +5,11 @@ import { TYPES_DI } from '../../../../constants/inversify.constants';
 import { EthContract, EthContractLog } from '../../../../dtos/eth/eth.contract.dto';
 import { TEthContractCall } from '../../../../types/eth/call.contract.type';
 
-import { TContractLogsRequest } from 'types/eth/eth.contract.logs.request';
 import { AbstractApi } from '../../../../abstracts/abstract.api';
 import { IEthContractApi } from '../../../../interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
 import { IUrlHelper } from '../../../../interfaces/providers/helpers/url.helper.interface';
 import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
+import { TContractLogsRequest } from '../../../../types/eth/eth.contract.logs.request';
 
 @injectable()
 export class EthContractApi extends AbstractApi implements IEthContractApi {

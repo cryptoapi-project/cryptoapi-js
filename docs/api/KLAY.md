@@ -143,38 +143,18 @@ Example response:
 
 ```javascript
 {
-  type: "FEE_DELEGATED_SMART_CONTRACT_DEPLOY_WITH_RATIO",
-  nonce: 10,
-  gas_price: "25000000000",
-  gas: "999999999",
-  from: "0x90b3e9a3770481345a7f17f22f16d020bccfd33e",
-  human_readable: false,
-  fee_ratio: "0x21",
-  code_format: "0x",
-  fee_payer: "0x33f524631e573329a550296f595c820d6c65213f",
-  payer_v: "0x25",
-  payer_r: "0x41a4c4bf0e3039d04472beae4135a14c26ae4c88bad08d5f0acf61f7c0eb60df",
-  payer_s: "0x3d1658f38e5c2089d64985fb33cb13db2e41cde6958ba2cfcfaba685a7f565e2",
-  fee_payer_signatures": [
-    [
-      "0x25",
-      "0x41a4c4bf0e3039d04472beae4135a14c26ae4c88bad08d5f0acf61f7c0eb60df",
-      "0x3d1658f38e5c2089d64985fb33cb13db2e41cde6958ba2cfcfaba685a7f565e2"
-    ]
-  ],
-  to: "0x",
-  value: "0",
-  data: "0x608060405234801561001057600080fd5b506101de806100206000396000f3006080604052600436106100615763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416631a39d8ef81146100805780636353586b146100a757806370a08231146100ca578063fd6b7ef8146100f8575b3360009081526001602052604081208054349081019091558154019055005b34801561008c57600080fd5b5061009561010d565b60408051918252519081900360200190f35b6100c873ffffffffffffffffffffffffffffffffffffffff60043516610113565b005b3480156100d657600080fd5b5061009573ffffffffffffffffffffffffffffffffffffffff60043516610147565b34801561010457600080fd5b506100c8610159565b60005481565b73ffffffffffffffffffffffffffffffffffffffff1660009081526001602052604081208054349081019091558154019055565b60016020526000908152604090205481565b336000908152600160205260408120805490829055908111156101af57604051339082156108fc029083906000818181858888f193505050501561019c576101af565b3360009081526001602052604090208190555b505600a165627a7a72305820627ca46bb09478a015762806cc00c431230501118c7c26c30ac58c4e09e51c4f0029",
-  v: "0x25",
-  r: "0xd8cdc1219df8bbca8a00255420a5bec0f602e6266b76ce7dcf5b0b26bd7fe3b9",
-  s: "0x5557496a3a17f784c3eb40acbb526dfbc20ae6b00c633a0186d804cd9137b13e",
-  signatures: [
-    [
-      "0x25",
-      "0xd8cdc1219df8bbca8a00255420a5bec0f602e6266b76ce7dcf5b0b26bd7fe3b9",
-      "0x5557496a3a17f784c3eb40acbb526dfbc20ae6b00c633a0186d804cd9137b13e"
-    ]
-  ]
+    data: "0x",
+    gas: "6500000",
+    gas_price: "3005000000000",
+    ggg: "dasdasda",
+    nonce: 8833539,
+    r: "0x4ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637fdc35bdc49c4",
+    s: "0x4b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02",
+    signatures: ["0x1c", "0x4ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637fdc35bdc49c4", "0x4b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02"],
+    to: "0x1de29f644d555fe9cc3241e1083de0868f959bfa",
+    type: "LEGACY",
+    v: "0x1c",
+    value: "300000000000",
 }
  ```
 
@@ -285,15 +265,15 @@ Example response:
 	type: string;
 	gas_price: string;
 	gas: string;
-	from: string;
-	human_readable: boolean;
-	fee_ratio: string;
-	code_format: string;
-	fee_payer: string;
-	payer_v: string;
-	payer_r: string;
-	payer_s: string;
-	fee_payer_signatures: Array<string[]|string>;
+	from?: string;
+	human_readable?: boolean;
+	fee_ratio?: string;
+	code_format?: string;
+	fee_payer?: string;
+	payer_v?: string;
+	payer_r?: string;
+	payer_s?: string;
+	fee_payer_signatures?: Array<string[]|string>;
 	to: string;
 	value: string;
 	data: string;
