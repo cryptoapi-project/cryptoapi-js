@@ -9,7 +9,7 @@ import { IEthMainInfoApi } from '../../../../interfaces/clients/eth/apis/eth.sub
 import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
 
 @injectable()
-export class MainInfoApi<TNetworkInfo, TEstimateGasResponse> extends AbstractApi
+export class EthMainInfoApi<TNetworkInfo, TEstimateGasResponse> extends AbstractApi
 	implements IEthMainInfoApi<TNetworkInfo, TEstimateGasResponse> {
 
 	constructor(

@@ -47,11 +47,11 @@ import { IHttpService } from '../interfaces/providers/http.service.interface';
 import { EthAddressApi } from '../clients/eth/apis/eth.sub.apis/eth.address.api';
 import { EthBlockApi } from '../clients/eth/apis/eth.sub.apis/eth.block.api';
 import { EthContractApi } from '../clients/eth/apis/eth.sub.apis/eth.contract.api';
+import { EthMainInfoApi } from '../clients/eth/apis/eth.sub.apis/eth.main.info.api';
 import { EthNotifyApi } from '../clients/eth/apis/eth.sub.apis/eth.notify.api';
 import { EthRawTransactionApi } from '../clients/eth/apis/eth.sub.apis/eth.raw.transaction.api';
 import { EthTokenApi } from '../clients/eth/apis/eth.sub.apis/eth.token.api';
 import { EthTransactionsApi } from '../clients/eth/apis/eth.sub.apis/eth.transactions.api';
-import { MainInfoApi } from '../clients/eth/apis/eth.sub.apis/main.info.api';
 
 import { UtxoAddressApi } from '../clients/utxo/apis/utxo.sub.apis/utxo.address.api';
 import { UtxoBlockApi } from '../clients/utxo/apis/utxo.sub.apis/utxo.block.api';
@@ -97,7 +97,7 @@ diContainer.bind<IUtxoEventsClient>(TYPES_DI.IUtxoEventsClient).to(UtxoEventsCli
 /**
  * Inject sub api and socket clients.
  */
-diContainer.bind(TYPES_DI.IEthMainInfoApi).to(MainInfoApi);
+diContainer.bind(TYPES_DI.IEthMainInfoApi).to(EthMainInfoApi);
 
 diContainer.bind<IEthAddressApi>(TYPES_DI.IEthAddressApi).to(EthAddressApi);
 diContainer.bind<IEthNotifyApi>(TYPES_DI.IEthNotifyApi).to(EthNotifyApi);

@@ -66,7 +66,7 @@ export class BaseEthApiClient<
 	 */
 	@TryCatch
 	async getNetworkInfo(): Promise<TNetworkInfo> {
-		return this.factoryDto!.getNetworkInfo(await this.mainInfo.getNetworkInfo());
+		return this.factoryDto.getNetworkInfo(await this.mainInfo.getNetworkInfo());
 	}
 
 	/**
@@ -77,7 +77,7 @@ export class BaseEthApiClient<
 	 */
 	@TryCatch
 	async estimateGas(transaction: TEstimateGasRequest): Promise<TEstimateGasResponse> {
-		return this.factoryDto!.getEstimateGasResponse(await this.mainInfo.estimateGas(transaction));
+		return this.factoryDto.getEstimateGasResponse(await this.mainInfo.estimateGas(transaction));
 	}
 
 	/**
