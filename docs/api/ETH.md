@@ -641,14 +641,14 @@ Example response:
 }
 ```
 
-#### <a name="eth.callContract">eth.callContract(dataToCall: TEthContractCall)</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
+#### <a name="eth.callContract">eth.callContract(dataToCall: TContractCall)</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
 Executes a message call transaction.
 
 Input data:
 
 | Param | Type | Description |
 | --- | --- | --- |
-| dataToCall | <code><a href="#TEthContractCall">TEthContractCall</a></code> | [Data to call contract] |
+| dataToCall | <code><a href="#TContractCall">TContractCall</a></code> | [Data to call contract] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
@@ -938,7 +938,7 @@ Example response:
 <dd></dd>
 <dt><a href="#EthTransactionsInterAddresses">EthTransactionsInterAddresses</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#TEthContractCall">TEthContractCall</a> : <code>Object</code></dt>
+<dt><a href="#TContractCall">TContractCall</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#TTokenSearchRequest">TTokenSearchRequest</a> : <code>Object</code></dt>
 <dd></dd>
@@ -1310,8 +1310,8 @@ Example response:
     }>;
 }
 ```
-#### TEthContractCall : <code>Object</code>
-<a name="TEthContractCall"></a>
+#### TContractCall : <code>Object</code>
+<a name="TContractCall"></a>
 
 ```javascript
 {

@@ -5,7 +5,7 @@ import { TYPES_DI } from '@src/constants/inversify.constants';
 import { IEthContractApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
 import { IUrlHelper } from '@src/interfaces/providers/helpers/url.helper.interface';
 import { IHttpService } from '@src/interfaces/providers/http.service.interface';
-import { TEthContractCall } from '@src/types/eth/call.contract.type';
+import { TContractCall } from '@src/types/eth/call.contract.type';
 import { TContractLogsRequest } from '@src/types/eth/eth.contract.logs.request';
 
 @injectable()
@@ -34,10 +34,10 @@ export class EthContractApi<TContract, TContractLog> extends AbstractApi impleme
 	/**
 	 * Method to call contract.
 	 * @method callContract
-	 * @param {TEthContractCall} data
+	 * @param {TContractCall} data
 	 * @return {Promise<string>}
 	 */
-	async callContract({ address, ...dataToCall }: TEthContractCall): Promise<string> {
+	async callContract({ address, ...dataToCall }: TContractCall): Promise<string> {
 		this._checkConfig();
 
 		const { data } = await this.httpService.agent.post<string>(

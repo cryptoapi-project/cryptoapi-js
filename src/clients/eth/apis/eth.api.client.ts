@@ -20,7 +20,7 @@ import { IEthTokenApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.
 import { IEthTransactionsApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.transactions.interface';
 import { IServerConfig } from '@src/interfaces/configs/crypto.config.interface';
 import { TryCatch } from '@src/providers/decorators/try.catch';
-import { TEthContractCall } from '@src/types/eth/call.contract.type';
+import { TContractCall } from '@src/types/eth/call.contract.type';
 import { TEstimateGasRequest } from '@src/types/eth/estimate.gas.request.type';
 import { TContractLogsRequest } from '@src/types/eth/eth.contract.logs.request';
 import { TPaginationOptions } from '@src/types/paginations.options.type';
@@ -260,11 +260,11 @@ export class BaseEthApiClient<
 	/**
 	 * Method to call contract.
 	 * @method callContract
-	 * @param {TEthContractCall} data
+	 * @param {TContractCall} data
 	 * @return {Promise<string>}
 	 */
 	@TryCatch
-	callContract(data: TEthContractCall) {
+	callContract(data: TContractCall) {
 		return this.ethContractApi.callContract(data);
 	}
 
