@@ -1,9 +1,6 @@
 import { inject, injectable } from 'inversify';
 
 import { TYPES_DI } from '../../../../constants/inversify.constants';
-
-import { EthBlockInfo, EthBlocksResponse } from '../../../../dtos/eth/eth.block.dtos';
-
 import { IEthBlockApi } from '../../../../interfaces/clients/eth/apis/eth.sub.apis/eth.block.interface';
 import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
 
@@ -12,7 +9,8 @@ import { IUrlHelper } from '../../../../interfaces/providers/helpers/url.helper.
 import { TPaginationOptions } from '../../../../types/paginations.options.type';
 
 @injectable()
-export class EthBlockApi extends AbstractApi implements IEthBlockApi {
+export class EthBlockApi<TBlockInfo, TBlocksResponse> extends AbstractApi
+	implements IEthBlockApi<TBlockInfo, TBlocksResponse> {
 
 	constructor(
 		@inject(TYPES_DI.IHttpService) private readonly httpService: IHttpService,
@@ -24,33 +22,33 @@ export class EthBlockApi extends AbstractApi implements IEthBlockApi {
 	/**
 	 * @method getBlock
 	 * Method to get block information.
-	 * @param {Number} blockNumber
-	 * @return {Promise<EthBlockInfo>}
+	 * @param {Number | String} blockNumberOrHash
+	 * @return {Promise<TBlockInfo>}
 	 */
-	async getBlock(blockNumber: number): Promise<EthBlockInfo> {
+	async getBlock(blockNumberOrHash: number): Promise<TBlockInfo> {
 		this._checkConfig();
 
-		const blockInfo = await this.httpService.agent.get<EthBlockInfo>(
-			`${this.config!.baseUrl}/coins/eth/blocks/${blockNumber}`,
+		const blockInfo = await this.httpService.agent.get<TBlockInfo>(
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/blocks/${blockNumberOrHash}`,
 		);
 
-		return new EthBlockInfo(blockInfo.data);
+		return blockInfo.data;
 	}
 
 	/**
 	 * @method getBlocks
 	 * Method to get all blocks.
 	 * @param {TPaginationOptions} options
-	 * @return {Promise<EthBlocksResponse>}
+	 * @return {Promise<TBlocksResponse>}
 	 */
-	async getBlocks(options: TPaginationOptions): Promise<EthBlocksResponse> {
+	async getBlocks(options: TPaginationOptions): Promise<TBlocksResponse> {
 		this._checkConfig();
 
-		let url = `${this.config!.baseUrl}/coins/eth/blocks`;
+		let url = `${this.config!.baseUrl}/coins/${this.config!.coin}/blocks`;
 		url = this.urlHelper.addOptionsToUrl(url, options);
 
-		const blockInfo = await this.httpService.agent.get<EthBlocksResponse>(url);
+		const blockInfo = await this.httpService.agent.get<TBlocksResponse>(url);
 
-		return new EthBlocksResponse(blockInfo.data);
+		return blockInfo.data;
 	}
 }

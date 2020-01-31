@@ -10,7 +10,6 @@ import { IEventsClient } from '../interfaces/clients/events.client.interface';
 import { ICrypto } from '../interfaces/crypto.interface';
 
 import { IEthAddressApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.address.api.interface';
-import { IEthBlockApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.block.interface';
 import { IEthContractApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
 import { IEthNotifyApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.notify.api.interface';
 import { IEthRawTransactionApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.raw.transaction.interface';
@@ -98,12 +97,12 @@ diContainer.bind<IUtxoEventsClient>(TYPES_DI.IUtxoEventsClient).to(UtxoEventsCli
  * Inject sub api and socket clients.
  */
 diContainer.bind(TYPES_DI.IEthMainInfoApi).to(EthMainInfoApi);
+diContainer.bind(TYPES_DI.IEthBlockApi).to(EthBlockApi);
 
 diContainer.bind<IEthAddressApi>(TYPES_DI.IEthAddressApi).to(EthAddressApi);
 diContainer.bind<IEthNotifyApi>(TYPES_DI.IEthNotifyApi).to(EthNotifyApi);
 diContainer.bind<IEthContractApi>(TYPES_DI.IEthContractApi).to(EthContractApi);
 diContainer.bind<IEthRawTransactionApi>(TYPES_DI.IEthRawTransactionApi).to(EthRawTransactionApi);
-diContainer.bind<IEthBlockApi>(TYPES_DI.IEthBlockApi).to(EthBlockApi);
 diContainer.bind<IEthTokenApi>(TYPES_DI.IEthTokenApi).to(EthTokenApi);
 diContainer.bind<IEthTransactionsApi>(TYPES_DI.IEthTransactionsApi).to(EthTransactionsApi);
 
