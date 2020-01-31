@@ -1,10 +1,11 @@
-import { EthAddressBalance } from '../../../../dtos/eth/eth.address.balance';
-import { EthAddressInfo } from '../../../../dtos/eth/eth.address.info';
-import { EstimateGasResponse } from '../../../../dtos/eth/eth.estimate.gas';
-import { EthNetworkInfo } from '../../../../dtos/eth/eth.network.info';
-import { EthRawTransaction } from '../../../../dtos/eth/eth.raw.transaction';
-import { IConfigurable } from '../../../configs/configurable.interface';
-import { IServerConfig } from '../../../configs/crypto.config.interface';
+import { EthAddressBalance } from '@src/dtos/eth/eth.address.balance';
+import { EthAddressInfo } from '@src/dtos/eth/eth.address.info';
+import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas';
+import { EthNetworkInfo } from '@src/dtos/eth/eth.network.info';
+import { EthRawTransaction } from '@src/dtos/eth/eth.raw.transaction';
+import { IConfigurable } from '@src/interfaces/configs/configurable.interface';
+import { IServerConfig } from '@src/interfaces/configs/crypto.config.interface';
+
 import { IEthAddressApi } from './eth.sub.apis/eth.address.api.interface';
 import { IEthBlockApi } from './eth.sub.apis/eth.block.interface';
 import { IEthContractApi } from './eth.sub.apis/eth.contract.api.interface';

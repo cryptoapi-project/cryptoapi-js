@@ -1,22 +1,21 @@
 import { inject, injectable } from 'inversify';
 
-import { TYPES_DI } from '../../../constants/inversify.constants';
-
-import { IEthContractApi } from 'interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
-import { KlayAddressBalance } from '../../../dtos/klay/klay.address.balance';
-import { KlayAddressInfo } from '../../../dtos/klay/klay.address.info';
-import { EstimateGasResponse } from '../../../dtos/klay/klay.estimate.gas';
-import { KlayNetworkInfo } from '../../../dtos/klay/klay.network.info';
-import { KlayRawTransaction } from '../../../dtos/klay/klay.raw.transaction';
-import { IEthAddressApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.address.api.interface';
-import { IEthBlockApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.block.interface';
-import { IEthMainInfoApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.main.info.interface';
-import { IEthNotifyApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.notify.api.interface';
-import { IEthRawTransactionApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.raw.transaction.interface';
-import { IEthTokenApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.token.api.interface';
-import { IEthTransactionsApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.transactions.interface';
-import { IKlayApiFactoryDto } from '../../../interfaces/clients/klay/apis/klay.api.factory.dto.interface';
-import { BaseEthApiClient } from '../../eth/apis/eth.api.client';
+import { BaseEthApiClient } from '@src/clients/eth/apis/eth.api.client';
+import { TYPES_DI } from '@src/constants/inversify.constants';
+import { KlayAddressBalance } from '@src/dtos/klay/klay.address.balance';
+import { KlayAddressInfo } from '@src/dtos/klay/klay.address.info';
+import { EstimateGasResponse } from '@src/dtos/klay/klay.estimate.gas';
+import { KlayNetworkInfo } from '@src/dtos/klay/klay.network.info';
+import { KlayRawTransaction } from '@src/dtos/klay/klay.raw.transaction';
+import { IEthAddressApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.address.api.interface';
+import { IEthBlockApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.block.interface';
+import { IEthContractApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
+import { IEthMainInfoApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.main.info.interface';
+import { IEthNotifyApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.notify.api.interface';
+import { IEthRawTransactionApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.raw.transaction.interface';
+import { IEthTokenApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.token.api.interface';
+import { IEthTransactionsApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.transactions.interface';
+import { IKlayApiFactoryDto } from '@src/interfaces/clients/klay/apis/klay.api.factory.dto.interface';
 
 @injectable()
 export class KlayApiClient extends BaseEthApiClient<

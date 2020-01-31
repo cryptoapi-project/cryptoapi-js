@@ -3,7 +3,6 @@ import { isHex } from 'web3-utils';
 
 import { MAX_CONFIRMATION } from '../../constants/events.constants';
 import { InvalidParamsException } from '../../exceptions/library.exceptions/invalid.params.exceptions';
-
 import { ISubsHelper } from '../../interfaces/providers/helpers/subs.helper.interface';
 
 @injectable()

@@ -1,32 +1,29 @@
 import { inject, injectable } from 'inversify';
 
-import { TYPES_DI } from '../../../constants/inversify.constants';
-import { EthAddressBalance } from '../../../dtos/eth/eth.address.balance';
-import { EthAddressInfo } from '../../../dtos/eth/eth.address.info';
-import { EthRawTransaction } from '../../../dtos/eth/eth.raw.transaction';
-
-import { IEthContractApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
-import { TEthContractCall } from '../../../types/eth/call.contract.type';
-import { TEstimateGasRequest } from '../../../types/eth/estimate.gas.request.type';
-import { TContractLogsRequest } from '../../../types/eth/eth.contract.logs.request';
-import { TPaginationOptions } from '../../../types/paginations.options.type';
-
-import { IBaseEthApiClient } from '../../../interfaces/clients/eth/apis/eth.api.client.interface';
-import { IEthAddressApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.address.api.interface';
-import { IEthBlockApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.block.interface';
-import { IEthMainInfoApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.main.info.interface';
-import { IEthNotifyApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.notify.api.interface';
-import { IEthRawTransactionApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.raw.transaction.interface';
-import { IEthTokenApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.token.api.interface';
-import { IEthTransactionsApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.transactions.interface';
-import { IServerConfig } from '../../../interfaces/configs/crypto.config.interface';
-
-import { EstimateGasResponse } from 'dtos/eth/eth.estimate.gas';
-import { EthNetworkInfo } from '../../../dtos/eth/eth.network.info';
-import { EthTokenSearchRequest } from '../../../dtos/eth/eth.token.search';
-import { EthTokenTransfersByAddressesRequest, EthTokenTransfersRequest } from '../../../dtos/eth/eth.transfer.dto';
-import { IBaseEthFactoryDto, IEthFactoryDto } from '../../../interfaces/clients/eth/apis/eth.api.factory.dto.interface';
-import { TryCatch } from '../../../providers/decorators/try.catch';
+import { TYPES_DI } from '@src/constants/inversify.constants';
+import { EthAddressBalance } from '@src/dtos/eth/eth.address.balance';
+import { EthAddressInfo } from '@src/dtos/eth/eth.address.info';
+import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas';
+import { EthNetworkInfo } from '@src/dtos/eth/eth.network.info';
+import { EthRawTransaction } from '@src/dtos/eth/eth.raw.transaction';
+import { EthTokenSearchRequest } from '@src/dtos/eth/eth.token.search';
+import { EthTokenTransfersByAddressesRequest, EthTokenTransfersRequest } from '@src/dtos/eth/eth.transfer.dto';
+import { IBaseEthApiClient } from '@src/interfaces/clients/eth/apis/eth.api.client.interface';
+import { IBaseEthFactoryDto, IEthApiFactoryDto } from '@src/interfaces/clients/eth/apis/eth.api.factory.dto.interface';
+import { IEthAddressApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.address.api.interface';
+import { IEthBlockApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.block.interface';
+import { IEthContractApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
+import { IEthMainInfoApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.main.info.interface';
+import { IEthNotifyApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.notify.api.interface';
+import { IEthRawTransactionApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.raw.transaction.interface';
+import { IEthTokenApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.token.api.interface';
+import { IEthTransactionsApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.transactions.interface';
+import { IServerConfig } from '@src/interfaces/configs/crypto.config.interface';
+import { TryCatch } from '@src/providers/decorators/try.catch';
+import { TEthContractCall } from '@src/types/eth/call.contract.type';
+import { TEstimateGasRequest } from '@src/types/eth/estimate.gas.request.type';
+import { TContractLogsRequest } from '@src/types/eth/eth.contract.logs.request';
+import { TPaginationOptions } from '@src/types/paginations.options.type';
 
 @injectable()
 export class BaseEthApiClient<
@@ -357,7 +354,6 @@ export class EthApiClient extends BaseEthApiClient<
 	EthAddressBalance, EthAddressInfo,
 	EthRawTransaction
 > {
-
 	constructor(
 		@inject(TYPES_DI.IEthMainInfoApi) mainInfo: IEthMainInfoApi<EthNetworkInfo, EstimateGasResponse>,
 		@inject(TYPES_DI.IEthTokenApi) tokenInfo: IEthTokenApi,
@@ -367,7 +363,7 @@ export class EthApiClient extends BaseEthApiClient<
 		@inject(TYPES_DI.IEthRawTransactionApi) rawTransactionApi: IEthRawTransactionApi<EthRawTransaction>,
 		@inject(TYPES_DI.IEthTransactionsApi) transactions: IEthTransactionsApi,
 		@inject(TYPES_DI.IEthBlockApi)  block: IEthBlockApi,
-		@inject(TYPES_DI.IEthApiFactoryDto) factory: IEthFactoryDto,
+		@inject(TYPES_DI.IEthApiFactoryDto) factory: IEthApiFactoryDto,
 	) {
 		super(mainInfo, tokenInfo, addressInfo, contractApi, notifyApi, rawTransactionApi,
 			transactions, block, factory);

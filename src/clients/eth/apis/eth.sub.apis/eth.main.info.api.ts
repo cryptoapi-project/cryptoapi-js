@@ -1,12 +1,10 @@
 import { inject, injectable } from 'inversify';
 
-import { TYPES_DI } from '../../../../constants/inversify.constants';
-
-import { TEstimateGasRequest } from '../../../../types/eth/estimate.gas.request.type';
-
-import { AbstractApi } from '../../../../abstracts/abstract.api';
-import { IEthMainInfoApi } from '../../../../interfaces/clients/eth/apis/eth.sub.apis/eth.main.info.interface';
-import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
+import { AbstractApi } from '@src/abstracts/abstract.api';
+import { TYPES_DI } from '@src/constants/inversify.constants';
+import { IEthMainInfoApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.main.info.interface';
+import { IHttpService } from '@src/interfaces/providers/http.service.interface';
+import { TEstimateGasRequest } from '@src/types/eth/estimate.gas.request.type';
 
 @injectable()
 export class EthMainInfoApi<TNetworkInfo, TEstimateGasResponse> extends AbstractApi

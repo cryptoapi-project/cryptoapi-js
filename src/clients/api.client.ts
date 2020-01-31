@@ -2,13 +2,10 @@ import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 
 import { TYPES_DI } from '../constants/inversify.constants';
-
 import { IApiClient } from '../interfaces/clients/api.client.interface';
-
 import { IEthApiClient } from '../interfaces/clients/eth/apis/eth.api.client.interface';
+import { IKlayApiClient } from '../interfaces/clients/klay/apis/klay.api.client.interface';
 import { IUtxoApiClient } from '../interfaces/clients/utxo/apis/utxo.api.client.interface';
-
-import { IKlayApiClient } from 'interfaces/clients/klay/apis/klay.api.client.interface';
 import { ICryptoConfig } from '../interfaces/configs/crypto.config.interface';
 import { IHttpService } from '../interfaces/providers/http.service.interface';
 

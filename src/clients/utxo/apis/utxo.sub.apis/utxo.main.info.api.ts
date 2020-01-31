@@ -1,11 +1,10 @@
 import { inject, injectable } from 'inversify';
 
-import { TYPES_DI } from '../../../../constants/inversify.constants';
-
-import { AbstractApi } from '../../../../abstracts/abstract.api';
-import { UtxoNetworkInfo } from '../../../../dtos/utxo/utxo.network.info';
-import { IUtxoMainInfoApi } from '../../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.main.info.interface';
-import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
+import { AbstractApi } from '@src/abstracts/abstract.api';
+import { TYPES_DI } from '@src/constants/inversify.constants';
+import { UtxoNetworkInfo } from '@src/dtos/utxo/utxo.network.info';
+import { IUtxoMainInfoApi } from '@src/interfaces/clients/utxo/apis/utxo.sub.apis/utxo.main.info.interface';
+import { IHttpService } from '@src/interfaces/providers/http.service.interface';
 
 @injectable()
 export class UtxoMainInfoApi extends AbstractApi implements IUtxoMainInfoApi {

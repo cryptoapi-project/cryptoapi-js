@@ -1,13 +1,11 @@
 import { inject, injectable } from 'inversify';
 
-import { TYPES_DI } from '../../../../constants/inversify.constants';
-
-import { IEthAddressApi } from '../../../../interfaces/clients/eth/apis/eth.sub.apis/eth.address.api.interface';
-
-import { AbstractApi } from '../../../../abstracts/abstract.api';
-import { BaseLibraryException } from '../../../../exceptions/library.exceptions/base.exception';
-import { IValidateHelper } from '../../../../interfaces/providers/helpers/validate.helper.interface';
-import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
+import { AbstractApi } from '@src/abstracts/abstract.api';
+import { TYPES_DI } from '@src/constants/inversify.constants';
+import { BaseLibraryException } from '@src/exceptions/library.exceptions/base.exception';
+import { IEthAddressApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.address.api.interface';
+import { IValidateHelper } from '@src/interfaces/providers/helpers/validate.helper.interface';
+import { IHttpService } from '@src/interfaces/providers/http.service.interface';
 
 @injectable()
 export class EthAddressApi<TAddressBalance, TAddressInfo> extends AbstractApi implements IEthAddressApi<TAddressBalance, TAddressInfo> {
