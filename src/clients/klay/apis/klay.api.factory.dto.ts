@@ -1,16 +1,16 @@
 import { injectable } from 'inversify';
 
-import { KlayAddressBalance } from '../../../dtos/klay/klay.address.balance';
-import { KlayAddressInfo } from '../../../dtos/klay/klay.address.info';
-
-import { FullKlayTransaction, KlayTransactionByAddresses, KlayTransactionReceipt, KlayTransactionsInterAddresses, KlayTransactionsIntersection } from 'dtos/klay/klay.transaction.dtos';
-import { IKlayApiFactoryDto } from 'interfaces/clients/klay/apis/klay.api.factory.dto.interface';
-import { EstimateGasResponse } from '../../../dtos/klay/klay.estimate.gas';
-import { KlayNetworkInfo } from '../../../dtos/klay/klay.network.info';
-import { KlayRawTransaction } from '../../../dtos/klay/klay.raw.transaction';
+import { KlayAddressBalance } from '@src/dtos/klay/klay.address.balance';
+import { KlayAddressInfo } from '@src/dtos/klay/klay.address.info';
+import { EstimateGasResponse } from '@src/dtos/klay/klay.estimate.gas';
+import { KlayNetworkInfo } from '@src/dtos/klay/klay.network.info';
+import { KlayRawTransaction } from '@src/dtos/klay/klay.raw.transaction';
+import { FullKlayTransaction, KlayTransactionByAddresses, KlayTransactionReceipt, KlayTransactionsInterAddresses, KlayTransactionsIntersection } from '@src/dtos/klay/klay.transaction';
+import { IKlayApiFactoryDto } from '@src/interfaces/clients/klay/apis/klay.api.factory.dto.interface';
 
 @injectable()
 export class KlayApiFactoryDto implements IKlayApiFactoryDto {
+
 	getEstimateGasResponse(data: any): EstimateGasResponse {
 		return new EstimateGasResponse(data);
 	}

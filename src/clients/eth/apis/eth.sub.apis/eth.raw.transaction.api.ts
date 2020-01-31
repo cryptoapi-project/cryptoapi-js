@@ -1,11 +1,10 @@
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 
-import { TYPES_DI } from '../../../../constants/inversify.constants';
-
-import { AbstractApi } from '../../../../abstracts/abstract.api';
-import { IEthRawTransactionApi } from '../../../../interfaces/clients/eth/apis/eth.sub.apis/eth.raw.transaction.interface';
-import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
+import { AbstractApi } from '@src/abstracts/abstract.api';
+import { TYPES_DI } from '@src/constants/inversify.constants';
+import { IEthRawTransactionApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.raw.transaction.interface';
+import { IHttpService } from '@src/interfaces/providers/http.service.interface';
 
 @injectable()
 export class EthRawTransactionApi<TRawTransaction> extends AbstractApi  implements IEthRawTransactionApi<TRawTransaction> {
@@ -29,7 +28,6 @@ export class EthRawTransactionApi<TRawTransaction> extends AbstractApi  implemen
 			{tx: tr},
 		);
 
-		//  new EthRawTransaction(transaction.data)
 		return transaction.data;
 	}
 

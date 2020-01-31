@@ -5,28 +5,24 @@ import { inject, injectable } from 'inversify';
 import WS from 'isomorphic-ws';
 import 'reflect-metadata';
 
-import { SUBSCRIPTIONS } from '../../../constants/events.constants';
-import { TYPES_DI } from '../../../constants/inversify.constants';
-
-import {
-	KlayBlockNotification,
-	KlayTransactionNotification,
-} from '../../../dtos/klay/klay.notification.dtos';
-
-import { IKlayEventsClient } from '../../../interfaces/clients/klay/events/klay.events.client.interface';
-import { IIdHelper } from '../../../interfaces/providers/helpers/id.helper.interface';
-import { ISubsHelper } from '../../../interfaces/providers/helpers/subs.helper.interface';
-
-import { BaseContractEventsClient } from '../../base.event.clients/base.contract.events.client';
-
+import { BaseContractEventsClient } from '@src/clients/base.event.clients/base.contract.events.client';
+import { SUBSCRIPTIONS } from '@src/constants/events.constants';
+import { TYPES_DI } from '@src/constants/inversify.constants';
 import {
 	BalanceNotification,
 	ContractLogNotification,
 	TokenBalanceNotification,
 	TransactionConfirmationNotification,
 	TransferNotification,
-} from '../../../dtos/base/event.notification.dtos';
-import { InvalidParamsException } from '../../../exceptions/library.exceptions/invalid.params.exceptions';
+} from '@src/dtos/base/event.notification.dtos';
+import {
+	KlayBlockNotification,
+	KlayTransactionNotification,
+} from '@src/dtos/klay/klay.notification.dtos';
+import { InvalidParamsException } from '@src/exceptions/library.exceptions/invalid.params.exceptions';
+import { IKlayEventsClient } from '@src/interfaces/clients/klay/events/klay.events.client.interface';
+import { IIdHelper } from '@src/interfaces/providers/helpers/id.helper.interface';
+import { ISubsHelper } from '@src/interfaces/providers/helpers/subs.helper.interface';
 
 @injectable()
 export class KlayEventsClient extends

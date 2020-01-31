@@ -2,15 +2,14 @@ import { inject, injectable } from 'inversify';
 import WS from 'isomorphic-ws';
 import 'reflect-metadata';
 
-import { METHODS, RESPONSE_KEYS, SUBSCRIPTIONS } from '../../constants/events.constants';
-import { TYPES_DI } from '../../constants/inversify.constants';
-
-import { BalanceNotification, TransactionConfirmationNotification } from '../../dtos/base/event.notification.dtos';
-import { AddressSubscription, TransactionConfirmationSubscription } from '../../dtos/base/event.subscription.dtos';
-import { IBaseEventsClient } from '../../interfaces/clients/base/base.events.client.interface';
-import { IEventsConfig } from '../../interfaces/configs/crypto.config.interface';
-import { IIdHelper } from '../../interfaces/providers/helpers/id.helper.interface';
-import { ISubsHelper } from '../../interfaces/providers/helpers/subs.helper.interface';
+import { METHODS, RESPONSE_KEYS, SUBSCRIPTIONS } from '@src/constants/events.constants';
+import { TYPES_DI } from '@src/constants/inversify.constants';
+import { BalanceNotification, TransactionConfirmationNotification } from '@src/dtos/base/event.notification.dtos';
+import { AddressSubscription, TransactionConfirmationSubscription } from '@src/dtos/base/event.subscription.dtos';
+import { IBaseEventsClient } from '@src/interfaces/clients/base.events.client/base.events.client.interface';
+import { IEventsConfig } from '@src/interfaces/configs/crypto.config.interface';
+import { IIdHelper } from '@src/interfaces/providers/helpers/id.helper.interface';
+import { ISubsHelper } from '@src/interfaces/providers/helpers/subs.helper.interface';
 
 @injectable()
 export abstract class BaseEventsClient<BlockNotification, TransactionNotification>

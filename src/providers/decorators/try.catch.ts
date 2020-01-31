@@ -1,4 +1,4 @@
-import { ServerResponseException } from '../../exceptions/http.exceptions/server.response.exception';
+import { ServerResponseException } from '@src/exceptions/http.exceptions/server.response.exception';
 
 export function TryCatch(
 	target: object,

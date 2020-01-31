@@ -1,16 +1,16 @@
 import { inject, injectable } from 'inversify';
 
-import { AbstractApi } from '../../../../abstracts/abstract.api';
-import { TYPES_DI } from '../../../../constants/inversify.constants';
-import { UtxoAddressHistory } from '../../../../dtos/utxo/utxo.address.history';
-import { UtxoAddressInfo } from '../../../../dtos/utxo/utxo.address.info';
-import { BaseLibraryException } from '../../../../exceptions/library.exceptions/base.exception';
-import { InternalLibraryException } from '../../../../exceptions/library.exceptions/internal.library.exception';
-import { IUtxoAddressApi } from '../../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.address.api.interface';
-import { IUrlHelper } from '../../../../interfaces/providers/helpers/url.helper.interface';
-import { IValidateHelper } from '../../../../interfaces/providers/helpers/validate.helper.interface';
-import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
-import { TPaginationOptions } from '../../../../types/paginations.options.type';
+import { AbstractApi } from '@src/abstracts/abstract.api';
+import { TYPES_DI } from '@src/constants/inversify.constants';
+import { UtxoAddressHistory } from '@src/dtos/utxo/utxo.address.history';
+import { UtxoAddressInfo } from '@src/dtos/utxo/utxo.address.info';
+import { BaseLibraryException } from '@src/exceptions/library.exceptions/base.exception';
+import { InternalLibraryException } from '@src/exceptions/library.exceptions/internal.library.exception';
+import { IUtxoAddressApi } from '@src/interfaces/clients/utxo/apis/utxo.sub.apis/utxo.address.api.interface';
+import { IUrlHelper } from '@src/interfaces/providers/helpers/url.helper.interface';
+import { IValidateHelper } from '@src/interfaces/providers/helpers/validate.helper.interface';
+import { IHttpService } from '@src/interfaces/providers/http.service.interface';
+import { TPaginationOptions } from '@src/types/paginations.options.type';
 
 @injectable()
 export class UtxoAddressApi extends AbstractApi implements IUtxoAddressApi {

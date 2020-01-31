@@ -1,7 +1,6 @@
-import { IConfigurable } from '../../../../configs/configurable.interface';
-import { IServerConfig } from '../../../../configs/crypto.config.interface';
-
-import { EthSubscribeToken } from '../../../../../dtos/eth/eth.subscribe.token.dto';
+import { EthSubscribeToken } from '@src/dtos/eth/eth.subscribe.token.dto';
+import { IConfigurable } from '@src/interfaces/configs/configurable.interface';
+import { IServerConfig } from '@src/interfaces/configs/crypto.config.interface';
 
 export interface IEthNotifyApi extends IConfigurable<IServerConfig> {
 	subscribePushNotifications(token: string, addresses: string[]): Promise<EthSubscribeToken>;

@@ -1,9 +1,9 @@
-import { EthAddressBalance } from '../../../../dtos/eth/eth.address.balance';
-import { EthAddressInfo } from '../../../../dtos/eth/eth.address.info';
-import { EstimateGasResponse } from '../../../../dtos/eth/eth.estimate.gas';
-import { EthNetworkInfo } from '../../../../dtos/eth/eth.network.info';
-import { EthRawTransaction } from '../../../../dtos/eth/eth.raw.transaction';
-import { EthTransactionByAddresses, EthTransactionReceipt, EthTransactionsInterAddresses, EthTransactionsIntersection, FullEthTransaction } from '../../../../dtos/eth/eth.transaction.dtos';
+import { EthAddressBalance } from '@src/dtos/eth/eth.address.balance';
+import { EthAddressInfo } from '@src/dtos/eth/eth.address.info';
+import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas';
+import { EthNetworkInfo } from '@src/dtos/eth/eth.network.info';
+import { EthRawTransaction } from '@src/dtos/eth/eth.raw.transaction';
+import { EthTransactionByAddresses, EthTransactionReceipt, EthTransactionsInterAddresses, EthTransactionsIntersection, FullEthTransaction } from '@src/dtos/eth/eth.transaction';
 
 export interface IBaseEthFactoryDto<
 	TNetworkInfo, TEstimateGasResponse,
@@ -28,7 +28,7 @@ export interface IBaseEthFactoryDto<
 	getTransactionReceipt(data: any): TTransactionReceipt;
 }
 
-export interface IEthFactoryDto extends IBaseEthFactoryDto<
+export interface IEthApiFactoryDto extends IBaseEthFactoryDto<
 	EthNetworkInfo, EstimateGasResponse,
 	EthAddressBalance, EthAddressInfo,
 	EthRawTransaction,

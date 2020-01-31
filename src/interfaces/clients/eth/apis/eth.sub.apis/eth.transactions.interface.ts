@@ -1,7 +1,6 @@
-import { IConfigurable } from '../../../../configs/configurable.interface';
-import { IServerConfig } from '../../../../configs/crypto.config.interface';
-
-import { TPaginationOptions } from '../../../../../types/paginations.options.type';
+import { IConfigurable } from '@src/interfaces/configs/configurable.interface';
+import { IServerConfig } from '@src/interfaces/configs/crypto.config.interface';
+import { TPaginationOptions } from '@src/types/paginations.options.type';
 
 export interface IEthTransactionsApi<
 	TTransactionByAddresses, TTransactionsIntersection,

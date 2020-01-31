@@ -1,6 +1,5 @@
-import { injectable } from 'inversify';
-
 import axios, { AxiosInstance } from 'axios';
+import { injectable } from 'inversify';
 
 import { IHttpService } from '../../interfaces/providers/http.service.interface';
 
