@@ -4,6 +4,7 @@ import { BaseEthApiClient } from '@src/clients/eth/apis/eth.api.client';
 import { TYPES_DI } from '@src/constants/inversify.constants';
 import { KlayAddressBalance } from '@src/dtos/klay/klay.address.balance';
 import { KlayAddressInfo } from '@src/dtos/klay/klay.address.info';
+import { KlayBlockInfo, KlayBlocksResponse } from '@src/dtos/klay/klay.block.dtos';
 import { EstimateGasResponse } from '@src/dtos/klay/klay.estimate.gas.dto';
 import { KlayNetworkInfo } from '@src/dtos/klay/klay.network.info';
 import { IEthAddressApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.address.api.interface';
@@ -18,8 +19,9 @@ import { IKlayApiFactoryDto } from '@src/interfaces/clients/klay/apis/klay.api.f
 
 @injectable()
 export class KlayApiClient extends BaseEthApiClient<
-	KlayNetworkInfo, EstimateGasResponse,
-	KlayAddressBalance, KlayAddressInfo
+KlayNetworkInfo, EstimateGasResponse,
+KlayAddressBalance, KlayAddressInfo,
+KlayBlockInfo, KlayBlocksResponse
 > {
 	constructor(
 		@inject(TYPES_DI.IEthMainInfoApi) mainInfo: IEthMainInfoApi<KlayNetworkInfo, EstimateGasResponse>,
@@ -29,7 +31,7 @@ export class KlayApiClient extends BaseEthApiClient<
 		@inject(TYPES_DI.IEthNotifyApi) notifyApi: IEthNotifyApi,
 		@inject(TYPES_DI.IEthRawTransactionApi) rawTransactionApi: IEthRawTransactionApi,
 		@inject(TYPES_DI.IEthTransactionsApi) transactions: IEthTransactionsApi,
-		@inject(TYPES_DI.IEthBlockApi) block: IEthBlockApi,
+		@inject(TYPES_DI.IEthBlockApi) block: IEthBlockApi<KlayBlockInfo, KlayBlocksResponse>,
 		@inject(TYPES_DI.IKlayApiFactoryDto) factory: IKlayApiFactoryDto,
 	) {
 		super(mainInfo, tokenInfo, addressInfo, contractApi, notifyApi, rawTransactionApi,

@@ -1,5 +1,6 @@
 import { EthAddressBalance } from '@src/dtos/eth/eth.address.balance';
 import { EthAddressInfo } from '@src/dtos/eth/eth.address.info';
+import { EthBlockInfo, EthBlocksResponse } from '@src/dtos/eth/eth.block.dtos';
 import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas.dto';
 import { EthNetworkInfo } from '@src/dtos/eth/eth.network.info';
 import { IConfigurable } from '@src/interfaces/configs/configurable.interface';
@@ -16,8 +17,9 @@ import { IEthTransactionsApi } from './eth.sub.apis/eth.transactions.interface';
 
 export interface IBaseEthApiClient<
 	TNetworkInfo, TEstimateGasResponse,
-	TAddressBalance, TAddressInfo
-> extends
+	TAddressBalance, TAddressInfo,
+	TBlockInfo, TBlocksResponse
+	> extends
 	IEthMainInfoApi<TNetworkInfo, TEstimateGasResponse>,
 	IEthAddressApi<TAddressBalance, TAddressInfo>,
 	IEthTokenApi,
@@ -25,11 +27,12 @@ export interface IBaseEthApiClient<
 	IEthNotifyApi,
 	IEthRawTransactionApi,
 	IEthTransactionsApi,
-	IEthBlockApi,
+	IEthBlockApi<TBlockInfo, TBlocksResponse>,
 	IConfigurable<IServerConfig> {
 }
 
 export interface IEthApiClient extends IBaseEthApiClient<
 	EthNetworkInfo, EstimateGasResponse,
-	EthAddressBalance, EthAddressInfo
-> {}
+	EthAddressBalance, EthAddressInfo,
+	EthBlockInfo, EthBlocksResponse
+	> { }
