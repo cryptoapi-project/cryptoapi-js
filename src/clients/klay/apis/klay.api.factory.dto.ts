@@ -2,6 +2,7 @@ import { injectable } from 'inversify';
 
 import { KlayAddressBalance } from '@src/dtos/klay/klay.address.balance';
 import { KlayAddressInfo } from '@src/dtos/klay/klay.address.info';
+import { KlayBlockInfo, KlayBlocksResponse } from '@src/dtos/klay/klay.block.dtos';
 import { EstimateGasResponse } from '@src/dtos/klay/klay.estimate.gas.dto';
 import { KlayNetworkInfo } from '@src/dtos/klay/klay.network.info';
 import { IKlayApiFactoryDto } from '@src/interfaces/clients/klay/apis/klay.api.factory.dto.interface';
@@ -23,5 +24,13 @@ export class KlayApiFactoryDto implements IKlayApiFactoryDto {
 
 	getAddressInfo(data: any): KlayAddressInfo {
 		return new KlayAddressInfo(data);
+	}
+
+	getBlock(data: any): KlayBlockInfo {
+		return new KlayBlockInfo(data);
+	}
+
+	getBlocks(data: any): KlayBlocksResponse {
+		return new KlayBlocksResponse(data);
 	}
 }
