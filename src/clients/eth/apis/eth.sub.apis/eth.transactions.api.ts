@@ -56,7 +56,6 @@ export class EthTransactionsApi<
 		const transactionsInfo = await this.httpService.agent.get(
 			`${this.config!.baseUrl}/coins/${this.config!.coin}/addresses/${addresses.join(',')}/transfers${query}`,
 		);
-		//  new EthTransactionByAddresses(transactionsInfo.data);
 		return transactionsInfo.data;
 	}
 
@@ -81,7 +80,6 @@ export class EthTransactionsApi<
 		const transactionsInfo = await this.httpService.agent.get(
 			`${this.config!.baseUrl}/coins/${this.config!.coin}/addresses/${addresses.join(',')}/transactions${query}`,
 		);
-		// new EthTransactionsIntersection();
 		return transactionsInfo.data;
 	}
 
@@ -104,7 +102,6 @@ export class EthTransactionsApi<
 		const transactionsInfo = await this.httpService.agent.get(
 			`${this.config!.baseUrl}/coins/${this.config!.coin}/transactions${query}`,
 		);
-		// new EthTransactionsInterAddresses(transactionsInfo.data);
 		return transactionsInfo.data;
 	}
 
@@ -120,7 +117,6 @@ export class EthTransactionsApi<
 		const transaction = await this.httpService.agent.get(
 			`${this.config!.baseUrl}/coins/${this.config!.coin}/transactions/${hash}`,
 		);
-		// new FullEthTransaction();
 		return transaction.data;
 	}
 
@@ -136,7 +132,6 @@ export class EthTransactionsApi<
 		const transaction = await this.httpService.agent.get(
 			`${this.config!.baseUrl}/coins/${this.config!.coin}/transactions/receipt/${hash}`,
 		);
-		// new EthTransactionReceipt(transaction.data);
 		return transaction.data;
 	}
 
