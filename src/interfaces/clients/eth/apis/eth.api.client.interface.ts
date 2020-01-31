@@ -1,3 +1,4 @@
+import { EthTransactionByAddresses, EthTransactionReceipt, EthTransactionsInterAddresses, EthTransactionsIntersection, FullEthTransaction } from 'dtos/eth/eth.transaction.dtos';
 import { EthAddressBalance } from '../../../../dtos/eth/eth.address.balance';
 import { EthAddressInfo } from '../../../../dtos/eth/eth.address.info';
 import { EstimateGasResponse } from '../../../../dtos/eth/eth.estimate.gas';
@@ -17,7 +18,10 @@ import { IEthTransactionsApi } from './eth.sub.apis/eth.transactions.interface';
 export interface IBaseEthApiClient<
 	TNetworkInfo, TEstimateGasResponse,
 	TAddressBalance, TAddressInfo,
-	TRawTransaction
+	TRawTransaction,
+	TTransactionByAddresses, TTransactionsIntersection,
+	TFullTransaction, TTransactionsInterAddresses,
+	TTransactionReceipt
 > extends
 	IEthMainInfoApi<TNetworkInfo, TEstimateGasResponse>,
 	IEthAddressApi<TAddressBalance, TAddressInfo>,
@@ -25,7 +29,11 @@ export interface IBaseEthApiClient<
 	IEthContractApi,
 	IEthNotifyApi,
 	IEthRawTransactionApi<TRawTransaction>,
-	IEthTransactionsApi,
+	IEthTransactionsApi<
+		TTransactionByAddresses, TTransactionsIntersection,
+		TFullTransaction, TTransactionsInterAddresses,
+		TTransactionReceipt
+	>,
 	IEthBlockApi,
 	IConfigurable<IServerConfig> {
 }
@@ -33,5 +41,8 @@ export interface IBaseEthApiClient<
 export interface IEthApiClient extends IBaseEthApiClient<
 	EthNetworkInfo, EstimateGasResponse,
 	EthAddressBalance, EthAddressInfo,
-	EthRawTransaction
+	EthRawTransaction,
+	EthTransactionByAddresses, EthTransactionsIntersection,
+	FullEthTransaction, EthTransactionsInterAddresses,
+	EthTransactionReceipt
 > {}

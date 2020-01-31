@@ -1,4 +1,4 @@
-export class EthInternalTransaction {
+export class KlayInternalTransaction {
 	readonly to: string;
 	readonly from: string;
 	readonly value: string;
@@ -23,7 +23,7 @@ export class EthInternalTransaction {
 	}
 }
 
-export class EthTransaction {
+export class KlayTransaction {
 	readonly block_hash: string;
 	readonly block_number: number;
 	readonly utc: string;
@@ -39,7 +39,7 @@ export class EthTransaction {
 	readonly v: string;
 	readonly s: string;
 	readonly r: string;
-	readonly internal_transactions: EthInternalTransaction[];
+	readonly internal_transactions: KlayInternalTransaction[];
 
 	constructor(info: {
 		readonly block_hash: string;
@@ -57,7 +57,7 @@ export class EthTransaction {
 		readonly v: string;
 		readonly s: string;
 		readonly r: string;
-		readonly internal_transactions: EthInternalTransaction[];
+		readonly internal_transactions: KlayInternalTransaction[];
 	}) {
 		this.block_hash = info.block_hash;
 		this.block_number = info.block_number;
@@ -74,11 +74,11 @@ export class EthTransaction {
 		this.v = info.v;
 		this.s = info.s;
 		this.r = info.r;
-		this.internal_transactions = info.internal_transactions.map((t) => new EthInternalTransaction(t));
+		this.internal_transactions = info.internal_transactions.map((t) => new KlayInternalTransaction(t));
 	}
 }
 
-export class EthTransactionByAddresses {
+export class KlayTransactionByAddresses {
 	readonly addresses: string[];
 	readonly limit: number;
 	readonly skip: number;
@@ -131,29 +131,29 @@ export class EthTransactionByAddresses {
 
 }
 
-export class EthTransactionsIntersection {
+export class KlayTransactionsIntersection {
 	readonly addresses: string[];
 	readonly skip: number;
 	readonly limit: number;
 	readonly count: number;
-	readonly items: EthTransaction[];
+	readonly items: KlayTransaction[];
 
 	constructor({ addresses, skip, limit, items, count }: {
 		addresses: string[],
 		skip: number,
 		limit: number,
 		count: number,
-		items: EthTransaction[],
+		items: KlayTransaction[],
 	}) {
 		this.addresses = addresses;
 		this.skip = skip;
 		this.limit = limit;
 		this.count = count;
-		this.items = items.map(((item) => new EthTransaction(item)));
+		this.items = items.map(((item) => new KlayTransaction(item)));
 	}
 }
 
-export class FullEthTransaction extends EthTransaction {
+export class FullKlayTransaction extends KlayTransaction {
 	readonly receipt: any;
 
 	constructor(info: {
@@ -173,14 +173,14 @@ export class FullEthTransaction extends EthTransaction {
 		readonly v: string;
 		readonly s: string;
 		readonly r: string;
-		readonly internal_transactions: EthInternalTransaction[];
+		readonly internal_transactions: KlayInternalTransaction[];
 	}) {
 		super(info);
 		this.receipt = info.receipt;
 	}
 }
 
-export class EthTransactionsInterAddresses {
+export class KlayTransactionsInterAddresses {
 	readonly total: number;
 	readonly items: Array<{
 		readonly block_hash: string;
@@ -266,7 +266,7 @@ export class EthTransactionsInterAddresses {
 
 }
 
-export class EthReceiptLog {
+export class KlayReceiptLog {
 	address: string;
 	data: string;
 	topics: string[];
@@ -297,7 +297,7 @@ export class EthReceiptLog {
 	}
 }
 
-export class EthTransactionReceipt {
+export class KlayTransactionReceipt {
 	readonly block_hash: string;
 	readonly block_number: number;
 	readonly contract_address: string|null;
@@ -308,7 +308,7 @@ export class EthTransactionReceipt {
 	readonly hash: string;
 	readonly to: string;
 	readonly transaction_index: number;
-	readonly logs: EthReceiptLog[]|null;
+	readonly logs: KlayReceiptLog[]|null;
 
 	constructor(info: {
 		readonly block_hash: string;
@@ -316,7 +316,7 @@ export class EthTransactionReceipt {
 		readonly contract_address: string|null;
 		readonly gas_used: number;
 		readonly cumulative_gas_used: number;
-		readonly logs: EthReceiptLog[]|null;
+		readonly logs: KlayReceiptLog[]|null;
 		readonly status: boolean;
 		readonly from: string;
 		readonly hash: string;
@@ -328,7 +328,7 @@ export class EthTransactionReceipt {
 		this.contract_address = info.contract_address;
 		this.gas_used = info.gas_used;
 		this.cumulative_gas_used = info.cumulative_gas_used;
-		this.logs = info.logs ? info.logs.map((log) => new EthReceiptLog(log)) : null;
+		this.logs = info.logs ? info.logs.map((log) => new KlayReceiptLog(log)) : null;
 		this.status = info.status;
 		this.from = info.from;
 		this.hash = info.hash;

@@ -3,13 +3,6 @@ import 'reflect-metadata';
 
 import { TYPES_DI } from '../../../../constants/inversify.constants';
 
-import {
-	EthTransactionByAddresses,
-	EthTransactionReceipt,
-	EthTransactionsInterAddresses,
-	EthTransactionsIntersection,
-	FullEthTransaction,
-} from '../../../../dtos/eth/eth.transaction.dtos';
 import { TPaginationOptions } from '../../../../types/paginations.options.type';
 
 import { IEthTransactionsApi } from '../../../../interfaces/clients/eth/apis/eth.sub.apis/eth.transactions.interface';
@@ -21,7 +14,15 @@ import { AbstractApi } from '../../../../abstracts/abstract.api';
 import { InternalLibraryException } from '../../../../exceptions/library.exceptions/internal.library.exception';
 
 @injectable()
-export class EthTransactionsApi extends AbstractApi implements IEthTransactionsApi {
+export class EthTransactionsApi<
+	TTransactionByAddresses, TTransactionsIntersection,
+	TFullTransaction, TTransactionsInterAddresses,
+	TTransactionReceipt
+> extends AbstractApi implements IEthTransactionsApi<
+	TTransactionByAddresses, TTransactionsIntersection,
+	TFullTransaction, TTransactionsInterAddresses,
+	TTransactionReceipt
+> {
 
 	constructor(
 		@inject(TYPES_DI.IHttpService) private readonly httpService: IHttpService,
@@ -37,7 +38,7 @@ export class EthTransactionsApi extends AbstractApi implements IEthTransactionsA
 	 * @param {string[]} addresses
 	 * @param {boolean} positive?
 	 * @param {TPaginationOptions} options?
-	 * @return {Promise<EthTransactionByAddresses>}
+	 * @return {Promise<TTransactionByAddresses>}
 	 */
 	async getTransactionsByAddresses(
 		addresses: string[],
@@ -46,7 +47,7 @@ export class EthTransactionsApi extends AbstractApi implements IEthTransactionsA
 			skip: 0,
 			limit: 100,
 		},
-	): Promise<EthTransactionByAddresses> {
+	): Promise<TTransactionByAddresses> {
 		this._checkConfig();
 
 		if (!this.validateHelper.isArray(addresses) || !addresses.length) {
@@ -55,10 +56,11 @@ export class EthTransactionsApi extends AbstractApi implements IEthTransactionsA
 
 		const query = `${this.urlHelper.addOptionsToUrl('', options)}&positive=${positive}`;
 
-		const transactionsInfo = await this.httpService.agent.get<any>(
-			`${this.config!.baseUrl}/coins/eth/addresses/${addresses.join(',')}/transfers${query}`,
+		const transactionsInfo = await this.httpService.agent.get(
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/addresses/${addresses.join(',')}/transfers${query}`,
 		);
-		return new EthTransactionByAddresses(transactionsInfo.data);
+		//  new EthTransactionByAddresses(transactionsInfo.data);
+		return transactionsInfo.data;
 	}
 
 	/**
@@ -71,7 +73,7 @@ export class EthTransactionsApi extends AbstractApi implements IEthTransactionsA
 	async getTransactionsIntersection(
 		addresses: string[],
 		options?: TPaginationOptions,
-	): Promise<EthTransactionsIntersection> {
+	): Promise<TTransactionsIntersection> {
 		this._checkConfig();
 
 		if (!this.validateHelper.isArray(addresses) || !addresses.length) {
@@ -79,10 +81,11 @@ export class EthTransactionsApi extends AbstractApi implements IEthTransactionsA
 		}
 
 		const query = options ? this.urlHelper.addOptionsToUrl('', options) : '';
-		const transactionsInfo = await this.httpService.agent.get<any>(
-			`${this.config!.baseUrl}/coins/eth/addresses/${addresses.join(',')}/transactions${query}`,
+		const transactionsInfo = await this.httpService.agent.get(
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/addresses/${addresses.join(',')}/transactions${query}`,
 		);
-		return new EthTransactionsIntersection(transactionsInfo.data);
+		// new EthTransactionsIntersection();
+		return transactionsInfo.data;
 	}
 
 	/**
@@ -91,52 +94,53 @@ export class EthTransactionsApi extends AbstractApi implements IEthTransactionsA
 	 * @param {string} from
 	 * @param {string} to
 	 * @param {TPaginationOptions} options?
-	 * @return {Promise<EthTransactionsInterAddresses>}
+	 * @return {Promise<TTransactionsInterAddresses>}
 	 */
 	async getTransactionsInterAddresses(
 		from: string,
 		to: string,
 		options?: TPaginationOptions,
-	): Promise<EthTransactionsInterAddresses> {
+	): Promise<TTransactionsInterAddresses> {
 		this._checkConfig();
 
 		const query = this.urlHelper.addOptionsToUrl('', {from, to, ...options});
-		const transactionsInfo = await this.httpService.agent.get<any>(
-			`${this.config!.baseUrl}/coins/eth/transactions${query}`,
+		const transactionsInfo = await this.httpService.agent.get(
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/transactions${query}`,
 		);
-		return new EthTransactionsInterAddresses(transactionsInfo.data);
+		// new EthTransactionsInterAddresses(transactionsInfo.data);
+		return transactionsInfo.data;
 	}
 
 	/**
 	 *  Get full transaction info by hash.
 	 * @method getFullTransactionInfo
 	 * @param {string} hash
-	 * @return {Promise<FullEthTransaction>}
+	 * @return {Promise<TFullTransaction>}
 	 */
-	async getFullTransactionInfo(hash: string) {
+	async getFullTransactionInfo(hash: string): Promise<TFullTransaction> {
 		this._checkConfig();
 
-		const transaction = await this.httpService.agent.get<FullEthTransaction>(
-			`${this.config!.baseUrl}/coins/eth/transactions/${hash}`,
+		const transaction = await this.httpService.agent.get(
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/transactions/${hash}`,
 		);
-
-		return new FullEthTransaction(transaction.data);
+		// new FullEthTransaction();
+		return transaction.data;
 	}
 
 	/**
 	 *  Get transaction receipt by hash.
 	 * @method getTransactionReceipt
 	 * @param {string} hash
-	 * @return {Promise<EthTransactionReceipt>}
+	 * @return {Promise<TTransactionReceipt>}
 	 */
-	async getTransactionReceipt(hash: string): Promise<EthTransactionReceipt> {
+	async getTransactionReceipt(hash: string): Promise<TTransactionReceipt> {
 		this._checkConfig();
 
-		const transaction = await this.httpService.agent.get<EthTransactionReceipt>(
-			`${this.config!.baseUrl}/coins/eth/transactions/receipt/${hash}`,
+		const transaction = await this.httpService.agent.get(
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/transactions/receipt/${hash}`,
 		);
-
-		return new EthTransactionReceipt(transaction.data);
+		// new EthTransactionReceipt(transaction.data);
+		return transaction.data;
 	}
 
 }

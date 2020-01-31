@@ -3,6 +3,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
+
 	entry: {
 		'cryptoapi-lib': './src/index.ts',
 		'cryptoapi-lib.min': './src/index.ts'
@@ -15,6 +16,7 @@ module.exports = {
 			umdNamedDefine: true
 	},
 	resolve: {
+		modules: [path.resolve(__dirname, 'src')],
 		extensions: ['.ts', '.tsx', '.js']
 	},
 	devtool: 'source-map',
@@ -23,9 +25,6 @@ module.exports = {
 			test: /\.tsx?$/,
 			loader: 'awesome-typescript-loader',
 			exclude: /node_modules/,
-			query: {
-				declaration: true,
-			}
 		}]
 	},
 	optimization: {

@@ -4,6 +4,12 @@ import { TYPES_DI } from '../../../constants/inversify.constants';
 import { EthAddressBalance } from '../../../dtos/eth/eth.address.balance';
 import { EthAddressInfo } from '../../../dtos/eth/eth.address.info';
 import { EthRawTransaction } from '../../../dtos/eth/eth.raw.transaction';
+import {
+	EthTransactionByAddresses, EthTransactionReceipt,
+	EthTransactionsInterAddresses,
+	EthTransactionsIntersection,
+	FullEthTransaction,
+} from '../../../dtos/eth/eth.transaction.dtos';
 
 import { IEthContractApi } from '../../../interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
 import { TEthContractCall } from '../../../types/eth/call.contract.type';
@@ -32,11 +38,17 @@ import { TryCatch } from '../../../providers/decorators/try.catch';
 export class BaseEthApiClient<
 	TNetworkInfo, TEstimateGasResponse,
 	TAddressBalance, TAddressInfo,
-	TRawTransaction
+	TRawTransaction,
+	TTransactionByAddresses, TTransactionsIntersection,
+	TFullTransaction, TTransactionsInterAddresses,
+	TTransactionReceipt
 > implements IBaseEthApiClient<
 	TNetworkInfo, TEstimateGasResponse,
 	TAddressBalance, TAddressInfo,
-	TRawTransaction
+	TRawTransaction,
+	TTransactionByAddresses, TTransactionsIntersection,
+	TFullTransaction, TTransactionsInterAddresses,
+	TTransactionReceipt
 > {
 	config: IServerConfig|null = null;
 	constructor(
@@ -46,12 +58,19 @@ export class BaseEthApiClient<
 		private readonly ethContractApi: IEthContractApi,
 		private readonly ethNotifyApi: IEthNotifyApi,
 		private readonly rawTransactionApi: IEthRawTransactionApi<TRawTransaction>,
-		private readonly ethTransactions: IEthTransactionsApi,
+		private readonly ethTransactions: IEthTransactionsApi<
+			TTransactionByAddresses, TTransactionsIntersection,
+			TFullTransaction, TTransactionsInterAddresses,
+			TTransactionReceipt
+		>,
 		private readonly ethBlock: IEthBlockApi,
 		private readonly factoryDto: IBaseEthFactoryDto<
 			TNetworkInfo, TEstimateGasResponse,
 			TAddressBalance, TAddressInfo,
-			TRawTransaction
+			TRawTransaction,
+			TTransactionByAddresses, TTransactionsIntersection,
+			TFullTransaction, TTransactionsInterAddresses,
+			TTransactionReceipt
 		>,
 	) {}
 
@@ -202,11 +221,12 @@ export class BaseEthApiClient<
 	 * @param {string[]} addresses
 	 * @param {boolean} positive?
 	 * @param {TPaginationOptions} options?
-	 * @return {Promise{EthTransactionByAddresses}}
+	 * @return {Promise{TTransactionByAddresses}}
 	 */
 	@TryCatch
-	getTransactionsByAddresses(addresses: string[], positive?: boolean, options?: TPaginationOptions) {
-		return this.ethTransactions.getTransactionsByAddresses(addresses, positive, options);
+	async getTransactionsByAddresses(addresses: string[], positive?: boolean, options?: TPaginationOptions) {
+		const info = await this.ethTransactions.getTransactionsByAddresses(addresses, positive, options);
+		return this.factoryDto.getTransactionByAddresses(info);
 	}
 
 	/**
@@ -214,11 +234,12 @@ export class BaseEthApiClient<
 	 * @method getTransactionsIntersection
 	 * @param {string[]} addresses
 	 * @param {TPaginationOptions} options
-	 * @return {Promise<EthTransactionsIntersection>}
+	 * @return {Promise<TTransactionsIntersection>}
 	 */
  	@TryCatch
- 	getTransactionsIntersection(addresses: string[], options: TPaginationOptions) {
- 		return this.ethTransactions.getTransactionsIntersection(addresses, options);
+ 	async getTransactionsIntersection(addresses: string[], options: TPaginationOptions) {
+ 		const info = await this.ethTransactions.getTransactionsIntersection(addresses, options);
+ 		return this.factoryDto.getTransactionsIntersection(info);
  	}
 
 	/**
@@ -227,12 +248,12 @@ export class BaseEthApiClient<
 	 * @param {string} from
 	 * @param {string} to
 	 * @param {TPaginationOptions} options
-	 * @return {Promise<EthTransactionsInterAddresses>}
+	 * @return {Promise<TTransactionsInterAddresses>}
 	 */
 	@TryCatch
-	getTransactionsInterAddresses(from: string, to: string, options?: TPaginationOptions) {
-		return this.ethTransactions.getTransactionsInterAddresses(from, to, options);
-
+	async getTransactionsInterAddresses(from: string, to: string, options?: TPaginationOptions) {
+		const info = await this.ethTransactions.getTransactionsInterAddresses(from, to, options);
+		return this.factoryDto.getTransactionsInterAddresses(info);
 	}
 
 	/**
@@ -321,22 +342,24 @@ export class BaseEthApiClient<
 	 * Get full transaction info by hash.
 	 * @method getFullTransactionInfo
 	 * @param {string} hash
-	 * @return {Promise<FullEthTransaction>}
+	 * @return {Promise<TFullTransaction>}
 	 */
 	@TryCatch
-	getFullTransactionInfo(hash: string) {
-		return this.ethTransactions.getFullTransactionInfo(hash);
+	async getFullTransactionInfo(hash: string) {
+		const info = await this.ethTransactions.getFullTransactionInfo(hash);
+		return this.factoryDto.getFullTransaction(info);
 	}
 
 	/**
 	 * Get transaction receipt by hash.
 	 * @method getTransactionReceipt
 	 * @param {string} hash
-	 * @return {Promise<EthTransactionReceipt>}
+	 * @return {Promise<TTransactionReceipt>}
 	 */
 	@TryCatch
-	getTransactionReceipt(hash: string) {
-		return this.ethTransactions.getTransactionReceipt(hash);
+	async getTransactionReceipt(hash: string) {
+		const info = await this.ethTransactions.getTransactionReceipt(hash);
+		return this.factoryDto.getTransactionReceipt(info);
 	}
 
 	/**
@@ -355,7 +378,10 @@ export class BaseEthApiClient<
 export class EthApiClient extends BaseEthApiClient<
 	EthNetworkInfo, EstimateGasResponse,
 	EthAddressBalance, EthAddressInfo,
-	EthRawTransaction
+	EthRawTransaction,
+	EthTransactionByAddresses, EthTransactionsIntersection,
+	FullEthTransaction, EthTransactionsInterAddresses,
+	EthTransactionReceipt
 > {
 
 	constructor(
@@ -365,7 +391,11 @@ export class EthApiClient extends BaseEthApiClient<
 		@inject(TYPES_DI.IEthContractApi) contractApi: IEthContractApi,
 		@inject(TYPES_DI.IEthNotifyApi) notifyApi: IEthNotifyApi,
 		@inject(TYPES_DI.IEthRawTransactionApi) rawTransactionApi: IEthRawTransactionApi<EthRawTransaction>,
-		@inject(TYPES_DI.IEthTransactionsApi) transactions: IEthTransactionsApi,
+		@inject(TYPES_DI.IEthTransactionsApi) transactions: IEthTransactionsApi<
+			EthTransactionByAddresses, EthTransactionsIntersection,
+			FullEthTransaction, EthTransactionsInterAddresses,
+			EthTransactionReceipt
+		>,
 		@inject(TYPES_DI.IEthBlockApi)  block: IEthBlockApi,
 		@inject(TYPES_DI.IEthApiFactoryDto) factory: IEthFactoryDto,
 	) {

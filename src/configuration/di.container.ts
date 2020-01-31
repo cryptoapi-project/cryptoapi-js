@@ -13,7 +13,6 @@ import { IEthBlockApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.bl
 import { IEthContractApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
 import { IEthNotifyApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.notify.api.interface';
 import { IEthTokenApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.token.api.interface';
-import { IEthTransactionsApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.transactions.interface';
 import { IEthEventsClient } from '../interfaces/clients/eth/events/eth.events.client.interface';
 import { IKlayEventsClient } from '../interfaces/clients/klay/events/klay.events.client.interface';
 import { IUtxoApiClient } from '../interfaces/clients/utxo/apis/utxo.api.client.interface';
@@ -98,13 +97,12 @@ diContainer.bind<IUtxoEventsClient>(TYPES_DI.IUtxoEventsClient).to(UtxoEventsCli
 diContainer.bind(TYPES_DI.IEthMainInfoApi).to(EthMainInfoApi);
 diContainer.bind(TYPES_DI.IEthAddressApi).to(EthAddressApi);
 diContainer.bind(TYPES_DI.IEthRawTransactionApi).to(EthRawTransactionApi);
+diContainer.bind(TYPES_DI.IEthTransactionsApi).to(EthTransactionsApi);
 
 diContainer.bind<IEthNotifyApi>(TYPES_DI.IEthNotifyApi).to(EthNotifyApi);
 diContainer.bind<IEthContractApi>(TYPES_DI.IEthContractApi).to(EthContractApi);
-
 diContainer.bind<IEthBlockApi>(TYPES_DI.IEthBlockApi).to(EthBlockApi);
 diContainer.bind<IEthTokenApi>(TYPES_DI.IEthTokenApi).to(EthTokenApi);
-diContainer.bind<IEthTransactionsApi>(TYPES_DI.IEthTransactionsApi).to(EthTransactionsApi);
 
 diContainer.bind<IUtxoMainInfoApi>(TYPES_DI.IUtxoMainInfoApi).to(UtxoMainInfoApi);
 diContainer.bind<IUtxoBlockApi>(TYPES_DI.IUtxoBlockApi).to(UtxoBlockApi);
