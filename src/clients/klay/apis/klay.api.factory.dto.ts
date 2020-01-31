@@ -2,9 +2,10 @@ import { injectable } from 'inversify';
 
 import { KlayAddressBalance } from '@src/dtos/klay/klay.address.balance';
 import { KlayAddressInfo } from '@src/dtos/klay/klay.address.info';
-import { KlayContract, KlayContractLog } from '@src/dtos/klay/klay.contract.dto';
-import { EstimateGasResponse } from '@src/dtos/klay/klay.estimate.gas.dto';
+import { KlayContract, KlayContractLog } from '@src/dtos/klay/klay.contract';
+import { EstimateGasResponse } from '@src/dtos/klay/klay.estimate.gas';
 import { KlayNetworkInfo } from '@src/dtos/klay/klay.network.info';
+import { KlayRawTransaction } from '@src/dtos/klay/klay.raw.transaction';
 import { IKlayApiFactoryDto } from '@src/interfaces/clients/klay/apis/klay.api.factory.dto.interface';
 
 @injectable()
@@ -32,6 +33,10 @@ export class KlayApiFactoryDto implements IKlayApiFactoryDto {
 
 	getContractLog(data: any): KlayContractLog {
 		return new KlayContractLog(data);
+	}
+
+	getRawTransaction(data: any): KlayRawTransaction {
+		return new KlayRawTransaction(data);
 	}
 
 }
