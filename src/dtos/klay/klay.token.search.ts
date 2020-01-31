@@ -1,6 +1,6 @@
-import { EthMainTokenInfo } from './eth.token.info';
+import { KlayMainTokenInfo } from './klay.token.info';
 
-export class EthTokenSearchRequest {
+export class KlayTokenSearchRequest {
 	query?: string;
 	types?: string;
 	skip?: number;
@@ -21,27 +21,27 @@ export class EthTokenSearchRequest {
 
 export class TokenSearchItem {
 	address: string;
-	info: EthMainTokenInfo;
+	info: KlayMainTokenInfo;
 	create_transaction_hash: string;
 	type: string;
 	status: boolean;
 
 	constructor(info: {
 		address: string;
-		info: EthMainTokenInfo;
+		info: KlayMainTokenInfo;
 		create_transaction_hash: string;
 		type: string;
 		status: boolean;
 	}) {
 		this.address = info.address;
-		this.info = new EthMainTokenInfo(info.info);
+		this.info = new KlayMainTokenInfo(info.info);
 		this.create_transaction_hash = info.create_transaction_hash;
 		this.type = info.type;
 		this.status = info.status;
 	}
 }
 
-export class EthTokenSearchResponse {
+export class KlayTokenSearchResponse {
 	query: string | null;
 	skip: number;
 	limit: number;

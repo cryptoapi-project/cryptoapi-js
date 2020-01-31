@@ -1,4 +1,4 @@
-export class EthTransfer {
+export class KlayTransfer {
 	type: string;
 	execute_address: string;
 	from: string;
@@ -39,18 +39,18 @@ export class EthTransfer {
 
 }
 
-export class EthTokenTransfersResponse {
+export class KlayTokenTransfersResponse {
 	addresses?: string[];
 	skip: number;
 	limit: number;
-	items: EthTransfer[];
+	items: KlayTransfer[];
 	count: number;
 
 	constructor(info: {
 		addresses?: string[];
 		skip: number;
 		limit: number;
-		items: EthTransfer[];
+		items: KlayTransfer[];
 		count: number;
 	}) {
 		this.addresses = info.addresses;
