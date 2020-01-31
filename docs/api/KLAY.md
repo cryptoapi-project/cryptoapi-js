@@ -16,6 +16,10 @@ This library provides klay api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#klay.getAddressesInfos">klay.getAddressesInfos(addresses: string[])</a> ⇒<code><a href="#KlayAddressInfo">Promise&lt;KlayAddressInfo[]&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#klay.decodeRawTransaction">klay.decodeRawTransaction</a> ⇒<code><a href="#KlayRawTransaction">Promise&lt;KlayRawTransaction&gt;</a></code></dt></dt>
+<dd></dd>
+<dt><a href="#klay.sendRawTransaction">klay.sendRawTransaction</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
+<dd></dd>
 </dl>
 
 #### <a name="klay.getNetworkInfo">klay.getNetworkInfo()</a> ⇒ <code><a href="#KlayNetworkInfo">Promise&lt;KlayNetworkInfo&gt;</a></code></dt></dt>
@@ -120,6 +124,62 @@ Example response:
 ]
 ```
 
+#### <a name="klay.decodeRawTransaction">klay.decodeRawTransaction(tr: string)</a> ⇒ <code><a href="#KlayRawTransaction">Promise&lt;KlayRawTransaction&gt;</a></code></dt></dt>
+Returns JSON data of decode raw transaction by hash.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tr | <code>string</code> | [Raw transaction] |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('YOUR-API-KEY');
+    const result = await crypto.api.klay.decodeRawTransaction('0x2af902ca0a8505d21dba00843b9ac9ff80809490b3e9a3770481345a7f17f22f16d020bccfd33eb901fe608060405234801561001057600080fd5b506101de806100206000396000f3006080604052600436106100615763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416631a39d8ef81146100805780636353586b146100a757806370a08231146100ca578063fd6b7ef8146100f8575b3360009081526001602052604081208054349081019091558154019055005b34801561008c57600080fd5b5061009561010d565b60408051918252519081900360200190f35b6100c873ffffffffffffffffffffffffffffffffffffffff60043516610113565b005b3480156100d657600080fd5b5061009573ffffffffffffffffffffffffffffffffffffffff60043516610147565b34801561010457600080fd5b506100c8610159565b60005481565b73ffffffffffffffffffffffffffffffffffffffff1660009081526001602052604081208054349081019091558154019055565b60016020526000908152604090205481565b336000908152600160205260408120805490829055908111156101af57604051339082156108fc029083906000818181858888f193505050501561019c576101af565b3360009081526001602052604090208190555b505600a165627a7a72305820627ca46bb09478a015762806cc00c431230501118c7c26c30ac58c4e09e51c4f0029802180f845f84325a0d8cdc1219df8bbca8a00255420a5bec0f602e6266b76ce7dcf5b0b26bd7fe3b9a05557496a3a17f784c3eb40acbb526dfbc20ae6b00c633a0186d804cd9137b13e9433f524631e573329a550296f595c820d6c65213ff845f84325a041a4c4bf0e3039d04472beae4135a14c26ae4c88bad08d5f0acf61f7c0eb60dfa03d1658f38e5c2089d64985fb33cb13db2e41cde6958ba2cfcfaba685a7f565e2');
+```
+
+Example response:
+
+```javascript
+{
+    data: "0x",
+    gas: "6500000",
+    gas_price: "3005000000000",
+    ggg: "dasdasda",
+    nonce: 8833539,
+    r: "0x4ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637fdc35bdc49c4",
+    s: "0x4b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02",
+    signatures: ["0x1c", "0x4ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637fdc35bdc49c4", "0x4b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02"],
+    to: "0x1de29f644d555fe9cc3241e1083de0868f959bfa",
+    type: "LEGACY",
+    v: "0x1c",
+    value: "300000000000",
+}
+ ```
+
+#### <a name="klay.sendRawTransaction">klay.sendRawTransaction(tr: string)</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
+
+Returns transaction hash.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tr | <code>string</code> | [Raw transaction] |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('YOUR-API-KEY');
+    const result = await crypto.api.klay.sendRawTransaction('0xf867078505d21dba00830186a094cae7cd8e94233f0bb8a2f08ef36d65f987cb4fc401808207f6a00f571767e3d59596656160261f78e0591fd0aced4362ba80faeb4ec8b629a167a05c69bf85c2a20149a38c4299ae59dde72c1ee01bae5203f9c29f869ffffe4b0f');
+```
+
+Example response:
+
+```
+'0x5fde62cf325ba9461da9f2dcba2d9993002cc93025fd20408cf0c3c0119e3909'
+```
+
 ## Typedefs
 
 #### KLAY Typedefs
@@ -134,6 +194,8 @@ Example response:
 <dt><a href="#KlayAddressBalance">KlayAddressBalance</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#KlayAddressInfo">KlayAddressInfo</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#KlayRawTransaction">KlayRawTransaction</a> : <code>Object</code></dt>
 <dd></dd>
 </dl>
 
@@ -192,5 +254,33 @@ Example response:
     is_contract: boolean;
     type: string;
     count_transactions: number;
+}
+```
+
+#### KlayRawTransaction : <code>Object</code>
+<a name="KlayRawTransaction"></a>
+
+```javascript
+{
+	type: string;
+	gas_price: string;
+	gas: string;
+	from?: string;
+	human_readable?: boolean;
+	fee_ratio?: string;
+	code_format?: string;
+	fee_payer?: string;
+	payer_v?: string;
+	payer_r?: string;
+	payer_s?: string;
+	fee_payer_signatures?: Array<string[]|string>;
+	to: string;
+	value: string;
+	data: string;
+	v: number;
+	r: string;
+	s: string;
+	signatures: Array<string[]|string>;
+	nonce: string;
 }
 ```

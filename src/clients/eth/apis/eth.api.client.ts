@@ -3,8 +3,9 @@ import { inject, injectable } from 'inversify';
 import { TYPES_DI } from '@src/constants/inversify.constants';
 import { EthAddressBalance } from '@src/dtos/eth/eth.address.balance';
 import { EthAddressInfo } from '@src/dtos/eth/eth.address.info';
-import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas.dto';
+import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas';
 import { EthNetworkInfo } from '@src/dtos/eth/eth.network.info';
+import { EthRawTransaction } from '@src/dtos/eth/eth.raw.transaction';
 import { EthTokenSearchRequest } from '@src/dtos/eth/eth.token.search';
 import { EthTokenTransfersByAddressesRequest, EthTokenTransfersRequest } from '@src/dtos/eth/eth.transfer.dto';
 import { IBaseEthApiClient } from '@src/interfaces/clients/eth/apis/eth.api.client.interface';
@@ -27,10 +28,12 @@ import { TPaginationOptions } from '@src/types/paginations.options.type';
 @injectable()
 export class BaseEthApiClient<
 	TNetworkInfo, TEstimateGasResponse,
-	TAddressBalance, TAddressInfo
+	TAddressBalance, TAddressInfo,
+	TRawTransaction
 > implements IBaseEthApiClient<
 	TNetworkInfo, TEstimateGasResponse,
-	TAddressBalance, TAddressInfo
+	TAddressBalance, TAddressInfo,
+	TRawTransaction
 > {
 	config: IServerConfig|null = null;
 	constructor(
@@ -39,12 +42,13 @@ export class BaseEthApiClient<
 		private readonly ethAddressInfo: IEthAddressApi<TAddressBalance, TAddressInfo>,
 		private readonly ethContractApi: IEthContractApi,
 		private readonly ethNotifyApi: IEthNotifyApi,
-		private readonly rawTransactionApi: IEthRawTransactionApi,
+		private readonly rawTransactionApi: IEthRawTransactionApi<TRawTransaction>,
 		private readonly ethTransactions: IEthTransactionsApi,
 		private readonly ethBlock: IEthBlockApi,
 		private readonly factoryDto: IBaseEthFactoryDto<
 			TNetworkInfo, TEstimateGasResponse,
-			TAddressBalance, TAddressInfo
+			TAddressBalance, TAddressInfo,
+			TRawTransaction
 		>,
 	) {}
 
@@ -182,11 +186,11 @@ export class BaseEthApiClient<
 	 * Method decode raw transaction.
 	 * @method decodeRawTransaction
 	 * @param {string} tr
-	 * @return {EthRawTransaction}
+	 * @return {TRawTransaction}
 	 */
 	@TryCatch
-	decodeRawTransaction(tr: string) {
-		return this.rawTransactionApi.decodeRawTransaction(tr);
+	async decodeRawTransaction(tr: string) {
+		return this.factoryDto.getRawTransaction(await this.rawTransactionApi.decodeRawTransaction(tr));
 	}
 
 	/**
@@ -347,7 +351,8 @@ export class BaseEthApiClient<
 @injectable()
 export class EthApiClient extends BaseEthApiClient<
 	EthNetworkInfo, EstimateGasResponse,
-	EthAddressBalance, EthAddressInfo
+	EthAddressBalance, EthAddressInfo,
+	EthRawTransaction
 > {
 	constructor(
 		@inject(TYPES_DI.IEthMainInfoApi) mainInfo: IEthMainInfoApi<EthNetworkInfo, EstimateGasResponse>,
@@ -355,7 +360,7 @@ export class EthApiClient extends BaseEthApiClient<
 		@inject(TYPES_DI.IEthAddressApi) addressInfo: IEthAddressApi<EthAddressBalance, EthAddressInfo>,
 		@inject(TYPES_DI.IEthContractApi) contractApi: IEthContractApi,
 		@inject(TYPES_DI.IEthNotifyApi) notifyApi: IEthNotifyApi,
-		@inject(TYPES_DI.IEthRawTransactionApi) rawTransactionApi: IEthRawTransactionApi,
+		@inject(TYPES_DI.IEthRawTransactionApi) rawTransactionApi: IEthRawTransactionApi<EthRawTransaction>,
 		@inject(TYPES_DI.IEthTransactionsApi) transactions: IEthTransactionsApi,
 		@inject(TYPES_DI.IEthBlockApi)  block: IEthBlockApi,
 		@inject(TYPES_DI.IEthApiFactoryDto) factory: IEthApiFactoryDto,
