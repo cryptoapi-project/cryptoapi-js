@@ -3,7 +3,6 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
-
 	entry: {
 		'cryptoapi-lib': './src/index.ts',
 		'cryptoapi-lib.min': './src/index.ts'
