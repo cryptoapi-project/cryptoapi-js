@@ -1,8 +1,7 @@
-import { EthAddressBalance } from '../../../../../dtos/eth/eth.address.balance';
-import { EthAddressInfo } from '../../../../../dtos/eth/eth.address.info';
-
-import { IServerConfig } from '../../../../configs/crypto.config.interface';
-import { IConfigurable } from '../../../../configs/configurable.interface';
+import { EthAddressBalance } from '@src/dtos/eth/eth.address.balance';
+import { EthAddressInfo } from '@src/dtos/eth/eth.address.info';
+import { IConfigurable } from '@src/interfaces/configs/configurable.interface';
+import { IServerConfig } from '@src/interfaces/configs/crypto.config.interface';
 
 export interface IEthAddressApi extends IConfigurable<IServerConfig> {
 	getAddressesBalances(addresses: string[]): Promise<EthAddressBalance[]>;

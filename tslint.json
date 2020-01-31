@@ -10,7 +10,27 @@
     "no-empty-interface": false,
     "quotemark": [true, "single"],
     "member-access": [false],
-    "ordered-imports": [false],
+    "ordered-imports": [true, {
+      "module-source-path": "full",
+      "grouped-imports": true,
+      "groups": [
+        {
+          "name": "node_modules",
+          "match": "^[a-zA-Z]",
+          "order": 1
+        },
+        {
+          "name": "internal modules",
+          "match": "^@",
+          "order": 2
+        },
+        {
+          "name": "relative dir",
+          "match": "^[.]",
+          "order": 3
+        }
+      ]
+    }],
     "max-line-length": [true, 150],
     "member-ordering": [false],
     "interface-name": [false],

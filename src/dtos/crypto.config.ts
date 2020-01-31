@@ -1,8 +1,9 @@
 import { injectable } from 'inversify';
+
 import {
 	ICryptoConfig,
-	IServerConfig,
 	IEventsConfig,
+	IServerConfig,
 } from '../interfaces/configs/crypto.config.interface';
 
 export class ServerConfig {

@@ -1,8 +1,9 @@
-import { IServerConfig } from '../interfaces/configs/crypto.config.interface';
-import { IConfigurable } from '../interfaces/configs/configurable.interface';
+import { injectable } from 'inversify';
+
 import { ServerConfig } from '../dtos/crypto.config';
 import { InternalLibraryException } from '../exceptions/library.exceptions/internal.library.exception';
-import { injectable } from 'inversify';
+import { IConfigurable } from '../interfaces/configs/configurable.interface';
+import { IServerConfig } from '../interfaces/configs/crypto.config.interface';
 
 @injectable()
 export abstract class AbstractApi implements IConfigurable<IServerConfig> {

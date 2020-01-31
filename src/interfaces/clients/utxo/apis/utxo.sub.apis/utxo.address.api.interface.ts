@@ -1,8 +1,8 @@
-import { IServerConfig } from '../../../../configs/crypto.config.interface';
-import { IConfigurable } from '../../../../configs/configurable.interface';
-import { UtxoAddressInfo } from '../../../../../dtos/utxo/utxo.address.info';
-import { TPaginationOptions } from 'types/paginations.options.type';
-import { UtxoAddressHistory } from '../../../../../dtos/utxo/utxo.address.history';
+import { UtxoAddressHistory } from '@src/dtos/utxo/utxo.address.history';
+import { UtxoAddressInfo } from '@src/dtos/utxo/utxo.address.info';
+import { IConfigurable } from '@src/interfaces/configs/configurable.interface';
+import { IServerConfig } from '@src/interfaces/configs/crypto.config.interface';
+import { TPaginationOptions } from '@src/types/paginations.options.type';
 
 export interface IUtxoAddressApi extends IConfigurable<IServerConfig> {
 	getAddressesInfos(addresses: string[]): Promise<UtxoAddressInfo[]>;

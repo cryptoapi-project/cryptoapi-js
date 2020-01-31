@@ -1,24 +1,21 @@
-import 'reflect-metadata';
 import { inject, injectable } from 'inversify';
+import 'reflect-metadata';
 
-import { TYPES_DI } from '../../../../constants/inversify.constants';
-
+import { AbstractApi } from '@src/abstracts/abstract.api';
+import { TYPES_DI } from '@src/constants/inversify.constants';
 import {
 	EthTransactionByAddresses,
+	EthTransactionReceipt,
+	EthTransactionsInterAddresses,
 	EthTransactionsIntersection,
 	FullEthTransaction,
-	EthTransactionsInterAddresses,
-	EthTransactionReceipt,
-} from '../../../../dtos/eth/eth.transaction.dtos';
-import { TPaginationOptions } from '../../../../types/paginations.options.type';
-
-import { IEthTransactionsApi } from '../../../../interfaces/clients/eth/apis/eth.sub.apis/eth.transactions.interface';
-import { IValidateHelper } from '../../../../interfaces/providers/helpers/validate.helper.interface';
-import { IUrlHelper } from '../../../../interfaces/providers/helpers/url.helper.interface';
-import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
-
-import { AbstractApi } from '../../../../abstracts/abstract.api';
-import { InternalLibraryException } from '../../../../exceptions/library.exceptions/internal.library.exception';
+} from '@src/dtos/eth/eth.transaction.dtos';
+import { InternalLibraryException } from '@src/exceptions/library.exceptions/internal.library.exception';
+import { IEthTransactionsApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.transactions.interface';
+import { IUrlHelper } from '@src/interfaces/providers/helpers/url.helper.interface';
+import { IValidateHelper } from '@src/interfaces/providers/helpers/validate.helper.interface';
+import { IHttpService } from '@src/interfaces/providers/http.service.interface';
+import { TPaginationOptions } from '@src/types/paginations.options.type';
 
 @injectable()
 export class EthTransactionsApi extends AbstractApi implements IEthTransactionsApi {

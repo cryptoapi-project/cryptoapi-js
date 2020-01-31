@@ -1,7 +1,8 @@
-import { IEventsConfig } from '../../configs/crypto.config.interface';
+import { TransactionConfirmationNotification } from '@src/dtos/base/event.notification.dtos';
+import { AddressSubscription, TransactionConfirmationSubscription } from '@src/dtos/base/event.subscription.dtos';
+
 import { IConfigurable } from '../../configs/configurable.interface';
-import { AddressSubscription, TransactionConfirmationSubscription } from '../../../dtos/base/event.subscription.dtos';
-import { TransactionConfirmationNotification } from '../../../dtos/base/event.notification.dtos';
+import { IEventsConfig } from '../../configs/crypto.config.interface';
 
 export interface IBaseEventsClient<BlockNotification, TransactionNotification> extends IConfigurable<IEventsConfig> {
 

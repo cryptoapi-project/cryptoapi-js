@@ -1,12 +1,10 @@
-import { injectable, inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 
 import { TYPES_DI } from '../constants/inversify.constants';
-
-import { IEventsClient } from '../interfaces/clients/events.client.interface';
 import { IEthEventsClient } from '../interfaces/clients/eth/events/eth.events.client.interface';
+import { IEventsClient } from '../interfaces/clients/events.client.interface';
 import { IKlayEventsClient } from '../interfaces/clients/klay/events/klay.events.client.interface';
 import { IUtxoEventsClient } from '../interfaces/clients/utxo/events/utxo.events.client.interface';
-
 import { ICryptoConfig } from '../interfaces/configs/crypto.config.interface';
 
 @injectable()

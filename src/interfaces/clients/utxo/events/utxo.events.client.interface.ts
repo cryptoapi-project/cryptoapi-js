@@ -1,9 +1,8 @@
-import { IBaseEventsClient } from '../../base/base.events.client.interface';
-
 import {
 	UtxoBlockNotification,
 	UtxoTransactionNotification,
-} from '../../../../dtos/utxo/utxo.notification.dtos';
+} from '@src/dtos/utxo/utxo.notification.dtos';
+import { IBaseEventsClient } from '@src/interfaces/clients/base.events.client/base.events.client.interface';
 
 export interface IUtxoEventsClient extends IBaseEventsClient
 	<UtxoBlockNotification, UtxoTransactionNotification> {

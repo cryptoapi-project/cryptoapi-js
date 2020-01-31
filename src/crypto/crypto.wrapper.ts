@@ -1,16 +1,12 @@
-import { TYPES_DI } from '../constants/inversify.constants';
-
 import { CONFIG_BY_COIN, DEFAULT_TIMEOUT_REQUEST, TCoin } from '../config/capi.lib.config';
-
-import { TPublicConfig } from '../types/crypto.config.type';
-import { ICrypto, IPublicCrypto } from '../interfaces/crypto.interface';
-import { IServerConfig } from '../interfaces/configs/crypto.config.interface';
-
+import { diContainer } from '../configuration/di.container';
+import { TYPES_DI } from '../constants/inversify.constants';
+import { InvalidParamsException } from '../exceptions/library.exceptions/invalid.params.exceptions';
 import { IApiClient } from '../interfaces/clients/api.client.interface';
 import { IEventsClient } from '../interfaces/clients/events.client.interface';
-
-import { diContainer } from '../configuration/di.container';
-import { InvalidParamsException } from '../exceptions/library.exceptions/invalid.params.exceptions';
+import { IServerConfig } from '../interfaces/configs/crypto.config.interface';
+import { ICrypto, IPublicCrypto } from '../interfaces/crypto.interface';
+import { TPublicConfig } from '../types/crypto.config.type';
 
 class CryptoWrapper implements IPublicCrypto {
 	private crypto: ICrypto;

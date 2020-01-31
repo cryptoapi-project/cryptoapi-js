@@ -1,12 +1,11 @@
-import 'reflect-metadata';
 import { inject, injectable } from 'inversify';
+import 'reflect-metadata';
 
-import { TYPES_DI } from '../../../../constants/inversify.constants';
-
-import { AbstractApi } from '../../../../abstracts/abstract.api';
-import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
-import { IUtxoRawTransactionApi } from '../../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.raw.transaction.interface';
-import { UtxoRawTransaction } from '../../../../dtos/utxo/utxo.raw.transaction';
+import { AbstractApi } from '@src/abstracts/abstract.api';
+import { TYPES_DI } from '@src/constants/inversify.constants';
+import { UtxoRawTransaction } from '@src/dtos/utxo/utxo.raw.transaction';
+import { IUtxoRawTransactionApi } from '@src/interfaces/clients/utxo/apis/utxo.sub.apis/utxo.raw.transaction.interface';
+import { IHttpService } from '@src/interfaces/providers/http.service.interface';
 
 @injectable()
 export class UtxoRawTransactionApi extends AbstractApi  implements IUtxoRawTransactionApi {

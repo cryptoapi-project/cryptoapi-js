@@ -6,6 +6,7 @@ Full documentation about API methods you find by the following links:
 #### Table of Contents
 
 - [ETH API](ETH.md)
+- [KLAY API](KLAY.md)
 - [BTC API](UTXO.md)
 - [BCH API](UTXO.md)
 

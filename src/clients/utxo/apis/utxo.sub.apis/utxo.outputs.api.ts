@@ -1,13 +1,15 @@
+
 import { inject, injectable } from 'inversify';
-import { AbstractApi } from '../../../../abstracts/abstract.api';
-import { IUtxoOutputsApi } from '../../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.outputs.interface';
-import { TYPES_DI } from '../../../../constants/inversify.constants';
-import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
-import { IValidateHelper } from '../../../../interfaces/providers/helpers/validate.helper.interface';
-import { IUrlHelper } from '../../../../interfaces/providers/helpers/url.helper.interface';
-import { InternalLibraryException } from '../../../../exceptions/library.exceptions/internal.library.exception';
-import { UtxoOutput } from '../../../../dtos/utxo/utxo.output';
-import { TUtxoOutputsOptions } from '../../../../types/utxo/utxo.outputs.options';
+
+import { AbstractApi } from '@src/abstracts/abstract.api';
+import { TYPES_DI } from '@src/constants/inversify.constants';
+import { UtxoOutput } from '@src/dtos/utxo/utxo.output';
+import { InternalLibraryException } from '@src/exceptions/library.exceptions/internal.library.exception';
+import { IUtxoOutputsApi } from '@src/interfaces/clients/utxo/apis/utxo.sub.apis/utxo.outputs.interface';
+import { IUrlHelper } from '@src/interfaces/providers/helpers/url.helper.interface';
+import { IValidateHelper } from '@src/interfaces/providers/helpers/validate.helper.interface';
+import { IHttpService } from '@src/interfaces/providers/http.service.interface';
+import { TUtxoOutputsOptions } from '@src/types/utxo/utxo.outputs.options';
 
 @injectable()
 export class UtxoOutputsApi extends AbstractApi implements IUtxoOutputsApi {

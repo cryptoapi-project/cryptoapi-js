@@ -1,15 +1,13 @@
 import { inject, injectable } from 'inversify';
 
-import { CODE } from '../../../../constants/http.constants';
-import { TYPES_DI } from '../../../../constants/inversify.constants';
-
-import { EthSubscribeToken } from '../../../../dtos/eth/eth.subscribe.token.dto';
-import { BaseLibraryException } from '../../../../exceptions/library.exceptions/base.exception';
-
-import { IEthNotifyApi } from '../../../../interfaces/clients/eth/apis/eth.sub.apis/eth.notify.api.interface';
-import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
-import { IValidateHelper } from '../../../../interfaces/providers/helpers/validate.helper.interface';
-import { AbstractApi } from '../../../../abstracts/abstract.api';
+import { AbstractApi } from '@src/abstracts/abstract.api';
+import { CODE } from '@src/constants/http.constants';
+import { TYPES_DI } from '@src/constants/inversify.constants';
+import { EthSubscribeToken } from '@src/dtos/eth/eth.subscribe.token.dto';
+import { BaseLibraryException } from '@src/exceptions/library.exceptions/base.exception';
+import { IEthNotifyApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.notify.api.interface';
+import { IValidateHelper } from '@src/interfaces/providers/helpers/validate.helper.interface';
+import { IHttpService } from '@src/interfaces/providers/http.service.interface';
 
 @injectable()
 export class EthNotifyApi extends AbstractApi  implements IEthNotifyApi {

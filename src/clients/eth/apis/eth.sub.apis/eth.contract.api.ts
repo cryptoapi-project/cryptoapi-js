@@ -1,15 +1,13 @@
 import { inject, injectable } from 'inversify';
 
-import { TYPES_DI } from '../../../../constants/inversify.constants';
-
-import { TEthContractCall } from '../../../../types/eth/call.contract.type';
-import { EthContract, EthContractLog } from '../../../../dtos/eth/eth.contract.dto';
-
-import { IEthContractApi } from '../../../../interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
-import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
-import { AbstractApi } from '../../../../abstracts/abstract.api';
-import { TContractLogsRequest } from 'types/eth/eth.contract.logs.request';
-import { IUrlHelper } from '../../../../interfaces/providers/helpers/url.helper.interface';
+import { AbstractApi } from '@src/abstracts/abstract.api';
+import { TYPES_DI } from '@src/constants/inversify.constants';
+import { EthContract, EthContractLog } from '@src/dtos/eth/eth.contract.dto';
+import { IEthContractApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
+import { IUrlHelper } from '@src/interfaces/providers/helpers/url.helper.interface';
+import { IHttpService } from '@src/interfaces/providers/http.service.interface';
+import { TEthContractCall } from '@src/types/eth/call.contract.type';
+import { TContractLogsRequest } from '@src/types/eth/eth.contract.logs.request';
 
 @injectable()
 export class EthContractApi extends AbstractApi implements IEthContractApi {

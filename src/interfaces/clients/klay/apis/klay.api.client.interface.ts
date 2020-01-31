@@ -1,0 +1,5 @@
+import { EstimateGasResponse } from '@src/dtos/klay/klay.estimate.gas.dto';
+import { KlayNetworkInfo } from '@src/dtos/klay/klay.network.info';
+import { IBaseEthApiClient } from '@src/interfaces/clients/eth/apis/eth.api.client.interface';
+
+export interface IKlayApiClient extends IBaseEthApiClient<KlayNetworkInfo, EstimateGasResponse> {}

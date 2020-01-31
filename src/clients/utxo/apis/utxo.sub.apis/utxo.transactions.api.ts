@@ -1,14 +1,15 @@
 import { inject, injectable } from 'inversify';
 import qs from 'query-string';
-import { AbstractApi } from '../../../../abstracts/abstract.api';
-import { TYPES_DI } from '../../../../constants/inversify.constants';
-import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
-import { IUrlHelper } from '../../../../interfaces/providers/helpers/url.helper.interface';
-import { IUtxoTransactionsApi } from '../../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.transactions.interface';
-import { FullUtxoTransaction, Transactions } from '../../../../dtos/utxo/utxo.transaction.dtos';
-import { IValidateHelper } from '../../../../interfaces/providers/helpers/validate.helper.interface';
-import { TPaginationOptions } from '../../../../types/paginations.options.type';
-import { TTransactionsRequest } from '../../../../types/utxo/utxo.transactions.request';
+
+import { AbstractApi } from '@src/abstracts/abstract.api';
+import { TYPES_DI } from '@src/constants/inversify.constants';
+import { FullUtxoTransaction, Transactions } from '@src/dtos/utxo/utxo.transaction.dtos';
+import { IUtxoTransactionsApi } from '@src/interfaces/clients/utxo/apis/utxo.sub.apis/utxo.transactions.interface';
+import { IUrlHelper } from '@src/interfaces/providers/helpers/url.helper.interface';
+import { IValidateHelper } from '@src/interfaces/providers/helpers/validate.helper.interface';
+import { IHttpService } from '@src/interfaces/providers/http.service.interface';
+import { TPaginationOptions } from '@src/types/paginations.options.type';
+import { TTransactionsRequest } from '@src/types/utxo/utxo.transactions.request';
 
 @injectable()
 export class UtxoTransactionsApi extends AbstractApi implements IUtxoTransactionsApi {

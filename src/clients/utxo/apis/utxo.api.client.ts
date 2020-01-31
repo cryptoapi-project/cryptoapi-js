@@ -1,18 +1,18 @@
 import { inject, injectable } from 'inversify';
 
-import { TYPES_DI } from '../../../constants/inversify.constants';
-import { IUtxoApiClient } from '../../../interfaces/clients/utxo/apis/utxo.api.client.interface';
-import { IServerConfig } from '../../../interfaces/configs/crypto.config.interface';
-import { TryCatch } from '../../../providers/decorators/try.catch';
-import { IUtxoBlockApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.block.interface';
-import { IUtxoMainInfoApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.main.info.interface';
-import { IUtxoRawTransactionApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.raw.transaction.interface';
-import { IUtxoTransactionsApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.transactions.interface';
-import { IUtxoAddressApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.address.api.interface';
-import { TPaginationOptions } from '../../../types/paginations.options.type';
-import { IUtxoOutputsApi } from '../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.outputs.interface';
-import { TUtxoOutputsOptions } from '../../../types/utxo/utxo.outputs.options';
-import { TTransactionsRequest } from '../../../types/utxo/utxo.transactions.request';
+import { TYPES_DI } from '@src/constants/inversify.constants';
+import { IUtxoApiClient } from '@src/interfaces/clients/utxo/apis/utxo.api.client.interface';
+import { IUtxoAddressApi } from '@src/interfaces/clients/utxo/apis/utxo.sub.apis/utxo.address.api.interface';
+import { IUtxoBlockApi } from '@src/interfaces/clients/utxo/apis/utxo.sub.apis/utxo.block.interface';
+import { IUtxoMainInfoApi } from '@src/interfaces/clients/utxo/apis/utxo.sub.apis/utxo.main.info.interface';
+import { IUtxoOutputsApi } from '@src/interfaces/clients/utxo/apis/utxo.sub.apis/utxo.outputs.interface';
+import { IUtxoRawTransactionApi } from '@src/interfaces/clients/utxo/apis/utxo.sub.apis/utxo.raw.transaction.interface';
+import { IUtxoTransactionsApi } from '@src/interfaces/clients/utxo/apis/utxo.sub.apis/utxo.transactions.interface';
+import { IServerConfig } from '@src/interfaces/configs/crypto.config.interface';
+import { TryCatch } from '@src/providers/decorators/try.catch';
+import { TPaginationOptions } from '@src/types/paginations.options.type';
+import { TUtxoOutputsOptions } from '@src/types/utxo/utxo.outputs.options';
+import { TTransactionsRequest } from '@src/types/utxo/utxo.transactions.request';
 
 @injectable()
 export class UtxoApiClient implements IUtxoApiClient {
