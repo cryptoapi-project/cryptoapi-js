@@ -1,3 +1,19 @@
+export class Signature {
+	s: string;
+	r: string;
+	v: string;
+
+	constructor(info: {
+		s: string;
+		r: string;
+		v: string;
+	}) {
+		this.s = info.s;
+		this.r = info.r;
+		this.v = info.v;
+	}
+}
+
 export class KlayInternalTransaction {
 	readonly to: string;
 	readonly from: string;
@@ -29,17 +45,24 @@ export class KlayTransaction {
 	readonly utc: string;
 	readonly from: string;
 	readonly gas: number;
-	readonly gas_price: any;
+	readonly gas_price: string;
 	readonly hash: string;
 	readonly input: string;
 	readonly nonce: number;
 	readonly to: string;
 	readonly transaction_index: number;
-	readonly value: any;
-	readonly v: string;
-	readonly s: string;
-	readonly r: string;
+	readonly value: string;
 	readonly internal_transactions: KlayInternalTransaction[];
+	readonly type: string;
+	readonly type_int: number;
+	readonly code_format?: string;
+	readonly fee_payer?: string;
+	readonly fee_payer_signatures?: Signature[];
+	readonly fee_ratio?: string;
+	readonly human_readable?: boolean;
+	readonly key?: string;
+	readonly sender_tx_hash?: string;
+	readonly signatures: Signature[];
 
 	constructor(info: {
 		readonly block_hash: string;
@@ -47,17 +70,24 @@ export class KlayTransaction {
 		readonly utc: string;
 		readonly from: string;
 		readonly gas: number;
-		readonly gas_price: any;
+		readonly gas_price: string;
 		readonly hash: string;
 		readonly input: string;
 		readonly nonce: number;
 		readonly to: string;
 		readonly transaction_index: number;
-		readonly value: any;
-		readonly v: string;
-		readonly s: string;
-		readonly r: string;
+		readonly value: string;
 		readonly internal_transactions: KlayInternalTransaction[];
+		readonly type: string;
+		readonly type_int: number;
+		readonly code_format?: string;
+		readonly fee_payer?: string;
+		readonly fee_payer_signatures?: Signature[];
+		readonly fee_ratio?: string;
+		readonly human_readable?: boolean;
+		readonly key?: string;
+		readonly sender_tx_hash?: string;
+		readonly signatures: Signature[];
 	}) {
 		this.block_hash = info.block_hash;
 		this.block_number = info.block_number;
@@ -71,10 +101,38 @@ export class KlayTransaction {
 		this.to = info.to;
 		this.transaction_index = info.transaction_index;
 		this.value = info.value;
-		this.v = info.v;
-		this.s = info.s;
-		this.r = info.r;
-		this.internal_transactions = info.internal_transactions.map((t) => new KlayInternalTransaction(t));
+		this.internal_transactions = info.internal_transactions;
+		this.type = info.type;
+		this.type_int = info.type_int;
+		this.signatures = info.signatures;
+
+		if (info.code_format) {
+			this.code_format = info.code_format;
+		}
+		if (info.fee_payer) {
+			this.fee_payer = info.fee_payer;
+		}
+		if (info.fee_payer_signatures) {
+			this.fee_payer_signatures = info.fee_payer_signatures;
+		}
+		if (info.fee_ratio) {
+			this.fee_ratio = info.fee_ratio;
+		}
+		if (info.human_readable) {
+			this.human_readable = info.human_readable;
+		}
+		if (info.key) {
+			this.key = info.key;
+		}
+		if (info.key) {
+			this.key = info.key;
+		}
+		if (info.sender_tx_hash) {
+			this.sender_tx_hash = info.sender_tx_hash;
+		}
+		if (info.signatures) {
+			this.signatures = info.signatures;
+		}
 	}
 }
 

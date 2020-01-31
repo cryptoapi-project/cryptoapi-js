@@ -64,7 +64,7 @@ export class EthTransactionsApi<
 	 * @method getTransactionsIntersection
 	 * @param {string[]} addresses
 	 * @param {TPaginationOptions} options?
-	 * @return {Promise<EthTransactionsIntersection>}
+	 * @return {Promise<TTransactionsIntersection>}
 	 */
 	async getTransactionsIntersection(
 		addresses: string[],
