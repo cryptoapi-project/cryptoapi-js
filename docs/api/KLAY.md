@@ -12,6 +12,10 @@ This library provides klay api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#klay.estimateGas">klay.estimateGas</a> ⇒<code><a href="#EstimateGasResponse">Promise&lt;EstimateGasResponse&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#klay.getAddressesBalances">klay.getAddressesBalances(addresses: string[])</a> ⇒<code><a href="#KlayAddressBalance">Promise&lt;KlayAddressBalance[]&gt;</a></code></dt></dt>
+<dd></dd>
+<dt><a href="#klay.getAddressesInfos">klay.getAddressesInfos(addresses: string[])</a> ⇒<code><a href="#KlayAddressInfo">Promise&lt;KlayAddressInfo[]&gt;</a></code></dt></dt>
+<dd></dd>
 </dl>
 
 #### <a name="klay.getNetworkInfo">klay.getNetworkInfo()</a> ⇒ <code><a href="#KlayNetworkInfo">Promise&lt;KlayNetworkInfo&gt;</a></code></dt></dt>
@@ -55,6 +59,67 @@ Example response:
 }
 ```
 
+#### <a name="klay.getAddressesBalances">getAddressesBalances(address: string[])</a> ⇒ <code><a href="#KlayAddressBalance">Promise&lt;KlayAddressBalance[]&gt;</a></code></dt></dt>
+Returns JSON data about a addresses balances information.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| addresses | <code>string[]</code> | [Tokens addresses] |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('YOUR-API-KEY');
+    const result = await crypto.api.klay.getAddressesBalances([
+        '0xa177AD7c3CA2cCa794C02a0FF4dF1C2B09D49C8f',
+        '0xf24A2674208B7B5EC2f2863DCb65938EF82dC180'
+    ]);
+```
+
+Example response:
+```
+[
+    {
+        address: "0xa177ad7c3ca2cca794c02a0ff4df1c2b09d49c8f",
+        balance: "0"
+    }, {
+        address: "0xf24a2674208b7b5ec2f2863dcb65938ef82dc180",
+        balance: "2044716170999999824"
+    }
+]
+```
+
+#### <a name="klay.getAddressesInfos">klay.getAddressesInfos(address: string[])</a> ⇒ <code><a href="#KlayAddressInfo">Promise&lt;KlayAddressInfo[]&gt;</a></code></dt></dt>
+Returns JSON data about addresses information.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| addresses | <code>string[]</code> | [Addresses] |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('YOUR-API-KEY');
+    const result = await crypto.api.klay.getAddressesInfos([
+        '0xa177AD7c3CA2cCa794C02a0FF4dF1C2B09D49C8f',
+    ]);
+```
+
+Example response:
+```javascript
+[
+    {
+        address: "0xa177ad7c3ca2cca794c02a0ff4df1c2b09d49c8f"
+        balance: "0"
+        count_transactions: 0
+        is_contract: true
+        type: "ERC20"
+    }
+]
+```
+
 ## Typedefs
 
 #### KLAY Typedefs
@@ -65,6 +130,10 @@ Example response:
 <dt><a href="#TEstimateGasRequest">TEstimateGasRequest</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EstimateGasResponse">EstimateGasResponse</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#KlayAddressBalance">KlayAddressBalance</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#KlayAddressInfo">KlayAddressInfo</a> : <code>Object</code></dt>
 <dd></dd>
 </dl>
 
@@ -100,5 +169,28 @@ Example response:
     estimate_gas: number;
     gas_price: string;
     nonce: number;
+}
+```
+
+#### KlayAddressBalance : <code>Object</code>
+<a name="KlayAddressBalance"></a>
+
+```javascript
+{
+    address: string;
+    balance: string;
+}
+```
+
+#### KlayAddressInfo : <code>Object</code>
+<a name="KlayAddressInfo"></a>
+
+```javascript
+{
+    address: string;
+    balance: string;
+    is_contract: boolean;
+    type: string;
+    count_transactions: number;
 }
 ```
