@@ -7,7 +7,7 @@ export enum TCoin {
 
 export const DEFAULT_TIMEOUT_REQUEST = 30000;
 
-export const BASE_HTTP_URL = 'https://697-crypto-api.pixelplex-test.by/api/v1';
+export const BASE_HTTP_URL = 'https://697-crypto-api-api.pixelplex-test.by/api/v1';
 
 export const BASE_WS_RECONNECT = true;
 export const BASE_WS_ATTEMPTS = 5;
@@ -15,10 +15,10 @@ export const BASE_WS_TIMEOUT = 1000;
 export const BASE_WS_RESUBSCRIBE = true;
 
 const WS_URLS = {
-	[TCoin.ETH]: 'wss://697-crypto-api.pixelplex-test.by/ws/eth',
-	[TCoin.BTC]: 'wss://697-crypto-api.pixelplex-test.by/ws/btc',
-	[TCoin.BCH]: 'wss://697-crypto-api.pixelplex-test.by/ws/bch',
-	[TCoin.KLAY]: 'wss://697-crypto-api.pixelplex-test.by/ws/klay',
+	[TCoin.ETH]: 'wss://697-crypto-api-api.pixelplex-test.by/ws/eth',
+	[TCoin.BTC]: 'wss://697-crypto-api-api.pixelplex-test.by/ws/btc',
+	[TCoin.BCH]: 'wss://697-crypto-api-api.pixelplex-test.by/ws/bch',
+	[TCoin.KLAY]: 'wss://697-crypto-api-api.pixelplex-test.by/ws/klay',
 };
 
 export const BASE_CONFIG = {

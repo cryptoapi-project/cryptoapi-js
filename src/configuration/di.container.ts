@@ -31,7 +31,6 @@ import { TYPES_DI } from '../constants/inversify.constants';
 import { Crypto } from '../crypto/crypto';
 import { IApiClient } from '../interfaces/clients/api.client.interface';
 import { IEthBlockApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.block.interface';
-import { IEthContractApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
 import { IEthNotifyApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.notify.api.interface';
 import { IEthRawTransactionApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.raw.transaction.interface';
 import { IEthTokenApi } from '../interfaces/clients/eth/apis/eth.sub.apis/eth.token.api.interface';
@@ -87,9 +86,9 @@ diContainer.bind<IUtxoEventsClient>(TYPES_DI.IUtxoEventsClient).to(UtxoEventsCli
  */
 diContainer.bind(TYPES_DI.IEthMainInfoApi).to(EthMainInfoApi);
 diContainer.bind(TYPES_DI.IEthAddressApi).to(EthAddressApi);
+diContainer.bind(TYPES_DI.IEthContractApi).to(EthContractApi);
 
 diContainer.bind<IEthNotifyApi>(TYPES_DI.IEthNotifyApi).to(EthNotifyApi);
-diContainer.bind<IEthContractApi>(TYPES_DI.IEthContractApi).to(EthContractApi);
 diContainer.bind<IEthRawTransactionApi>(TYPES_DI.IEthRawTransactionApi).to(EthRawTransactionApi);
 diContainer.bind<IEthBlockApi>(TYPES_DI.IEthBlockApi).to(EthBlockApi);
 diContainer.bind<IEthTokenApi>(TYPES_DI.IEthTokenApi).to(EthTokenApi);

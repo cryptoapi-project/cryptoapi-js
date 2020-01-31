@@ -2,6 +2,7 @@ import { injectable } from 'inversify';
 
 import { EthAddressBalance } from '@src/dtos/eth/eth.address.balance';
 import { EthAddressInfo } from '@src/dtos/eth/eth.address.info';
+import { EthContract, EthContractLog } from '@src/dtos/eth/eth.contract.dto';
 import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas.dto';
 import { EthNetworkInfo } from '@src/dtos/eth/eth.network.info';
 import { IEthApiFactoryDto } from '@src/interfaces/clients/eth/apis/eth.api.factory.dto.interface';
@@ -23,4 +24,13 @@ export class EthApiFactoryDto implements IEthApiFactoryDto {
 	getAddressInfo(data: any): EthAddressInfo {
 		return new EthAddressInfo(data);
 	}
+
+	getContract(data: any): EthContract {
+		return new EthContract(data);
+	}
+
+	getContractLog(data: any): EthContractLog {
+		return new EthContractLog(data);
+	}
+
 }

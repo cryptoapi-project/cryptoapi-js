@@ -3,6 +3,7 @@ import { inject, injectable } from 'inversify';
 import { TYPES_DI } from '@src/constants/inversify.constants';
 import { EthAddressBalance } from '@src/dtos/eth/eth.address.balance';
 import { EthAddressInfo } from '@src/dtos/eth/eth.address.info';
+import { EthContract, EthContractLog } from '@src/dtos/eth/eth.contract.dto';
 import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas.dto';
 import { EthNetworkInfo } from '@src/dtos/eth/eth.network.info';
 import { EthTokenSearchRequest } from '@src/dtos/eth/eth.token.search';
@@ -27,24 +28,27 @@ import { TPaginationOptions } from '@src/types/paginations.options.type';
 @injectable()
 export class BaseEthApiClient<
 	TNetworkInfo, TEstimateGasResponse,
-	TAddressBalance, TAddressInfo
+	TAddressBalance, TAddressInfo,
+	TContract, TContractLog
 > implements IBaseEthApiClient<
 	TNetworkInfo, TEstimateGasResponse,
-	TAddressBalance, TAddressInfo
+	TAddressBalance, TAddressInfo,
+	TContract, TContractLog
 > {
 	config: IServerConfig|null = null;
 	constructor(
 		private readonly mainInfo: IEthMainInfoApi<TNetworkInfo, TEstimateGasResponse>,
 		private readonly ethTokenInfo: IEthTokenApi,
 		private readonly ethAddressInfo: IEthAddressApi<TAddressBalance, TAddressInfo>,
-		private readonly ethContractApi: IEthContractApi,
+		private readonly ethContractApi: IEthContractApi<TContract, TContractLog>,
 		private readonly ethNotifyApi: IEthNotifyApi,
 		private readonly rawTransactionApi: IEthRawTransactionApi,
 		private readonly ethTransactions: IEthTransactionsApi,
 		private readonly ethBlock: IEthBlockApi,
 		private readonly factoryDto: IBaseEthFactoryDto<
 			TNetworkInfo, TEstimateGasResponse,
-			TAddressBalance, TAddressInfo
+			TAddressBalance, TAddressInfo,
+			TContract, TContractLog
 		>,
 	) {}
 
@@ -125,11 +129,12 @@ export class BaseEthApiClient<
 	 * Method to get contract information.
 	 * method getContractInfo
 	 * @param {string} address
-	 * @return {Promise<EthContractInfo>}
+	 * @return {Promise<TContract>}
 	 */
 	@TryCatch
-	getContractInfo(address: string) {
-		return this.ethContractApi.getContractInfo(address);
+	async getContractInfo(address: string) {
+		const info = await this.ethContractApi.getContractInfo(address);
+		return this.factoryDto.getContract(info);
 	}
 
 	/**
@@ -347,13 +352,14 @@ export class BaseEthApiClient<
 @injectable()
 export class EthApiClient extends BaseEthApiClient<
 	EthNetworkInfo, EstimateGasResponse,
-	EthAddressBalance, EthAddressInfo
+	EthAddressBalance, EthAddressInfo,
+	EthContract, EthContractLog
 > {
 	constructor(
 		@inject(TYPES_DI.IEthMainInfoApi) mainInfo: IEthMainInfoApi<EthNetworkInfo, EstimateGasResponse>,
 		@inject(TYPES_DI.IEthTokenApi) tokenInfo: IEthTokenApi,
 		@inject(TYPES_DI.IEthAddressApi) addressInfo: IEthAddressApi<EthAddressBalance, EthAddressInfo>,
-		@inject(TYPES_DI.IEthContractApi) contractApi: IEthContractApi,
+		@inject(TYPES_DI.IEthContractApi) contractApi: IEthContractApi<EthContract, EthContractLog>,
 		@inject(TYPES_DI.IEthNotifyApi) notifyApi: IEthNotifyApi,
 		@inject(TYPES_DI.IEthRawTransactionApi) rawTransactionApi: IEthRawTransactionApi,
 		@inject(TYPES_DI.IEthTransactionsApi) transactions: IEthTransactionsApi,

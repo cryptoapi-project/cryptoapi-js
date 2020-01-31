@@ -1398,7 +1398,7 @@ Example response:
         block_hash: string;
         block_number: number;
     }>;
-    
+
 ```
 
 #### EthContractLog : <code>Object</code>
@@ -1424,7 +1424,7 @@ Example response:
 {
 	from_block: number;
 	to_block: number;
-	address: string[];
+	addresses: string[];
 	topics: string[];    
 }
 ```
