@@ -1,12 +1,12 @@
 import { inject, injectable } from 'inversify';
 
-import { AbstractApi } from '../../../../abstracts/abstract.api';
-import { TYPES_DI } from '../../../../constants/inversify.constants';
-import { UtxoBlockInfo } from '../../../../dtos/utxo/utxo.block.dtos';
-import { BaseLibraryException } from '../../../../exceptions/library.exceptions/base.exception';
-import { IUtxoBlockApi } from '../../../../interfaces/clients/utxo/apis/utxo.sub.apis/utxo.block.interface';
-import { IValidateHelper } from '../../../../interfaces/providers/helpers/validate.helper.interface';
-import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
+import { AbstractApi } from '@src/abstracts/abstract.api';
+import { TYPES_DI } from '@src/constants/inversify.constants';
+import { UtxoBlockInfo } from '@src/dtos/utxo/utxo.block.dtos';
+import { BaseLibraryException } from '@src/exceptions/library.exceptions/base.exception';
+import { IUtxoBlockApi } from '@src/interfaces/clients/utxo/apis/utxo.sub.apis/utxo.block.interface';
+import { IValidateHelper } from '@src/interfaces/providers/helpers/validate.helper.interface';
+import { IHttpService } from '@src/interfaces/providers/http.service.interface';
 
 @injectable()
 export class UtxoBlockApi extends AbstractApi implements IUtxoBlockApi {

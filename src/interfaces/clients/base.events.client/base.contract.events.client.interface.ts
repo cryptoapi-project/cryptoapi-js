@@ -2,11 +2,13 @@ import {
 	ContractLogNotification,
 	TokenBalanceNotification,
 	TransferNotification,
-} from '../../../dtos/base/event.notification.dtos';
+
+} from '@src/dtos/base/event.notification.dtos';
 import {
 	ContractLogSubscription,
 	TokenSubscription,
-} from '../../../dtos/base/event.subscription.dtos';
+} from '@src/dtos/base/event.subscription.dtos';
+
 import { IBaseEventsClient } from './base.events.client.interface';
 
 export interface IBaseContractEventsClient<BlockNotification, TransactionNotification>

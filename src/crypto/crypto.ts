@@ -2,14 +2,12 @@ import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 
 import { TYPES_DI } from '../constants/inversify.constants';
-
+import { CryptoConfig } from '../dtos/crypto.config';
 import { UnauthorizedException } from '../exceptions/http.exceptions/unauthorized.exception';
 import { IApiClient } from '../interfaces/clients/api.client.interface';
 import { IEventsClient } from '../interfaces/clients/events.client.interface';
 import { ICryptoConfig } from '../interfaces/configs/crypto.config.interface';
 import { ICrypto } from '../interfaces/crypto.interface';
-
-import { CryptoConfig } from '../dtos/crypto.config';
 
 @injectable()
 export class Crypto implements ICrypto {

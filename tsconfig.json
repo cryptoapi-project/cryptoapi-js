@@ -9,16 +9,19 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": false,
-    "baseUrl": "./src",
+    "baseUrl": "./",
+    "moduleResolution": "node",
+    "paths": {
+      "@src/*": ["src/*"]
+    },
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "declaration": true,
-    "moduleResolution": "node",
     "downlevelIteration": true
   },
   "include": [
-    "src/*.ts"
+    "./src/*.ts"
   ],
   "files": [
     "node_modules/inversify/dts/inversify.d.ts"

@@ -1,7 +1,7 @@
-import { EthAddressBalance } from '../../../../dtos/eth/eth.address.balance';
-import { EthAddressInfo } from '../../../../dtos/eth/eth.address.info';
-import { EstimateGasResponse } from '../../../../dtos/eth/eth.estimate.gas.dto';
-import { EthNetworkInfo } from '../../../../dtos/eth/eth.network.info';
+import { EthAddressBalance } from '@src/dtos/eth/eth.address.balance';
+import { EthAddressInfo } from '@src/dtos/eth/eth.address.info';
+import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas.dto';
+import { EthNetworkInfo } from '@src/dtos/eth/eth.network.info';
 
 export interface IBaseEthFactoryDto<
 	TNetworkInfo, TEstimateGasResponse,
@@ -14,7 +14,7 @@ export interface IBaseEthFactoryDto<
 	getAddressInfo(data: any): TAddressInfo;
 }
 
-export interface IEthFactoryDto extends IBaseEthFactoryDto<
+export interface IEthApiFactoryDto extends IBaseEthFactoryDto<
 	EthNetworkInfo, EstimateGasResponse,
 	EthAddressBalance, EthAddressInfo
 > {}

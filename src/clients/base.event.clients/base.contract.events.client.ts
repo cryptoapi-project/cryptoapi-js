@@ -1,23 +1,21 @@
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 
-import { SUBSCRIPTIONS } from '../../constants/events.constants';
-import { TYPES_DI } from '../../constants/inversify.constants';
-
+import { SUBSCRIPTIONS } from '@src/constants/events.constants';
+import { TYPES_DI } from '@src/constants/inversify.constants';
 import {
 	ContractLogNotification,
 	TokenBalanceNotification,
 	TransferNotification,
-} from '../../dtos/base/event.notification.dtos';
-
+} from '@src/dtos/base/event.notification.dtos';
 import {
 	ContractLogSubscription,
 	TokenSubscription,
-} from '../../dtos/base/event.subscription.dtos';
+} from '@src/dtos/base/event.subscription.dtos';
+import { IBaseContractEventsClient } from '@src/interfaces/clients/base.events.client/base.contract.events.client.interface';
+import { IIdHelper } from '@src/interfaces/providers/helpers/id.helper.interface';
+import { ISubsHelper } from '@src/interfaces/providers/helpers/subs.helper.interface';
 
-import { IBaseContractEventsClient } from '../../interfaces/clients/base/base.contract.events.client.interface';
-import { IIdHelper } from '../../interfaces/providers/helpers/id.helper.interface';
-import { ISubsHelper } from '../../interfaces/providers/helpers/subs.helper.interface';
 import { BaseEventsClient } from './base.events.client';
 
 @injectable()

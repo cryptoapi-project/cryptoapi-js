@@ -15,6 +15,9 @@ module.exports = {
 			umdNamedDefine: true
 	},
 	resolve: {
+		alias: {
+			"@src": path.resolve(__dirname, 'src/'),
+		},
 		extensions: ['.ts', '.tsx', '.js']
 	},
 	devtool: 'source-map',
@@ -23,9 +26,6 @@ module.exports = {
 			test: /\.tsx?$/,
 			loader: 'awesome-typescript-loader',
 			exclude: /node_modules/,
-			query: {
-				declaration: true,
-			}
 		}]
 	},
 	optimization: {

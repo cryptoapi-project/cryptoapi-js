@@ -1,17 +1,13 @@
 import { injectable } from 'inversify';
 
-import { EthAddressBalance } from '../../../dtos/eth/eth.address.balance';
-import { EthAddressInfo } from '../../../dtos/eth/eth.address.info';
-
-import { EstimateGasResponse } from '../../../dtos/eth/eth.estimate.gas.dto';
-import { EthNetworkInfo } from '../../../dtos/eth/eth.network.info';
-import { IBaseEthFactoryDto } from '../../../interfaces/clients/eth/apis/eth.api.factory.dto.interface';
+import { EthAddressBalance } from '@src/dtos/eth/eth.address.balance';
+import { EthAddressInfo } from '@src/dtos/eth/eth.address.info';
+import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas.dto';
+import { EthNetworkInfo } from '@src/dtos/eth/eth.network.info';
+import { IEthApiFactoryDto } from '@src/interfaces/clients/eth/apis/eth.api.factory.dto.interface';
 
 @injectable()
-export class EthApiFactoryDto implements IBaseEthFactoryDto<
-	EthNetworkInfo, EstimateGasResponse,
-	EthAddressBalance, EthAddressInfo
-> {
+export class EthApiFactoryDto implements IEthApiFactoryDto {
 	getEstimateGasResponse(data: any): EstimateGasResponse {
 		return new EstimateGasResponse(data);
 	}

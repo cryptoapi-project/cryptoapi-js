@@ -1,15 +1,12 @@
 import { inject, injectable } from 'inversify';
 
-import { TYPES_DI } from '../../../../constants/inversify.constants';
-
-import { EthBlockInfo, EthBlocksResponse } from '../../../../dtos/eth/eth.block.dtos';
-
-import { IEthBlockApi } from '../../../../interfaces/clients/eth/apis/eth.sub.apis/eth.block.interface';
-import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
-
-import { AbstractApi } from '../../../../abstracts/abstract.api';
-import { IUrlHelper } from '../../../../interfaces/providers/helpers/url.helper.interface';
-import { TPaginationOptions } from '../../../../types/paginations.options.type';
+import { AbstractApi } from '@src/abstracts/abstract.api';
+import { TYPES_DI } from '@src/constants/inversify.constants';
+import { EthBlockInfo, EthBlocksResponse } from '@src/dtos/eth/eth.block.dtos';
+import { IEthBlockApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.block.interface';
+import { IUrlHelper } from '@src/interfaces/providers/helpers/url.helper.interface';
+import { IHttpService } from '@src/interfaces/providers/http.service.interface';
+import { TPaginationOptions } from '@src/types/paginations.options.type';
 
 @injectable()
 export class EthBlockApi extends AbstractApi implements IEthBlockApi {
