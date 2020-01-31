@@ -257,7 +257,7 @@ Example response:
 }
 ```
 
-#### EthRawTransaction : <code>Object</code>
+#### KlayRawTransaction : <code>Object</code>
 <a name="KlayRawTransaction"></a>
 
 ```javascript

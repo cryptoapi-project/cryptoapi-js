@@ -28,7 +28,6 @@ export class EthRawTransactionApi<TRawTransaction> extends AbstractApi  implemen
 			{tx: tr},
 		);
 
-		//  new EthRawTransaction(transaction.data)
 		return transaction.data;
 	}
 
