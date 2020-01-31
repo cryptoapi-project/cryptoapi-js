@@ -105,9 +105,10 @@ export class EthTokenApi extends AbstractApi  implements IEthTokenApi {
 			throw new BaseLibraryException('Addresses must be an array.');
 		}
 
-		let url = `${this.config!.baseUrl}${'/coins/eth/tokens/:token'.replace(':token', transfersRequest.tokenAddress)}`;
-		url += transfersRequest.addresses?.length ? `/${transfersRequest.addresses?.join(',')}/transfers` : '/transfers';
-		url = this.urlHelper.addOptionsToUrl(url, options);
+		const addresses = transfersRequest.addresses?.join(',');
+
+		let url = `${this.config!.baseUrl}${'/coins/eth/tokens/:token/transfers'.replace(':token', transfersRequest.tokenAddress)}`;
+		url = this.urlHelper.addOptionsToUrl(url, addresses ? { ...options, addresses } : options);
 
 		const tokenTransfers = await this.httpClient.agent.get<EthTokenTransfersResponse>(url);
 
