@@ -28,7 +28,7 @@ This library provides eth api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.getTokenInfoByTokenAddress">eth.getTokenInfoByTokenAddress(address: string)</a> ⇒<code><a href="#EthTokenInfo">Promise&lt;EthTokenInfo&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#eth.getTokenBalanceByAddresses">eth.getTokenBalanceByAddresses</a> ⇒<code><a href="#EthTokenBalance">Promise&lt;EthTokenBalance&gt;</a></code></dt></dt>
+<dt><a href="#eth.getTokenBalanceByAddresses">eth.getTokenBalanceByAddresses</a> ⇒<code><a href="#EthTokenBalanceByHoldersOut">Promise&lt;EthTokenBalanceByHoldersOut&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getTokenBalancesByHolders">eth.getTokenBalancesByHolders</a> ⇒<code><a href="#EthTokenBalanceByHoldersOut">Promise&lt;EthTokenBalanceByHoldersOut&gt;</a></code></dt></dt>
 <dd></dd>
