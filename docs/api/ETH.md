@@ -100,7 +100,7 @@ Example response:
 }
 ```
 
-#### <a name="eth.getBlock">eth.getBlock</a>(blockNumber: number) ⇒ <code>Promise&lt;<a href="#EthBlockInfo">EthBlockInfo</a>&gt;</code></dt></dt>
+#### <a name="eth.getBlock">eth.getBlock</a>(blockNumberOrHash: number | string) ⇒ <code>Promise&lt;<a href="#EthBlockInfo">EthBlockInfo</a>&gt;</code></dt></dt>
 Returns JSON data about block information.
 
 ```javascript

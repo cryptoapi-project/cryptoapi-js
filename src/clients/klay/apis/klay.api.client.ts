@@ -4,6 +4,7 @@ import { BaseEthApiClient } from '@src/clients/eth/apis/eth.api.client';
 import { TYPES_DI } from '@src/constants/inversify.constants';
 import { KlayAddressBalance } from '@src/dtos/klay/klay.address.balance';
 import { KlayAddressInfo } from '@src/dtos/klay/klay.address.info';
+import { KlayBlockInfo, KlayBlocksResponse } from '@src/dtos/klay/klay.block.dtos';
 import { KlayContract, KlayContractLog } from '@src/dtos/klay/klay.contract';
 import { EstimateGasResponse } from '@src/dtos/klay/klay.estimate.gas';
 import { KlayNetworkInfo } from '@src/dtos/klay/klay.network.info';
@@ -26,13 +27,14 @@ import { IKlayApiFactoryDto } from '@src/interfaces/clients/klay/apis/klay.api.f
 
 @injectable()
 export class KlayApiClient extends BaseEthApiClient<
-	KlayNetworkInfo, EstimateGasResponse,
-	KlayAddressBalance, KlayAddressInfo,
-	KlayContract, KlayContractLog,
-	KlayRawTransaction,
-	KlayTransfers, KlayExternalTransactions,
-	KlayFullTransaction, KlayTransactionsBetweenAddresses,
-	KlayFullTransactionReceipt
+KlayNetworkInfo, EstimateGasResponse,
+KlayAddressBalance, KlayAddressInfo,
+KlayBlockInfo, KlayBlocksResponse,
+KlayContract, KlayContractLog,
+KlayRawTransaction,
+KlayTransfers, KlayExternalTransactions,
+KlayFullTransaction, KlayTransactionsBetweenAddresses,
+KlayFullTransactionReceipt
 > {
 	constructor(
 		@inject(TYPES_DI.IEthMainInfoApi) mainInfo: IEthMainInfoApi<KlayNetworkInfo, EstimateGasResponse>,
@@ -41,15 +43,15 @@ export class KlayApiClient extends BaseEthApiClient<
 		@inject(TYPES_DI.IEthContractApi) contractApi: IEthContractApi<KlayContract, KlayContractLog>,
 		@inject(TYPES_DI.IEthNotifyApi) notifyApi: IEthNotifyApi,
 		@inject(TYPES_DI.IEthRawTransactionApi) rawTransactionApi: IEthRawTransactionApi<KlayRawTransaction>,
+		@inject(TYPES_DI.IEthBlockApi) block: IEthBlockApi<KlayBlockInfo, KlayBlocksResponse>,
 		@inject(TYPES_DI.IEthTransactionsApi) transactions: IEthTransactionsApi<
 			KlayTransfers, KlayExternalTransactions,
 			KlayFullTransaction, KlayTransactionsBetweenAddresses,
 			KlayFullTransactionReceipt
 		>,
-		@inject(TYPES_DI.IEthBlockApi) block: IEthBlockApi,
 		@inject(TYPES_DI.IKlayApiFactoryDto) factory: IKlayApiFactoryDto,
 	) {
 		super(mainInfo, tokenInfo, addressInfo, contractApi, notifyApi, rawTransactionApi,
-			transactions, block, factory);
+			block, transactions, factory);
 	}
 }
