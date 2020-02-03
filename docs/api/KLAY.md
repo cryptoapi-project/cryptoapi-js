@@ -290,7 +290,7 @@ Input data:
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
     const result = await crypto.api.klay.getTransfers({
-        addresses: ['"0x4937a6f664630547f6b0c3c235c4f03a64ca36b1"'],
+        addresses: ["0x4937a6f664630547f6b0c3c235c4f03a64ca36b1"],
     }, {
         skip: 1,
         limit: 1
@@ -307,14 +307,14 @@ Example response:
     "skip": 1,
     "items": [
         {
-            block_number: 10415
-            from: "0x4937a6f664630547f6b0c3c235c4f03a64ca36b1"
-            gas: 300000
-            gas_price: "0x5d21dba00"
-            hash: "0x12e71be0e685bfb9572d304c00d3a287ff3e9fece36999989c8f5c638f0690e7"
-            internal: false
-            to: "0x9bf34a006086b50f6571c5c026a4b6f2b11baaac"
-            utc: "2019-06-26T13:05:11.000Z"
+            block_number: 10415,
+            from: "0x4937a6f664630547f6b0c3c235c4f03a64ca36b1",
+            gas: 300000,
+            gas_price: "0x5d21dba00",
+            hash: "0x12e71be0e685bfb9572d304c00d3a287ff3e9fece36999989c8f5c638f0690e7",
+            internal: false,
+            to: "0x9bf34a006086b50f6571c5c026a4b6f2b11baaac",
+            utc: "2019-06-26T13:05:11.000Z",
             value: "0x152d02c7e14af6800000"
         }
     ],
@@ -812,7 +812,7 @@ Example response:
 
 ```javascript
 {
-	s: string;
+    s: string;
     r: string;
     v: string;
 }
