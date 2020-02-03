@@ -9,7 +9,7 @@ import {
 	EthFullTransaction,
 	EthTransactionReceipt,
 	EthTransactionsBetweenAddresses,
-	EthTransferHistory,
+	EthTransfers,
 } from '@src/dtos/eth/eth.transaction';
 import { IConfigurable } from '@src/interfaces/configs/configurable.interface';
 import { IServerConfig } from '@src/interfaces/configs/crypto.config.interface';
@@ -52,7 +52,7 @@ export interface IEthApiClient extends IBaseEthApiClient<
 	EthAddressBalance, EthAddressInfo,
 	EthContract, EthContractLog,
 	EthRawTransaction,
-	EthTransferHistory, EthExternalTransactions,
+	EthTransfers, EthExternalTransactions,
 	EthFullTransaction, EthTransactionsBetweenAddresses,
 	EthTransactionReceipt
 > {}

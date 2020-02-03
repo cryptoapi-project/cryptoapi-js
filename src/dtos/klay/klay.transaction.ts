@@ -151,7 +151,7 @@ export class KlayTransfer {
 	}
 }
 
-export class KlayTransferHistory {
+export class KlayTransfers {
 	readonly addresses: string[];
 	readonly limit: number;
 	readonly skip: number;

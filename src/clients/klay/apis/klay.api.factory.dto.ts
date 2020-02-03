@@ -11,7 +11,7 @@ import {
 	KlayFullTransaction,
 	KlayTransactionReceipt,
 	KlayTransactionsBetweenAddresses,
-	KlayTransferHistory,
+	KlayTransfers,
 } from '@src/dtos/klay/klay.transaction';
 import { IKlayApiFactoryDto } from '@src/interfaces/clients/klay/apis/klay.api.factory.dto.interface';
 
@@ -46,8 +46,8 @@ export class KlayApiFactoryDto implements IKlayApiFactoryDto {
 		return new KlayRawTransaction(data);
 	}
 
-	getTransferHistory(data: any): KlayTransferHistory {
-		return new KlayTransferHistory(data);
+	getTransfers(data: any): KlayTransfers {
+		return new KlayTransfers(data);
 	}
 
 	getTransactionsBetweenAddresses(data: any): KlayTransactionsBetweenAddresses {

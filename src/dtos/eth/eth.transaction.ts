@@ -112,7 +112,7 @@ export class EthTransfer {
 	}
 }
 
-export class EthTransferHistory {
+export class EthTransfers {
 	readonly addresses: string[];
 	readonly limit: number;
 	readonly skip: number;

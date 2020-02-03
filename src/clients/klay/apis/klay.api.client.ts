@@ -12,7 +12,7 @@ import {
 	KlayExternalTransactions,
 	KlayFullTransaction,
 	KlayTransactionReceipt, KlayTransactionsBetweenAddresses,
-	KlayTransferHistory,
+	KlayTransfers,
 } from '@src/dtos/klay/klay.transaction';
 import { IEthAddressApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.address.api.interface';
 import { IEthBlockApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.block.interface';
@@ -30,7 +30,7 @@ export class KlayApiClient extends BaseEthApiClient<
 	KlayAddressBalance, KlayAddressInfo,
 	KlayContract, KlayContractLog,
 	KlayRawTransaction,
-	KlayTransferHistory, KlayExternalTransactions,
+	KlayTransfers, KlayExternalTransactions,
 	KlayFullTransaction, KlayTransactionsBetweenAddresses,
 	KlayTransactionReceipt
 > {
@@ -42,7 +42,7 @@ export class KlayApiClient extends BaseEthApiClient<
 		@inject(TYPES_DI.IEthNotifyApi) notifyApi: IEthNotifyApi,
 		@inject(TYPES_DI.IEthRawTransactionApi) rawTransactionApi: IEthRawTransactionApi<KlayRawTransaction>,
 		@inject(TYPES_DI.IEthTransactionsApi) transactions: IEthTransactionsApi<
-			KlayTransferHistory, KlayExternalTransactions,
+			KlayTransfers, KlayExternalTransactions,
 			KlayFullTransaction, KlayTransactionsBetweenAddresses,
 			KlayTransactionReceipt
 		>,

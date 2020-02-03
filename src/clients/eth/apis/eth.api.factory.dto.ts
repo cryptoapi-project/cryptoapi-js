@@ -11,7 +11,7 @@ import {
 	EthFullTransaction,
 	EthTransactionReceipt,
 	EthTransactionsBetweenAddresses,
-	EthTransferHistory,
+	EthTransfers,
 } from '@src/dtos/eth/eth.transaction';
 import { IEthApiFactoryDto } from '@src/interfaces/clients/eth/apis/eth.api.factory.dto.interface';
 
@@ -45,8 +45,8 @@ export class EthApiFactoryDto implements IEthApiFactoryDto {
 		return new EthRawTransaction(data);
 	}
 
-	getTransferHistory(data: any): EthTransferHistory {
-		return new EthTransferHistory(data);
+	getTransfers(data: any): EthTransfers {
+		return new EthTransfers(data);
 	}
 
 	getTransactionsBetweenAddresses(data: any): EthTransactionsBetweenAddresses {

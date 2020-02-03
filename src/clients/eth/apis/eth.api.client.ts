@@ -13,7 +13,7 @@ import {
 	EthFullTransaction,
 	EthTransactionReceipt,
 	EthTransactionsBetweenAddresses,
-	EthTransferHistory,
+	EthTransfers,
 } from '@src/dtos/eth/eth.transaction';
 import { EthTokenTransfersByAddressesRequest, EthTokenTransfersRequest } from '@src/dtos/eth/eth.transfer.dto';
 import { IBaseEthApiClient } from '@src/interfaces/clients/eth/apis/eth.api.client.interface';
@@ -230,7 +230,7 @@ export class BaseEthApiClient<
 	@TryCatch
 	async getTransfers(data: TTransfersRequest, options?: TPaginationOptions) {
 		const info = await this.ethTransactions.getTransfers(data, options);
-		return this.factoryDto.getTransferHistory(info);
+		return this.factoryDto.getTransfers(info);
 	}
 
 	/**
@@ -383,7 +383,7 @@ export class EthApiClient extends BaseEthApiClient<
 	EthAddressBalance, EthAddressInfo,
 	EthContract, EthContractLog,
 	EthRawTransaction,
-	EthTransferHistory, EthExternalTransactions,
+	EthTransfers, EthExternalTransactions,
 	EthFullTransaction, EthTransactionsBetweenAddresses,
 	EthTransactionReceipt
 > {
@@ -395,7 +395,7 @@ export class EthApiClient extends BaseEthApiClient<
 		@inject(TYPES_DI.IEthNotifyApi) notifyApi: IEthNotifyApi,
 		@inject(TYPES_DI.IEthRawTransactionApi) rawTransactionApi: IEthRawTransactionApi<EthRawTransaction>,
 		@inject(TYPES_DI.IEthTransactionsApi) transactions: IEthTransactionsApi<
-			EthTransferHistory, EthExternalTransactions,
+			EthTransfers, EthExternalTransactions,
 			EthFullTransaction, EthTransactionsBetweenAddresses,
 			EthTransactionReceipt
 		>,

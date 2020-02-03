@@ -9,7 +9,7 @@ import {
 	EthFullTransaction,
 	EthTransactionReceipt,
 	EthTransactionsBetweenAddresses,
-	EthTransferHistory,
+	EthTransfers,
 } from '@src/dtos/eth/eth.transaction';
 
 export interface IBaseEthFactoryDto<
@@ -32,7 +32,7 @@ export interface IBaseEthFactoryDto<
 
 	getRawTransaction(data: any): TRawTransaction;
 
-	getTransferHistory(data: any): TTransferHistory;
+	getTransfers(data: any): TTransferHistory;
 	getExternalTransactions(data: any): TExternalTransactions;
 	getTransactionsBetweenAddresses(data: any): TTransactionsBetweenAddresses;
 	getFullTransaction(data: any): TFullTransaction;
@@ -44,7 +44,7 @@ export interface IEthApiFactoryDto extends IBaseEthFactoryDto<
 	EthAddressBalance, EthAddressInfo,
 	EthContract, EthContractLog,
 	EthRawTransaction,
-	EthTransferHistory, EthExternalTransactions,
+	EthTransfers, EthExternalTransactions,
 	EthFullTransaction, EthTransactionsBetweenAddresses,
 	EthTransactionReceipt
 > {}
