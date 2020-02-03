@@ -1,7 +1,9 @@
 import { EthAddressBalance } from '@src/dtos/eth/eth.address.balance';
 import { EthAddressInfo } from '@src/dtos/eth/eth.address.info';
-import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas.dto';
+import { EthContract, EthContractLog } from '@src/dtos/eth/eth.contract';
+import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas';
 import { EthNetworkInfo } from '@src/dtos/eth/eth.network.info';
+import { EthRawTransaction } from '@src/dtos/eth/eth.raw.transaction';
 import { EthTokenInfo } from '@src/dtos/eth/eth.token.info';
 import { EthTokenSearchResponse } from '@src/dtos/eth/eth.token.search';
 import { EthTokenBalanceByHoldersOut } from '@src/dtos/eth/eth.tokens.by.holders';
@@ -21,14 +23,16 @@ import { IEthTransactionsApi } from './eth.sub.apis/eth.transactions.interface';
 export interface IBaseEthApiClient<
 	TNetworkInfo, TEstimateGasResponse,
 	TAddressBalance, TAddressInfo,
-	TTokenInfo, TTokenBalanceByHoldersOut, TTokenSearchResponse, TTokenTransfersResponse
+	TTokenInfo, TTokenBalanceByHoldersOut, TTokenSearchResponse, TTokenTransfersResponse,
+	TContract, TContractLog,
+	TRawTransaction
 	> extends
 	IEthMainInfoApi<TNetworkInfo, TEstimateGasResponse>,
 	IEthAddressApi<TAddressBalance, TAddressInfo>,
 	IEthTokenApi<TTokenInfo, TTokenBalanceByHoldersOut, TTokenSearchResponse, TTokenTransfersResponse>,
-	IEthContractApi,
+	IEthContractApi<TContract, TContractLog>,
 	IEthNotifyApi,
-	IEthRawTransactionApi,
+	IEthRawTransactionApi<TRawTransaction>,
 	IEthTransactionsApi,
 	IEthBlockApi,
 	IConfigurable<IServerConfig> {
@@ -37,5 +41,7 @@ export interface IBaseEthApiClient<
 export interface IEthApiClient extends IBaseEthApiClient<
 	EthNetworkInfo, EstimateGasResponse,
 	EthAddressBalance, EthAddressInfo,
-	EthTokenInfo, EthTokenBalanceByHoldersOut, EthTokenSearchResponse, EthTokenTransfersResponse
+	EthTokenInfo, EthTokenBalanceByHoldersOut, EthTokenSearchResponse, EthTokenTransfersResponse,
+	EthContract, EthContractLog,
+	EthRawTransaction
 	> { }
