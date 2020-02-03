@@ -11,7 +11,7 @@ import { EthTokenSearchRequest } from '@src/dtos/eth/eth.token.search';
 import {
 	EthExternalTransactions,
 	EthFullTransaction,
-	EthTransactionReceipt,
+	EthFullTransactionReceipt,
 	EthTransactionsBetweenAddresses,
 	EthTransfers,
 } from '@src/dtos/eth/eth.transaction';
@@ -385,7 +385,7 @@ export class EthApiClient extends BaseEthApiClient<
 	EthRawTransaction,
 	EthTransfers, EthExternalTransactions,
 	EthFullTransaction, EthTransactionsBetweenAddresses,
-	EthTransactionReceipt
+	EthFullTransactionReceipt
 > {
 	constructor(
 		@inject(TYPES_DI.IEthMainInfoApi) mainInfo: IEthMainInfoApi<EthNetworkInfo, EstimateGasResponse>,
@@ -397,7 +397,7 @@ export class EthApiClient extends BaseEthApiClient<
 		@inject(TYPES_DI.IEthTransactionsApi) transactions: IEthTransactionsApi<
 			EthTransfers, EthExternalTransactions,
 			EthFullTransaction, EthTransactionsBetweenAddresses,
-			EthTransactionReceipt
+			EthFullTransactionReceipt
 		>,
 		@inject(TYPES_DI.IEthBlockApi)  block: IEthBlockApi,
 		@inject(TYPES_DI.IEthApiFactoryDto) factory: IEthApiFactoryDto,

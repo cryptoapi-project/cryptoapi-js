@@ -9,7 +9,7 @@ import { KlayRawTransaction } from '@src/dtos/klay/klay.raw.transaction';
 import {
 	KlayExternalTransactions,
 	KlayFullTransaction,
-	KlayTransactionReceipt,
+	KlayFullTransactionReceipt,
 	KlayTransactionsBetweenAddresses,
 	KlayTransfers,
 } from '@src/dtos/klay/klay.transaction';
@@ -62,7 +62,7 @@ export class KlayApiFactoryDto implements IKlayApiFactoryDto {
 		return new KlayFullTransaction(data);
 	}
 
-	getTransactionReceipt(data: any): KlayTransactionReceipt {
-		return new KlayTransactionReceipt(data);
+	getTransactionReceipt(data: any): KlayFullTransactionReceipt {
+		return new KlayFullTransactionReceipt(data);
 	}
 }

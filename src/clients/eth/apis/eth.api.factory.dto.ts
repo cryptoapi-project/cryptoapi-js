@@ -9,7 +9,7 @@ import { EthRawTransaction } from '@src/dtos/eth/eth.raw.transaction';
 import {
 	EthExternalTransactions,
 	EthFullTransaction,
-	EthTransactionReceipt,
+	EthFullTransactionReceipt,
 	EthTransactionsBetweenAddresses,
 	EthTransfers,
 } from '@src/dtos/eth/eth.transaction';
@@ -61,7 +61,7 @@ export class EthApiFactoryDto implements IEthApiFactoryDto {
 		return new EthFullTransaction(data);
 	}
 
-	getTransactionReceipt(data: any): EthTransactionReceipt {
-		return new EthTransactionReceipt(data);
+	getTransactionReceipt(data: any): EthFullTransactionReceipt {
+		return new EthFullTransactionReceipt(data);
 	}
 }

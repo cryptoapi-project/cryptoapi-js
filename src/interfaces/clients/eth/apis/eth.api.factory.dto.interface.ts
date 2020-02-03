@@ -7,7 +7,7 @@ import { EthRawTransaction } from '@src/dtos/eth/eth.raw.transaction';
 import {
 	EthExternalTransactions,
 	EthFullTransaction,
-	EthTransactionReceipt,
+	EthFullTransactionReceipt,
 	EthTransactionsBetweenAddresses,
 	EthTransfers,
 } from '@src/dtos/eth/eth.transaction';
@@ -46,5 +46,5 @@ export interface IEthApiFactoryDto extends IBaseEthFactoryDto<
 	EthRawTransaction,
 	EthTransfers, EthExternalTransactions,
 	EthFullTransaction, EthTransactionsBetweenAddresses,
-	EthTransactionReceipt
+	EthFullTransactionReceipt
 > {}

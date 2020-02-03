@@ -196,7 +196,7 @@ export class KlayExternalTransactions {
 	}
 }
 
-export class KlayFullTransactionReceipt {
+export class KlayTransactionReceipt {
 	readonly contract_address: string;
 	readonly gas_used: number;
 	readonly status: boolean;
@@ -217,11 +217,11 @@ export class KlayFullTransactionReceipt {
 }
 
 export class KlayFullTransaction extends KlayTransaction {
-	readonly receipt: KlayFullTransactionReceipt;
+	readonly receipt: KlayTransactionReceipt;
 
 	constructor(data: any) {
 		super(data as KlayTransaction);
-		this.receipt = new KlayFullTransactionReceipt(data.receipt);
+		this.receipt = new KlayTransactionReceipt(data.receipt);
 	}
 }
 
@@ -270,7 +270,7 @@ export class KlayReceiptLog {
 	}
 }
 
-export class KlayTransactionReceipt {
+export class KlayFullTransactionReceipt {
 	readonly block_hash: string;
 	readonly block_number: number;
 	readonly contract_address: string|null;

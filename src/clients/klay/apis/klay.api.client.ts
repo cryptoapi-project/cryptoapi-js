@@ -11,7 +11,7 @@ import { KlayRawTransaction } from '@src/dtos/klay/klay.raw.transaction';
 import {
 	KlayExternalTransactions,
 	KlayFullTransaction,
-	KlayTransactionReceipt, KlayTransactionsBetweenAddresses,
+	KlayFullTransactionReceipt, KlayTransactionsBetweenAddresses,
 	KlayTransfers,
 } from '@src/dtos/klay/klay.transaction';
 import { IEthAddressApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.address.api.interface';
@@ -32,7 +32,7 @@ export class KlayApiClient extends BaseEthApiClient<
 	KlayRawTransaction,
 	KlayTransfers, KlayExternalTransactions,
 	KlayFullTransaction, KlayTransactionsBetweenAddresses,
-	KlayTransactionReceipt
+	KlayFullTransactionReceipt
 > {
 	constructor(
 		@inject(TYPES_DI.IEthMainInfoApi) mainInfo: IEthMainInfoApi<KlayNetworkInfo, EstimateGasResponse>,
@@ -44,7 +44,7 @@ export class KlayApiClient extends BaseEthApiClient<
 		@inject(TYPES_DI.IEthTransactionsApi) transactions: IEthTransactionsApi<
 			KlayTransfers, KlayExternalTransactions,
 			KlayFullTransaction, KlayTransactionsBetweenAddresses,
-			KlayTransactionReceipt
+			KlayFullTransactionReceipt
 		>,
 		@inject(TYPES_DI.IEthBlockApi) block: IEthBlockApi,
 		@inject(TYPES_DI.IKlayApiFactoryDto) factory: IKlayApiFactoryDto,

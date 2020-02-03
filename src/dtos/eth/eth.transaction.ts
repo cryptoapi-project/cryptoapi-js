@@ -157,7 +157,7 @@ export class EthExternalTransactions {
 	}
 }
 
-export class EthFullTransactionReceipt {
+export class EthTransactionReceipt {
 	readonly contract_address: string;
 	readonly cumulative_gas_used: number;
 	readonly gas_used: number;
@@ -180,11 +180,11 @@ export class EthFullTransactionReceipt {
 }
 
 export class EthFullTransaction extends EthTransaction {
-	readonly receipt: EthFullTransactionReceipt;
+	readonly receipt: EthTransactionReceipt;
 
 	constructor(info: any) {
 		super(info as EthTransaction);
-		this.receipt = new EthFullTransactionReceipt(info.receipt);
+		this.receipt = new EthTransactionReceipt(info.receipt);
 	}
 }
 
@@ -305,7 +305,7 @@ export class EthReceiptLog {
 	}
 }
 
-export class EthTransactionReceipt {
+export class EthFullTransactionReceipt {
 	readonly block_hash: string;
 	readonly block_number: number;
 	readonly contract_address: string|null;
