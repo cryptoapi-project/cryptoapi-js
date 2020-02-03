@@ -39,7 +39,7 @@ export class KlayApiFactoryDto implements IKlayApiFactoryDto {
 		return new KlayAddressInfo(data);
 	}
 
-	getTokenInfoByTokenAddress(data: any): KlayTokenInfo {
+	getToken(data: any): KlayTokenInfo {
 		return new KlayTokenInfo(data);
 	}
 

@@ -129,13 +129,13 @@ export class BaseEthApiClient<
 
 	/**
 	 * Get token information by token address.
-	 * @method getTokenInfoByTokenAddress
+	 * @method getToken
 	 * @param {string} address
 	 * @return {Promise<TTokenInfo>}
 	 */
 	@TryCatch
-	async getTokenInfoByTokenAddress(address: string) {
-		return this.factoryDto.getTokenInfoByTokenAddress(await this.tokenInfo.getTokenInfoByTokenAddress(address));
+	async getToken(address: string) {
+		return this.factoryDto.getToken(await this.tokenInfo.getToken(address));
 	}
 
 	/**

@@ -26,7 +26,7 @@ This library provides eth api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.getContractLogs">eth.getContractLogs</a> ⇒<code><a href="#EthContractLog">Promise&lt;EthContractLog[]&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#eth.getTokenInfoByTokenAddress">eth.getTokenInfoByTokenAddress(address: string)</a> ⇒<code><a href="#EthTokenInfo">Promise&lt;EthTokenInfo&gt;</a></code></dt></dt>
+<dt><a href="#eth.getToken">eth.getToken(address: string)</a> ⇒<code><a href="#EthTokenInfo">Promise&lt;EthTokenInfo&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getTokenBalanceByAddresses">eth.getTokenBalanceByAddresses</a> ⇒<code><a href="#EthTokenBalanceByHoldersOut">Promise&lt;EthTokenBalanceByHoldersOut&gt;</a></code></dt></dt>
 <dd></dd>
@@ -260,7 +260,7 @@ Example response:
 }
 ```
 
-#### <a name="eth.getTokenInfoByTokenAddress">eth.getTokenInfoByTokenAddress(address: string)</a> ⇒ <code><a href="#EthTokenInfo">Promise&lt;EthTokenInfo&gt;</a></code></dt></dt>
+#### <a name="eth.getToken">eth.getToken(address: string)</a> ⇒ <code><a href="#EthTokenInfo">Promise&lt;EthTokenInfo&gt;</a></code></dt></dt>
 Returns JSON data about a eth token information.
 
 Input data:
@@ -272,7 +272,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getTokenInfoByTokenAddress('0x106c2dbabeb8c4932e3f68b76fb9665180b74587');
+    const result = await crypto.api.eth.getToken('0x106c2dbabeb8c4932e3f68b76fb9665180b74587');
 ```
 
 Example response:

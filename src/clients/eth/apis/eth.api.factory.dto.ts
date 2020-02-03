@@ -38,7 +38,7 @@ export class EthApiFactoryDto implements IEthApiFactoryDto {
 		return new EthAddressInfo(data);
 	}
 
-	getTokenInfoByTokenAddress(data: any): EthTokenInfo {
+	getToken(data: any): EthTokenInfo {
 		return new EthTokenInfo(data);
 	}
 

@@ -16,7 +16,7 @@ This library provides klay api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#klay.getAddressesInfos">klay.getAddressesInfos(addresses: string[])</a> ⇒<code><a href="#KlayAddressInfo">Promise&lt;KlayAddressInfo[]&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#klay.getTokenInfoByTokenAddress">klay.getTokenInfoByTokenAddress(address: string)</a> ⇒<code><a href="#KlayTokenInfo">Promise&lt;KlayTokenInfo&gt;</a></code></dt></dt>
+<dt><a href="#klay.getToken">klay.getToken(address: string)</a> ⇒<code><a href="#KlayTokenInfo">Promise&lt;KlayTokenInfo&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#klay.getTokenBalanceByAddresses">klay.getTokenBalanceByAddresses</a> ⇒<code><a href="#KlayTokenBalanceByHoldersOut">Promise&lt;KlayTokenBalanceByHoldersOut&gt;</a></code></dt></dt>
 <dd></dd>
@@ -157,7 +157,7 @@ Example response:
 ```
 
 
-#### <a name="klay.getTokenInfoByTokenAddress">klay.getTokenInfoByTokenAddress(address: string)</a> ⇒ <code><a href="#KlayTokenInfo">Promise&lt;KlayTokenInfo&gt;</a></code></dt></dt>
+#### <a name="klay.getToken">klay.getToken(address: string)</a> ⇒ <code><a href="#KlayTokenInfo">Promise&lt;KlayTokenInfo&gt;</a></code></dt></dt>
 Returns JSON data about a klay token information.
 
 Input data:
@@ -169,7 +169,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.getTokenInfoByTokenAddress('0x106c2dbabeb8c4932e3f68b76fb9665180b74587');
+    const result = await crypto.api.klay.getToken('0x106c2dbabeb8c4932e3f68b76fb9665180b74587');
 ```
 
 Example response:

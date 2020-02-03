@@ -13,7 +13,7 @@ export interface IEthTokenApi<
 	TTokenSearchResponse,
 	TTokenTransfersResponse
 	> extends IConfigurable<IServerConfig> {
-	getTokenInfoByTokenAddress(address: string): Promise<TTokenInfo>;
+	getToken(address: string): Promise<TTokenInfo>;
 	getTokenBalanceByAddresses(tokenAddress: string, holderAddresses: string[]): Promise<TTokenBalanceByHoldersOut>;
 	getTokenBalancesByHolders(holders: string[], options?: TPaginationOptions): Promise<TTokenBalanceByHoldersOut>;
 	searchToken(searchRequest: TTokenSearchRequest, options?: TPaginationOptions): Promise<TTokenSearchResponse>;

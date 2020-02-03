@@ -33,11 +33,11 @@ export class EthTokenApi<
 
 	/**
 	 * Method to get token information by address.
-	 * @method getTokenInfoByTokenAddress
+	 * @method getToken
 	 * @param {string} address
 	 * @return {Promise<TTokenInfo>}
 	 */
-	async getTokenInfoByTokenAddress(address: string): Promise<TTokenInfo> {
+	async getToken(address: string): Promise<TTokenInfo> {
 		this._checkConfig();
 		const tokenInfo = await this.httpClient.agent.get<TTokenInfo>(
 			`${this.config!.baseUrl}/coins/${this.config!.coin}${'/tokens/:address'.replace(':address', address)}`,
