@@ -10,10 +10,10 @@ import { EthRawTransaction } from '@src/dtos/eth/eth.raw.transaction';
 import { EthTokenSearchRequest } from '@src/dtos/eth/eth.token.search';
 import {
 	EthExternalTransactions,
+	EthFullTransaction,
 	EthTransactionReceipt,
 	EthTransactionsBetweenAddresses,
 	EthTransferHistory,
-	FullEthTransaction,
 } from '@src/dtos/eth/eth.transaction';
 import { EthTokenTransfersByAddressesRequest, EthTokenTransfersRequest } from '@src/dtos/eth/eth.transfer.dto';
 import { IBaseEthApiClient } from '@src/interfaces/clients/eth/apis/eth.api.client.interface';
@@ -222,14 +222,14 @@ export class BaseEthApiClient<
 
 	/**
 	 * Method to get transactions history.
-	 * @method getTransactionsHistory
+	 * @method getTransfersHistory
 	 * @param {THistoryRequest} data
 	 * @param {TPaginationOptions} options?
 	 * @return {Promise{TTransferHistory}}
 	 */
 	@TryCatch
-	async getTransactionsHistory(data: THistoryRequest, options?: TPaginationOptions) {
-		const info = await this.ethTransactions.getTransactionsHistory(data, options);
+	async getTransfersHistory(data: THistoryRequest, options?: TPaginationOptions) {
+		const info = await this.ethTransactions.getTransfersHistory(data, options);
 		return this.factoryDto.getTransferHistory(info);
 	}
 
@@ -384,7 +384,7 @@ export class EthApiClient extends BaseEthApiClient<
 	EthContract, EthContractLog,
 	EthRawTransaction,
 	EthTransferHistory, EthExternalTransactions,
-	FullEthTransaction, EthTransactionsBetweenAddresses,
+	EthFullTransaction, EthTransactionsBetweenAddresses,
 	EthTransactionReceipt
 > {
 	constructor(
@@ -396,7 +396,7 @@ export class EthApiClient extends BaseEthApiClient<
 		@inject(TYPES_DI.IEthRawTransactionApi) rawTransactionApi: IEthRawTransactionApi<EthRawTransaction>,
 		@inject(TYPES_DI.IEthTransactionsApi) transactions: IEthTransactionsApi<
 			EthTransferHistory, EthExternalTransactions,
-			FullEthTransaction, EthTransactionsBetweenAddresses,
+			EthFullTransaction, EthTransactionsBetweenAddresses,
 			EthTransactionReceipt
 		>,
 		@inject(TYPES_DI.IEthBlockApi)  block: IEthBlockApi,

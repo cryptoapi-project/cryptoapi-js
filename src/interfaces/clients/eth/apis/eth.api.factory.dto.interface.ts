@@ -6,10 +6,10 @@ import { EthNetworkInfo } from '@src/dtos/eth/eth.network.info';
 import { EthRawTransaction } from '@src/dtos/eth/eth.raw.transaction';
 import {
 	EthExternalTransactions,
+	EthFullTransaction,
 	EthTransactionReceipt,
 	EthTransactionsBetweenAddresses,
 	EthTransferHistory,
-	FullEthTransaction,
 } from '@src/dtos/eth/eth.transaction';
 
 export interface IBaseEthFactoryDto<
@@ -45,6 +45,6 @@ export interface IEthApiFactoryDto extends IBaseEthFactoryDto<
 	EthContract, EthContractLog,
 	EthRawTransaction,
 	EthTransferHistory, EthExternalTransactions,
-	FullEthTransaction, EthTransactionsBetweenAddresses,
+	EthFullTransaction, EthTransactionsBetweenAddresses,
 	EthTransactionReceipt
 > {}

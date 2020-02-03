@@ -9,7 +9,7 @@ export interface IEthTransactionsApi<
 	TFullTransaction, TTransactionsBetweenAddresses,
 	TTransactionReceipt
 >  extends IConfigurable<IServerConfig> {
-	getTransactionsHistory(data: THistoryRequest, options?: TPaginationOptions): Promise<TTransferHistory>;
+	getTransfersHistory(data: THistoryRequest, options?: TPaginationOptions): Promise<TTransferHistory>;
 	getExternalTransactionsHistory(addresses: string[], options?: TPaginationOptions): Promise<TTransactionsIntersection>;
 	getTransactionsBetweenAddresses(data: TrxsBetweenAddressesRequest, options?: TPaginationOptions): Promise<TTransactionsBetweenAddresses>;
 	getFullTransaction(hash: string): Promise<TFullTransaction>;

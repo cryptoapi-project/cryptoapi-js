@@ -55,13 +55,13 @@ export class KlayTransaction {
 	readonly internal_transactions: KlayInternalTransaction[];
 	readonly type: string;
 	readonly type_int: number;
-	readonly code_format?: string;
-	readonly fee_payer?: string;
-	readonly fee_payer_signatures?: Signature[];
-	readonly fee_ratio?: string;
-	readonly human_readable?: boolean;
-	readonly key?: string;
-	readonly sender_tx_hash?: string;
+	readonly code_format: string|null;
+	readonly fee_payer: string|null;
+	readonly fee_payer_signatures: Signature[]|null;
+	readonly fee_ratio: string|null;
+	readonly human_readable: boolean|null;
+	readonly key: string|null;
+	readonly sender_tx_hash: string|null;
 	readonly signatures: Signature[];
 
 	constructor(info: {
@@ -80,13 +80,13 @@ export class KlayTransaction {
 		readonly internal_transactions: KlayInternalTransaction[];
 		readonly type: string;
 		readonly type_int: number;
-		readonly code_format?: string;
-		readonly fee_payer?: string;
-		readonly fee_payer_signatures?: Signature[];
-		readonly fee_ratio?: string;
-		readonly human_readable?: boolean;
-		readonly key?: string;
-		readonly sender_tx_hash?: string;
+		readonly code_format: string|null;
+		readonly fee_payer: string|null;
+		readonly fee_payer_signatures: Signature[]|null;
+		readonly fee_ratio: string|null;
+		readonly human_readable: boolean|null;
+		readonly key: string|null;
+		readonly sender_tx_hash: string|null;
 		readonly signatures: Signature[];
 	}) {
 		this.block_hash = info.block_hash;
@@ -105,34 +105,15 @@ export class KlayTransaction {
 		this.type = info.type;
 		this.type_int = info.type_int;
 		this.signatures = info.signatures;
-
-		if (info.code_format) {
-			this.code_format = info.code_format;
-		}
-		if (info.fee_payer) {
-			this.fee_payer = info.fee_payer;
-		}
-		if (info.fee_payer_signatures) {
-			this.fee_payer_signatures = info.fee_payer_signatures;
-		}
-		if (info.fee_ratio) {
-			this.fee_ratio = info.fee_ratio;
-		}
-		if (info.human_readable) {
-			this.human_readable = info.human_readable;
-		}
-		if (info.key) {
-			this.key = info.key;
-		}
-		if (info.key) {
-			this.key = info.key;
-		}
-		if (info.sender_tx_hash) {
-			this.sender_tx_hash = info.sender_tx_hash;
-		}
-		if (info.signatures) {
-			this.signatures = info.signatures;
-		}
+		this.code_format = info.code_format;
+		this.fee_payer = info.fee_payer;
+		this.fee_payer_signatures = info.fee_payer_signatures;
+		this.fee_ratio = info.fee_ratio;
+		this.human_readable = info.human_readable;
+		this.key = info.key;
+		this.key = info.key;
+		this.sender_tx_hash = info.sender_tx_hash;
+		this.signatures = info.signatures;
 	}
 }
 
@@ -215,17 +196,32 @@ export class KlayExternalTransactions {
 	}
 }
 
+export class KlayFullTransactionReceipt {
+	readonly contract_address: string;
+	readonly gas_used: number;
+	readonly status: boolean;
+	readonly logs: KlayReceiptLog[];
+
+	constructor(data: {
+		readonly contract_address: string;
+		readonly cumulative_gas_used: number;
+		readonly gas_used: number;
+		readonly status: boolean;
+		readonly logs: KlayReceiptLog[];
+	}) {
+		this.contract_address = data.contract_address;
+		this.gas_used = data.gas_used;
+		this.status = data.status;
+		this.logs = data.logs.map((item) => new KlayReceiptLog(item));
+	}
+}
+
 export class KlayFullTransaction extends KlayTransaction {
-	readonly receipt: {
-		contract_address: string|null;
-		gas_used: number;
-		logs: KlayReceiptLog[];
-		status: boolean;
-	};
+	readonly receipt: KlayFullTransactionReceipt;
 
 	constructor(data: any) {
 		super(data as KlayTransaction);
-		this.receipt = data.receipt;
+		this.receipt = new KlayFullTransactionReceipt(data.receipt);
 	}
 }
 
@@ -279,7 +275,6 @@ export class KlayTransactionReceipt {
 	readonly block_number: number;
 	readonly contract_address: string|null;
 	readonly gas_used: number;
-	readonly cumulative_gas_used: number;
 	readonly logs: KlayReceiptLog[]|null;
 	readonly status: boolean;
 	readonly from: string;
@@ -304,7 +299,6 @@ export class KlayTransactionReceipt {
 		this.block_number = info.block_number;
 		this.contract_address = info.contract_address;
 		this.gas_used = info.gas_used;
-		this.cumulative_gas_used = info.cumulative_gas_used;
 		this.logs = info.logs ? info.logs.map((log) => new KlayReceiptLog(log)) : null;
 		this.status = info.status;
 		this.from = info.from;

@@ -36,15 +36,15 @@ This library provides eth api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.sendRawTransaction">eth.sendRawTransaction</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
 <dd></dd>
-<dt><a href="#eth.getTransactionsByAddresses">eth.getTransactionsByAddresses</a> ⇒<code><a href="#EthTransactionByAddresses">Promise&lt;EthTransactionByAddresses&gt;</a></code></dt></dt>
+<dt><a href="#eth.getTransfersHistory">eth.getTransfersHistory</a> ⇒<code><a href="#EthTransferHistory">Promise&lt;EthTransferHistory&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#eth.getTransactionsIntersection">eth.getTransactionsIntersection</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
+<dt><a href="#eth.getExternalTransactionsHistory">eth.getExternalTransactionsHistory</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#eth.getFullTransactionInfo">eth.getFullTransactionInfo</a> ⇒<code>Promise&lt;FullEthTransaction&gt;</code></dt></dt>
+<dt><a href="#eth.getFullTransaction">eth.getFullTransaction</a> ⇒<code>Promise&lt;EthFullTransaction&gt;</code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getTransactionReceipt">eth.getTransactionReceipt</a> ⇒<code>Promise&lt;EthTransactionReceipt&gt;</code></dt></dt>
 <dd></dd>
-<dt><a href="#eth.getTransactionsInterAddresses">eth.getTransactionsInterAddresses</a> ⇒<code><a href="#EthTransactionsInterAddresses">Promise&lt;EthTransactionsInterAddresses&gt;</a></code></dt></dt>
+<dt><a href="#eth.getTransactionsBetweenAddresses">eth.getTransactionsBetweenAddresses</a> ⇒<code><a href="#EthTransactionsBetweenAddresses">Promise&lt;EthTransactionsBetweenAddresses&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getTokenTransfers">eth.getTokenTransfers</a> ⇒<code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
 <dd></dd>
@@ -403,21 +403,22 @@ Example response:
 '0x8c30624b26ab1aed4dbbab32ed7f3bf32ec7f5bc043a4bb2b355e0aedf1e23d5'
 ```
 
-#### <a name="eth.getTransactionsByAddresses">eth.getTransactionsByAddresses</a>(addresses: string[], positive: boolean, options: <a href="#TPaginationOptions">TPaginationOptions</a>) ⇒<code><a href="#EthTransactionByAddresses">Promise&lt;EthTransactionByAddresses&gt;</a></code></dt></dt>
+#### <a name="eth.getTransfersHistory">eth.getTransfersHistory</a>(data: <a href="#THistoryRequest">THistoryRequest</a>, options: <a href="#TPaginationOptions">TPaginationOptions</a>) ⇒<code><a href="#EthTransferHistory">Promise&lt;EthTransferHistory&gt;</a></code></dt></dt>
 Return list of transactions by addresses.
 
 Input data:
 
 | Param | Type | Description |
 | --- | --- | --- |
-| addresses | <code>string[]</code> | [Ethereum Addresses] |
-| positive? | <code>boolean</code> | [If true, return only items with positive value] |
+| data | <code><a href="#THistoryRequest">THistoryRequest</a></code> | [Data to get history by ethereum addresses] |
 | options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Count of skipping items and page items count] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getTransactionsByAddresses(['0x99608ad1026a47acf7839003546748158ad55504']);
+    const result = await crypto.api.eth.getTransfersHistory({
+        addresses: ['0x99608ad1026a47acf7839003546748158ad55504'],
+    });
 ```
 
 Example response:
@@ -445,7 +446,7 @@ Example response:
 }
 ```
 
-#### <a name="eth.getTransactionsIntersection">eth.getTransactionsIntersection(addresses: string[], options: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
+#### <a name="eth.getExternalTransactionsHistory">eth.getExternalTransactionsHistory(addresses: string[], options: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
 Return list of transactions interception by addresses.
 
 Input data:
@@ -458,7 +459,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getTransactionsIntersection(['0x99608ad1026a47acf7839003546748158ad55504', '0xcd66e50e51026673d60b3f993610b46b0f44096f']);
+    const result = await crypto.api.eth.getExternalTransactionsHistory(['0x99608ad1026a47acf7839003546748158ad55504', '0xcd66e50e51026673d60b3f993610b46b0f44096f']);
 ```
 
 Example response:
@@ -503,22 +504,23 @@ Example response:
 }
 ```
 
-
-#### <a name="eth.getTransactionsInterAddresses">eth.getTransactionsInterAddresses(from: string, to: string, options: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsInterAddresses">Promise&lt;EthTransactionsInterAddresses&gt;</a></code></dt></dt>
+#### <a name="eth.getTransactionsBetweenAddresses">eth.getTransactionsBetweenAddresses(data: <a href="#TrxsBetweenAddressesRequest">TrxsBetweenAddressesRequest</a>, options: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsBetweenAddresses">Promise&lt;EthTransactionsBetweenAddresses&gt;</a></code></dt></dt>
 Return list of transactions between addresses.
 
 Input data:
 
 | Param | Type | Description |
 | --- | --- | --- |
-| from | <code>string</code> | [Ethereum Address] |
-| to | <code>string</code> | [Ethereum Address] |
+| data | <a href="#TrxsBetweenAddressesRequest">TrxsBetweenAddressesRequest</a> | [Data include fields ethereum addresses.] |
 | options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Count of skipping items and page items count] |
 
 ```javascript
     import { Client } from 'cryptoapi';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getTransactionsInterAddresses('0xcd66e50e51026673d60b3f993610b46b0f44096f', '0x99608ad1026a47acf7839003546748158ad55504');
+    const result = await crypto.api.eth.getTransactionsBetweenAddresses({
+        from: '0xcd66e50e51026673d60b3f993610b46b0f44096f',
+        to: '0x99608ad1026a47acf7839003546748158ad55504',
+});
 ```
 
 Example response:
@@ -793,7 +795,7 @@ true
  ```
 
 
-#### <a name="eth.getFullTransactionInfo">eth.getFullTransactionInfo(hash: string)</a> ⇒<code><a href="#FullEthTransaction">Promise&lt;FullEthTransaction&gt;</a></code></dt></dt>
+#### <a name="eth.getFullTransaction">eth.getFullTransaction(hash: string)</a> ⇒<code><a href="#EthFullTransaction">Promise&lt;EthFullTransaction&gt;</a></code></dt></dt>
 Returns JSON data about full transaction information.
 
 Input data:
@@ -805,7 +807,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getFullTransactionInfo('0x2dd50756cfd189177d0de4d65b7926459d7bb01de197c26517d05cd2b1c77ebc')
+    const result = await crypto.api.eth.getFullTransaction('0x2dd50756cfd189177d0de4d65b7926459d7bb01de197c26517d05cd2b1c77ebc')
 ```
 
 Example response:
@@ -920,19 +922,23 @@ Example response:
 <dd></dd>
 <dt><a href="#EthRawTransaction">EthRawTransaction</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#EthTransactionByAddresses">EthTransactionByAddresses</a> : <code>Object</code></dt>
+<dt><a href="#THistoryRequest">THistoryRequest</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthTransferHistory">EthTransferHistory</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthInternalTransaction">EthInternalTransaction</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTransaction">EthTransaction</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#FullEthTransaction">FullEthTransaction</a> : <code>Object</code></dt>
+<dt><a href="#EthFullTransaction">EthFullTransaction</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTransactionReceipt">EthTransactionReceipt</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTransactionsIntersection">EthTransactionsIntersection</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#EthTransactionsInterAddresses">EthTransactionsInterAddresses</a> : <code>Object</code></dt>
+<dt><a href="#TrxsBetweenAddressesRequest">TrxsBetweenAddressesRequest</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#EthTransactionsBetweenAddresses">EthTransactionsBetweenAddresses</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#TContractCall">TContractCall</a> : <code>Object</code></dt>
 <dd></dd>
@@ -1160,8 +1166,18 @@ Example response:
 }
 ```
 
-#### EthTransactionByAddresses : <code>Object</code>
-<a name="EthTransactionByAddresses"></a>
+#### THistoryRequest : <code>Object</code>
+<a name="THistoryRequest"></a>
+
+```javascript
+{
+	addresses: string[];
+	positive?: boolean;
+}
+```
+
+#### EthTransferHistory : <code>Object</code>
+<a name="EthTransferHistory"></a>
 
 ```javascript
 {
@@ -1220,8 +1236,8 @@ Example response:
 }
 ```
 
-#### FullEthTransaction : <code>Object</code>
-<a name="EthInternalTransaction"></a>
+#### EthFullTransaction : <code>Object</code>
+<a name="EthFullTransaction"></a>
 
 ```javascript
 {
@@ -1273,39 +1289,25 @@ Example response:
 }
 ```
 
-#### EthTransactionsInterAddresses : <code>Object</code>
-<a name="EthTransactionsInterAddresses"></a>
+#### TrxsBetweenAddressesRequest : <code>Object</code>
+<a name="TrxsBetweenAddressesRequest"></a>
+
+```javascript
+{
+    from: string;
+    to: string;
+```
+
+#### EthTransactionsBetweenAddresses : <code>Object</code>
+<a name="EthTransactionsBetweenAddresses"></a>
 
 ```javascript
 {
     total: number;
-    items: Array<{
-        block_hash: string;
-        block_number: number;
-        utc: string;
-        from: string;
-        gas: number;
-        gas_price: string;
-        hash: string;
-        input: string;
-        nonce: number;
-        to: string;
-        transaction_index: number;
-        value: string;
-        v: string;
-        s: string;
-        r: string;
-        internal_transactions: Array<{
-            to: string;
-            from: string;
-            value: string;
-            input: string;
-            is_suicide: boolean;
-            type: string;
-        }>;
-    }>;
+    items: EthTransaction[];
 }
 ```
+
 #### TContractCall : <code>Object</code>
 <a name="TContractCall"></a>
 
@@ -1424,3 +1426,4 @@ Example response:
 	topics: string[];    
 }
 ```
+

@@ -157,30 +157,34 @@ export class EthExternalTransactions {
 	}
 }
 
-export class FullEthTransaction extends EthTransaction {
-	readonly receipt: any;
+export class EthFullTransactionReceipt {
+	readonly contract_address: string;
+	readonly cumulative_gas_used: number;
+	readonly gas_used: number;
+	readonly status: boolean;
+	readonly logs: EthReceiptLog[]|null;
 
-	constructor(info: {
-		readonly receipt: any;
-		readonly block_hash: string;
-		readonly block_number: number;
-		readonly utc: string;
-		readonly from: string;
-		readonly gas: number;
-		readonly gas_price: any;
-		readonly hash: string;
-		readonly input: string;
-		readonly nonce: number;
-		readonly to: string;
-		readonly transaction_index: number;
-		readonly value: any;
-		readonly v: string;
-		readonly s: string;
-		readonly r: string;
-		readonly internal_transactions: EthInternalTransaction[];
+	constructor(data: {
+		readonly contract_address: string;
+		readonly cumulative_gas_used: number;
+		readonly gas_used: number;
+		readonly status: boolean;
+		readonly logs: EthReceiptLog[];
 	}) {
-		super(info);
-		this.receipt = info.receipt;
+		this.contract_address = data.contract_address;
+		this.cumulative_gas_used = data.cumulative_gas_used;
+		this.gas_used = data.gas_used;
+		this.status = data.status;
+		this.logs = data.logs.map((item) => new EthReceiptLog(item));
+	}
+}
+
+export class EthFullTransaction extends EthTransaction {
+	readonly receipt: EthFullTransactionReceipt;
+
+	constructor(info: any) {
+		super(info as EthTransaction);
+		this.receipt = new EthFullTransactionReceipt(info.receipt);
 	}
 }
 

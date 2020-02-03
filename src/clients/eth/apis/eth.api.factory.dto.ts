@@ -8,10 +8,10 @@ import { EthNetworkInfo } from '@src/dtos/eth/eth.network.info';
 import { EthRawTransaction } from '@src/dtos/eth/eth.raw.transaction';
 import {
 	EthExternalTransactions,
+	EthFullTransaction,
 	EthTransactionReceipt,
 	EthTransactionsBetweenAddresses,
 	EthTransferHistory,
-	FullEthTransaction,
 } from '@src/dtos/eth/eth.transaction';
 import { IEthApiFactoryDto } from '@src/interfaces/clients/eth/apis/eth.api.factory.dto.interface';
 
@@ -57,8 +57,8 @@ export class EthApiFactoryDto implements IEthApiFactoryDto {
 		return new EthExternalTransactions(data);
 	}
 
-	getFullTransaction(data: any): FullEthTransaction {
-		return new FullEthTransaction(data);
+	getFullTransaction(data: any): EthFullTransaction {
+		return new EthFullTransaction(data);
 	}
 
 	getTransactionReceipt(data: any): EthTransactionReceipt {

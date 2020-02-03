@@ -34,16 +34,13 @@ export class EthTransactionsApi<
 
 	/**
 	 * Method to get transactions history.
-	 * @method getTransactionsHistory
+	 * @method getTransfersHistory
 	 * @param {THistoryRequest} data
 	 * @param {TPaginationOptions} options?
 	 * @return {Promise<TTransferHistory>}
 	 */
-	async getTransactionsHistory(
-		{ addresses, positive}: THistoryRequest = {
-			addresses: [],
-			positive: false,
-		},
+	async getTransfersHistory(
+		{ addresses, positive}: THistoryRequest,
 		options: TPaginationOptions = {
 			skip: 0,
 			limit: MAX_LIMIT_HISTORY,
@@ -52,11 +49,10 @@ export class EthTransactionsApi<
 		this._checkConfig();
 
 		if (!this.validateHelper.isArray(addresses) || !addresses.length) {
-			throw new InternalLibraryException('Addresses are required.');
+			throw new InternalLibraryException('Addresses must be no empty array.');
 		}
 
-		const query = `${this.urlHelper.addOptionsToUrl('', options)}&positive=${positive}`;
-
+		const query = `${this.urlHelper.addOptionsToUrl('', { ...options, positive: !!positive })}`;
 		const { data } = await this.httpService.agent.get(
 			`${this.config!.baseUrl}/coins/${this.config!.coin}/addresses/${addresses.join(',')}/transfers${query}`,
 		);
@@ -77,7 +73,7 @@ export class EthTransactionsApi<
 		this._checkConfig();
 
 		if (!this.validateHelper.isArray(addresses) || !addresses.length) {
-			throw new InternalLibraryException('Addresses are required.');
+			throw new InternalLibraryException('Addresses must be no empty array.');
 		}
 
 		const query = options ? this.urlHelper.addOptionsToUrl('', options) : '';
