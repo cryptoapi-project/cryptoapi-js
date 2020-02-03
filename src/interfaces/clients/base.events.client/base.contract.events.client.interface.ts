@@ -2,7 +2,6 @@ import {
 	ContractLogNotification,
 	TokenBalanceNotification,
 	TransferNotification,
-
 } from '@src/dtos/base/event.notification.dtos';
 import {
 	ContractLogSubscription,

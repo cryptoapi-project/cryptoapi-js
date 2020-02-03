@@ -2,11 +2,21 @@ import { injectable } from 'inversify';
 
 import { EthAddressBalance } from '@src/dtos/eth/eth.address.balance';
 import { EthAddressInfo } from '@src/dtos/eth/eth.address.info';
-import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas.dto';
+import { EthBlockInfo, EthBlocksResponse } from '@src/dtos/eth/eth.block.dtos';
+import { EthContract, EthContractLog } from '@src/dtos/eth/eth.contract';
+import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas';
 import { EthNetworkInfo } from '@src/dtos/eth/eth.network.info';
+import { EthRawTransaction } from '@src/dtos/eth/eth.raw.transaction';
 import { EthTokenInfo } from '@src/dtos/eth/eth.token.info';
 import { EthTokenSearchResponse } from '@src/dtos/eth/eth.token.search';
 import { EthTokenBalanceByHoldersOut } from '@src/dtos/eth/eth.tokens.by.holders';
+import {
+	EthExternalTransactions,
+	EthFullTransaction,
+	EthFullTransactionReceipt,
+	EthTransactionsBetweenAddresses,
+	EthTransfers,
+} from '@src/dtos/eth/eth.transaction';
 import { EthTokenTransfersResponse } from '@src/dtos/eth/eth.transfer.dto';
 import { IEthApiFactoryDto } from '@src/interfaces/clients/eth/apis/eth.api.factory.dto.interface';
 
@@ -50,5 +60,44 @@ export class EthApiFactoryDto implements IEthApiFactoryDto {
 
 	getTokenTransfersByAddresses(data: any): EthTokenTransfersResponse {
 		return new EthTokenTransfersResponse(data);
+	}
+
+	getBlock(data: any): EthBlockInfo {
+		return new EthBlockInfo(data);
+	}
+
+	getBlocksResponse(data: any): EthBlocksResponse {
+		return new EthBlocksResponse(data);
+	}
+	getContract(data: any): EthContract {
+		return new EthContract(data);
+	}
+
+	getContractLog(data: any): EthContractLog {
+		return new EthContractLog(data);
+	}
+
+	getRawTransaction(data: any): EthRawTransaction {
+		return new EthRawTransaction(data);
+	}
+
+	getTransfers(data: any): EthTransfers {
+		return new EthTransfers(data);
+	}
+
+	getTransactionsBetweenAddresses(data: any): EthTransactionsBetweenAddresses {
+		return new EthTransactionsBetweenAddresses(data);
+	}
+
+	getExternalTransactions(data: any): EthExternalTransactions {
+		return new EthExternalTransactions(data);
+	}
+
+	getFullTransaction(data: any): EthFullTransaction {
+		return new EthFullTransaction(data);
+	}
+
+	getTransactionReceipt(data: any): EthFullTransactionReceipt {
+		return new EthFullTransactionReceipt(data);
 	}
 }
