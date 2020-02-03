@@ -4,8 +4,10 @@ import { TYPES_DI } from '@src/constants/inversify.constants';
 import { EthAddressBalance } from '@src/dtos/eth/eth.address.balance';
 import { EthAddressInfo } from '@src/dtos/eth/eth.address.info';
 import { EthBlockInfo, EthBlocksResponse } from '@src/dtos/eth/eth.block.dtos';
-import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas.dto';
+import { EthContract, EthContractLog } from '@src/dtos/eth/eth.contract';
+import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas';
 import { EthNetworkInfo } from '@src/dtos/eth/eth.network.info';
+import { EthRawTransaction } from '@src/dtos/eth/eth.raw.transaction';
 import { EthTokenSearchRequest } from '@src/dtos/eth/eth.token.search';
 import { EthTokenTransfersByAddressesRequest, EthTokenTransfersRequest } from '@src/dtos/eth/eth.transfer.dto';
 import { IBaseEthApiClient } from '@src/interfaces/clients/eth/apis/eth.api.client.interface';
@@ -20,7 +22,7 @@ import { IEthTokenApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.
 import { IEthTransactionsApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.transactions.interface';
 import { IServerConfig } from '@src/interfaces/configs/crypto.config.interface';
 import { TryCatch } from '@src/providers/decorators/try.catch';
-import { TEthContractCall } from '@src/types/eth/call.contract.type';
+import { TContractCall } from '@src/types/eth/call.contract.type';
 import { TEstimateGasRequest } from '@src/types/eth/estimate.gas.request.type';
 import { TContractLogsRequest } from '@src/types/eth/eth.contract.logs.request';
 import { TPaginationOptions } from '@src/types/paginations.options.type';
@@ -29,26 +31,33 @@ import { TPaginationOptions } from '@src/types/paginations.options.type';
 export class BaseEthApiClient<
 	TNetworkInfo, TEstimateGasResponse,
 	TAddressBalance, TAddressInfo,
-	TBlockInfo, TBlocksResponse
+	TBlockInfo, TBlocksResponse,
+	TContract, TContractLog,
+	TRawTransaction
 	> implements IBaseEthApiClient<
 	TNetworkInfo, TEstimateGasResponse,
 	TAddressBalance, TAddressInfo,
-	TBlockInfo, TBlocksResponse
+	TBlockInfo, TBlocksResponse,
+	TContract, TContractLog,
+	TRawTransaction
 	> {
 	config: IServerConfig | null = null;
+
 	constructor(
 		private readonly mainInfo: IEthMainInfoApi<TNetworkInfo, TEstimateGasResponse>,
 		private readonly ethTokenInfo: IEthTokenApi,
 		private readonly ethAddressInfo: IEthAddressApi<TAddressBalance, TAddressInfo>,
-		private readonly ethContractApi: IEthContractApi,
+		private readonly ethContractApi: IEthContractApi<TContract, TContractLog>,
 		private readonly ethNotifyApi: IEthNotifyApi,
-		private readonly rawTransactionApi: IEthRawTransactionApi,
+		private readonly rawTransactionApi: IEthRawTransactionApi<TRawTransaction>,
 		private readonly ethTransactions: IEthTransactionsApi,
 		private readonly block: IEthBlockApi<TBlockInfo, TBlocksResponse>,
 		private readonly factoryDto: IBaseEthFactoryDto<
 			TNetworkInfo, TEstimateGasResponse,
 			TAddressBalance, TAddressInfo,
-			TBlockInfo, TBlocksResponse
+			TBlockInfo, TBlocksResponse,
+			TContract, TContractLog,
+			TRawTransaction
 		>,
 	) { }
 
@@ -129,11 +138,12 @@ export class BaseEthApiClient<
 	 * Method to get contract information.
 	 * method getContractInfo
 	 * @param {string} address
-	 * @return {Promise<EthContractInfo>}
+	 * @return {Promise<TContract>}
 	 */
 	@TryCatch
-	getContractInfo(address: string) {
-		return this.ethContractApi.getContractInfo(address);
+	async getContractInfo(address: string) {
+		const info = await this.ethContractApi.getContractInfo(address);
+		return this.factoryDto.getContract(info);
 	}
 
 	/**
@@ -186,11 +196,11 @@ export class BaseEthApiClient<
 	 * Method decode raw transaction.
 	 * @method decodeRawTransaction
 	 * @param {string} tr
-	 * @return {EthRawTransaction}
+	 * @return {TRawTransaction}
 	 */
 	@TryCatch
-	decodeRawTransaction(tr: string) {
-		return this.rawTransactionApi.decodeRawTransaction(tr);
+	async decodeRawTransaction(tr: string) {
+		return this.factoryDto.getRawTransaction(await this.rawTransactionApi.decodeRawTransaction(tr));
 	}
 
 	/**
@@ -259,11 +269,11 @@ export class BaseEthApiClient<
 	/**
 	 * Method to call contract.
 	 * @method callContract
-	 * @param {TEthContractCall} data
+	 * @param {TContractCall} data
 	 * @return {Promise<string>}
 	 */
 	@TryCatch
-	callContract(data: TEthContractCall) {
+	callContract(data: TContractCall) {
 		return this.ethContractApi.callContract(data);
 	}
 
@@ -352,15 +362,17 @@ export class BaseEthApiClient<
 export class EthApiClient extends BaseEthApiClient<
 EthNetworkInfo, EstimateGasResponse,
 EthAddressBalance, EthAddressInfo,
-EthBlockInfo, EthBlocksResponse
+EthBlockInfo, EthBlocksResponse,
+EthContract, EthContractLog,
+EthRawTransaction
 > {
 	constructor(
 		@inject(TYPES_DI.IEthMainInfoApi) mainInfo: IEthMainInfoApi<EthNetworkInfo, EstimateGasResponse>,
 		@inject(TYPES_DI.IEthTokenApi) tokenInfo: IEthTokenApi,
 		@inject(TYPES_DI.IEthAddressApi) addressInfo: IEthAddressApi<EthAddressBalance, EthAddressInfo>,
-		@inject(TYPES_DI.IEthContractApi) contractApi: IEthContractApi,
+		@inject(TYPES_DI.IEthContractApi) contractApi: IEthContractApi<EthContract, EthContractLog>,
 		@inject(TYPES_DI.IEthNotifyApi) notifyApi: IEthNotifyApi,
-		@inject(TYPES_DI.IEthRawTransactionApi) rawTransactionApi: IEthRawTransactionApi,
+		@inject(TYPES_DI.IEthRawTransactionApi) rawTransactionApi: IEthRawTransactionApi<EthRawTransaction>,
 		@inject(TYPES_DI.IEthTransactionsApi) transactions: IEthTransactionsApi,
 		@inject(TYPES_DI.IEthBlockApi) block: IEthBlockApi<EthBlockInfo, EthBlocksResponse>,
 		@inject(TYPES_DI.IEthApiFactoryDto) factory: IEthApiFactoryDto,

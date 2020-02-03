@@ -363,9 +363,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.decodeRawTransaction('0xf86e8386ca038602bba7f5220083632ea0941de29f644d555fe9cc3241e1083de0868' +
-        'f959bfa8545d964b800801ca04ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637fdc35' +
-        'bdc49c4a04b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02');
+    const result = await crypto.api.eth.decodeRawTransaction('0xf86e8386ca038602bba7f5220083632ea0941de29f644d555fe9cc3241e1083de0868f959bfa8545d964b800801ca04ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637fdc35bdc49c4a04b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02');
 ```
 
 Example response:
@@ -396,9 +394,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.sendRawTransaction('0xf86e8386ca038602bba7f5220083632ea0941de29f' +
-     '644d555fe9cc3241e1083de0868f959bfa8545d964b800801ca04ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637' +
-      'fdc35bdc49c4a04b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02');
+    const result = await crypto.api.eth.sendRawTransaction('0xf86e8386ca038602bba7f5220083632ea0941de29f644d555fe9cc3241e1083de0868f959bfa8545d964b800801ca04ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637fdc35bdc49c4a04b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02');
 ```
 
 Example response:
@@ -641,14 +637,14 @@ Example response:
 }
 ```
 
-#### <a name="eth.callContract">eth.callContract(dataToCall: TEthContractCall)</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
+#### <a name="eth.callContract">eth.callContract(dataToCall: TContractCall)</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
 Executes a message call transaction.
 
 Input data:
 
 | Param | Type | Description |
 | --- | --- | --- |
-| dataToCall | <code><a href="#TEthContractCall">TEthContractCall</a></code> | [Data to call contract] |
+| dataToCall | <code><a href="#TContractCall">TContractCall</a></code> | [Data to call contract] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
@@ -938,7 +934,7 @@ Example response:
 <dd></dd>
 <dt><a href="#EthTransactionsInterAddresses">EthTransactionsInterAddresses</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#TEthContractCall">TEthContractCall</a> : <code>Object</code></dt>
+<dt><a href="#TContractCall">TContractCall</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#TTokenSearchRequest">TTokenSearchRequest</a> : <code>Object</code></dt>
 <dd></dd>
@@ -1310,8 +1306,8 @@ Example response:
     }>;
 }
 ```
-#### TEthContractCall : <code>Object</code>
-<a name="TEthContractCall"></a>
+#### TContractCall : <code>Object</code>
+<a name="TContractCall"></a>
 
 ```javascript
 {
@@ -1398,7 +1394,7 @@ Example response:
         block_hash: string;
         block_number: number;
     }>;
-    
+
 ```
 
 #### EthContractLog : <code>Object</code>
@@ -1424,7 +1420,7 @@ Example response:
 {
 	from_block: number;
 	to_block: number;
-	address: string[];
+	addresses: string[];
 	topics: string[];    
 }
 ```
