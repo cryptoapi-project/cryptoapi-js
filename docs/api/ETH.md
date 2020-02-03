@@ -403,14 +403,14 @@ Example response:
 '0x8c30624b26ab1aed4dbbab32ed7f3bf32ec7f5bc043a4bb2b355e0aedf1e23d5'
 ```
 
-#### <a name="eth.getTransfers">eth.getTransfers</a>(data: <a href="#THistoryRequest">THistoryRequest</a>, options: <a href="#TPaginationOptions">TPaginationOptions</a>) ⇒<code><a href="#EthTransfers">Promise&lt;EthTransfers&gt;</a></code></dt></dt>
+#### <a name="eth.getTransfers">eth.getTransfers</a>(data: <a href="#TTrasfersRequest">TTrasfersRequest</a>, options: <a href="#TPaginationOptions">TPaginationOptions</a>) ⇒<code><a href="#EthTransfers">Promise&lt;EthTransfers&gt;</a></code></dt></dt>
 Return list of transactions by addresses.
 
 Input data:
 
 | Param | Type | Description |
 | --- | --- | --- |
-| data | <code><a href="#THistoryRequest">THistoryRequest</a></code> | [Data to get history by ethereum addresses] |
+| data | <code><a href="#TTrasfersRequest">TTrasfersRequest</a></code> | [Data to get history by ethereum addresses] |
 | options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Count of skipping items and page items count] |
 
 ```javascript
@@ -922,7 +922,7 @@ Example response:
 <dd></dd>
 <dt><a href="#EthRawTransaction">EthRawTransaction</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#THistoryRequest">THistoryRequest</a> : <code>Object</code></dt>
+<dt><a href="#TTrasfersRequest">TTrasfersRequest</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTransfers">EthTransfers</a> : <code>Object</code></dt>
 <dd></dd>
@@ -1166,8 +1166,8 @@ Example response:
 }
 ```
 
-#### THistoryRequest : <code>Object</code>
-<a name="THistoryRequest"></a>
+#### TTrasfersRequest : <code>Object</code>
+<a name="TTrasfersRequest"></a>
 
 ```javascript
 {
