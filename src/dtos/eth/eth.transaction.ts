@@ -78,60 +78,64 @@ export class EthTransaction {
 	}
 }
 
-export class EthTransactionByAddresses {
+export class EthTransfer {
+	block_number: number;
+	from: string;
+	to: string;
+	value: string;
+	hash: string;
+	gas: number;
+	gas_price: string;
+	internal: boolean;
+	utc: string;
+
+	constructor(data: {
+		block_number: number;
+		from: string;
+		to: string;
+		value: string;
+		hash: string;
+		gas: number;
+		gas_price: string;
+		internal: boolean;
+		utc: string;
+	}) {
+		this.block_number = data.block_number;
+		this.from = data.from;
+		this.to = data.to;
+		this.value = data.value;
+		this.hash = data.hash;
+		this.gas = data.gas;
+		this.gas_price = data.gas_price;
+		this.internal = data.internal;
+		this.utc = data.utc;
+	}
+}
+
+export class EthTransfers {
 	readonly addresses: string[];
 	readonly limit: number;
 	readonly skip: number;
-	readonly items: Array<{
-		block_number: number,
-		from: string,
-		to: string,
-		value: string,
-		hash: string,
-		gas: number,
-		gas_price: string,
-		internal: boolean,
-		utc: string,
-	}>;
+	readonly items: EthTransfer[];
 	readonly count: number;
 
 	constructor(info: {
 		addresses: string[],
 		limit: number,
 		skip: number,
-		items: Array<{
-			block_number: number,
-			from: string,
-			to: string,
-			value: string,
-			hash: string,
-			gas: number,
-			gas_price: string,
-			internal: boolean,
-			utc: string,
-		}>,
+		items: EthTransfer[];
 		count: number,
 	}) {
 		this.addresses = info.addresses;
 		this.limit = info.limit;
 		this.skip = info.skip;
-		this.items = info.items.map((item) => ({
-			block_number: item.block_number,
-			from: item.from,
-			to: item.to,
-			value: item.value,
-			hash: item.hash,
-			gas: item.gas,
-			gas_price: item.gas_price,
-			internal: item.internal,
-			utc: item.utc,
-		}));
+		this.items = info.items.map((item) => new EthTransfer(item));
 		this.count = info.count;
 	}
 
 }
 
-export class EthTransactionsIntersection {
+export class EthExternalTransactions {
 	readonly addresses: string[];
 	readonly skip: number;
 	readonly limit: number;
@@ -153,34 +157,38 @@ export class EthTransactionsIntersection {
 	}
 }
 
-export class FullEthTransaction extends EthTransaction {
-	readonly receipt: any;
+export class EthTransactionReceipt {
+	readonly contract_address: string;
+	readonly cumulative_gas_used: number;
+	readonly gas_used: number;
+	readonly status: boolean;
+	readonly logs: EthReceiptLog[]|null;
 
-	constructor(info: {
-		readonly receipt: any;
-		readonly block_hash: string;
-		readonly block_number: number;
-		readonly utc: string;
-		readonly from: string;
-		readonly gas: number;
-		readonly gas_price: any;
-		readonly hash: string;
-		readonly input: string;
-		readonly nonce: number;
-		readonly to: string;
-		readonly transaction_index: number;
-		readonly value: any;
-		readonly v: string;
-		readonly s: string;
-		readonly r: string;
-		readonly internal_transactions: EthInternalTransaction[];
+	constructor(data: {
+		readonly contract_address: string;
+		readonly cumulative_gas_used: number;
+		readonly gas_used: number;
+		readonly status: boolean;
+		readonly logs: EthReceiptLog[];
 	}) {
-		super(info);
-		this.receipt = info.receipt;
+		this.contract_address = data.contract_address;
+		this.cumulative_gas_used = data.cumulative_gas_used;
+		this.gas_used = data.gas_used;
+		this.status = data.status;
+		this.logs = data.logs.map((item) => new EthReceiptLog(item));
 	}
 }
 
-export class EthTransactionsInterAddresses {
+export class EthFullTransaction extends EthTransaction {
+	readonly receipt: EthTransactionReceipt;
+
+	constructor(info: any) {
+		super(info as EthTransaction);
+		this.receipt = new EthTransactionReceipt(info.receipt);
+	}
+}
+
+export class EthTransactionsBetweenAddresses {
 	readonly total: number;
 	readonly items: Array<{
 		readonly block_hash: string;
@@ -266,7 +274,7 @@ export class EthTransactionsInterAddresses {
 
 }
 
-export class ReceiptLog {
+export class EthReceiptLog {
 	address: string;
 	data: string;
 	topics: string[];
@@ -297,7 +305,7 @@ export class ReceiptLog {
 	}
 }
 
-export class EthTransactionReceipt {
+export class EthFullTransactionReceipt {
 	readonly block_hash: string;
 	readonly block_number: number;
 	readonly contract_address: string|null;
@@ -308,7 +316,7 @@ export class EthTransactionReceipt {
 	readonly hash: string;
 	readonly to: string;
 	readonly transaction_index: number;
-	readonly logs: ReceiptLog[]|null;
+	readonly logs: EthReceiptLog[]|null;
 
 	constructor(info: {
 		readonly block_hash: string;
@@ -316,7 +324,7 @@ export class EthTransactionReceipt {
 		readonly contract_address: string|null;
 		readonly gas_used: number;
 		readonly cumulative_gas_used: number;
-		readonly logs: ReceiptLog[]|null;
+		readonly logs: EthReceiptLog[]|null;
 		readonly status: boolean;
 		readonly from: string;
 		readonly hash: string;
@@ -328,7 +336,7 @@ export class EthTransactionReceipt {
 		this.contract_address = info.contract_address;
 		this.gas_used = info.gas_used;
 		this.cumulative_gas_used = info.cumulative_gas_used;
-		this.logs = info.logs ? info.logs.map((log) => new ReceiptLog(log)) : null;
+		this.logs = info.logs ? info.logs.map((log) => new EthReceiptLog(log)) : null;
 		this.status = info.status;
 		this.from = info.from;
 		this.hash = info.hash;

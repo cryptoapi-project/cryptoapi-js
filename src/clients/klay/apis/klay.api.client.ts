@@ -8,6 +8,12 @@ import { KlayContract, KlayContractLog } from '@src/dtos/klay/klay.contract';
 import { EstimateGasResponse } from '@src/dtos/klay/klay.estimate.gas';
 import { KlayNetworkInfo } from '@src/dtos/klay/klay.network.info';
 import { KlayRawTransaction } from '@src/dtos/klay/klay.raw.transaction';
+import {
+	KlayExternalTransactions,
+	KlayFullTransaction,
+	KlayFullTransactionReceipt, KlayTransactionsBetweenAddresses,
+	KlayTransfers,
+} from '@src/dtos/klay/klay.transaction';
 import { IEthAddressApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.address.api.interface';
 import { IEthBlockApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.block.interface';
 import { IEthContractApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
@@ -23,7 +29,10 @@ export class KlayApiClient extends BaseEthApiClient<
 	KlayNetworkInfo, EstimateGasResponse,
 	KlayAddressBalance, KlayAddressInfo,
 	KlayContract, KlayContractLog,
-	KlayRawTransaction
+	KlayRawTransaction,
+	KlayTransfers, KlayExternalTransactions,
+	KlayFullTransaction, KlayTransactionsBetweenAddresses,
+	KlayFullTransactionReceipt
 > {
 	constructor(
 		@inject(TYPES_DI.IEthMainInfoApi) mainInfo: IEthMainInfoApi<KlayNetworkInfo, EstimateGasResponse>,
@@ -32,7 +41,11 @@ export class KlayApiClient extends BaseEthApiClient<
 		@inject(TYPES_DI.IEthContractApi) contractApi: IEthContractApi<KlayContract, KlayContractLog>,
 		@inject(TYPES_DI.IEthNotifyApi) notifyApi: IEthNotifyApi,
 		@inject(TYPES_DI.IEthRawTransactionApi) rawTransactionApi: IEthRawTransactionApi<KlayRawTransaction>,
-		@inject(TYPES_DI.IEthTransactionsApi) transactions: IEthTransactionsApi,
+		@inject(TYPES_DI.IEthTransactionsApi) transactions: IEthTransactionsApi<
+			KlayTransfers, KlayExternalTransactions,
+			KlayFullTransaction, KlayTransactionsBetweenAddresses,
+			KlayFullTransactionReceipt
+		>,
 		@inject(TYPES_DI.IEthBlockApi) block: IEthBlockApi,
 		@inject(TYPES_DI.IKlayApiFactoryDto) factory: IKlayApiFactoryDto,
 	) {

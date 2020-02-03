@@ -6,6 +6,13 @@ import { EthContract, EthContractLog } from '@src/dtos/eth/eth.contract';
 import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas';
 import { EthNetworkInfo } from '@src/dtos/eth/eth.network.info';
 import { EthRawTransaction } from '@src/dtos/eth/eth.raw.transaction';
+import {
+	EthExternalTransactions,
+	EthFullTransaction,
+	EthFullTransactionReceipt,
+	EthTransactionsBetweenAddresses,
+	EthTransfers,
+} from '@src/dtos/eth/eth.transaction';
 import { IEthApiFactoryDto } from '@src/interfaces/clients/eth/apis/eth.api.factory.dto.interface';
 
 @injectable()
@@ -38,4 +45,23 @@ export class EthApiFactoryDto implements IEthApiFactoryDto {
 		return new EthRawTransaction(data);
 	}
 
+	getTransfers(data: any): EthTransfers {
+		return new EthTransfers(data);
+	}
+
+	getTransactionsBetweenAddresses(data: any): EthTransactionsBetweenAddresses {
+		return new EthTransactionsBetweenAddresses(data);
+	}
+
+	getExternalTransactions(data: any): EthExternalTransactions {
+		return new EthExternalTransactions(data);
+	}
+
+	getFullTransaction(data: any): EthFullTransaction {
+		return new EthFullTransaction(data);
+	}
+
+	getTransactionReceipt(data: any): EthFullTransactionReceipt {
+		return new EthFullTransactionReceipt(data);
+	}
 }

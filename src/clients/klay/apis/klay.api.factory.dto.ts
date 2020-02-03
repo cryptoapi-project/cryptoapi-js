@@ -6,6 +6,13 @@ import { KlayContract, KlayContractLog } from '@src/dtos/klay/klay.contract';
 import { EstimateGasResponse } from '@src/dtos/klay/klay.estimate.gas';
 import { KlayNetworkInfo } from '@src/dtos/klay/klay.network.info';
 import { KlayRawTransaction } from '@src/dtos/klay/klay.raw.transaction';
+import {
+	KlayExternalTransactions,
+	KlayFullTransaction,
+	KlayFullTransactionReceipt,
+	KlayTransactionsBetweenAddresses,
+	KlayTransfers,
+} from '@src/dtos/klay/klay.transaction';
 import { IKlayApiFactoryDto } from '@src/interfaces/clients/klay/apis/klay.api.factory.dto.interface';
 
 @injectable()
@@ -39,4 +46,23 @@ export class KlayApiFactoryDto implements IKlayApiFactoryDto {
 		return new KlayRawTransaction(data);
 	}
 
+	getTransfers(data: any): KlayTransfers {
+		return new KlayTransfers(data);
+	}
+
+	getTransactionsBetweenAddresses(data: any): KlayTransactionsBetweenAddresses {
+		return new KlayTransactionsBetweenAddresses(data);
+	}
+
+	getExternalTransactions(data: any): KlayExternalTransactions {
+		return new KlayExternalTransactions(data);
+	}
+
+	getFullTransaction(data: any): KlayFullTransaction {
+		return new KlayFullTransaction(data);
+	}
+
+	getTransactionReceipt(data: any): KlayFullTransactionReceipt {
+		return new KlayFullTransactionReceipt(data);
+	}
 }

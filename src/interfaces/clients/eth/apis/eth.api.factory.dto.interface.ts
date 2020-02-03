@@ -4,12 +4,22 @@ import { EthContract, EthContractLog } from '@src/dtos/eth/eth.contract';
 import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas';
 import { EthNetworkInfo } from '@src/dtos/eth/eth.network.info';
 import { EthRawTransaction } from '@src/dtos/eth/eth.raw.transaction';
+import {
+	EthExternalTransactions,
+	EthFullTransaction,
+	EthFullTransactionReceipt,
+	EthTransactionsBetweenAddresses,
+	EthTransfers,
+} from '@src/dtos/eth/eth.transaction';
 
 export interface IBaseEthFactoryDto<
 	TNetworkInfo, TEstimateGasResponse,
 	TAddressBalance, TAddressInfo,
 	TContract, TContractLog,
-	TRawTransaction
+	TRawTransaction,
+	TTransfers, TExternalTransactions,
+	TFullTransaction, TTransactionsBetweenAddresses,
+	TTransactionReceipt
 > {
 	getNetworkInfo(data: any): TNetworkInfo;
 	getEstimateGasResponse(data: any): TEstimateGasResponse;
@@ -21,11 +31,20 @@ export interface IBaseEthFactoryDto<
 	getContractLog(data: any): TContractLog;
 
 	getRawTransaction(data: any): TRawTransaction;
+
+	getTransfers(data: any): TTransfers;
+	getExternalTransactions(data: any): TExternalTransactions;
+	getTransactionsBetweenAddresses(data: any): TTransactionsBetweenAddresses;
+	getFullTransaction(data: any): TFullTransaction;
+	getTransactionReceipt(data: any): TTransactionReceipt;
 }
 
 export interface IEthApiFactoryDto extends IBaseEthFactoryDto<
 	EthNetworkInfo, EstimateGasResponse,
 	EthAddressBalance, EthAddressInfo,
 	EthContract, EthContractLog,
-	EthRawTransaction
+	EthRawTransaction,
+	EthTransfers, EthExternalTransactions,
+	EthFullTransaction, EthTransactionsBetweenAddresses,
+	EthFullTransactionReceipt
 > {}

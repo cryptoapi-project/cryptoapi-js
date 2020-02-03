@@ -26,6 +26,16 @@ This library provides klay api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#klay.sendRawTransaction">klay.sendRawTransaction</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
 <dd></dd>
+<dt><a href="#klay.getTransfers">klay.getTransfers</a> ⇒<code><a href="#KlayTransfers">Promise&lt;KlayTransfers&gt;</a></code></dt></dt>
+<dd></dd>
+<dt><a href="#klay.getExternalTransactions">klay.getExternalTransactions</a> ⇒<code><a href="#KlayTransactionsIntersection">Promise&lt;KlayTransactionsIntersection&gt;</a></code></dt></dt>
+<dd></dd>
+<dt><a href="#klay.getTransactionsBetweenAddresses">klay.getTransactionsBetweenAddresses</a> ⇒<code><a href="#KlayTransactionsBetweenAddresses">Promise&lt;KlayTransactionsBetweenAddresses&gt;</a></code></dt></dt>
+<dd></dd>
+<dt><a href="#klay.getFullTransaction">klay.getFullTransaction</a> ⇒<code>Promise&lt;FullKlayTransaction&gt;</code></dt></dt>
+<dd></dd>
+<dt><a href="#klay.getTransactionReceipt">klay.getTransactionReceipt</a> ⇒<code>Promise&lt;KlayTransactionReceipt&gt;</code></dt></dt>
+<dd></dd>
 </dl>
 
 #### <a name="klay.getNetworkInfo">klay.getNetworkInfo()</a> ⇒ <code><a href="#KlayNetworkInfo">Promise&lt;KlayNetworkInfo&gt;</a></code></dt></dt>
@@ -266,6 +276,260 @@ Example response:
 '0x5fde62cf325ba9461da9f2dcba2d9993002cc93025fd20408cf0c3c0119e3909'
 ```
 
+#### <a name="klay.getTransfers">klay.getTransfers</a>(data: <a href="#TTransferRequest">TTransferRequest</a>, options: <a href="#TPaginationOptions">TPaginationOptions</a>) ⇒<code><a href="#KlayTransfers">Promise&lt;KlayTransfers&gt;</a></code></dt></dt>
+Return list of transactions by addresses.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| data | <code><a href="#TTransferRequest">TTransferRequest</a></code> | [Data to get history by klay addresses] |
+| options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Count of skipping items and page items count] |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('YOUR-API-KEY');
+    const result = await crypto.api.klay.getTransfers({
+        addresses: ["0x4937a6f664630547f6b0c3c235c4f03a64ca36b1"],
+    }, {
+        skip: 1,
+        limit: 1
+    });
+```
+
+Example response:
+```
+{
+    "addresses": [
+        "0x4937a6f664630547f6b0c3c235c4f03a64ca36b1"
+    ],
+    "limit": 1,
+    "skip": 1,
+    "items": [
+        {
+            block_number: 10415,
+            from: "0x4937a6f664630547f6b0c3c235c4f03a64ca36b1",
+            gas: 300000,
+            gas_price: "0x5d21dba00",
+            hash: "0x12e71be0e685bfb9572d304c00d3a287ff3e9fece36999989c8f5c638f0690e7",
+            internal: false,
+            to: "0x9bf34a006086b50f6571c5c026a4b6f2b11baaac",
+            utc: "2019-06-26T13:05:11.000Z",
+            value: "0x152d02c7e14af6800000"
+        }
+    ],
+    "count": 3
+}
+```
+
+#### <a name="klay.getExternalTransactions">klay.getExternalTransactions(addresses: string[], options: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#KlayTransactionsIntersection">Promise&lt;KlayTransactionsIntersection&gt;</a></code></dt></dt>
+Return list of transactions interception by addresses.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| addresses | <code>string[]</code> | [Klay Addresses] |
+| options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Count of skipping items and page items count] |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('YOUR-API-KEY');
+    const result = await crypto.api.klay.getExternalTransactions(['0x4937a6f664630547f6b0c3c235c4f03a64ca36b1'], {
+        limit: 1
+    });
+```
+
+Example response:
+```
+{
+    "addresses": [
+        "0x4937a6f664630547f6b0c3c235c4f03a64ca36b1",
+    ],
+    "limit": 1,
+    "skip": 0,
+    "count": 3,
+    "items": [
+        {
+            block_hash: "0x39008ace108a912e11599dcc6fbc89a9af3e71fa97f5598ad19c3aefe877bc4b",
+            block_number: 10489,
+            code_format: null,
+            fee_payer: null
+            fee_payer_signatures: [],
+            fee_ratio: null,
+            from: "0x4937a6f664630547f6b0c3c235c4f03a64ca36b1",
+            gas: 300000,
+            gas_price: "0x5d21dba00",
+            hash: "0x774efb177c9a6e091049e408e83e1295bb070c92d210b832e575bc1d5cd231ea",
+            human_readable: null,
+            input: "0x",
+            internal_transactions: [],
+            key: null,
+            nonce: 2,
+            sender_tx_hash: "0x774efb177c9a6e091049e408e83e1295bb070c92d210b832e575bc1d5cd231ea",
+            to: "0xf90675a56a03f836204d66c0f923e00500ddc90a",
+            transaction_index: 0,
+            type: "TxTypeLegacyTransaction",
+            type_int: 0,
+            utc: "2019-06-26T13:06:25.000Z",
+            value: "0x1dc74be914d16aa400000",
+            signatures: [
+                {
+                    r: "0x1915642607b81509bfcf9fde097f8a6390dc37b791ba4f81e5b66594b85290c3",
+                    s: "0x2479d5237b6bcd60c69b011ae50d17a05856b9a092d30d094774ea4c2fb230d0",
+                    v: "0x7f5"
+                }
+            ]
+        }
+    ]
+}
+```
+
+#### <a name="klay.getTransactionsBetweenAddresses">klay.getTransactionsBetweenAddresses(data: <a href="#TrxsBetweenAddressesRequest">TrxsBetweenAddressesRequest</a>, options: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#KlayTransactionsBetweenAddresses">Promise&lt;KlayTransactionsBetweenAddresses&gt;</a></code></dt></dt>
+Return list of transactions between addresses.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| data | <a href="#TrxsBetweenAddressesRequest">TrxsBetweenAddressesRequest</a> | [Data include fields ethereum addresses.] |
+| options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Count of skipping items and page items count] |
+
+```javascript
+    import { Client } from 'cryptoapi';
+    const crypto = new Client('YOUR-API-KEY');
+    const result = await crypto.api.klay.getTransactionsBetweenAddresses({
+        from: '0x4937a6f664630547f6b0c3c235c4f03a64ca36b1',
+        to: '0xfcd0ea52081a6d0c75ffddb035a91a782f4af027',
+});
+```
+
+Example response:
+```
+{
+    "items":[
+        {
+            block_hash: "0x382da8853b803cf3cdee9f175956b668654c219d18b0a69dc8d18b68d00d1848",
+            block_number: 9998,
+            code_format: null,
+            fee_payer: null,
+            fee_payer_signatures: [],
+            fee_ratio: null,
+            from: "0x4937a6f664630547f6b0c3c235c4f03a64ca36b1",
+            gas: 300000,
+            gas_price: "0x5d21dba00",
+            hash: "0x879c7099922be963176af976022a858e02fd0b4f1923b9f5bf48c9099b305d07",
+            human_readable: null,
+            input: "0x",
+            internal_transactions: [],
+            key: null,
+            nonce: 0,
+            sender_tx_hash: "0x879c7099922be963176af976022a858e02fd0b4f1923b9f5bf48c9099b305d07",
+            signatures: [
+                {
+                    r: "0x6e911d9b8d00b997881c0f7c1e8afe3f1b437ae5461250aadc7aad6cfd881c4a",
+                    s: "0x7613bc0aaa4d0832f1b189a44e31169177f8b592a015d98ec695078ed3ff5b78",
+                    v: "0x7f5"
+                }
+            ],
+            to: "0xfcd0ea52081a6d0c75ffddb035a91a782f4af027",
+            transaction_index: 0,
+            type: "TxTypeLegacyTransaction",
+            type_int: 0,
+            utc: "2019-06-26T12:58:14.000Z",
+            value: "0xde0b6b3a7640000",
+        }
+    ],
+    "total": 1
+}
+```
+
+#### <a name="klay.getFullTransaction">klay.getFullTransaction(hash: string)</a> ⇒<code><a href="#KlayFullTransaction">Promise&lt;KlayFullTransaction&gt;</a></code></dt></dt>
+Returns JSON data about full transaction information.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| hash | <code>string</code> | [Transaction hash] |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('YOUR-API-KEY');
+    const result = await crypto.api.klay.getFullTransaction('0x879c7099922be963176af976022a858e02fd0b4f1923b9f5bf48c9099b305d07')
+```
+
+Example response:
+```
+{
+    block_hash: "0x382da8853b803cf3cdee9f175956b668654c219d18b0a69dc8d18b68d00d1848",
+    block_number: 9998,
+    code_format: null,
+    fee_payer: null,
+    fee_payer_signatures: [],
+    fee_ratio: null,
+    from: "0x4937a6f664630547f6b0c3c235c4f03a64ca36b1",
+    gas: 300000,
+    gas_price: "0x5d21dba00",
+    hash: "0x879c7099922be963176af976022a858e02fd0b4f1923b9f5bf48c9099b305d07",
+    human_readable: null,
+    input: "0x",
+    internal_transactions: [],
+    key: null,
+    nonce: 0,
+    to: "0xfcd0ea52081a6d0c75ffddb035a91a782f4af027",
+    transaction_index: 0,
+    type: "TxTypeLegacyTransaction",
+    type_int: 0,
+    utc: "2019-06-26T12:58:14.000Z",
+    value: "0xde0b6b3a7640000",
+    sender_tx_hash: "0x879c7099922be963176af976022a858e02fd0b4f1923b9f5bf48c9099b305d07",
+    receipt: {
+        contract_address: null,
+        gas_used: 21000,
+        logs: [],
+        status: true,
+    }
+    signatures: [
+        {
+            r: "0x6e911d9b8d00b997881c0f7c1e8afe3f1b437ae5461250aadc7aad6cfd881c4a",
+            s: "0x7613bc0aaa4d0832f1b189a44e31169177f8b592a015d98ec695078ed3ff5b78",
+            v: "0x7f5",
+        }
+    ]
+```
+
+#### <a name="klay.getTransactionReceipt">klay.getTransactionReceipt(hash: string)</a> ⇒<code><a href="#KlayTransactionReceipt">Promise&lt;KlayTransactionReceipt&gt;</a></code></dt></dt>
+Returns JSON data about receipt transaction information.
+
+Input data:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| hash | <code>string</code> | [Transaction hash] |
+
+```javascript
+    import { Client } from 'cryptoapi-lib';
+    const crypto = new Client('******');
+    crypto.api.klay.getTransactionReceipt('0x879c7099922be963176af976022a858e02fd0b4f1923b9f5bf48c9099b305d07')
+```
+
+Example response:
+```    
+{
+    block_hash: "0x382da8853b803cf3cdee9f175956b668654c219d18b0a69dc8d18b68d00d1848"
+    block_number: 9998
+    contract_address: null
+    from: "0x4937a6f664630547f6b0c3c235c4f03a64ca36b1"
+    gas_used: 21000
+    hash: "0x879c7099922be963176af976022a858e02fd0b4f1923b9f5bf48c9099b305d07"
+    logs: []
+    status: true
+    to: "0xfcd0ea52081a6d0c75ffddb035a91a782f4af027"
+    transaction_index: 0
+}
+```
+
 ## Typedefs
 
 #### KLAY Typedefs
@@ -290,6 +554,30 @@ Example response:
 <dt><a href="#KlayContractLog">KlayContractLog</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#KlayRawTransaction">KlayRawTransaction</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#TTransferRequest">TTransferRequest</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#KlayTransfers">KlayTransfers</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#KlayTransactionsIntersection">KlayTransactionsIntersection</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#KlayTransaction">KlayTransaction</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#KlayInternalTransaction">KlayInternalTransaction</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#Signature">Signature</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#TrxsBetweenAddressesRequest">TrxsBetweenAddressesRequest</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#KlayTransactionsBetweenAddresses">KlayTransactionsBetweenAddresses</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#KlayReceiptLog">KlayReceiptLog</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#KlayFullTransactionReceipt">KlayFullTransactionReceipt</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#KlayFullTransaction">KlayFullTransaction</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#KlayTransactionReceipt">KlayTransactionReceipt</a> : <code>Object</code></dt>
 <dd></dd>
 </dl>
 
@@ -426,4 +714,219 @@ Example response:
 	signatures: Array<string[]|string>;
 	nonce: string;
 }
+```
+
+#### TTransferRequest : <code>Object</code>
+<a name="TTransferRequest"></a>
+
+```javascript
+{
+	addresses: string[];
+	positive?: boolean;
+}
+```
+
+#### KlayTransfers : <code>Object</code>
+<a name="KlayTransfers"></a>
+
+```javascript
+{
+    addresses: string[];
+    limit: number;
+    skip: number;
+    items: Array<{
+        block_number: number;
+        from: string;
+        to: string;
+        value: string;
+        hash: string;
+        gas: number;
+        gas_price: string;
+        internal: boolean;
+        utc: string;
+    }>;
+    count: number;
+}
+```
+
+#### KlayTransactionsIntersection : <code>Object</code>
+<a name="KlayTransactionsIntersection"></a>
+
+```javascript
+{
+    addresses: string[];
+    limit: number;
+    skip: number;
+    items: Array<KlayTransaction>;
+    count: number;
+}
+```
+
+#### KlayTransaction : <code>Object</code>
+<a name="KlayTransaction"></a>
+
+```javascript
+{
+    block_hash: string;
+    block_number: number;
+    utc: string;
+    from: string;
+    gas: number;
+    gas_price: string;
+    hash: string;
+    input: string;
+    nonce: number;
+    to: string;
+    transaction_index: number;
+    value: string;
+    internal_transactions: KlayInternalTransaction[];
+    type: string;
+    type_int: number;
+    code_format: string|null;
+    fee_payer: string|null;
+    fee_payer_signatures: Signature[]|null;
+    fee_ratio: string|null;
+    human_readable: boolean|null;
+    key: string|null;
+    sender_tx_hash: string|null;
+    signatures: Signature[];
+}
+```
+
+#### KlayInternalTransaction : <code>Object</code>
+<a name="KlayInternalTransaction"></a>
+
+```javascript
+{
+	to: string;
+	from: string;
+	value: string;
+	input: string;
+	is_suicide: boolean;
+	type: string[];
+}
+```
+
+#### Signature : <code>Object</code>
+<a name="Signature"></a>
+
+```javascript
+{
+    s: string;
+    r: string;
+    v: string;
+}
+```
+
+#### TrxsBetweenAddressesRequest : <code>Object</code>
+<a name="TrxsBetweenAddressesRequest"></a>
+
+```javascript
+{
+    from: string;
+    to: string;
+```
+
+#### KlayTransactionsBetweenAddresses : <code>Object</code>
+<a name="KlayTransactionsBetweenAddresses"></a>
+
+```javascript
+{
+    total: number;
+    items: KlayTransaction[];
+}
+```
+
+#### KlayReceiptLog : <code>Object</code>
+<a name="KlayReceiptLog"></a>
+
+```javascript
+{
+    address: string;
+    data: string;
+    topics: string[];
+    log_index: number;
+    transaction_hash: string;
+    transaction_index: number;
+    block_hash: string;
+    block_number: number;
+}
+```
+
+
+
+#### KlayReceiptLog : <code>Object</code>
+<a name="KlayReceiptLog"></a>
+
+```javascript
+{
+    address: string;
+    data: string;
+    topics: string[];
+    log_index: number;
+    transaction_hash: string;
+    transaction_index: number;
+    block_hash: string;
+    block_number: number;
+}   
+```
+
+#### KlayFullTransactionReceipt : <code>Object</code>
+<a name="KlayFullTransactionReceipt"></a>
+	
+```javascript
+{
+    contract_address: string|null;
+    gas_used: number;
+    logs: Array<KlayReceiptLog>;
+    status: boolean;
+}   
+```
+	
+#### KlayFullTransaction : <code>Object</code>
+<a name="KlayFullTransaction"></a>
+
+```javascript
+{
+    receipt: KlayFullTransactionReceipt;
+    block_hash: string;
+    block_number: number;
+    utc: string;
+    from: string;
+    gas: number;
+    gas_price: string;
+    hash: string;
+    input: string;
+    nonce: number;
+    to: string;
+    transaction_index: number;
+    value: string;
+    internal_transactions: KlayInternalTransaction[];
+    type: string;
+    type_int: number;
+    code_format: string|null;
+    fee_payer: string|null;
+    fee_payer_signatures: Signature[]|null;
+    fee_ratio: string|null;
+    human_readable: boolean|null;
+    key: string|null;
+    sender_tx_hash: string|null;
+    signatures: Signature[];
+}
+```
+
+#### KlayTransactionReceipt : <code>Object</code>
+<a name="KlayTransactionReceipt"></a>
+
+```javascript
+    block_hash: string;
+    block_number: number;
+    contract_address: string|null;
+    gas_used: number;
+    status: Boolean;
+    from: string;
+	hash: string;
+	to: string;
+	transaction_index: number;
+    logs: null|Array<KlayReceiptLog>;
 ```

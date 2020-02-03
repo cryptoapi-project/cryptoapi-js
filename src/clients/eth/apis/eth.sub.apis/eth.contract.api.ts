@@ -6,7 +6,7 @@ import { IEthContractApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/e
 import { IUrlHelper } from '@src/interfaces/providers/helpers/url.helper.interface';
 import { IHttpService } from '@src/interfaces/providers/http.service.interface';
 import { TContractCall } from '@src/types/eth/call.contract.type';
-import { TContractLogsRequest } from '@src/types/eth/eth.contract.logs.request';
+import { TContractLogsRequest } from '@src/types/eth/contract.logs.request.type';
 
 @injectable()
 export class EthContractApi<TContract, TContractLog> extends AbstractApi implements IEthContractApi<TContract, TContractLog> {
