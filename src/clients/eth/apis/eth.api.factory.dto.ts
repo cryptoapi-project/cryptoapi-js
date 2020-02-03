@@ -6,7 +6,13 @@ import { EthContract, EthContractLog } from '@src/dtos/eth/eth.contract';
 import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas';
 import { EthNetworkInfo } from '@src/dtos/eth/eth.network.info';
 import { EthRawTransaction } from '@src/dtos/eth/eth.raw.transaction';
-import { EthTransactionByAddresses, EthTransactionReceipt, EthTransactionsInterAddresses, EthTransactionsIntersection, FullEthTransaction } from '@src/dtos/eth/eth.transaction';
+import {
+	EthExternalTransactions,
+	EthTransactionReceipt,
+	EthTransactionsBetweenAddresses,
+	EthTransferHistory,
+	FullEthTransaction,
+} from '@src/dtos/eth/eth.transaction';
 import { IEthApiFactoryDto } from '@src/interfaces/clients/eth/apis/eth.api.factory.dto.interface';
 
 @injectable()
@@ -39,23 +45,23 @@ export class EthApiFactoryDto implements IEthApiFactoryDto {
 		return new EthRawTransaction(data);
 	}
 
+	getTransferHistory(data: any): EthTransferHistory {
+		return new EthTransferHistory(data);
+	}
+
+	getTransactionsBetweenAddresses(data: any): EthTransactionsBetweenAddresses {
+		return new EthTransactionsBetweenAddresses(data);
+	}
+
+	getExternalTransactions(data: any): EthExternalTransactions {
+		return new EthExternalTransactions(data);
+	}
+
 	getFullTransaction(data: any): FullEthTransaction {
 		return new FullEthTransaction(data);
 	}
 
-	getTransactionByAddresses(data: any): EthTransactionByAddresses {
-		return new EthTransactionByAddresses(data);
-	}
-
 	getTransactionReceipt(data: any): EthTransactionReceipt {
 		return new EthTransactionReceipt(data);
-	}
-
-	getTransactionsInterAddresses(data: any): EthTransactionsInterAddresses {
-		return new EthTransactionsInterAddresses(data);
-	}
-
-	getTransactionsIntersection(data: any): EthTransactionsIntersection {
-		return new EthTransactionsIntersection(data);
 	}
 }

@@ -78,60 +78,64 @@ export class EthTransaction {
 	}
 }
 
-export class EthTransactionByAddresses {
+export class EthTransfer {
+	block_number: number;
+	from: string;
+	to: string;
+	value: string;
+	hash: string;
+	gas: number;
+	gas_price: string;
+	internal: boolean;
+	utc: string;
+
+	constructor(data: {
+		block_number: number;
+		from: string;
+		to: string;
+		value: string;
+		hash: string;
+		gas: number;
+		gas_price: string;
+		internal: boolean;
+		utc: string;
+	}) {
+		this.block_number = data.block_number;
+		this.from = data.from;
+		this.to = data.to;
+		this.value = data.value;
+		this.hash = data.hash;
+		this.gas = data.gas;
+		this.gas_price = data.gas_price;
+		this.internal = data.internal;
+		this.utc = data.utc;
+	}
+}
+
+export class EthTransferHistory {
 	readonly addresses: string[];
 	readonly limit: number;
 	readonly skip: number;
-	readonly items: Array<{
-		block_number: number,
-		from: string,
-		to: string,
-		value: string,
-		hash: string,
-		gas: number,
-		gas_price: string,
-		internal: boolean,
-		utc: string,
-	}>;
+	readonly items: EthTransfer[];
 	readonly count: number;
 
 	constructor(info: {
 		addresses: string[],
 		limit: number,
 		skip: number,
-		items: Array<{
-			block_number: number,
-			from: string,
-			to: string,
-			value: string,
-			hash: string,
-			gas: number,
-			gas_price: string,
-			internal: boolean,
-			utc: string,
-		}>,
+		items: EthTransfer[];
 		count: number,
 	}) {
 		this.addresses = info.addresses;
 		this.limit = info.limit;
 		this.skip = info.skip;
-		this.items = info.items.map((item) => ({
-			block_number: item.block_number,
-			from: item.from,
-			to: item.to,
-			value: item.value,
-			hash: item.hash,
-			gas: item.gas,
-			gas_price: item.gas_price,
-			internal: item.internal,
-			utc: item.utc,
-		}));
+		this.items = info.items.map((item) => new EthTransfer(item));
 		this.count = info.count;
 	}
 
 }
 
-export class EthTransactionsIntersection {
+export class EthExternalTransactions {
 	readonly addresses: string[];
 	readonly skip: number;
 	readonly limit: number;
@@ -180,7 +184,7 @@ export class FullEthTransaction extends EthTransaction {
 	}
 }
 
-export class EthTransactionsInterAddresses {
+export class EthTransactionsBetweenAddresses {
 	readonly total: number;
 	readonly items: Array<{
 		readonly block_hash: string;

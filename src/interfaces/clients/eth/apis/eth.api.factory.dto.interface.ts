@@ -4,15 +4,21 @@ import { EthContract, EthContractLog } from '@src/dtos/eth/eth.contract';
 import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas';
 import { EthNetworkInfo } from '@src/dtos/eth/eth.network.info';
 import { EthRawTransaction } from '@src/dtos/eth/eth.raw.transaction';
-import { EthTransactionByAddresses, EthTransactionReceipt, EthTransactionsInterAddresses, EthTransactionsIntersection, FullEthTransaction } from '@src/dtos/eth/eth.transaction';
+import {
+	EthExternalTransactions,
+	EthTransactionReceipt,
+	EthTransactionsBetweenAddresses,
+	EthTransferHistory,
+	FullEthTransaction,
+} from '@src/dtos/eth/eth.transaction';
 
 export interface IBaseEthFactoryDto<
 	TNetworkInfo, TEstimateGasResponse,
 	TAddressBalance, TAddressInfo,
 	TContract, TContractLog,
 	TRawTransaction,
-	TTransactionByAddresses, TTransactionsIntersection,
-	TFullTransaction, TTransactionsInterAddresses,
+	TTransferHistory, TExternalTransactions,
+	TFullTransaction, TTransactionsBetweenAddresses,
 	TTransactionReceipt
 > {
 	getNetworkInfo(data: any): TNetworkInfo;
@@ -26,10 +32,10 @@ export interface IBaseEthFactoryDto<
 
 	getRawTransaction(data: any): TRawTransaction;
 
-	getTransactionByAddresses(data: any): TTransactionByAddresses;
-	getTransactionsIntersection(data: any): TTransactionsIntersection;
+	getTransferHistory(data: any): TTransferHistory;
+	getExternalTransactions(data: any): TExternalTransactions;
+	getTransactionsBetweenAddresses(data: any): TTransactionsBetweenAddresses;
 	getFullTransaction(data: any): TFullTransaction;
-	getTransactionsInterAddresses(data: any): TTransactionsInterAddresses;
 	getTransactionReceipt(data: any): TTransactionReceipt;
 }
 
@@ -38,7 +44,7 @@ export interface IEthApiFactoryDto extends IBaseEthFactoryDto<
 	EthAddressBalance, EthAddressInfo,
 	EthContract, EthContractLog,
 	EthRawTransaction,
-	EthTransactionByAddresses, EthTransactionsIntersection,
-	FullEthTransaction, EthTransactionsInterAddresses,
+	EthTransferHistory, EthExternalTransactions,
+	FullEthTransaction, EthTransactionsBetweenAddresses,
 	EthTransactionReceipt
 > {}

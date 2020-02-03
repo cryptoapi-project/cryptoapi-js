@@ -136,60 +136,64 @@ export class KlayTransaction {
 	}
 }
 
-export class KlayTransactionByAddresses {
+export class KlayTransfer {
+	block_number: number;
+	from: string;
+	to: string;
+	value: string;
+	hash: string;
+	gas: number;
+	gas_price: string;
+	internal: boolean;
+	utc: string;
+
+	constructor(data: {
+		block_number: number;
+		from: string;
+		to: string;
+		value: string;
+		hash: string;
+		gas: number;
+		gas_price: string;
+		internal: boolean;
+		utc: string;
+	}) {
+		this.block_number = data.block_number;
+		this.from = data.from;
+		this.to = data.to;
+		this.value = data.value;
+		this.hash = data.hash;
+		this.gas = data.gas;
+		this.gas_price = data.gas_price;
+		this.internal = data.internal;
+		this.utc = data.utc;
+	}
+}
+
+export class KlayTransferHistory {
 	readonly addresses: string[];
 	readonly limit: number;
 	readonly skip: number;
-	readonly items: Array<{
-		block_number: number,
-		from: string,
-		to: string,
-		value: string,
-		hash: string,
-		gas: number,
-		gas_price: string,
-		internal: boolean,
-		utc: string,
-	}>;
+	readonly items: KlayTransfer[];
 	readonly count: number;
 
 	constructor(info: {
-		addresses: string[],
-		limit: number,
-		skip: number,
-		items: Array<{
-			block_number: number,
-			from: string,
-			to: string,
-			value: string,
-			hash: string,
-			gas: number,
-			gas_price: string,
-			internal: boolean,
-			utc: string,
-		}>,
-		count: number,
+		addresses: string[];
+		limit: number;
+		skip: number;
+		items: KlayTransfer[];
+		count: number;
 	}) {
 		this.addresses = info.addresses;
 		this.limit = info.limit;
 		this.skip = info.skip;
-		this.items = info.items.map((item) => ({
-			block_number: item.block_number,
-			from: item.from,
-			to: item.to,
-			value: item.value,
-			hash: item.hash,
-			gas: item.gas,
-			gas_price: item.gas_price,
-			internal: item.internal,
-			utc: item.utc,
-		}));
+		this.items = info.items.map((item) => new KlayTransfer(item));
 		this.count = info.count;
 	}
 
 }
 
-export class KlayTransactionsIntersection {
+export class KlayExternalTransactions {
 	readonly addresses: string[];
 	readonly skip: number;
 	readonly limit: number;
@@ -211,115 +215,30 @@ export class KlayTransactionsIntersection {
 	}
 }
 
-export class FullKlayTransaction extends KlayTransaction {
-	readonly receipt: any;
+export class KlayFullTransaction extends KlayTransaction {
+	readonly receipt: {
+		contract_address: string|null;
+		gas_used: number;
+		logs: KlayReceiptLog[];
+		status: boolean;
+	};
 
-	constructor(info: {
-		readonly receipt: any;
-		readonly block_hash: string;
-		readonly block_number: number;
-		readonly utc: string;
-		readonly from: string;
-		readonly gas: number;
-		readonly gas_price: any;
-		readonly hash: string;
-		readonly input: string;
-		readonly nonce: number;
-		readonly to: string;
-		readonly transaction_index: number;
-		readonly value: any;
-		readonly v: string;
-		readonly s: string;
-		readonly r: string;
-		readonly internal_transactions: KlayInternalTransaction[];
-	}) {
-		super(info);
-		this.receipt = info.receipt;
+	constructor(data: any) {
+		super(data as KlayTransaction);
+		this.receipt = data.receipt;
 	}
 }
 
-export class KlayTransactionsInterAddresses {
+export class KlayTransactionsBetweenAddresses {
 	readonly total: number;
-	readonly items: Array<{
-		readonly block_hash: string;
-		readonly block_number: number;
-		readonly utc: string;
-		readonly from: string;
-		readonly gas: number;
-		readonly gas_price: any;
-		readonly hash: string;
-		readonly input: string;
-		readonly nonce: number;
-		readonly to: string;
-		readonly transaction_index: number;
-		readonly value: any;
-		readonly v: string;
-		readonly s: string;
-		readonly r: string;
-		readonly internal_transactions: Array<{
-			readonly to: string;
-			readonly from: string;
-			readonly value: string;
-			readonly input: string;
-			readonly is_suicide: boolean;
-			readonly type: string;
-		}>;
-	}>;
+	readonly items: KlayTransaction[];
 
 	constructor({ total, items }: {
 		total: number,
-		items: Array<{
-			block_hash: string;
-			block_number: number;
-			utc: string;
-			from: string;
-			gas: number;
-			gas_price: any;
-			hash: string;
-			input: string;
-			nonce: number;
-			to: string;
-			transaction_index: number;
-			value: any;
-			v: string;
-			s: string;
-			r: string;
-			internal_transactions: Array<{
-				to: string;
-				from: string;
-				value: string;
-				input: string;
-				is_suicide: boolean;
-				type: string;
-			}>;
-		}>;
+		items: KlayTransaction[],
 	}) {
 		this.total = total;
-		this.items = items.map((item) => ({
-			block_hash: item.block_hash,
-			block_number: item.block_number,
-			utc: item.utc,
-			from: item.from,
-			gas: item.gas,
-			gas_price: item.gas_price,
-			hash: item.hash,
-			input: item.input,
-			nonce: item.nonce,
-			to: item.to,
-			transaction_index: item.transaction_index,
-			value: item.value,
-			v: item.v,
-			s: item.s,
-			r: item.r,
-			internal_transactions: item.internal_transactions.map((internal) => ({
-				to: internal.to,
-				from: internal.from,
-				value: internal.value,
-				input: internal.input,
-				is_suicide: internal.is_suicide,
-				type: internal.type,
-			})),
-		}));
+		this.items = items.map((item) => new KlayTransaction(item));
 	}
 
 }
@@ -359,14 +278,14 @@ export class KlayTransactionReceipt {
 	readonly block_hash: string;
 	readonly block_number: number;
 	readonly contract_address: string|null;
-	readonly cumulative_gas_used: number;
 	readonly gas_used: number;
+	readonly cumulative_gas_used: number;
+	readonly logs: KlayReceiptLog[]|null;
 	readonly status: boolean;
 	readonly from: string;
 	readonly hash: string;
 	readonly to: string;
 	readonly transaction_index: number;
-	readonly logs: KlayReceiptLog[]|null;
 
 	constructor(info: {
 		readonly block_hash: string;

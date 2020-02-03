@@ -8,7 +8,13 @@ import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas';
 import { EthNetworkInfo } from '@src/dtos/eth/eth.network.info';
 import { EthRawTransaction } from '@src/dtos/eth/eth.raw.transaction';
 import { EthTokenSearchRequest } from '@src/dtos/eth/eth.token.search';
-import { EthTransactionByAddresses, EthTransactionReceipt, EthTransactionsInterAddresses, EthTransactionsIntersection, FullEthTransaction } from '@src/dtos/eth/eth.transaction';
+import {
+	EthExternalTransactions,
+	EthTransactionReceipt,
+	EthTransactionsBetweenAddresses,
+	EthTransferHistory,
+	FullEthTransaction,
+} from '@src/dtos/eth/eth.transaction';
 import { EthTokenTransfersByAddressesRequest, EthTokenTransfersRequest } from '@src/dtos/eth/eth.transfer.dto';
 import { IBaseEthApiClient } from '@src/interfaces/clients/eth/apis/eth.api.client.interface';
 import { IBaseEthFactoryDto, IEthApiFactoryDto } from '@src/interfaces/clients/eth/apis/eth.api.factory.dto.interface';
@@ -23,8 +29,10 @@ import { IEthTransactionsApi } from '@src/interfaces/clients/eth/apis/eth.sub.ap
 import { IServerConfig } from '@src/interfaces/configs/crypto.config.interface';
 import { TryCatch } from '@src/providers/decorators/try.catch';
 import { TContractCall } from '@src/types/eth/call.contract.type';
+import { TContractLogsRequest } from '@src/types/eth/contract.logs.request.type';
 import { TEstimateGasRequest } from '@src/types/eth/estimate.gas.request.type';
-import { TContractLogsRequest } from '@src/types/eth/eth.contract.logs.request';
+import { THistoryRequest } from '@src/types/eth/history.request.type';
+import { TrxsBetweenAddressesRequest } from '@src/types/eth/trxs.between.addresses.request.type';
 import { TPaginationOptions } from '@src/types/paginations.options.type';
 
 @injectable()
@@ -33,16 +41,16 @@ export class BaseEthApiClient<
 	TAddressBalance, TAddressInfo,
 	TContract, TContractLog,
 	TRawTransaction,
-	TTransactionByAddresses, TTransactionsIntersection,
-	TFullTransaction, TTransactionsInterAddresses,
+	TTransferHistory, TExternalTransactions,
+	TFullTransaction, TTransactionsBetweenAddresses,
 	TTransactionReceipt
 > implements IBaseEthApiClient<
 	TNetworkInfo, TEstimateGasResponse,
 	TAddressBalance, TAddressInfo,
 	TContract, TContractLog,
 	TRawTransaction,
-	TTransactionByAddresses, TTransactionsIntersection,
-	TFullTransaction, TTransactionsInterAddresses,
+	TTransferHistory, TExternalTransactions,
+	TFullTransaction, TTransactionsBetweenAddresses,
 	TTransactionReceipt
 > {
 	config: IServerConfig|null = null;
@@ -54,8 +62,8 @@ export class BaseEthApiClient<
 		private readonly ethNotifyApi: IEthNotifyApi,
 		private readonly rawTransactionApi: IEthRawTransactionApi<TRawTransaction>,
 		private readonly ethTransactions: IEthTransactionsApi<
-			TTransactionByAddresses, TTransactionsIntersection,
-			TFullTransaction, TTransactionsInterAddresses,
+			TTransferHistory, TExternalTransactions,
+			TFullTransaction, TTransactionsBetweenAddresses,
 			TTransactionReceipt
 		>,
 		private readonly ethBlock: IEthBlockApi,
@@ -64,8 +72,8 @@ export class BaseEthApiClient<
 			TAddressBalance, TAddressInfo,
 			TContract, TContractLog,
 			TRawTransaction,
-			TTransactionByAddresses, TTransactionsIntersection,
-			TFullTransaction, TTransactionsInterAddresses,
+			TTransferHistory, TExternalTransactions,
+			TFullTransaction, TTransactionsBetweenAddresses,
 			TTransactionReceipt
 		>,
 	) {}
@@ -213,44 +221,42 @@ export class BaseEthApiClient<
 	}
 
 	/**
-	 * Method to get transactions by addresses.
-	 * @method getTransactionsByAddresses
-	 * @param {string[]} addresses
-	 * @param {boolean} positive?
+	 * Method to get transactions history.
+	 * @method getTransactionsHistory
+	 * @param {THistoryRequest} data
 	 * @param {TPaginationOptions} options?
-	 * @return {Promise{TTransactionByAddresses}}
+	 * @return {Promise{TTransferHistory}}
 	 */
 	@TryCatch
-	async getTransactionsByAddresses(addresses: string[], positive?: boolean, options?: TPaginationOptions) {
-		const info = await this.ethTransactions.getTransactionsByAddresses(addresses, positive, options);
-		return this.factoryDto.getTransactionByAddresses(info);
+	async getTransactionsHistory(data: THistoryRequest, options?: TPaginationOptions) {
+		const info = await this.ethTransactions.getTransactionsHistory(data, options);
+		return this.factoryDto.getTransferHistory(info);
 	}
 
 	/**
 	 * Get transactions interception by addresses
-	 * @method getTransactionsIntersection
+	 * @method getExternalTransactionsHistory
 	 * @param {string[]} addresses
 	 * @param {TPaginationOptions} options
-	 * @return {Promise<TTransactionsIntersection>}
+	 * @return {Promise<TExternalTransactions>}
 	 */
  	@TryCatch
- 	async getTransactionsIntersection(addresses: string[], options: TPaginationOptions) {
- 		const info = await this.ethTransactions.getTransactionsIntersection(addresses, options);
- 		return this.factoryDto.getTransactionsIntersection(info);
+ 	async getExternalTransactionsHistory(addresses: string[], options: TPaginationOptions) {
+ 		const info = await this.ethTransactions.getExternalTransactionsHistory(addresses, options);
+ 		return this.factoryDto.getExternalTransactions(info);
  	}
 
 	/**
 	 * Get transactions from one address to another
 	 * @method getTransactionsInterAddresses
-	 * @param {string} from
-	 * @param {string} to
+	 * @param {TrxsBetweenAddressesRequest} data
 	 * @param {TPaginationOptions} options
-	 * @return {Promise<TTransactionsInterAddresses>}
+	 * @return {Promise<TTransactionsBetweenAddresses>}
 	 */
 	@TryCatch
-	async getTransactionsInterAddresses(from: string, to: string, options?: TPaginationOptions) {
-		const info = await this.ethTransactions.getTransactionsInterAddresses(from, to, options);
-		return this.factoryDto.getTransactionsInterAddresses(info);
+	async getTransactionsBetweenAddresses(data: TrxsBetweenAddressesRequest, options?: TPaginationOptions) {
+		const info = await this.ethTransactions.getTransactionsBetweenAddresses(data, options);
+		return this.factoryDto.getTransactionsBetweenAddresses(info);
 	}
 
 	/**
@@ -337,13 +343,13 @@ export class BaseEthApiClient<
 
 	/**
 	 * Get full transaction info by hash.
-	 * @method getFullTransactionInfo
+	 * @method getFullTransaction
 	 * @param {string} hash
 	 * @return {Promise<TFullTransaction>}
 	 */
 	@TryCatch
-	async getFullTransactionInfo(hash: string) {
-		const info = await this.ethTransactions.getFullTransactionInfo(hash);
+	async getFullTransaction(hash: string) {
+		const info = await this.ethTransactions.getFullTransaction(hash);
 		return this.factoryDto.getFullTransaction(info);
 	}
 
@@ -377,8 +383,8 @@ export class EthApiClient extends BaseEthApiClient<
 	EthAddressBalance, EthAddressInfo,
 	EthContract, EthContractLog,
 	EthRawTransaction,
-	EthTransactionByAddresses, EthTransactionsIntersection,
-	FullEthTransaction, EthTransactionsInterAddresses,
+	EthTransferHistory, EthExternalTransactions,
+	FullEthTransaction, EthTransactionsBetweenAddresses,
 	EthTransactionReceipt
 > {
 	constructor(
@@ -389,8 +395,8 @@ export class EthApiClient extends BaseEthApiClient<
 		@inject(TYPES_DI.IEthNotifyApi) notifyApi: IEthNotifyApi,
 		@inject(TYPES_DI.IEthRawTransactionApi) rawTransactionApi: IEthRawTransactionApi<EthRawTransaction>,
 		@inject(TYPES_DI.IEthTransactionsApi) transactions: IEthTransactionsApi<
-			EthTransactionByAddresses, EthTransactionsIntersection,
-			FullEthTransaction, EthTransactionsInterAddresses,
+			EthTransferHistory, EthExternalTransactions,
+			FullEthTransaction, EthTransactionsBetweenAddresses,
 			EthTransactionReceipt
 		>,
 		@inject(TYPES_DI.IEthBlockApi)  block: IEthBlockApi,

@@ -2,22 +2,25 @@ import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 
 import { AbstractApi } from '@src/abstracts/abstract.api';
+import { MAX_LIMIT_HISTORY } from '@src/constants/history.constants';
 import { TYPES_DI } from '@src/constants/inversify.constants';
 import { InternalLibraryException } from '@src/exceptions/library.exceptions/internal.library.exception';
 import { IEthTransactionsApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.transactions.interface';
 import { IUrlHelper } from '@src/interfaces/providers/helpers/url.helper.interface';
 import { IValidateHelper } from '@src/interfaces/providers/helpers/validate.helper.interface';
 import { IHttpService } from '@src/interfaces/providers/http.service.interface';
+import { THistoryRequest } from '@src/types/eth/history.request.type';
+import { TrxsBetweenAddressesRequest } from '@src/types/eth/trxs.between.addresses.request.type';
 import { TPaginationOptions } from '@src/types/paginations.options.type';
 
 @injectable()
 export class EthTransactionsApi<
-	TTransactionByAddresses, TTransactionsIntersection,
-	TFullTransaction, TTransactionsInterAddresses,
+	TTransferHistory, TTransactionsIntersection,
+	TFullTransaction, TTransactionsBetweenAddresses,
 	TTransactionReceipt
 > extends AbstractApi implements IEthTransactionsApi<
-	TTransactionByAddresses, TTransactionsIntersection,
-	TFullTransaction, TTransactionsInterAddresses,
+	TTransferHistory, TTransactionsIntersection,
+	TFullTransaction, TTransactionsBetweenAddresses,
 	TTransactionReceipt
 > {
 
@@ -30,21 +33,22 @@ export class EthTransactionsApi<
 	}
 
 	/**
-	 * Method to get transactions by addresses.
-	 * @method getTransactionsByAddresses
-	 * @param {string[]} addresses
-	 * @param {boolean} positive?
+	 * Method to get transactions history.
+	 * @method getTransactionsHistory
+	 * @param {THistoryRequest} data
 	 * @param {TPaginationOptions} options?
-	 * @return {Promise<TTransactionByAddresses>}
+	 * @return {Promise<TTransferHistory>}
 	 */
-	async getTransactionsByAddresses(
-		addresses: string[],
-		positive: boolean = false,
+	async getTransactionsHistory(
+		{ addresses, positive}: THistoryRequest = {
+			addresses: [],
+			positive: false,
+		},
 		options: TPaginationOptions = {
 			skip: 0,
-			limit: 100,
+			limit: MAX_LIMIT_HISTORY,
 		},
-	): Promise<TTransactionByAddresses> {
+	): Promise<TTransferHistory> {
 		this._checkConfig();
 
 		if (!this.validateHelper.isArray(addresses) || !addresses.length) {
@@ -53,20 +57,20 @@ export class EthTransactionsApi<
 
 		const query = `${this.urlHelper.addOptionsToUrl('', options)}&positive=${positive}`;
 
-		const transactionsInfo = await this.httpService.agent.get(
+		const { data } = await this.httpService.agent.get(
 			`${this.config!.baseUrl}/coins/${this.config!.coin}/addresses/${addresses.join(',')}/transfers${query}`,
 		);
-		return transactionsInfo.data;
+		return data;
 	}
 
 	/**
-	 * Get transactions interception by addresses
-	 * @method getTransactionsIntersection
+	 * Get External transactions by addresses
+	 * @method getExternalTransactionsHistory
 	 * @param {string[]} addresses
 	 * @param {TPaginationOptions} options?
 	 * @return {Promise<TTransactionsIntersection>}
 	 */
-	async getTransactionsIntersection(
+	async getExternalTransactionsHistory(
 		addresses: string[],
 		options?: TPaginationOptions,
 	): Promise<TTransactionsIntersection> {
@@ -77,41 +81,39 @@ export class EthTransactionsApi<
 		}
 
 		const query = options ? this.urlHelper.addOptionsToUrl('', options) : '';
-		const transactionsInfo = await this.httpService.agent.get(
+		const { data } = await this.httpService.agent.get(
 			`${this.config!.baseUrl}/coins/${this.config!.coin}/addresses/${addresses.join(',')}/transactions${query}`,
 		);
-		return transactionsInfo.data;
+		return data;
 	}
 
 	/**
 	 * Get transactions from one address to another
-	 * @method getTransactionsInterAddresses
-	 * @param {string} from
-	 * @param {string} to
+	 * @method getTransactionsBetweenAddresses
+	 * @param {TrxsBetweenAddressesRequest} data
 	 * @param {TPaginationOptions} options?
-	 * @return {Promise<TTransactionsInterAddresses>}
+	 * @return {Promise<TTransactionsBetweenAddresses>}
 	 */
-	async getTransactionsInterAddresses(
-		from: string,
-		to: string,
+	async getTransactionsBetweenAddresses(
+		{ from, to }: TrxsBetweenAddressesRequest,
 		options?: TPaginationOptions,
-	): Promise<TTransactionsInterAddresses> {
+	): Promise<TTransactionsBetweenAddresses> {
 		this._checkConfig();
 
 		const query = this.urlHelper.addOptionsToUrl('', {from, to, ...options});
-		const transactionsInfo = await this.httpService.agent.get(
+		const { data } = await this.httpService.agent.get(
 			`${this.config!.baseUrl}/coins/${this.config!.coin}/transactions${query}`,
 		);
-		return transactionsInfo.data;
+		return data;
 	}
 
 	/**
 	 *  Get full transaction info by hash.
-	 * @method getFullTransactionInfo
+	 * @method getFullTransaction
 	 * @param {string} hash
 	 * @return {Promise<TFullTransaction>}
 	 */
-	async getFullTransactionInfo(hash: string): Promise<TFullTransaction> {
+	async getFullTransaction(hash: string): Promise<TFullTransaction> {
 		this._checkConfig();
 
 		const transaction = await this.httpService.agent.get(

@@ -8,7 +8,12 @@ import { KlayContract, KlayContractLog } from '@src/dtos/klay/klay.contract';
 import { EstimateGasResponse } from '@src/dtos/klay/klay.estimate.gas';
 import { KlayNetworkInfo } from '@src/dtos/klay/klay.network.info';
 import { KlayRawTransaction } from '@src/dtos/klay/klay.raw.transaction';
-import { FullKlayTransaction, KlayTransactionByAddresses, KlayTransactionReceipt, KlayTransactionsInterAddresses, KlayTransactionsIntersection } from '@src/dtos/klay/klay.transaction';
+import {
+	KlayExternalTransactions,
+	KlayFullTransaction,
+	KlayTransactionReceipt, KlayTransactionsBetweenAddresses,
+	KlayTransferHistory,
+} from '@src/dtos/klay/klay.transaction';
 import { IEthAddressApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.address.api.interface';
 import { IEthBlockApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.block.interface';
 import { IEthContractApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
@@ -25,8 +30,8 @@ export class KlayApiClient extends BaseEthApiClient<
 	KlayAddressBalance, KlayAddressInfo,
 	KlayContract, KlayContractLog,
 	KlayRawTransaction,
-	KlayTransactionByAddresses, KlayTransactionsIntersection,
-	FullKlayTransaction, KlayTransactionsInterAddresses,
+	KlayTransferHistory, KlayExternalTransactions,
+	KlayFullTransaction, KlayTransactionsBetweenAddresses,
 	KlayTransactionReceipt
 > {
 	constructor(
@@ -37,8 +42,8 @@ export class KlayApiClient extends BaseEthApiClient<
 		@inject(TYPES_DI.IEthNotifyApi) notifyApi: IEthNotifyApi,
 		@inject(TYPES_DI.IEthRawTransactionApi) rawTransactionApi: IEthRawTransactionApi<KlayRawTransaction>,
 		@inject(TYPES_DI.IEthTransactionsApi) transactions: IEthTransactionsApi<
-			KlayTransactionByAddresses, KlayTransactionsIntersection,
-			FullKlayTransaction, KlayTransactionsInterAddresses,
+			KlayTransferHistory, KlayExternalTransactions,
+			KlayFullTransaction, KlayTransactionsBetweenAddresses,
 			KlayTransactionReceipt
 		>,
 		@inject(TYPES_DI.IEthBlockApi) block: IEthBlockApi,
