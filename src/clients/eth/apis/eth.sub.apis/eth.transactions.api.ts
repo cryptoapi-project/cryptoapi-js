@@ -2,23 +2,27 @@ import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 
 import { AbstractApi } from '@src/abstracts/abstract.api';
+import { MAX_LIMIT_HISTORY } from '@src/constants/history.constants';
 import { TYPES_DI } from '@src/constants/inversify.constants';
-import {
-	EthTransactionByAddresses,
-	EthTransactionReceipt,
-	EthTransactionsInterAddresses,
-	EthTransactionsIntersection,
-	FullEthTransaction,
-} from '@src/dtos/eth/eth.transaction.dtos';
 import { InternalLibraryException } from '@src/exceptions/library.exceptions/internal.library.exception';
 import { IEthTransactionsApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.transactions.interface';
 import { IUrlHelper } from '@src/interfaces/providers/helpers/url.helper.interface';
 import { IValidateHelper } from '@src/interfaces/providers/helpers/validate.helper.interface';
 import { IHttpService } from '@src/interfaces/providers/http.service.interface';
+import { TTransfersRequest } from '@src/types/eth/transfers.request.type';
+import { TTrxsBetweenAddressesRequest } from '@src/types/eth/trxs.between.addresses.request.type';
 import { TPaginationOptions } from '@src/types/paginations.options.type';
 
 @injectable()
-export class EthTransactionsApi extends AbstractApi implements IEthTransactionsApi {
+export class EthTransactionsApi<
+	TTransfers, TTransactionsIntersection,
+	TFullTransaction, TTransactionsBetweenAddresses,
+	TTransactionReceipt
+> extends AbstractApi implements IEthTransactionsApi<
+	TTransfers, TTransactionsIntersection,
+	TFullTransaction, TTransactionsBetweenAddresses,
+	TTransactionReceipt
+> {
 
 	constructor(
 		@inject(TYPES_DI.IHttpService) private readonly httpService: IHttpService,
@@ -29,111 +33,104 @@ export class EthTransactionsApi extends AbstractApi implements IEthTransactionsA
 	}
 
 	/**
-	 * Method to get transactions by addresses.
-	 * @method getTransactionsByAddresses
-	 * @param {string[]} addresses
-	 * @param {boolean} positive?
+	 * Method to get transactions history.
+	 * @method getTransfers
+	 * @param {TTransfersRequest} data
 	 * @param {TPaginationOptions} options?
-	 * @return {Promise<EthTransactionByAddresses>}
+	 * @return {Promise<TTransfers>}
 	 */
-	async getTransactionsByAddresses(
-		addresses: string[],
-		positive: boolean = false,
+	async getTransfers(
+		{ addresses, positive}: TTransfersRequest,
 		options: TPaginationOptions = {
 			skip: 0,
-			limit: 100,
+			limit: MAX_LIMIT_HISTORY,
 		},
-	): Promise<EthTransactionByAddresses> {
+	): Promise<TTransfers> {
 		this._checkConfig();
 
 		if (!this.validateHelper.isArray(addresses) || !addresses.length) {
-			throw new InternalLibraryException('Addresses are required.');
+			throw new InternalLibraryException('Addresses must be no empty array.');
 		}
 
-		const query = `${this.urlHelper.addOptionsToUrl('', options)}&positive=${positive}`;
-
-		const transactionsInfo = await this.httpService.agent.get<any>(
-			`${this.config!.baseUrl}/coins/eth/addresses/${addresses.join(',')}/transfers${query}`,
+		const query = `${this.urlHelper.addOptionsToUrl('', { ...options, positive: !!positive })}`;
+		const { data } = await this.httpService.agent.get(
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/addresses/${addresses.join(',')}/transfers${query}`,
 		);
-		return new EthTransactionByAddresses(transactionsInfo.data);
+		return data;
 	}
 
 	/**
-	 * Get transactions interception by addresses
-	 * @method getTransactionsIntersection
+	 * Get External transactions by addresses
+	 * @method getExternalTransactions
 	 * @param {string[]} addresses
 	 * @param {TPaginationOptions} options?
-	 * @return {Promise<EthTransactionsIntersection>}
+	 * @return {Promise<TTransactionsIntersection>}
 	 */
-	async getTransactionsIntersection(
+	async getExternalTransactions(
 		addresses: string[],
 		options?: TPaginationOptions,
-	): Promise<EthTransactionsIntersection> {
+	): Promise<TTransactionsIntersection> {
 		this._checkConfig();
 
 		if (!this.validateHelper.isArray(addresses) || !addresses.length) {
-			throw new InternalLibraryException('Addresses are required.');
+			throw new InternalLibraryException('Addresses must be no empty array.');
 		}
 
 		const query = options ? this.urlHelper.addOptionsToUrl('', options) : '';
-		const transactionsInfo = await this.httpService.agent.get<any>(
-			`${this.config!.baseUrl}/coins/eth/addresses/${addresses.join(',')}/transactions${query}`,
+		const { data } = await this.httpService.agent.get(
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/addresses/${addresses.join(',')}/transactions${query}`,
 		);
-		return new EthTransactionsIntersection(transactionsInfo.data);
+		return data;
 	}
 
 	/**
 	 * Get transactions from one address to another
-	 * @method getTransactionsInterAddresses
-	 * @param {string} from
-	 * @param {string} to
+	 * @method getTransactionsBetweenAddresses
+	 * @param {TTrxsBetweenAddressesRequest} data
 	 * @param {TPaginationOptions} options?
-	 * @return {Promise<EthTransactionsInterAddresses>}
+	 * @return {Promise<TTransactionsBetweenAddresses>}
 	 */
-	async getTransactionsInterAddresses(
-		from: string,
-		to: string,
+	async getTransactionsBetweenAddresses(
+		{ from, to }: TTrxsBetweenAddressesRequest,
 		options?: TPaginationOptions,
-	): Promise<EthTransactionsInterAddresses> {
+	): Promise<TTransactionsBetweenAddresses> {
 		this._checkConfig();
 
 		const query = this.urlHelper.addOptionsToUrl('', {from, to, ...options});
-		const transactionsInfo = await this.httpService.agent.get<any>(
-			`${this.config!.baseUrl}/coins/eth/transactions${query}`,
+		const { data } = await this.httpService.agent.get(
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/transactions${query}`,
 		);
-		return new EthTransactionsInterAddresses(transactionsInfo.data);
+		return data;
 	}
 
 	/**
 	 *  Get full transaction info by hash.
-	 * @method getFullTransactionInfo
+	 * @method getFullTransaction
 	 * @param {string} hash
-	 * @return {Promise<FullEthTransaction>}
+	 * @return {Promise<TFullTransaction>}
 	 */
-	async getFullTransactionInfo(hash: string) {
+	async getFullTransaction(hash: string): Promise<TFullTransaction> {
 		this._checkConfig();
 
-		const transaction = await this.httpService.agent.get<FullEthTransaction>(
-			`${this.config!.baseUrl}/coins/eth/transactions/${hash}`,
+		const transaction = await this.httpService.agent.get(
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/transactions/${hash}`,
 		);
-
-		return new FullEthTransaction(transaction.data);
+		return transaction.data;
 	}
 
 	/**
 	 *  Get transaction receipt by hash.
 	 * @method getTransactionReceipt
 	 * @param {string} hash
-	 * @return {Promise<EthTransactionReceipt>}
+	 * @return {Promise<TTransactionReceipt>}
 	 */
-	async getTransactionReceipt(hash: string): Promise<EthTransactionReceipt> {
+	async getTransactionReceipt(hash: string): Promise<TTransactionReceipt> {
 		this._checkConfig();
 
-		const transaction = await this.httpService.agent.get<EthTransactionReceipt>(
-			`${this.config!.baseUrl}/coins/eth/transactions/receipt/${hash}`,
+		const transaction = await this.httpService.agent.get(
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/transactions/receipt/${hash}`,
 		);
-
-		return new EthTransactionReceipt(transaction.data);
+		return transaction.data;
 	}
 
 }
