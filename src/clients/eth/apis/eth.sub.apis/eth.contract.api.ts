@@ -8,7 +8,7 @@ import { EthContract, EthContractLog } from '../../../../dtos/eth/eth.contract.d
 import { IEthContractApi } from '../../../../interfaces/clients/eth/apis/eth.sub.apis/eth.contract.api.interface';
 import { IHttpService } from '../../../../interfaces/providers/http.service.interface';
 import { AbstractApi } from '../../../../abstracts/abstract.api';
-import { TContractLogsRequest } from 'types/eth/eth.contract.logs.request';
+import { TContractLogsRequest } from '../../../../types/eth/eth.contract.logs.request';
 import { IUrlHelper } from '../../../../interfaces/providers/helpers/url.helper.interface';
 
 @injectable()
