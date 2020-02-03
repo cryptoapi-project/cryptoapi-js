@@ -26,9 +26,9 @@ This library provides klay api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#klay.sendRawTransaction">klay.sendRawTransaction</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
 <dd></dd>
-<dt><a href="#klay.getTransfersHistory">klay.getTransfersHistory</a> ⇒<code><a href="#KlayTransferHistory">Promise&lt;KlayTransferHistory&gt;</a></code></dt></dt>
+<dt><a href="#klay.getTransfers">klay.getTransfers</a> ⇒<code><a href="#KlayTransfers">Promise&lt;KlayTransfers&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#klay.getExternalTransactionsHistory">klay.getExternalTransactionsHistory</a> ⇒<code><a href="#KlayTransactionsIntersection">Promise&lt;KlayTransactionsIntersection&gt;</a></code></dt></dt>
+<dt><a href="#klay.getExternalTransactions">klay.getExternalTransactions</a> ⇒<code><a href="#KlayTransactionsIntersection">Promise&lt;KlayTransactionsIntersection&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#klay.getTransactionsBetweenAddresses">klay.getTransactionsBetweenAddresses</a> ⇒<code><a href="#KlayTransactionsBetweenAddresses">Promise&lt;KlayTransactionsBetweenAddresses&gt;</a></code></dt></dt>
 <dd></dd>
@@ -276,20 +276,20 @@ Example response:
 '0x5fde62cf325ba9461da9f2dcba2d9993002cc93025fd20408cf0c3c0119e3909'
 ```
 
-#### <a name="klay.getTransfersHistory">klay.getTransfersHistory</a>(data: <a href="#THistoryRequest">THistoryRequest</a>, options: <a href="#TPaginationOptions">TPaginationOptions</a>) ⇒<code><a href="#KlayTransferHistory">Promise&lt;KlayTransferHistory&gt;</a></code></dt></dt>
+#### <a name="klay.getTransfers">klay.getTransfers</a>(data: <a href="#TTransferRequest">TTransferRequest</a>, options: <a href="#TPaginationOptions">TPaginationOptions</a>) ⇒<code><a href="#KlayTransfers">Promise&lt;KlayTransfers&gt;</a></code></dt></dt>
 Return list of transactions by addresses.
 
 Input data:
 
 | Param | Type | Description |
 | --- | --- | --- |
-| data | <code><a href="#THistoryRequest">THistoryRequest</a></code> | [Data to get history by klay addresses] |
+| data | <code><a href="#TTransferRequest">TTransferRequest</a></code> | [Data to get history by klay addresses] |
 | options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Count of skipping items and page items count] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.getTransfersHistory({
+    const result = await crypto.api.klay.getTransfers({
         addresses: ['"0x4937a6f664630547f6b0c3c235c4f03a64ca36b1"'],
     }, {
         skip: 1,
@@ -322,7 +322,7 @@ Example response:
 }
 ```
 
-#### <a name="klay.getExternalTransactionsHistory">klay.getExternalTransactionsHistory(addresses: string[], options: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#KlayTransactionsIntersection">Promise&lt;KlayTransactionsIntersection&gt;</a></code></dt></dt>
+#### <a name="klay.getExternalTransactions">klay.getExternalTransactions(addresses: string[], options: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#KlayTransactionsIntersection">Promise&lt;KlayTransactionsIntersection&gt;</a></code></dt></dt>
 Return list of transactions interception by addresses.
 
 Input data:
@@ -335,7 +335,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.getExternalTransactionsHistory(['0x4937a6f664630547f6b0c3c235c4f03a64ca36b1'], {
+    const result = await crypto.api.klay.getExternalTransactions(['0x4937a6f664630547f6b0c3c235c4f03a64ca36b1'], {
         limit: 1
     });
 ```
@@ -555,9 +555,9 @@ Example response:
 <dd></dd>
 <dt><a href="#KlayRawTransaction">KlayRawTransaction</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#THistoryRequest">THistoryRequest</a> : <code>Object</code></dt>
+<dt><a href="#TTransferRequest">TTransferRequest</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#KlayTransferHistory">KlayTransferHistory</a> : <code>Object</code></dt>
+<dt><a href="#KlayTransfers">KlayTransfers</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#KlayTransactionsIntersection">KlayTransactionsIntersection</a> : <code>Object</code></dt>
 <dd></dd>
@@ -716,8 +716,8 @@ Example response:
 }
 ```
 
-#### THistoryRequest : <code>Object</code>
-<a name="THistoryRequest"></a>
+#### TTransferRequest : <code>Object</code>
+<a name="TTransferRequest"></a>
 
 ```javascript
 {
@@ -726,8 +726,8 @@ Example response:
 }
 ```
 
-#### KlayTransferHistory : <code>Object</code>
-<a name="KlayTransferHistory"></a>
+#### KlayTransfers : <code>Object</code>
+<a name="KlayTransfers"></a>
 
 ```javascript
 {

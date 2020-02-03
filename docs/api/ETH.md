@@ -36,9 +36,9 @@ This library provides eth api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.sendRawTransaction">eth.sendRawTransaction</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
 <dd></dd>
-<dt><a href="#eth.getTransfersHistory">eth.getTransfersHistory</a> ⇒<code><a href="#EthTransferHistory">Promise&lt;EthTransferHistory&gt;</a></code></dt></dt>
+<dt><a href="#eth.getTransfers">eth.getTransfers</a> ⇒<code><a href="#EthTransfers">Promise&lt;EthTransfers&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#eth.getExternalTransactionsHistory">eth.getExternalTransactionsHistory</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
+<dt><a href="#eth.getExternalTransactions">eth.getExternalTransactions</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getFullTransaction">eth.getFullTransaction</a> ⇒<code>Promise&lt;EthFullTransaction&gt;</code></dt></dt>
 <dd></dd>
@@ -403,7 +403,7 @@ Example response:
 '0x8c30624b26ab1aed4dbbab32ed7f3bf32ec7f5bc043a4bb2b355e0aedf1e23d5'
 ```
 
-#### <a name="eth.getTransfersHistory">eth.getTransfersHistory</a>(data: <a href="#THistoryRequest">THistoryRequest</a>, options: <a href="#TPaginationOptions">TPaginationOptions</a>) ⇒<code><a href="#EthTransferHistory">Promise&lt;EthTransferHistory&gt;</a></code></dt></dt>
+#### <a name="eth.getTransfers">eth.getTransfers</a>(data: <a href="#THistoryRequest">THistoryRequest</a>, options: <a href="#TPaginationOptions">TPaginationOptions</a>) ⇒<code><a href="#EthTransfers">Promise&lt;EthTransfers&gt;</a></code></dt></dt>
 Return list of transactions by addresses.
 
 Input data:
@@ -416,7 +416,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getTransfersHistory({
+    const result = await crypto.api.eth.getTransfers({
         addresses: ['0x99608ad1026a47acf7839003546748158ad55504'],
     });
 ```
@@ -446,7 +446,7 @@ Example response:
 }
 ```
 
-#### <a name="eth.getExternalTransactionsHistory">eth.getExternalTransactionsHistory(addresses: string[], options: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
+#### <a name="eth.getExternalTransactions">eth.getExternalTransactions(addresses: string[], options: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
 Return list of transactions interception by addresses.
 
 Input data:
@@ -459,7 +459,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getExternalTransactionsHistory(['0x99608ad1026a47acf7839003546748158ad55504', '0xcd66e50e51026673d60b3f993610b46b0f44096f']);
+    const result = await crypto.api.eth.getExternalTransactions(['0x99608ad1026a47acf7839003546748158ad55504', '0xcd66e50e51026673d60b3f993610b46b0f44096f']);
 ```
 
 Example response:
@@ -504,14 +504,14 @@ Example response:
 }
 ```
 
-#### <a name="eth.getTransactionsBetweenAddresses">eth.getTransactionsBetweenAddresses(data: <a href="#TrxsBetweenAddressesRequest">TrxsBetweenAddressesRequest</a>, options: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsBetweenAddresses">Promise&lt;EthTransactionsBetweenAddresses&gt;</a></code></dt></dt>
+#### <a name="eth.getTransactionsBetweenAddresses">eth.getTransactionsBetweenAddresses(data: <a href="#TTrxsBetweenAddressesRequest">TTrxsBetweenAddressesRequest</a>, options: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsBetweenAddresses">Promise&lt;EthTransactionsBetweenAddresses&gt;</a></code></dt></dt>
 Return list of transactions between addresses.
 
 Input data:
 
 | Param | Type | Description |
 | --- | --- | --- |
-| data | <a href="#TrxsBetweenAddressesRequest">TrxsBetweenAddressesRequest</a> | [Data include fields ethereum addresses.] |
+| data | <a href="#TTrxsBetweenAddressesRequest">TTrxsBetweenAddressesRequest</a> | [Data include fields ethereum addresses.] |
 | options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Count of skipping items and page items count] |
 
 ```javascript
@@ -924,7 +924,7 @@ Example response:
 <dd></dd>
 <dt><a href="#THistoryRequest">THistoryRequest</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#EthTransferHistory">EthTransferHistory</a> : <code>Object</code></dt>
+<dt><a href="#EthTransfers">EthTransfers</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthInternalTransaction">EthInternalTransaction</a> : <code>Object</code></dt>
 <dd></dd>
@@ -936,7 +936,7 @@ Example response:
 <dd></dd>
 <dt><a href="#EthTransactionsIntersection">EthTransactionsIntersection</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#TrxsBetweenAddressesRequest">TrxsBetweenAddressesRequest</a> : <code>Object</code></dt>
+<dt><a href="#TTrxsBetweenAddressesRequest">TTrxsBetweenAddressesRequest</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTransactionsBetweenAddresses">EthTransactionsBetweenAddresses</a> : <code>Object</code></dt>
 <dd></dd>
@@ -1176,8 +1176,8 @@ Example response:
 }
 ```
 
-#### EthTransferHistory : <code>Object</code>
-<a name="EthTransferHistory"></a>
+#### EthTransfers : <code>Object</code>
+<a name="EthTransfers"></a>
 
 ```javascript
 {
@@ -1289,8 +1289,8 @@ Example response:
 }
 ```
 
-#### TrxsBetweenAddressesRequest : <code>Object</code>
-<a name="TrxsBetweenAddressesRequest"></a>
+#### TTrxsBetweenAddressesRequest : <code>Object</code>
+<a name="TTrxsBetweenAddressesRequest"></a>
 
 ```javascript
 {
