@@ -3,6 +3,7 @@ import { inject, injectable } from 'inversify';
 import { TYPES_DI } from '@src/constants/inversify.constants';
 import { EthAddressBalance } from '@src/dtos/eth/eth.address.balance';
 import { EthAddressInfo } from '@src/dtos/eth/eth.address.info';
+import { EthContract, EthContractLog } from '@src/dtos/eth/eth.contract';
 import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas';
 import { EthNetworkInfo } from '@src/dtos/eth/eth.network.info';
 import { EthRawTransaction } from '@src/dtos/eth/eth.raw.transaction';
@@ -20,7 +21,7 @@ import { IEthTokenApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.
 import { IEthTransactionsApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.transactions.interface';
 import { IServerConfig } from '@src/interfaces/configs/crypto.config.interface';
 import { TryCatch } from '@src/providers/decorators/try.catch';
-import { TEthContractCall } from '@src/types/eth/call.contract.type';
+import { TContractCall } from '@src/types/eth/call.contract.type';
 import { TEstimateGasRequest } from '@src/types/eth/estimate.gas.request.type';
 import { TContractLogsRequest } from '@src/types/eth/eth.contract.logs.request';
 import { TPaginationOptions } from '@src/types/paginations.options.type';
@@ -29,10 +30,12 @@ import { TPaginationOptions } from '@src/types/paginations.options.type';
 export class BaseEthApiClient<
 	TNetworkInfo, TEstimateGasResponse,
 	TAddressBalance, TAddressInfo,
+	TContract, TContractLog,
 	TRawTransaction
 > implements IBaseEthApiClient<
 	TNetworkInfo, TEstimateGasResponse,
 	TAddressBalance, TAddressInfo,
+	TContract, TContractLog,
 	TRawTransaction
 > {
 	config: IServerConfig|null = null;
@@ -40,7 +43,7 @@ export class BaseEthApiClient<
 		private readonly mainInfo: IEthMainInfoApi<TNetworkInfo, TEstimateGasResponse>,
 		private readonly ethTokenInfo: IEthTokenApi,
 		private readonly ethAddressInfo: IEthAddressApi<TAddressBalance, TAddressInfo>,
-		private readonly ethContractApi: IEthContractApi,
+		private readonly ethContractApi: IEthContractApi<TContract, TContractLog>,
 		private readonly ethNotifyApi: IEthNotifyApi,
 		private readonly rawTransactionApi: IEthRawTransactionApi<TRawTransaction>,
 		private readonly ethTransactions: IEthTransactionsApi,
@@ -48,6 +51,7 @@ export class BaseEthApiClient<
 		private readonly factoryDto: IBaseEthFactoryDto<
 			TNetworkInfo, TEstimateGasResponse,
 			TAddressBalance, TAddressInfo,
+			TContract, TContractLog,
 			TRawTransaction
 		>,
 	) {}
@@ -129,11 +133,12 @@ export class BaseEthApiClient<
 	 * Method to get contract information.
 	 * method getContractInfo
 	 * @param {string} address
-	 * @return {Promise<EthContractInfo>}
+	 * @return {Promise<TContract>}
 	 */
 	@TryCatch
-	getContractInfo(address: string) {
-		return this.ethContractApi.getContractInfo(address);
+	async getContractInfo(address: string) {
+		const info = await this.ethContractApi.getContractInfo(address);
+		return this.factoryDto.getContract(info);
 	}
 
 	/**
@@ -259,11 +264,11 @@ export class BaseEthApiClient<
 	/**
 	 * Method to call contract.
 	 * @method callContract
-	 * @param {TEthContractCall} data
+	 * @param {TContractCall} data
 	 * @return {Promise<string>}
 	 */
 	@TryCatch
-	callContract(data: TEthContractCall) {
+	callContract(data: TContractCall) {
 		return this.ethContractApi.callContract(data);
 	}
 
@@ -352,13 +357,14 @@ export class BaseEthApiClient<
 export class EthApiClient extends BaseEthApiClient<
 	EthNetworkInfo, EstimateGasResponse,
 	EthAddressBalance, EthAddressInfo,
+	EthContract, EthContractLog,
 	EthRawTransaction
 > {
 	constructor(
 		@inject(TYPES_DI.IEthMainInfoApi) mainInfo: IEthMainInfoApi<EthNetworkInfo, EstimateGasResponse>,
 		@inject(TYPES_DI.IEthTokenApi) tokenInfo: IEthTokenApi,
 		@inject(TYPES_DI.IEthAddressApi) addressInfo: IEthAddressApi<EthAddressBalance, EthAddressInfo>,
-		@inject(TYPES_DI.IEthContractApi) contractApi: IEthContractApi,
+		@inject(TYPES_DI.IEthContractApi) contractApi: IEthContractApi<EthContract, EthContractLog>,
 		@inject(TYPES_DI.IEthNotifyApi) notifyApi: IEthNotifyApi,
 		@inject(TYPES_DI.IEthRawTransactionApi) rawTransactionApi: IEthRawTransactionApi<EthRawTransaction>,
 		@inject(TYPES_DI.IEthTransactionsApi) transactions: IEthTransactionsApi,
