@@ -9,8 +9,8 @@ import { IEthTransactionsApi } from '@src/interfaces/clients/eth/apis/eth.sub.ap
 import { IUrlHelper } from '@src/interfaces/providers/helpers/url.helper.interface';
 import { IValidateHelper } from '@src/interfaces/providers/helpers/validate.helper.interface';
 import { IHttpService } from '@src/interfaces/providers/http.service.interface';
-import { THistoryRequest } from '@src/types/eth/history.request.type';
-import { TrxsBetweenAddressesRequest } from '@src/types/eth/trxs.between.addresses.request.type';
+import { TTransfersRequest } from '@src/types/eth/transfers.request.type';
+import { TTrxsBetweenAddressesRequest } from '@src/types/eth/trxs.between.addresses.request.type';
 import { TPaginationOptions } from '@src/types/paginations.options.type';
 
 @injectable()
@@ -34,13 +34,13 @@ export class EthTransactionsApi<
 
 	/**
 	 * Method to get transactions history.
-	 * @method getTransfersHistory
-	 * @param {THistoryRequest} data
+	 * @method getTransfers
+	 * @param {TTransfersRequest} data
 	 * @param {TPaginationOptions} options?
 	 * @return {Promise<TTransferHistory>}
 	 */
-	async getTransfersHistory(
-		{ addresses, positive}: THistoryRequest,
+	async getTransfers(
+		{ addresses, positive}: TTransfersRequest,
 		options: TPaginationOptions = {
 			skip: 0,
 			limit: MAX_LIMIT_HISTORY,
@@ -61,12 +61,12 @@ export class EthTransactionsApi<
 
 	/**
 	 * Get External transactions by addresses
-	 * @method getExternalTransactionsHistory
+	 * @method getExternalTransactions
 	 * @param {string[]} addresses
 	 * @param {TPaginationOptions} options?
 	 * @return {Promise<TTransactionsIntersection>}
 	 */
-	async getExternalTransactionsHistory(
+	async getExternalTransactions(
 		addresses: string[],
 		options?: TPaginationOptions,
 	): Promise<TTransactionsIntersection> {
@@ -86,12 +86,12 @@ export class EthTransactionsApi<
 	/**
 	 * Get transactions from one address to another
 	 * @method getTransactionsBetweenAddresses
-	 * @param {TrxsBetweenAddressesRequest} data
+	 * @param {TTrxsBetweenAddressesRequest} data
 	 * @param {TPaginationOptions} options?
 	 * @return {Promise<TTransactionsBetweenAddresses>}
 	 */
 	async getTransactionsBetweenAddresses(
-		{ from, to }: TrxsBetweenAddressesRequest,
+		{ from, to }: TTrxsBetweenAddressesRequest,
 		options?: TPaginationOptions,
 	): Promise<TTransactionsBetweenAddresses> {
 		this._checkConfig();

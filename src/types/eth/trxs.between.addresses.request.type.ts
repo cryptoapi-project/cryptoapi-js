@@ -1,4 +1,4 @@
-export type TrxsBetweenAddressesRequest = {
+export type TTrxsBetweenAddressesRequest = {
 	from: string;
 	to: string;
 };

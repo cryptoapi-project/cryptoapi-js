@@ -31,8 +31,8 @@ import { TryCatch } from '@src/providers/decorators/try.catch';
 import { TContractCall } from '@src/types/eth/call.contract.type';
 import { TContractLogsRequest } from '@src/types/eth/contract.logs.request.type';
 import { TEstimateGasRequest } from '@src/types/eth/estimate.gas.request.type';
-import { THistoryRequest } from '@src/types/eth/history.request.type';
-import { TrxsBetweenAddressesRequest } from '@src/types/eth/trxs.between.addresses.request.type';
+import { TTransfersRequest } from '@src/types/eth/transfers.request.type';
+import { TTrxsBetweenAddressesRequest } from '@src/types/eth/trxs.between.addresses.request.type';
 import { TPaginationOptions } from '@src/types/paginations.options.type';
 
 @injectable()
@@ -222,39 +222,39 @@ export class BaseEthApiClient<
 
 	/**
 	 * Method to get transactions history.
-	 * @method getTransfersHistory
-	 * @param {THistoryRequest} data
+	 * @method getTransfers
+	 * @param {TTransfersRequest} data
 	 * @param {TPaginationOptions} options?
 	 * @return {Promise{TTransferHistory}}
 	 */
 	@TryCatch
-	async getTransfersHistory(data: THistoryRequest, options?: TPaginationOptions) {
-		const info = await this.ethTransactions.getTransfersHistory(data, options);
+	async getTransfers(data: TTransfersRequest, options?: TPaginationOptions) {
+		const info = await this.ethTransactions.getTransfers(data, options);
 		return this.factoryDto.getTransferHistory(info);
 	}
 
 	/**
 	 * Get transactions interception by addresses
-	 * @method getExternalTransactionsHistory
+	 * @method getExternalTransactions
 	 * @param {string[]} addresses
 	 * @param {TPaginationOptions} options
 	 * @return {Promise<TExternalTransactions>}
 	 */
  	@TryCatch
- 	async getExternalTransactionsHistory(addresses: string[], options: TPaginationOptions) {
- 		const info = await this.ethTransactions.getExternalTransactionsHistory(addresses, options);
+ 	async getExternalTransactions(addresses: string[], options: TPaginationOptions) {
+ 		const info = await this.ethTransactions.getExternalTransactions(addresses, options);
  		return this.factoryDto.getExternalTransactions(info);
  	}
 
 	/**
 	 * Get transactions from one address to another
 	 * @method getTransactionsInterAddresses
-	 * @param {TrxsBetweenAddressesRequest} data
+	 * @param {TTrxsBetweenAddressesRequest} data
 	 * @param {TPaginationOptions} options
 	 * @return {Promise<TTransactionsBetweenAddresses>}
 	 */
 	@TryCatch
-	async getTransactionsBetweenAddresses(data: TrxsBetweenAddressesRequest, options?: TPaginationOptions) {
+	async getTransactionsBetweenAddresses(data: TTrxsBetweenAddressesRequest, options?: TPaginationOptions) {
 		const info = await this.ethTransactions.getTransactionsBetweenAddresses(data, options);
 		return this.factoryDto.getTransactionsBetweenAddresses(info);
 	}
