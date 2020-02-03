@@ -15,11 +15,11 @@ import { TPaginationOptions } from '@src/types/paginations.options.type';
 
 @injectable()
 export class EthTransactionsApi<
-	TTransferHistory, TTransactionsIntersection,
+	TTransfers, TTransactionsIntersection,
 	TFullTransaction, TTransactionsBetweenAddresses,
 	TTransactionReceipt
 > extends AbstractApi implements IEthTransactionsApi<
-	TTransferHistory, TTransactionsIntersection,
+	TTransfers, TTransactionsIntersection,
 	TFullTransaction, TTransactionsBetweenAddresses,
 	TTransactionReceipt
 > {
@@ -37,7 +37,7 @@ export class EthTransactionsApi<
 	 * @method getTransfers
 	 * @param {TTransfersRequest} data
 	 * @param {TPaginationOptions} options?
-	 * @return {Promise<TTransferHistory>}
+	 * @return {Promise<TTransfers>}
 	 */
 	async getTransfers(
 		{ addresses, positive}: TTransfersRequest,
@@ -45,7 +45,7 @@ export class EthTransactionsApi<
 			skip: 0,
 			limit: MAX_LIMIT_HISTORY,
 		},
-	): Promise<TTransferHistory> {
+	): Promise<TTransfers> {
 		this._checkConfig();
 
 		if (!this.validateHelper.isArray(addresses) || !addresses.length) {

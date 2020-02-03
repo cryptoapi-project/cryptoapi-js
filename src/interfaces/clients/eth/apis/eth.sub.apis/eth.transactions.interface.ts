@@ -5,11 +5,11 @@ import { TTrxsBetweenAddressesRequest } from '@src/types/eth/trxs.between.addres
 import { TPaginationOptions } from '@src/types/paginations.options.type';
 
 export interface IEthTransactionsApi<
-	TTransferHistory, TTransactionsIntersection,
+	TTransfers, TTransactionsIntersection,
 	TFullTransaction, TTransactionsBetweenAddresses,
 	TTransactionReceipt
 >  extends IConfigurable<IServerConfig> {
-	getTransfers(data: TTransfersRequest, options?: TPaginationOptions): Promise<TTransferHistory>;
+	getTransfers(data: TTransfersRequest, options?: TPaginationOptions): Promise<TTransfers>;
 	getExternalTransactions(addresses: string[], options?: TPaginationOptions): Promise<TTransactionsIntersection>;
 	getTransactionsBetweenAddresses(data: TTrxsBetweenAddressesRequest, options?: TPaginationOptions): Promise<TTransactionsBetweenAddresses>;
 	getFullTransaction(hash: string): Promise<TFullTransaction>;

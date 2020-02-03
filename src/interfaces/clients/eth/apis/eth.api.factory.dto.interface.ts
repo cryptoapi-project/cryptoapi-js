@@ -17,7 +17,7 @@ export interface IBaseEthFactoryDto<
 	TAddressBalance, TAddressInfo,
 	TContract, TContractLog,
 	TRawTransaction,
-	TTransferHistory, TExternalTransactions,
+	TTransfers, TExternalTransactions,
 	TFullTransaction, TTransactionsBetweenAddresses,
 	TTransactionReceipt
 > {
@@ -32,7 +32,7 @@ export interface IBaseEthFactoryDto<
 
 	getRawTransaction(data: any): TRawTransaction;
 
-	getTransfers(data: any): TTransferHistory;
+	getTransfers(data: any): TTransfers;
 	getExternalTransactions(data: any): TExternalTransactions;
 	getTransactionsBetweenAddresses(data: any): TTransactionsBetweenAddresses;
 	getFullTransaction(data: any): TFullTransaction;

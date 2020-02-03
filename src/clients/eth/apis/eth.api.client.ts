@@ -41,7 +41,7 @@ export class BaseEthApiClient<
 	TAddressBalance, TAddressInfo,
 	TContract, TContractLog,
 	TRawTransaction,
-	TTransferHistory, TExternalTransactions,
+	TTransfers, TExternalTransactions,
 	TFullTransaction, TTransactionsBetweenAddresses,
 	TTransactionReceipt
 > implements IBaseEthApiClient<
@@ -49,7 +49,7 @@ export class BaseEthApiClient<
 	TAddressBalance, TAddressInfo,
 	TContract, TContractLog,
 	TRawTransaction,
-	TTransferHistory, TExternalTransactions,
+	TTransfers, TExternalTransactions,
 	TFullTransaction, TTransactionsBetweenAddresses,
 	TTransactionReceipt
 > {
@@ -62,7 +62,7 @@ export class BaseEthApiClient<
 		private readonly ethNotifyApi: IEthNotifyApi,
 		private readonly rawTransactionApi: IEthRawTransactionApi<TRawTransaction>,
 		private readonly ethTransactions: IEthTransactionsApi<
-			TTransferHistory, TExternalTransactions,
+			TTransfers, TExternalTransactions,
 			TFullTransaction, TTransactionsBetweenAddresses,
 			TTransactionReceipt
 		>,
@@ -72,7 +72,7 @@ export class BaseEthApiClient<
 			TAddressBalance, TAddressInfo,
 			TContract, TContractLog,
 			TRawTransaction,
-			TTransferHistory, TExternalTransactions,
+			TTransfers, TExternalTransactions,
 			TFullTransaction, TTransactionsBetweenAddresses,
 			TTransactionReceipt
 		>,
@@ -225,7 +225,7 @@ export class BaseEthApiClient<
 	 * @method getTransfers
 	 * @param {TTransfersRequest} data
 	 * @param {TPaginationOptions} options?
-	 * @return {Promise{TTransferHistory}}
+	 * @return {Promise{TTransfers}}
 	 */
 	@TryCatch
 	async getTransfers(data: TTransfersRequest, options?: TPaginationOptions) {

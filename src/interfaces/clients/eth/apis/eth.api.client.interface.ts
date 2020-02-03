@@ -28,7 +28,7 @@ export interface IBaseEthApiClient<
 	TAddressBalance, TAddressInfo,
 	TContract, TContractLog,
 	TRawTransaction,
-	TTransferHistory, TExternalTransactions,
+	TTransfers, TExternalTransactions,
 	TFullTransaction, TTransactionsBetweenAddresses,
 	TTransactionReceipt
 > extends
@@ -39,7 +39,7 @@ export interface IBaseEthApiClient<
 	IEthNotifyApi,
 	IEthRawTransactionApi<TRawTransaction>,
 	IEthTransactionsApi<
-		TTransferHistory, TExternalTransactions,
+		TTransfers, TExternalTransactions,
 		TFullTransaction, TTransactionsBetweenAddresses,
 		TTransactionReceipt
 	>,
