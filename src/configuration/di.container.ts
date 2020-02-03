@@ -90,7 +90,6 @@ diContainer.bind<IEthNotifyApi>(TYPES_DI.IEthNotifyApi).to(EthNotifyApi);
 diContainer.bind(TYPES_DI.IEthContractApi).to(EthContractApi);
 diContainer.bind(TYPES_DI.IEthRawTransactionApi).to(EthRawTransactionApi);
 
-diContainer.bind<IEthNotifyApi>(TYPES_DI.IEthNotifyApi).to(EthNotifyApi);
 diContainer.bind<IEthTokenApi>(TYPES_DI.IEthTokenApi).to(EthTokenApi);
 diContainer.bind<IEthTransactionsApi>(TYPES_DI.IEthTransactionsApi).to(EthTransactionsApi);
 
