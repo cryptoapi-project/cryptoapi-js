@@ -29,7 +29,7 @@ export class EthApiFactoryDto implements IEthApiFactoryDto {
 		return new EthBlockInfo(data);
 	}
 
-	getBlocks(data: any): EthBlocksResponse {
+	getBlocksResponse(data: any): EthBlocksResponse {
 		return new EthBlocksResponse(data);
 	}
 

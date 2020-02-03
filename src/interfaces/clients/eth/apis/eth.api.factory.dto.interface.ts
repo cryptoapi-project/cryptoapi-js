@@ -16,7 +16,7 @@ export interface IBaseEthFactoryDto<
 	getAddressInfo(data: any): TAddressInfo;
 
 	getBlock(data: any): TBlockInfo;
-	getBlocks(data: any): TBlocksResponse;
+	getBlocksResponse(data: any): TBlocksResponse;
 
 }
 

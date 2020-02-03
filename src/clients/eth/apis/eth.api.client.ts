@@ -179,7 +179,7 @@ export class BaseEthApiClient<
 	 */
 	@TryCatch
 	async getBlocks(options: TPaginationOptions) {
-		return this.factoryDto.getBlocks(await this.block.getBlocks(options));
+		return this.factoryDto.getBlocksResponse(await this.block.getBlocks(options));
 	}
 
 	/*

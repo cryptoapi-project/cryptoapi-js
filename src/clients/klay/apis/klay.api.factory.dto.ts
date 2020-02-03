@@ -30,7 +30,7 @@ export class KlayApiFactoryDto implements IKlayApiFactoryDto {
 		return new KlayBlockInfo(data);
 	}
 
-	getBlocks(data: any): KlayBlocksResponse {
+	getBlocksResponse(data: any): KlayBlocksResponse {
 		return new KlayBlocksResponse(data);
 	}
 }
