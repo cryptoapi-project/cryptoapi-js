@@ -53,17 +53,17 @@ export class EthTokenApi<
 	 * @param {TTokenBalanceRequest} tokenBalanceRequest
 	 * @return {Promise<TTokenBalanceByHoldersOut>}
 	 */
-	async getTokenBalanceByAddresses(tokenBalanceRequest: TTokenBalanceRequest): Promise<TTokenBalanceByHoldersOut> {
+	async getTokenBalanceByAddresses({ holderAddresses, tokenAddress }: TTokenBalanceRequest): Promise<TTokenBalanceByHoldersOut> {
 		this._checkConfig();
 
-		if (!this.validateHelper.isArray(tokenBalanceRequest.holderAddresses)) {
+		if (!this.validateHelper.isArray(holderAddresses)) {
 			throw new BaseLibraryException('holder addresses must be an array.');
 		}
 
 		const tokenInfo = await this.httpClient.agent.get<TTokenBalanceByHoldersOut>(
 			`${this.config!.baseUrl}/coins/${this.config!.coin}${'/addresses/:addresses/balance/tokens/:token'
-				.replace(':token', tokenBalanceRequest.tokenAddress)
-				.replace(':addresses', tokenBalanceRequest.holderAddresses.join(','))}`,
+				.replace(':token', tokenAddress)
+				.replace(':addresses', holderAddresses.join(','))}`,
 		);
 		return tokenInfo.data;
 	}

@@ -12,11 +12,11 @@ This library provides klay api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#klay.estimateGas">klay.estimateGas</a> ⇒<code><a href="#EstimateGasResponse">Promise&lt;EstimateGasResponse&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#klay.getAddressesBalances">klay.getAddressesBalances(addresses: string[])</a> ⇒<code><a href="#KlayAddressBalance">Promise&lt;KlayAddressBalance[]&gt;</a></code></dt></dt>
+<dt><a href="#klay.getAddressesBalances">klay.getAddressesBalances</a> ⇒<code><a href="#KlayAddressBalance">Promise&lt;KlayAddressBalance[]&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#klay.getAddressesInfos">klay.getAddressesInfos(addresses: string[])</a> ⇒<code><a href="#KlayAddressInfo">Promise&lt;KlayAddressInfo[]&gt;</a></code></dt></dt>
+<dt><a href="#klay.getAddressesInfos">klay.getAddressesInfos</a> ⇒<code><a href="#KlayAddressInfo">Promise&lt;KlayAddressInfo[]&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#klay.getToken">klay.getToken(address: string)</a> ⇒<code><a href="#KlayTokenInfo">Promise&lt;KlayTokenInfo&gt;</a></code></dt></dt>
+<dt><a href="#klay.getToken">klay.getToken</a> ⇒<code><a href="#KlayTokenInfo">Promise&lt;KlayTokenInfo&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#klay.getTokenBalanceByAddresses">klay.getTokenBalanceByAddresses</a> ⇒<code><a href="#KlayTokenBalanceByHoldersOut">Promise&lt;KlayTokenBalanceByHoldersOut&gt;</a></code></dt></dt>
 <dd></dd>
@@ -188,7 +188,7 @@ Example response:
 }
 ```
 
-#### <a name="klay.getTokenBalanceByAddresses">klay.getTokenBalanceByAddresses(tokenBalanceRequest: TTokenBalanceRequest)</a> ⇒ <code><a href="#KlayBalanceTokensByHolder">Promise&lt;KlayBalanceTokensByHolder&gt;</a></code></dt></dt>
+#### <a name="klay.getTokenBalanceByAddresses">klay.getTokenBalanceByAddresses(tokenBalanceRequest: <a href="#TTokenBalanceRequest">TTokenBalanceRequest</a>)</a> ⇒ <code><a href="#KlayBalanceTokensByHolder">Promise&lt;KlayBalanceTokensByHolder&gt;</a></code></dt></dt>
 Returns JSON data about balance token by token and holder addresses.
 
 Input data:
@@ -220,7 +220,7 @@ Example response:
 }
 ```
 
-#### <a name="klay.getTokenBalancesByHolders">klay.getTokenBalancesByHolders(holders: string[], options: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#KlayBalanceTokensByHolder">Promise&lt;KlayBalanceTokensByHolder[]&gt;</a></code></dt></dt>
+#### <a name="klay.getTokenBalancesByHolders">klay.getTokenBalancesByHolders(holders: string[], options?: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#KlayBalanceTokensByHolder">Promise&lt;KlayBalanceTokensByHolder[]&gt;</a></code></dt></dt>
 Return list of tokens balances by holders addresses.
 
 Input data:
@@ -250,7 +250,7 @@ Example response:
 ]
 ```
 
-#### <a name="klay.getTokenTransfers">klay.getTokenTransfers(transfersRequest: TTokenTransfersRequest, options?: TPaginationOptions)</a> ⇒ <code><a href="#KlayTokenTransfersResponse">Promise&lt;KlayTokenTransfersResponse&gt;</a></code></dt></dt>
+#### <a name="klay.getTokenTransfers">klay.getTokenTransfers(transfersRequest: <a href="#TTokenTransfersRequest">TTokenTransfersRequest</a>, options?: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒ <code><a href="#KlayTokenTransfersResponse">Promise&lt;KlayTokenTransfersResponse&gt;</a></code></dt></dt>
 Returns JSON data with list transfer by token address.
 
 Input data:
@@ -258,6 +258,7 @@ Input data:
 | Param | Type | Description |
 | --- | --- | --- |
 | transfersRequest | <code><a href="#TTokenTransfersRequest">TTokenTransfersRequest</a></code> | [Token address and ethereum addresses] |
+| options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Count of skipping items and page items count] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
@@ -293,7 +294,7 @@ Example response:
 }
 ```
 
-#### <a name="klay.getTokenTransfersByAddresses">klay.getTokenTransfersByAddresses(transfersRequest: TTokenTransfersByAddressesRequest, options?: TPaginationOptions)</a> ⇒ <code><a href="#KlayTokenTransfersResponse">Promise&lt;KlayTokenTransfersResponse&gt;</a></code></dt></dt>
+#### <a name="klay.getTokenTransfersByAddresses">klay.getTokenTransfersByAddresses(transfersRequest: <a href="#TTokenTransfersByAddressesRequest">TTokenTransfersByAddressesRequest</a>, options?: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒ <code><a href="#KlayTokenTransfersResponse">Promise&lt;KlayTokenTransfersResponse&gt;</a></code></dt></dt>
 Returns JSON data with list transfer by token address and ethereum addresses.
 
 Input data:
@@ -301,6 +302,7 @@ Input data:
 | Param | Type | Description |
 | --- | --- | --- |
 | transfersRequest | <code><a href="#TTokenTransfersByAddressesRequest">TTokenTransfersByAddressesRequest</a></code> | [Token address and ethereum addresses] |
+| options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Count of skipping items and page items count] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
@@ -340,7 +342,7 @@ Example response:
 ```
 
 
-#### <a name="klay.searchToken">klay.searchToken(searchRequest: TTokenSearchRequest, options: TPaginationOptions)</a> ⇒<code><a href="#TTokenSearchRequest">Promise&lt;KlayTokenSearchResponse&gt;</a></code></dt></dt>
+#### <a name="klay.searchToken">klay.searchToken(searchRequest: <a href="#TTokenSearchRequest">TTokenSearchRequest</a>, options?: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#KlayTokenSearchResponse">Promise&lt;KlayTokenSearchResponse&gt;</a></code></dt></dt>
 Returns JSON info tokens returned by query object.
 
 Input data:
@@ -527,7 +529,7 @@ Example response:
 }
 ```
 
-#### <a name="klay.getBlocks">klay.getBlocks</a>(options: <a href="#TPaginationOptions">TPaginationOptions</a>) ⇒ <code>Promise&lt;<a href="#KlayBlocksResponse">KlayBlocksResponse</a>&gt;</code></dt></dt>
+#### <a name="klay.getBlocks">klay.getBlocks</a>(options?: <a href="#TPaginationOptions">TPaginationOptions</a>) ⇒ <code>Promise&lt;<a href="#KlayBlocksResponse">KlayBlocksResponse</a>&gt;</code></dt></dt>
 Returns JSON data about all blocks.
 
 | Param | Type | Description |
@@ -710,7 +712,7 @@ Example response:
 '0x5fde62cf325ba9461da9f2dcba2d9993002cc93025fd20408cf0c3c0119e3909'
 ```
 
-#### <a name="klay.getTransfers">klay.getTransfers</a>(data: <a href="#TTransferRequest">TTransferRequest</a>, options: <a href="#TPaginationOptions">TPaginationOptions</a>) ⇒<code><a href="#KlayTransfers">Promise&lt;KlayTransfers&gt;</a></code></dt></dt>
+#### <a name="klay.getTransfers">klay.getTransfers</a>(data: <a href="#TTransferRequest">TTransferRequest</a>, options?: <a href="#TPaginationOptions">TPaginationOptions</a>) ⇒<code><a href="#KlayTransfers">Promise&lt;KlayTransfers&gt;</a></code></dt></dt>
 Return list of transactions by addresses.
 
 Input data:
@@ -756,7 +758,7 @@ Example response:
 }
 ```
 
-#### <a name="klay.getExternalTransactions">klay.getExternalTransactions(addresses: string[], options: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#KlayTransactionsIntersection">Promise&lt;KlayTransactionsIntersection&gt;</a></code></dt></dt>
+#### <a name="klay.getExternalTransactions">klay.getExternalTransactions(addresses: string[], options?: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#KlayTransactionsIntersection">Promise&lt;KlayTransactionsIntersection&gt;</a></code></dt></dt>
 Return list of transactions interception by addresses.
 
 Input data:
@@ -819,7 +821,7 @@ Example response:
 }
 ```
 
-#### <a name="klay.getTransactionsBetweenAddresses">klay.getTransactionsBetweenAddresses(data: <a href="#TrxsBetweenAddressesRequest">TrxsBetweenAddressesRequest</a>, options: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#KlayTransactionsBetweenAddresses">Promise&lt;KlayTransactionsBetweenAddresses&gt;</a></code></dt></dt>
+#### <a name="klay.getTransactionsBetweenAddresses">klay.getTransactionsBetweenAddresses(data: <a href="#TrxsBetweenAddressesRequest">TrxsBetweenAddressesRequest</a>, options?: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#KlayTransactionsBetweenAddresses">Promise&lt;KlayTransactionsBetweenAddresses&gt;</a></code></dt></dt>
 Return list of transactions between addresses.
 
 Input data:
@@ -1546,15 +1548,6 @@ Example response:
 }
 ```
 
-#### TTokenSearchRequest : <code>Object</code>
-<a name="TTokenSearchRequest"></a>
-
-```javascript
-{
-        query?: string;
-        types?: string;
-}
-```
 #### TTokenBalanceRequest : <code>Object</code>
 <a name="TTokenBalanceRequest"></a>
 

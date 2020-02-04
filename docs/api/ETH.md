@@ -16,9 +16,9 @@ This library provides eth api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.getBlocks">eth.getBlocks</a> ⇒<code><a href="#EthBlocksResponse">Promise&lt;EthBlocksResponse&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#eth.getAddressesBalances">eth.getAddressesBalances(addresses: string[])</a> ⇒<code><a href="#EthAddressBalance">Promise&lt;EthAddressBalance[]&gt;</a></code></dt></dt>
+<dt><a href="#eth.getAddressesBalances">eth.getAddressesBalances</a> ⇒<code><a href="#EthAddressBalance">Promise&lt;EthAddressBalance[]&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#eth.getAddressesInfos">eth.getAddressesInfos(addresses: string[])</a> ⇒<code><a href="#EthAddressInfo">Promise&lt;EthAddressInfo[]&gt;</a></code></dt></dt>
+<dt><a href="#eth.getAddressesInfos">eth.getAddressesInfos</a> ⇒<code><a href="#EthAddressInfo">Promise&lt;EthAddressInfo[]&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getContractInfo">eth.getContractInfo</a> ⇒<code><a href="#EthContractInfo">Promise&lt;EthContractInfo&gt;</a></code></dt></dt>
 <dd></dd>
@@ -26,11 +26,17 @@ This library provides eth api methods to work with CryptoAPI.
 <dd></dd>
 <dt><a href="#eth.getContractLogs">eth.getContractLogs</a> ⇒<code><a href="#EthContractLog">Promise&lt;EthContractLog[]&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#eth.getToken">eth.getToken(address: string)</a> ⇒<code><a href="#EthTokenInfo">Promise&lt;EthTokenInfo&gt;</a></code></dt></dt>
+<dt><a href="#eth.getToken">eth.getToken</a> ⇒<code><a href="#EthTokenInfo">Promise&lt;EthTokenInfo&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getTokenBalanceByAddresses">eth.getTokenBalanceByAddresses</a> ⇒<code><a href="#EthTokenBalanceByHoldersOut">Promise&lt;EthTokenBalanceByHoldersOut&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getTokenBalancesByHolders">eth.getTokenBalancesByHolders</a> ⇒<code><a href="#EthTokenBalanceByHoldersOut">Promise&lt;EthTokenBalanceByHoldersOut&gt;</a></code></dt></dt>
+<dd></dd>
+<dt><a href="#eth.getTokenTransfers">eth.getTokenTransfers</a> ⇒<code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
+<dd></dd>
+<dt><a href="#eth.getTokenTransfersByAddresses">eth.getTokenTransfersByAddresses</a> ⇒<code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
+<dd></dd>
+<dt><a href="#eth.searchToken">eth.searchToken</a> ⇒<code><a href="#EthTokenSearchResponse">Promise&lt;EthTokenSearchResponse&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.decodeRawTransaction">eth.decodeRawTransaction</a> ⇒<code><a href="#EthRawTransaction">Promise&lt;EthRawTransaction&gt;</a></code></dt></dt>
 <dd></dd>
@@ -45,12 +51,6 @@ This library provides eth api methods to work with CryptoAPI.
 <dt><a href="#eth.getTransactionReceipt">eth.getTransactionReceipt</a> ⇒<code>Promise&lt;EthTransactionReceipt&gt;</code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.getTransactionsBetweenAddresses">eth.getTransactionsBetweenAddresses</a> ⇒<code><a href="#EthTransactionsBetweenAddresses">Promise&lt;EthTransactionsBetweenAddresses&gt;</a></code></dt></dt>
-<dd></dd>
-<dt><a href="#eth.getTokenTransfers">eth.getTokenTransfers</a> ⇒<code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
-<dd></dd>
-<dt><a href="#eth.getTokenTransfersByAddresses">eth.getTokenTransfersByAddresses</a> ⇒<code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
-<dd></dd>
-<dt><a href="#eth.searchToken">eth.searchToken</a> ⇒<code><a href="#EthTokenSearchResponse">Promise&lt;EthTokenSearchResponse&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.subscribePushNotifications">eth.subscribePushNotifications</a> ⇒<code><a href="#EthSubscribeToken">Promise&lt;EthSubscribeToken&gt;</a></code></dt></dt>
 <dd></dd>
@@ -135,7 +135,7 @@ Example response:
 }
 ```
 
-#### <a name="eth.getBlocks">eth.getBlocks</a>(options: <a href="#TPaginationOptions">TPaginationOptions</a>) ⇒ <code>Promise&lt;<a href="#EthBlocksResponse">EthBlocksResponse</a>&gt;</code></dt></dt>
+#### <a name="eth.getBlocks">eth.getBlocks</a>(options?: <a href="#TPaginationOptions">TPaginationOptions</a>) ⇒ <code>Promise&lt;<a href="#EthBlocksResponse">EthBlocksResponse</a>&gt;</code></dt></dt>
 Returns JSON data about all blocks.
 
 | Param | Type | Description |
@@ -323,7 +323,7 @@ Example response:
 }
 ```
 
-#### <a name="eth.getTokenBalancesByHolders">eth.getTokenBalancesByHolders(holders: string[], options: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#EthBalanceTokensByHolder">Promise&lt;EthBalanceTokensByHolder[]&gt;</a></code></dt></dt>
+#### <a name="eth.getTokenBalancesByHolders">eth.getTokenBalancesByHolders(holders: string[], options?: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#EthBalanceTokensByHolder">Promise&lt;EthBalanceTokensByHolder[]&gt;</a></code></dt></dt>
 Return list of tokens balances by holders addresses.
 
 Input data:
@@ -405,7 +405,7 @@ Example response:
 '0x8c30624b26ab1aed4dbbab32ed7f3bf32ec7f5bc043a4bb2b355e0aedf1e23d5'
 ```
 
-#### <a name="eth.getTransfers">eth.getTransfers</a>(data: <a href="#TTrasfersRequest">TTrasfersRequest</a>, options: <a href="#TPaginationOptions">TPaginationOptions</a>) ⇒<code><a href="#EthTransfers">Promise&lt;EthTransfers&gt;</a></code></dt></dt>
+#### <a name="eth.getTransfers">eth.getTransfers</a>(data: <a href="#TTrasfersRequest">TTrasfersRequest</a>, options?: <a href="#TPaginationOptions">TPaginationOptions</a>) ⇒<code><a href="#EthTransfers">Promise&lt;EthTransfers&gt;</a></code></dt></dt>
 Return list of transactions by addresses.
 
 Input data:
@@ -448,7 +448,7 @@ Example response:
 }
 ```
 
-#### <a name="eth.getExternalTransactions">eth.getExternalTransactions(addresses: string[], options: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
+#### <a name="eth.getExternalTransactions">eth.getExternalTransactions(addresses: string[], options?: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
 Return list of transactions interception by addresses.
 
 Input data:
@@ -506,7 +506,7 @@ Example response:
 }
 ```
 
-#### <a name="eth.getTransactionsBetweenAddresses">eth.getTransactionsBetweenAddresses(data: <a href="#TTrxsBetweenAddressesRequest">TTrxsBetweenAddressesRequest</a>, options: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsBetweenAddresses">Promise&lt;EthTransactionsBetweenAddresses&gt;</a></code></dt></dt>
+#### <a name="eth.getTransactionsBetweenAddresses">eth.getTransactionsBetweenAddresses(data: <a href="#TTrxsBetweenAddressesRequest">TTrxsBetweenAddressesRequest</a>, options?: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsBetweenAddresses">Promise&lt;EthTransactionsBetweenAddresses&gt;</a></code></dt></dt>
 Return list of transactions between addresses.
 
 Input data:
@@ -552,14 +552,15 @@ Example response:
 }
 ```
 
-#### <a name="eth.getTokenTransfers">eth.getTokenTransfers(transfersRequest: EthTokenTransfersRequest, options?: TPaginationOptions)</a> ⇒ <code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
+#### <a name="eth.getTokenTransfers">eth.getTokenTransfers(transfersRequest: <a href="#TTokenTransfersRequest">TTokenTransfersRequest</a>, options?: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒ <code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
 Returns JSON data with list transfer by token address.
 
 Input data:
 
 | Param | Type | Description |
 | --- | --- | --- |
-| transfersRequest | <code><a href="#EthTokenTransfersRequest">EthTokenTransfersRequest</a></code> | [Token address and ethereum addresses] |
+| transfersRequest | <code><a href="#TTokenTransfersRequest">TTokenTransfersRequest</a></code> | [Token address and ethereum addresses] |
+| options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Count of skipping items and page items count] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
@@ -595,14 +596,15 @@ Example response:
 }
 ```
 
-#### <a name="eth.getTokenTransfersByAddresses">eth.getTokenTransfersByAddresses(transfersRequest: EthTokenTransfersByAddressesRequest, options?: TPaginationOptions)</a> ⇒ <code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
+#### <a name="eth.getTokenTransfersByAddresses">eth.getTokenTransfersByAddresses(transfersRequest: <a href="#TTokenTransfersByAddressesRequest">TTokenTransfersByAddressesRequest</a>, options?: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒ <code><a href="#EthTokenTransfersResponse">Promise&lt;EthTokenTransfersResponse&gt;</a></code></dt></dt>
 Returns JSON data with list transfer by token address and ethereum addresses.
 
 Input data:
 
 | Param | Type | Description |
 | --- | --- | --- |
-| transfersRequest | <code><a href="#EthTokenTransfersByAddressesRequest">EthTokenTransfersByAddressesRequest</a></code> | [Token address and ethereum addresses] |
+| transfersRequest | <code><a href="#TTokenTransfersByAddressesRequest">TTokenTransfersByAddressesRequest</a></code> | [Token address and ethereum addresses] |
+| options? | <code><a href="#TPaginationOptions">TPaginationOptions</a></code> | [Count of skipping items and page items count] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
@@ -706,7 +708,7 @@ Example response:
 ]
 ```
 
-#### <a name="eth.searchToken">eth.searchToken(searchRequest: TTokenSearchRequest, options: TPaginationOptions)</a> ⇒<code><a href="#TTokenSearchRequest">Promise&lt;EthTokenSearchResponse&gt;</a></code></dt></dt>
+#### <a name="eth.searchToken">eth.searchToken(searchRequest: <a href="#TTokenSearchRequest">TTokenSearchRequest</a>, options?: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#TTokenSearchRequest">Promise&lt;EthTokenSearchResponse&gt;</a></code></dt></dt>
 Returns JSON info tokens returned by query object.
 
 Input data:
@@ -914,9 +916,7 @@ Example response:
 <dd></dd>
 <dt><a href="#EthBalanceTokensByHolder">EthBalanceTokensByHolder</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#EthTokenTransfersRequest">EthTokenTransfersRequest</a> : <code>Object</code></dt>
-<dd></dd>
-<dt><a href="#EthTokenTransfersByAddressesRequest">EthTokenTransfersByAddressesRequest</a> : <code>Object</code></dt>
+<dt><a href="#TTokenTransfersByAddressesRequest">TTokenTransfersByAddressesRequest</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTokenTransfersResponse">EthTokenTransfersResponse</a> : <code>Object</code></dt>
 <dd></dd>
@@ -1098,8 +1098,8 @@ Example response:
 }
 ```
 
-#### EthTokenTransfersRequest : <code>Object</code>
-<a name="EthTokenTransfersRequest"></a>
+#### TTokenTransfersRequest : <code>Object</code>
+<a name="TTokenTransfersRequest"></a>
 
 ```javascript
 {
@@ -1108,8 +1108,8 @@ Example response:
 }
 ```
 
-#### EthTokenTransfersByAddressesRequest : <code>Object</code>
-<a name="EthTokenTransfersByAddressesRequest"></a>
+#### TTokenTransfersByAddressesRequest : <code>Object</code>
+<a name="TTokenTransfersByAddressesRequest"></a>
 
 ```javascript
 {
