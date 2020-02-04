@@ -8,7 +8,10 @@ import { EthContract, EthContractLog } from '@src/dtos/eth/eth.contract';
 import { EstimateGasResponse } from '@src/dtos/eth/eth.estimate.gas';
 import { EthNetworkInfo } from '@src/dtos/eth/eth.network.info';
 import { EthRawTransaction } from '@src/dtos/eth/eth.raw.transaction';
+import { EthTokenInfo } from '@src/dtos/eth/eth.token.info';
 import { EthTokenSearchRequest } from '@src/dtos/eth/eth.token.search';
+import { EthTokenSearchResponse } from '@src/dtos/eth/eth.token.search';
+import { EthTokenBalanceByHoldersOut } from '@src/dtos/eth/eth.tokens.by.holders';
 import {
 	EthExternalTransactions,
 	EthFullTransaction,
@@ -16,7 +19,7 @@ import {
 	EthTransactionsBetweenAddresses,
 	EthTransfers,
 } from '@src/dtos/eth/eth.transaction';
-import { EthTokenTransfersByAddressesRequest, EthTokenTransfersRequest } from '@src/dtos/eth/eth.transfer.dto';
+import { EthTokenTransfersResponse } from '@src/dtos/eth/eth.transfer.dto';
 import { IBaseEthApiClient } from '@src/interfaces/clients/eth/apis/eth.api.client.interface';
 import { IBaseEthFactoryDto, IEthApiFactoryDto } from '@src/interfaces/clients/eth/apis/eth.api.factory.dto.interface';
 import { IEthAddressApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.address.api.interface';
@@ -32,6 +35,8 @@ import { TryCatch } from '@src/providers/decorators/try.catch';
 import { TContractCall } from '@src/types/eth/call.contract.type';
 import { TContractLogsRequest } from '@src/types/eth/contract.logs.request.type';
 import { TEstimateGasRequest } from '@src/types/eth/estimate.gas.request.type';
+import { TTokenBalanceRequest } from '@src/types/eth/token.balance.request.type';
+import { TTokenTransfersByAddressesRequest, TTokenTransfersRequest } from '@src/types/eth/token.transfer.request.type';
 import { TTransfersRequest } from '@src/types/eth/transfers.request.type';
 import { TTrxsBetweenAddressesRequest } from '@src/types/eth/trxs.between.addresses.request.type';
 import { TPaginationOptions } from '@src/types/paginations.options.type';
@@ -40,6 +45,7 @@ import { TPaginationOptions } from '@src/types/paginations.options.type';
 export class BaseEthApiClient<
 	TNetworkInfo, TEstimateGasResponse,
 	TAddressBalance, TAddressInfo,
+	TTokenInfo, TTokenBalanceByHoldersOut, TTokenSearchResponse, TTokenTransfersResponse,
 	TBlockInfo, TBlocksResponse,
 	TContract, TContractLog,
 	TRawTransaction,
@@ -49,6 +55,7 @@ export class BaseEthApiClient<
 	> implements IBaseEthApiClient<
 	TNetworkInfo, TEstimateGasResponse,
 	TAddressBalance, TAddressInfo,
+	TTokenInfo, TTokenBalanceByHoldersOut, TTokenSearchResponse, TTokenTransfersResponse,
 	TBlockInfo, TBlocksResponse,
 	TContract, TContractLog,
 	TRawTransaction,
@@ -59,7 +66,7 @@ export class BaseEthApiClient<
 	config: IServerConfig | null = null;
 	constructor(
 		private readonly mainInfo: IEthMainInfoApi<TNetworkInfo, TEstimateGasResponse>,
-		private readonly ethTokenInfo: IEthTokenApi,
+		private readonly tokenInfo: IEthTokenApi<TTokenInfo, TTokenBalanceByHoldersOut, TTokenSearchResponse, TTokenTransfersResponse>,
 		private readonly ethAddressInfo: IEthAddressApi<TAddressBalance, TAddressInfo>,
 		private readonly ethContractApi: IEthContractApi<TContract, TContractLog>,
 		private readonly ethNotifyApi: IEthNotifyApi,
@@ -73,6 +80,7 @@ export class BaseEthApiClient<
 		private readonly factoryDto: IBaseEthFactoryDto<
 			TNetworkInfo, TEstimateGasResponse,
 			TAddressBalance, TAddressInfo,
+			TTokenInfo, TTokenBalanceByHoldersOut, TTokenSearchResponse, TTokenTransfersResponse,
 			TBlockInfo, TBlocksResponse,
 			TContract, TContractLog,
 			TRawTransaction,
@@ -90,7 +98,7 @@ export class BaseEthApiClient<
 	 */
 	configure(config: IServerConfig) {
 		this.mainInfo.configure(config);
-		this.ethTokenInfo.configure(config);
+		this.tokenInfo.configure(config);
 		this.ethAddressInfo.configure(config);
 		this.ethContractApi.configure(config);
 		this.ethNotifyApi.configure(config);
@@ -121,14 +129,15 @@ export class BaseEthApiClient<
 	}
 
 	/**
-	 * Get eth token information by token address.
-	 * @method getTokenInfoByTokenAddress
+	 * Get token information by token address.
+	 * @method getToken
 	 * @param {string} address
-	 * @return {Promise<EthTokenInfo>}
+	 * @return {Promise<TTokenInfo>}
 	 */
 	@TryCatch
-	async getTokenInfoByTokenAddress(address: string) {
-		return this.ethTokenInfo.getTokenInfoByTokenAddress(address);
+	async getToken(address: string) {
+		const info = await this.tokenInfo.getToken(address);
+		return this.factoryDto.getTokenInfo(info);
 	}
 
 	/**
@@ -170,13 +179,13 @@ export class BaseEthApiClient<
 	/**
 	 * Method to get balance token by holder and token addresses.
 	 * @method getTokenBalanceByAddresses
-	 * @param {string} tokenAddress
-	 * @param {string[]} holderAddresses
-	 * @return {Promise<EthTokenBalance>}
+	 * @param {TTokenBalanceRequest} tokenBalanceRequest
+	 * @return {Promise<TTokenBalanceByHoldersOut>}
 	 */
 	@TryCatch
-	getTokenBalanceByAddresses(tokenAddress: string, holderAddresses: string[]) {
-		return this.ethTokenInfo.getTokenBalanceByAddresses(tokenAddress, holderAddresses);
+	async getTokenBalanceByAddresses(tokenBalanceRequest: TTokenBalanceRequest) {
+		const info = await this.tokenInfo.getTokenBalanceByAddresses(tokenBalanceRequest);
+		return this.factoryDto.getTokenBalanceByAddresses(info);
 	}
 
 	/**
@@ -184,11 +193,12 @@ export class BaseEthApiClient<
 	 * @method getTokensBalancesByHolderAddress
 	 * @param {string[]} holders
 	 * @param {TPaginationOptions} options
-	 * @return {Promise{EthTokenBalanceByHoldersOut}}
+	 * @return {Promise{TTokenBalanceByHoldersOut}}
 	 */
 	@TryCatch
-	getTokenBalancesByHolders(holders: string[], options?: TPaginationOptions) {
-		return this.ethTokenInfo.getTokenBalancesByHolders(holders, options);
+	async getTokenBalancesByHolders(holders: string[], options?: TPaginationOptions) {
+		const info = await this.tokenInfo.getTokenBalancesByHolders(holders, options);
+		return this.factoryDto.getTokenBalancesByHolders(info);
 	}
 
 	/**
@@ -266,25 +276,27 @@ export class BaseEthApiClient<
 	/**
 	 * Method to get token transfers by token address.
 	 * @method getTokenTransfers
-	 * @param {EthTokenTransfersRequest} transfersRequest
+	 * @param {TTokenTransfersRequest} transfersRequest
 	 * @param {TPaginationOptions} options?
-	 * @return {Promise<EthTokenTransfersResponse>}
+	 * @return {Promise<TTokenTransfersResponse>}
 	 */
 	@TryCatch
-	getTokenTransfers(transfersRequest: EthTokenTransfersRequest, options?: TPaginationOptions) {
-		return this.ethTokenInfo.getTokenTransfers(transfersRequest, options);
+	async getTokenTransfers(transfersRequest: TTokenTransfersRequest, options?: TPaginationOptions) {
+		const info = await this.tokenInfo.getTokenTransfers(transfersRequest, options);
+		return this.factoryDto.getTokenTransfers(info);
 	}
 
 	/**
 	 * Method to get token transfers by token address and addresses.
 	 * @method getTokenTransfersByAddresses
-	 * @param {EthTokenTransfersByAddressesRequest} transfersRequest
+	 * @param {TTokenTransfersByAddressesRequest} transfersRequest
 	 * @param {TPaginationOptions} options?
-	 * @return {Promise<EthTokenTransfersResponse>}
+	 * @return {Promise<TTokenTransfersResponse>}
 	 */
 	@TryCatch
-	getTokenTransfersByAddresses(transfersRequest: EthTokenTransfersByAddressesRequest, options?: TPaginationOptions) {
-		return this.ethTokenInfo.getTokenTransfersByAddresses(transfersRequest, options);
+	async getTokenTransfersByAddresses(transfersRequest: TTokenTransfersByAddressesRequest, options?: TPaginationOptions) {
+		const info = await this.tokenInfo.getTokenTransfersByAddresses(transfersRequest, options);
+		return this.factoryDto.getTokenTransfersByAddresses(info);
 	}
 
 	/**
@@ -314,11 +326,12 @@ export class BaseEthApiClient<
 	 * @method searchToken
 	 * @param {EthTokenSearchRequest} searchRequest
 	 * @param {TPaginationOptions} options?
-	 * @return {Promise<EthTokenSearchResponse>}
+	 * @return {Promise<TTokenSearchResponse>}
 	 */
 	@TryCatch
-	searchToken(searchRequest: EthTokenSearchRequest, options?: TPaginationOptions) {
-		return this.ethTokenInfo.searchToken(searchRequest, options);
+	async searchToken(searchRequest: EthTokenSearchRequest, options?: TPaginationOptions) {
+		const info = await this.tokenInfo.searchToken(searchRequest, options);
+		return this.factoryDto.searchToken(info);
 	}
 
 	/**
@@ -385,6 +398,7 @@ export class BaseEthApiClient<
 export class EthApiClient extends BaseEthApiClient<
 EthNetworkInfo, EstimateGasResponse,
 EthAddressBalance, EthAddressInfo,
+EthTokenInfo, EthTokenBalanceByHoldersOut, EthTokenSearchResponse, EthTokenTransfersResponse,
 EthBlockInfo, EthBlocksResponse,
 EthContract, EthContractLog,
 EthRawTransaction,
@@ -394,7 +408,9 @@ EthFullTransactionReceipt
 > {
 	constructor(
 		@inject(TYPES_DI.IEthMainInfoApi) mainInfo: IEthMainInfoApi<EthNetworkInfo, EstimateGasResponse>,
-		@inject(TYPES_DI.IEthTokenApi) tokenInfo: IEthTokenApi,
+		@inject(TYPES_DI.IEthTokenApi) tokenInfo: IEthTokenApi<
+			EthTokenInfo, EthTokenBalanceByHoldersOut, EthTokenSearchResponse, EthTokenTransfersResponse
+		>,
 		@inject(TYPES_DI.IEthAddressApi) addressInfo: IEthAddressApi<EthAddressBalance, EthAddressInfo>,
 		@inject(TYPES_DI.IEthContractApi) contractApi: IEthContractApi<EthContract, EthContractLog>,
 		@inject(TYPES_DI.IEthNotifyApi) notifyApi: IEthNotifyApi,
