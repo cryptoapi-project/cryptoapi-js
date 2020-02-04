@@ -56,7 +56,7 @@ export class EthTokenApi<
 	async getTokenBalanceByAddresses({ holderAddresses, tokenAddress }: TTokenBalanceRequest): Promise<TTokenBalanceByHoldersOut> {
 		this._checkConfig();
 
-		if (!this.validateHelper.isArray(holderAddresses)) {
+		if (!this.validateHelper.isArray(holderAddresses) || !holderAddresses.length) {
 			throw new BaseLibraryException('holder addresses must be an array.');
 		}
 
@@ -78,7 +78,7 @@ export class EthTokenApi<
 	async getTokenBalancesByHolders(holders: string[], options?: TPaginationOptions): Promise<TTokenBalanceByHoldersOut> {
 		this._checkConfig();
 
-		if (!this.validateHelper.isArray(holders)) {
+		if (!this.validateHelper.isArray(holders) || !holders.length) {
 			throw new BaseLibraryException('holders must be an array.');
 		}
 
@@ -128,7 +128,7 @@ export class EthTokenApi<
 	): Promise<TTokenTransfersResponse> {
 		this._checkConfig();
 
-		if (!this.validateHelper.isArray(transfersRequest.addresses)) {
+		if (!this.validateHelper.isArray(transfersRequest.addresses) || !transfersRequest.addresses.length) {
 			throw new BaseLibraryException('Addresses must be an array.');
 		}
 
