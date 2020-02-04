@@ -42,6 +42,7 @@ export class EthTokenApi<
 		const tokenInfo = await this.httpClient.agent.get<TTokenInfo>(
 			`${this.config!.baseUrl}/coins/${this.config!.coin}${'/tokens/:address'.replace(':address', address)}`,
 		);
+
 		return tokenInfo.data;
 	}
 

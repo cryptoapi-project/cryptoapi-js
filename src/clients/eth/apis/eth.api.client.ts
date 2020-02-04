@@ -135,7 +135,8 @@ export class BaseEthApiClient<
 	 */
 	@TryCatch
 	async getToken(address: string) {
-		return this.factoryDto.getToken(await this.tokenInfo.getToken(address));
+		const info = await this.tokenInfo.getToken(address);
+		return this.factoryDto.getTokenInfo(info);
 	}
 
 	/**
@@ -183,7 +184,8 @@ export class BaseEthApiClient<
 	 */
 	@TryCatch
 	async getTokenBalanceByAddresses(tokenAddress: string, holderAddresses: string[]) {
-		return this.factoryDto.getTokenBalanceByAddresses(await this.tokenInfo.getTokenBalanceByAddresses(tokenAddress, holderAddresses));
+		const info = await this.tokenInfo.getTokenBalanceByAddresses(tokenAddress, holderAddresses);
+		return this.factoryDto.getTokenBalanceByAddresses(info);
 	}
 
 	/**
@@ -195,7 +197,8 @@ export class BaseEthApiClient<
 	 */
 	@TryCatch
 	async getTokenBalancesByHolders(holders: string[], options?: TPaginationOptions) {
-		return this.factoryDto.getTokenBalancesByHolders(await this.tokenInfo.getTokenBalancesByHolders(holders, options));
+		const info = await this.tokenInfo.getTokenBalancesByHolders(holders, options);
+		return this.factoryDto.getTokenBalancesByHolders(info);
 	}
 
 	/**
@@ -279,7 +282,8 @@ export class BaseEthApiClient<
 	 */
 	@TryCatch
 	async getTokenTransfers(transfersRequest: TTokenTransfersRequest, options?: TPaginationOptions) {
-		return this.factoryDto.getTokenTransfers(await this.tokenInfo.getTokenTransfers(transfersRequest, options));
+		const info = await this.tokenInfo.getTokenTransfers(transfersRequest, options);
+		return this.factoryDto.getTokenTransfers(info);
 	}
 
 	/**
@@ -291,7 +295,8 @@ export class BaseEthApiClient<
 	 */
 	@TryCatch
 	async getTokenTransfersByAddresses(transfersRequest: TTokenTransfersByAddressesRequest, options?: TPaginationOptions) {
-		return this.factoryDto.getTokenTransfersByAddresses(await this.tokenInfo.getTokenTransfersByAddresses(transfersRequest, options));
+		const info = await this.tokenInfo.getTokenTransfersByAddresses(transfersRequest, options);
+		return this.factoryDto.getTokenTransfersByAddresses(info);
 	}
 
 	/**
@@ -325,7 +330,8 @@ export class BaseEthApiClient<
 	 */
 	@TryCatch
 	async searchToken(searchRequest: EthTokenSearchRequest, options?: TPaginationOptions) {
-		return this.factoryDto.searchToken(await this.tokenInfo.searchToken(searchRequest, options));
+		const info = await this.tokenInfo.searchToken(searchRequest, options);
+		return this.factoryDto.searchToken(info);
 	}
 
 	/**

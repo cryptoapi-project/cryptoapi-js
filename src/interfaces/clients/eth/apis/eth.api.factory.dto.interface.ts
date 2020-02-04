@@ -34,7 +34,7 @@ export interface IBaseEthFactoryDto<
 	getAddressBalance(data: any): TAddressBalance;
 	getAddressInfo(data: any): TAddressInfo;
 
-	getToken(data: any): TTokenInfo;
+	getTokenInfo(data: any): TTokenInfo;
 	getTokenBalanceByAddresses(data: any): TTokenBalanceByHoldersOut;
 	getTokenBalancesByHolders(data: any): TTokenBalanceByHoldersOut;
 	searchToken(data: any): TTokenSearchResponse;
