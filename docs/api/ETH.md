@@ -291,20 +291,22 @@ Example response:
 }
 ```
 
-#### <a name="eth.getTokenBalanceByAddresses">eth.getTokenBalanceByAddresses(tokenAddress: string, holderAddresses: string[])</a> ⇒ <code><a href="#EthBalanceTokensByHolder">Promise&lt;EthBalanceTokensByHolder&gt;</a></code></dt></dt>
+#### <a name="eth.getTokenBalanceByAddresses">eth.getTokenBalanceByAddresses(tokenBalanceRequest: TTokenBalanceRequest)</a> ⇒ <code><a href="#EthBalanceTokensByHolder">Promise&lt;EthBalanceTokensByHolder&gt;</a></code></dt></dt>
 Returns JSON data about balance token by token and holder addresses.
 
 Input data:
 
 | Param | Type | Description |
 | --- | --- | --- |
-| tokenAddress | <code>string</code> | [Token address] |
-| holderAddresses | <code>string[]</code> | [Holder addresses] |
+| tokenBalanceRequest | <code><a href="#TTokenBalanceRequest">TTokenBalanceRequest</a></code> | [Token and holders addresses] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getTokenBalanceByAddresses('0x5ae86537ea087929a34b597480fd23144d2dd216', ['0xd89f43605f4ccc0935afceba98f3d5d04ce2e390']);
+    const result = await crypto.api.eth.getTokenBalanceByAddresses({
+        tokenAddress: '0x5ae86537ea087929a34b597480fd23144d2dd216', 
+        holderAddresses: ['0xd89f43605f4ccc0935afceba98f3d5d04ce2e390'],
+    });
 ```
 
 Example response:
@@ -950,6 +952,8 @@ Example response:
 <dd></dd>
 <dt><a href="#EthMainTokenInfo">EthMainTokenInfo</a> : <code>Object</code></dt>
 <dd></dd>
+<dt><a href="#TTokenBalanceRequest">TTokenBalanceRequest</a> : <code>Object</code></dt>
+<dd></dd>
 </dl>
 
 #### EthNetworkInfo : <code>Object</code>
@@ -1427,3 +1431,12 @@ Example response:
 }
 ```
 
+#### TTokenBalanceRequest : <code>Object</code>
+<a name="TTokenBalanceRequest"></a>
+
+```javascript
+{
+	token: string;
+	addresses: string[];
+}
+```

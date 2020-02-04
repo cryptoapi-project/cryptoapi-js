@@ -8,6 +8,7 @@ import { IEthTokenApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.
 import { IUrlHelper } from '@src/interfaces/providers/helpers/url.helper.interface';
 import { IValidateHelper } from '@src/interfaces/providers/helpers/validate.helper.interface';
 import { IHttpService } from '@src/interfaces/providers/http.service.interface';
+import { TTokenBalanceRequest } from '@src/types/eth/token.balance.request.type';
 import { TTokenTransfersByAddressesRequest, TTokenTransfersRequest } from '@src/types/eth/token.transfer.request.type';
 import { TPaginationOptions } from '@src/types/paginations.options.type';
 
@@ -49,21 +50,20 @@ export class EthTokenApi<
 	/**
 	 * Method to get balance token by holder and token addresses.
 	 * @method getTokenBalanceByAddresses
-	 * @param {string} tokenAddress
-	 * @param {string} holderAddresses
+	 * @param {TTokenBalanceRequest} tokenBalanceRequest
 	 * @return {Promise<TTokenBalanceByHoldersOut>}
 	 */
-	async getTokenBalanceByAddresses(tokenAddress: string, holderAddresses: string[]): Promise<TTokenBalanceByHoldersOut> {
+	async getTokenBalanceByAddresses(tokenBalanceRequest: TTokenBalanceRequest): Promise<TTokenBalanceByHoldersOut> {
 		this._checkConfig();
 
-		if (!this.validateHelper.isArray(holderAddresses)) {
+		if (!this.validateHelper.isArray(tokenBalanceRequest.holderAddresses)) {
 			throw new BaseLibraryException('holder addresses must be an array.');
 		}
 
 		const tokenInfo = await this.httpClient.agent.get<TTokenBalanceByHoldersOut>(
 			`${this.config!.baseUrl}/coins/${this.config!.coin}${'/addresses/:addresses/balance/tokens/:token'
-				.replace(':token', tokenAddress)
-				.replace(':addresses', holderAddresses.join(','))}`,
+				.replace(':token', tokenBalanceRequest.tokenAddress)
+				.replace(':addresses', tokenBalanceRequest.holderAddresses.join(','))}`,
 		);
 		return tokenInfo.data;
 	}

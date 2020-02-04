@@ -35,6 +35,7 @@ import { TryCatch } from '@src/providers/decorators/try.catch';
 import { TContractCall } from '@src/types/eth/call.contract.type';
 import { TContractLogsRequest } from '@src/types/eth/contract.logs.request.type';
 import { TEstimateGasRequest } from '@src/types/eth/estimate.gas.request.type';
+import { TTokenBalanceRequest } from '@src/types/eth/token.balance.request.type';
 import { TTokenTransfersByAddressesRequest, TTokenTransfersRequest } from '@src/types/eth/token.transfer.request.type';
 import { TTransfersRequest } from '@src/types/eth/transfers.request.type';
 import { TTrxsBetweenAddressesRequest } from '@src/types/eth/trxs.between.addresses.request.type';
@@ -178,13 +179,12 @@ export class BaseEthApiClient<
 	/**
 	 * Method to get balance token by holder and token addresses.
 	 * @method getTokenBalanceByAddresses
-	 * @param {string} tokenAddress
-	 * @param {string[]} holderAddresses
+	 * @param {TTokenBalanceRequest} tokenBalanceRequest
 	 * @return {Promise<TTokenBalanceByHoldersOut>}
 	 */
 	@TryCatch
-	async getTokenBalanceByAddresses(tokenAddress: string, holderAddresses: string[]) {
-		const info = await this.tokenInfo.getTokenBalanceByAddresses(tokenAddress, holderAddresses);
+	async getTokenBalanceByAddresses(tokenBalanceRequest: TTokenBalanceRequest) {
+		const info = await this.tokenInfo.getTokenBalanceByAddresses(tokenBalanceRequest);
 		return this.factoryDto.getTokenBalanceByAddresses(info);
 	}
 
