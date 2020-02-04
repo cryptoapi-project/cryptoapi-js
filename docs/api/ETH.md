@@ -1436,7 +1436,7 @@ Example response:
 
 ```javascript
 {
-	token: string;
-	addresses: string[];
+    tokenAddress: string;
+    holderAddresses: string[]
 }
 ```

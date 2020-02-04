@@ -1063,6 +1063,16 @@ Example response:
 }
 ```
 
+#### TTokenSearchRequest : <code>Object</code>
+<a name="TTokenSearchRequest"></a>
+
+```javascript
+{
+        query?: string;
+        types?: string;
+}
+```
+
 #### KlayTokenSearchResponse : <code>Object</code>
 <a name="KlayTokenSearchResponse"></a>
 
@@ -1434,7 +1444,7 @@ Example response:
 
 ```javascript
 {
-	token: string;
-	addresses: string[];
+    tokenAddress: string;
+    holderAddresses: string[]
 }
 ```
