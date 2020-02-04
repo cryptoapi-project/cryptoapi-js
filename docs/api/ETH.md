@@ -291,7 +291,7 @@ Example response:
 }
 ```
 
-#### <a name="eth.getTokenBalanceByAddresses">eth.getTokenBalanceByAddresses(tokenBalanceRequest: TTokenBalanceRequest)</a> ⇒ <code><a href="#EthBalanceTokensByHolder">Promise&lt;EthBalanceTokensByHolder&gt;</a></code></dt></dt>
+#### <a name="eth.getTokenBalanceByAddresses">eth.getTokenBalanceByAddresses(tokenBalanceRequest: <a href="#TTokenBalanceRequest">TTokenBalanceRequest</a>)</a> ⇒ <code><a href="#EthBalanceTokensByHolder">Promise&lt;EthBalanceTokensByHolder&gt;</a></code></dt></dt>
 Returns JSON data about balance token by token and holder addresses.
 
 Input data:
