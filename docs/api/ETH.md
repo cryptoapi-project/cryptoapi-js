@@ -312,7 +312,7 @@ Input data:
 Example response:
 ```
 {
-    "total": 1,
+    "count": 1,
     "items": [
         {
             address: "0x5ae86537ea087929a34b597480fd23144d2dd216"
@@ -342,7 +342,7 @@ Input data:
 Example response:
 ```
 [
-    total: 10,
+    count: 10,
     items: [
         {
             holder: "0xd89f43605f4ccc0935afceba98f3d5d04ce2e390",
@@ -548,7 +548,7 @@ Example response:
             "internal_transactions": []
         }
     ],
-    "total": 1
+    "count": 1
 }
 ```
 
@@ -1093,7 +1093,7 @@ Example response:
 
 ```javascript
 {
-   total: number;
+   count: number;
    items: EthTokenBalance[];
 }
 ```
@@ -1307,7 +1307,7 @@ Example response:
 
 ```javascript
 {
-    total: number;
+    count: number;
     items: EthTransaction[];
 }
 ```
