@@ -1,14 +1,14 @@
 import { EthTokenBalance } from './eth.token.balance';
 
 export class EthTokenBalanceByHoldersOut {
-	total: number;
+	count: number;
 	items: EthTokenBalance[];
 
 	constructor(info: {
-		total: number;
+		count: number;
 		items: EthTokenBalance[];
 	}) {
-		this.total = info.total;
+		this.count = info.count;
 		this.items = info.items;
 	}
 }

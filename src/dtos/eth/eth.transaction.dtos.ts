@@ -181,7 +181,7 @@ export class FullEthTransaction extends EthTransaction {
 }
 
 export class EthTransactionsInterAddresses {
-	readonly total: number;
+	readonly count: number;
 	readonly items: Array<{
 		readonly block_hash: string;
 		readonly block_number: number;
@@ -208,8 +208,8 @@ export class EthTransactionsInterAddresses {
 		}>;
 	}>;
 
-	constructor({ total, items }: {
-		total: number,
+	constructor({ count, items }: {
+		count: number,
 		items: Array<{
 			block_hash: string;
 			block_number: number;
@@ -236,7 +236,7 @@ export class EthTransactionsInterAddresses {
 			}>;
 		}>;
 	}) {
-		this.total = total;
+		this.count = count;
 		this.items = items.map((item) => ({
 			block_hash: item.block_hash,
 			block_number: item.block_number,
@@ -300,7 +300,7 @@ export class ReceiptLog {
 export class EthTransactionReceipt {
 	readonly block_hash: string;
 	readonly block_number: number;
-	readonly contract_address: string|null;
+	readonly contract_address: string | null;
 	readonly cumulative_gas_used: number;
 	readonly gas_used: number;
 	readonly status: boolean;
@@ -308,15 +308,15 @@ export class EthTransactionReceipt {
 	readonly hash: string;
 	readonly to: string;
 	readonly transaction_index: number;
-	readonly logs: ReceiptLog[]|null;
+	readonly logs: ReceiptLog[] | null;
 
 	constructor(info: {
 		readonly block_hash: string;
 		readonly block_number: number;
-		readonly contract_address: string|null;
+		readonly contract_address: string | null;
 		readonly gas_used: number;
 		readonly cumulative_gas_used: number;
-		readonly logs: ReceiptLog[]|null;
+		readonly logs: ReceiptLog[] | null;
 		readonly status: boolean;
 		readonly from: string;
 		readonly hash: string;
