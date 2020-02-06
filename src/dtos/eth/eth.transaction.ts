@@ -189,7 +189,7 @@ export class EthFullTransaction extends EthTransaction {
 }
 
 export class EthTransactionsBetweenAddresses {
-	readonly total: number;
+	readonly count: number;
 	readonly items: Array<{
 		readonly block_hash: string;
 		readonly block_number: number;
@@ -216,8 +216,8 @@ export class EthTransactionsBetweenAddresses {
 		}>;
 	}>;
 
-	constructor({ total, items }: {
-		total: number,
+	constructor({ count, items }: {
+		count: number,
 		items: Array<{
 			block_hash: string;
 			block_number: number;
@@ -244,7 +244,7 @@ export class EthTransactionsBetweenAddresses {
 			}>;
 		}>;
 	}) {
-		this.total = total;
+		this.count = count;
 		this.items = items.map((item) => ({
 			block_hash: item.block_hash,
 			block_number: item.block_number,
@@ -308,7 +308,7 @@ export class EthReceiptLog {
 export class EthFullTransactionReceipt {
 	readonly block_hash: string;
 	readonly block_number: number;
-	readonly contract_address: string|null;
+	readonly contract_address: string | null;
 	readonly cumulative_gas_used: number;
 	readonly gas_used: number;
 	readonly status: boolean;
@@ -321,7 +321,7 @@ export class EthFullTransactionReceipt {
 	constructor(info: {
 		readonly block_hash: string;
 		readonly block_number: number;
-		readonly contract_address: string|null;
+		readonly contract_address: string | null;
 		readonly gas_used: number;
 		readonly cumulative_gas_used: number;
 		readonly logs: EthReceiptLog[]|null;
