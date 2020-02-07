@@ -6,8 +6,9 @@ Pure TypeScript crypto library for node.js and browsers. Can be used to subscrib
 1. [Installation](#installation)
 2. [Examples](#examples)
 3. [Usage](#usage)
-4. [Building](#building)
-5. [License](#license)
+4. [TESTNET Usage](#testnet-usage)
+5. [Building](#building)
+6. [License](#license)
 
 #### Installation
 To include cryptoapi-lib in Node, first install with npm.
@@ -70,6 +71,29 @@ crypto.events.eth.onBlock(1, (event) => { console.log(event); });
 ```
 
 Full documentation about websocket notifications you find by [following link](docs/events/index.md).
+
+#### TESTNET Usage
+
+The library is also working with testnets.
+Documentations about API methods and websocket notifications in each testnet coincides with mainnet docs.
+
+Currently supported:
+
+|  | API | WS |
+| --- | --- | --- |
+| RINKEBY (Ethereum testnet) | [`crypto.api.eth.testnet.rinkeby`](docs/api/ETH.md) | [`crypto.events.eth.testnet.rinkeby`](docs/events/index.md) |
+| BAOBAB (Klaytn testnet) | [`crypto.api.klay.testnet.baobab`](docs/api/KLAY.md) | [`crypto.events.klay.testnet.baobab`](docs/events/index.md) |
+| BTC TESTNET | [`crypto.api.btc.testnet`](docs/api/UTXO.md) | [`crypto.events.btc.testnet`](docs/events/index.md) |
+| BCH TESTNET | [`crypto.api.bch.testnet`](docs/api/UTXO.md) | [`crypto.events.bch.testnet`](docs/events/index.md) |
+
+For example, RINKEBY (get network info and set subscribtion on new block):
+```javascript
+    // network info
+    crypto.api.eth.testnet.rinkeby.getNetworkInfo();
+
+    // subscribtion on new block
+    crypto.events.eth.testnet.rinkeby.onBlock(1, (event) => { console.log(event); });
+```
 
 #### Building
 To build the library or its components yourself, clone it from GitHub and install the development dependencies:

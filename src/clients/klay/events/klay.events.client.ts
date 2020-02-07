@@ -15,12 +15,15 @@ import {
 	TransactionConfirmationNotification,
 	TransferNotification,
 } from '@src/dtos/base/event.notification.dtos';
+import { ServerConfig } from '@src/dtos/crypto.config';
 import {
 	KlayBlockNotification,
 	KlayTransactionNotification,
 } from '@src/dtos/klay/klay.notification.dtos';
 import { InvalidParamsException } from '@src/exceptions/library.exceptions/invalid.params.exceptions';
 import { IKlayEventsClient } from '@src/interfaces/clients/klay/events/klay.events.client.interface';
+import { IKlayTestnetEventsClient } from '@src/interfaces/clients/klay/events/klay.testnet.events.client.interface';
+import { IKlayServerConfig } from '@src/interfaces/configs/crypto.config.interface';
 import { IIdHelper } from '@src/interfaces/providers/helpers/id.helper.interface';
 import { ISubsHelper } from '@src/interfaces/providers/helpers/subs.helper.interface';
 
@@ -81,6 +84,34 @@ export class KlayEventsClient extends
 			case SUBSCRIPTIONS.TOKEN_BALANCE:
 				info.sub!.cb(new TokenBalanceNotification(info.notification));
 		}
+	}
+
+}
+
+@injectable()
+export class KlayEvents extends KlayEventsClient {
+
+	testnet: IKlayTestnetEventsClient;
+
+	constructor(
+		@inject(TYPES_DI.IIdHelper) idHelper: IIdHelper,
+		@inject(TYPES_DI.ISubsHelper) subsHelper: ISubsHelper,
+		@inject(TYPES_DI.IKlayTestnetEventsClient) testnet: IKlayTestnetEventsClient,
+	) {
+		super(idHelper, subsHelper);
+
+		this.testnet = testnet;
+	}
+
+	/**
+	 *  @method configure
+	 *  @param {IKlayServerConfig} config
+	 *  @param {string} token
+	 */
+	configure(config: IKlayServerConfig, token: string) {
+		super.configure(new ServerConfig(config), token);
+
+		this.testnet.configure(config, token);
 	}
 
 }

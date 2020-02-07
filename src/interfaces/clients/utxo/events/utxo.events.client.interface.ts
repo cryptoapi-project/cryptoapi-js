@@ -8,3 +8,7 @@ export interface IUtxoEventsClient extends IBaseEventsClient
 	<UtxoBlockNotification, UtxoTransactionNotification> {
 	configureCoreClient(coreClient: any): void;
 }
+
+export interface IUtxoEvents extends IUtxoEventsClient {
+	testnet: IUtxoEventsClient;
+}

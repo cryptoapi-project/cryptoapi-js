@@ -1,8 +1,27 @@
 # Utxo API cryptoapi-lib
 
 This library provides utxo api methods to work with CryptoAPI.
-List supported utxo coins: btc, bch. All supported utxo coins can work with next api methods. 
+List supported utxo coins: btc, bch. All supported utxo coins can work with next api methods.
 Below are examples with btc.
+
+## Configure API
+
+The library provides the ability to pass a API url and testnet API url.
+
+```javascript
+import { Client } from 'cryptoapi-lib';
+
+const options = {
+    btc: {
+        baseUrl: 'http://localhost:8080',
+        testnet: {
+            api: 'http://localhost:8081',
+        },
+    },
+};
+
+const client = new Client('YOUR-API-KEY', options);
+```
 
 #### Table of Contents
 * [API](#api)
@@ -86,7 +105,7 @@ Example response:
    next_block_hash: '000000006c02c8ea6e4ff69651f7fcde348fb9d557a06e6957b65552002a7820',
    reward: 5000000000,
    transaction_count: 1,
-   transactions: [ 'f0315ffc38709d70ad5647e22048358dd3745f3ce3874223c80a7c92fab0c8ba' ] 
+   transactions: [ 'f0315ffc38709d70ad5647e22048358dd3745f3ce3874223c80a7c92fab0c8ba' ]
 }
 ```
 
@@ -121,7 +140,7 @@ Example response:
    next_block_hash: '000000006c02c8ea6e4ff69651f7fcde348fb9d557a06e6957b65552002a7820',
    reward: 5000000000,
    transaction_count: 1,
-   transactions: [ 'f0315ffc38709d70ad5647e22048358dd3745f3ce3874223c80a7c92fab0c8ba' ] 
+   transactions: [ 'f0315ffc38709d70ad5647e22048358dd3745f3ce3874223c80a7c92fab0c8ba' ]
 }]
 ```
 
@@ -154,23 +173,23 @@ Example response:
   hash: 'fd127bd2992876507ccf668d07e303e11ad8ffbbbb0f5660b0849fd6ba6480db',
   input_count: 1,
   output_count: 2,
-  inputs: [{ 
+  inputs: [{
     previous_transaction_hash: '780f55cc9de739eac02ff525d533bd200df6a8a572f8b17d7201497519ca1b39',
     output_index: 0,
     sequence_number: 4294967295,
-    script: '48304502201fa8715e12869d61a3f11e76006e06fbf17028bf2a190543308e5385c51bc8f00221008e48953e5446dbee687c2e717c94391ae8910696ca1e2f18b9121df07f9f56a10121020a9419f7a9dd8307795923a3a7233bc795c0ee5b4736a225cc12370f83f16414' 
+    script: '48304502201fa8715e12869d61a3f11e76006e06fbf17028bf2a190543308e5385c51bc8f00221008e48953e5446dbee687c2e717c94391ae8910696ca1e2f18b9121df07f9f56a10121020a9419f7a9dd8307795923a3a7233bc795c0ee5b4736a225cc12370f83f16414'
   }],
   outputs: [
-    { 
+    {
         address: 'mjzM1rh1UizEh6N3jy65k9qeYt3C9PYAx9',
         satoshis: 4805387925,
-        script: '76a914310eb34f6bc306db5ef53eca340e0f7e5eefd03a88ac' 
+        script: '76a914310eb34f6bc306db5ef53eca340e0f7e5eefd03a88ac'
     },
-    { 
+    {
         address: 'mqHPFTRk23JZm9W1ANuEFtwTYwxjESSgKs',
         satoshis: 830656,
-        script: '76a9146b2044146a4438e6e5bfbc65f147afeb64d14fbb88ac' 
-    } 
+        script: '76a9146b2044146a4438e6e5bfbc65f147afeb64d14fbb88ac'
+    }
   ]
 }
 ```
@@ -236,7 +255,7 @@ Example response:
 
 #### <a name="btc.getAddressesInfos">btc.getAddressesInfos</a>(addresses: string[]) ⇒ <code>Promise&lt;<a href="#UtxoAddressInfo[]">UtxoAddressInfo[]</a>&gt;</code></dt></dt>
 
-Return JSON data about btc addresses, such as balance. Field balance include spent, unspent, 
+Return JSON data about btc addresses, such as balance. Field balance include spent, unspent,
 confirmed, unconfirmed balance.
 
 Input data:
@@ -326,8 +345,8 @@ Example response:
             {
                 address: "mstvLRTSSEaMGHEUmhUe5CCWYUJ8Z78Y8w",
                 satoshis: 2522100,
-                script: "76a91487c9066f56572bf09770e592418d948a846cf67f88ac", 
-            }, 
+                script: "76a91487c9066f56572bf09770e592418d948a846cf67f88ac",
+            },
             {
                 address: null,
                 satoshis: 0,
@@ -461,7 +480,7 @@ Example response:
 <dt><a href="#TPaginationOptions">TPaginationOptions</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#UtxoRawTransaction">UtxoRawTransaction</a> : <code>Object</code></dt>
-<dd></dd> 
+<dd></dd>
 <dt><a href="#TTransactionsRequest">TTransactionsRequest</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#Transactions">Transactions</a> : <code>Object</code></dt>
@@ -643,4 +662,3 @@ Example response:
     limit: number;
 }
 ```
-

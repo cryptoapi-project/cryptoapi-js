@@ -1,12 +1,12 @@
 import { IConfigurable } from '../configs/configurable.interface';
 import { ICryptoConfig } from '../configs/crypto.config.interface';
-import { IEthEventsClient } from './eth/events/eth.events.client.interface';
-import { IKlayEventsClient } from './klay/events/klay.events.client.interface';
-import { IUtxoEventsClient } from './utxo/events/utxo.events.client.interface';
+import { IEthEvents } from './eth/events/eth.events.interface';
+import { IKlayEvents } from './klay/events/klay.events.interface';
+import { IUtxoEvents } from './utxo/events/utxo.events.client.interface';
 
 export interface IEventsClient extends IConfigurable<ICryptoConfig>  {
-	eth: IEthEventsClient;
-	klay: IKlayEventsClient;
-	btc: IUtxoEventsClient;
-	bch: IUtxoEventsClient;
+	eth: IEthEvents;
+	klay: IKlayEvents;
+	btc: IUtxoEvents;
+	bch: IUtxoEvents;
 }

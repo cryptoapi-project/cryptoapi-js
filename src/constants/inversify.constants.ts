@@ -4,15 +4,32 @@ const TYPES_DI = {
 	IApiClient: Symbol.for('IApiClient'),
 	IEventsClient: Symbol.for('IEventsClient'),
 
-	IEthApiClient: Symbol.for('IEthApiClient'),
-	IKlayApiClient: Symbol.for('IKlayApiClient'),
+	ITestnetApiClient: Symbol.for('ITestnetApiClient'),
+	ITestnetEventsClient: Symbol.for('ITestnetEventsClient'),
+
 	IEthApiFactoryDto: Symbol.for('IEthApiFactoryDto'),
+	IEthApiClient: Symbol.for('IEthApiClient'),
+	IEthTestnetApiClient: Symbol.for('IEthTestnetApiClient'),
+	IEthApi: Symbol.for('IEthApi'),
+
 	IKlayApiFactoryDto: Symbol.for('IKlayApiFactoryDto'),
+	IKlayApiClient: Symbol.for('IKlayApiClient'),
+	IKlayTestnetApiClient: Symbol.for('IKlayTestnetApiClient'),
+	IKlayApi: Symbol.for('IKlayApi'),
 
 	IUtxoApiClient: Symbol.for('IUtxoApiClient'),
+	IUtxoApi: Symbol.for('IUtxoApi'),
+
 	IEthEventsClient: Symbol.for('IEthEventsClient'),
+	IEthTestnetEventsClient: Symbol.for('IEthTestnetEventsClient'),
+	IEthEvents: Symbol.for('IEthEvents'),
+
 	IKlayEventsClient: Symbol.for('IKlayEventsClient'),
+	IKlayTestnetEventsClient: Symbol.for('IKlayTestnetEventsClient'),
+	IKlayEvents: Symbol.for('IKlayEvents'),
+
 	IUtxoEventsClient: Symbol.for('IUtxoEventsClient'),
+	IUtxoEvents: Symbol.for('IUtxoEvents'),
 
 	IEthAddressApi: Symbol.for('IEthAddressApi'),
 	IEthMainInfoApi: Symbol.for('IEthMainInfoApi'),

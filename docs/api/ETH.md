@@ -1,6 +1,27 @@
 # ETH API cryptoapi-lib
 This library provides eth api methods to work with CryptoAPI.
 
+## Configure API
+
+The library provides the ability to pass a API url and testnet API url.
+
+```javascript
+import { Client } from 'cryptoapi-lib';
+
+const options = {
+    eth: {
+        baseUrl: 'http://localhost:8080',
+        testnet: {
+            api: {
+                rinkeby: 'http://localhost:8081',
+            },
+        },
+    },
+};
+
+const client = new Client('YOUR-API-KEY', options);
+```
+
 #### Table of Contents
 * [API](#api)
 * [Typedefs](#typedefs)
@@ -304,7 +325,7 @@ Input data:
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
     const result = await crypto.api.eth.getTokenBalanceByAddresses({
-        tokenAddress: '0x5ae86537ea087929a34b597480fd23144d2dd216', 
+        tokenAddress: '0x5ae86537ea087929a34b597480fd23144d2dd216',
         holderAddresses: ['0xd89f43605f4ccc0935afceba98f3d5d04ce2e390'],
     });
 ```

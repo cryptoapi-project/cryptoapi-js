@@ -17,3 +17,7 @@ export interface IUtxoApiClient extends
 	IUtxoOutputsApi,
 	IConfigurable<IServerConfig> {
 }
+
+export interface IUtxoApi extends IUtxoApiClient {
+	testnet: IUtxoApiClient;
+}

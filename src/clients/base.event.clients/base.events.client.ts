@@ -7,7 +7,7 @@ import { TYPES_DI } from '@src/constants/inversify.constants';
 import { BalanceNotification, TransactionConfirmationNotification } from '@src/dtos/base/event.notification.dtos';
 import { AddressSubscription, TransactionConfirmationSubscription } from '@src/dtos/base/event.subscription.dtos';
 import { IBaseEventsClient } from '@src/interfaces/clients/base.events.client/base.events.client.interface';
-import { IEventsConfig } from '@src/interfaces/configs/crypto.config.interface';
+import { IEventsConfig, IServerConfig } from '@src/interfaces/configs/crypto.config.interface';
 import { IIdHelper } from '@src/interfaces/providers/helpers/id.helper.interface';
 import { ISubsHelper } from '@src/interfaces/providers/helpers/subs.helper.interface';
 
@@ -54,11 +54,11 @@ export abstract class BaseEventsClient<BlockNotification, TransactionNotificatio
 
 	/**
 	 *  @method configure
-	 *  @param {IEventsConfig} config
+	 *  @param {IServerConfig} config
 	 *  @param {string} token
 	 */
-	configure(config: IEventsConfig, token: string) {
-		this.config = config;
+	configure(config: IServerConfig, token: string) {
+		this.config = config.events;
 		this.token = token;
 	}
 
@@ -320,6 +320,7 @@ export abstract class BaseEventsClient<BlockNotification, TransactionNotificatio
 			if (this.config!.attempts && attempt > this.config!.attempts) {
 				this.pendingSubscribers.forEach((cb) => { cb('Disconnected'); });
 				this.pendingUnsubscribers.forEach((cb) => { cb('Disconnected'); });
+				clearInterval(this.reconnectingInterval);
 				throw new Error('Connection attempts are over');
 			}
 

@@ -8,12 +8,14 @@ import {
 	BalanceNotification,
 	TransactionConfirmationNotification,
 } from '@src/dtos/base/event.notification.dtos';
+import { ServerConfig } from '@src/dtos/crypto.config';
 import {
 	UtxoBlockNotification,
 	UtxoTransactionNotification,
 } from '@src/dtos/utxo/utxo.notification.dtos';
 import { InvalidParamsException } from '@src/exceptions/library.exceptions/invalid.params.exceptions';
 import { IUtxoEventsClient } from '@src/interfaces/clients/utxo/events/utxo.events.client.interface';
+import { IUtxoServerConfig } from '@src/interfaces/configs/crypto.config.interface';
 import { IIdHelper } from '@src/interfaces/providers/helpers/id.helper.interface';
 import { ISubsHelper } from '@src/interfaces/providers/helpers/subs.helper.interface';
 
@@ -76,4 +78,32 @@ export class UtxoEventsClient extends
 			throw new InvalidParamsException(`Invalid ${key}`);
 		}
 	}
+}
+
+@injectable()
+export class UtxoEvents extends UtxoEventsClient {
+
+	testnet: IUtxoEventsClient;
+
+	constructor(
+		@inject(TYPES_DI.IIdHelper) idHelper: IIdHelper,
+		@inject(TYPES_DI.ISubsHelper) subsHelper: ISubsHelper,
+		@inject(TYPES_DI.IUtxoEventsClient) testnet: IUtxoEventsClient,
+	) {
+		super(idHelper, subsHelper);
+
+		this.testnet = testnet;
+	}
+
+	/**
+	 *  @method configure
+	 *  @param {IUtxoServerConfig} config
+	 *  @param {string} token
+	 */
+	configure(config: IUtxoServerConfig, token: string) {
+		super.configure(new ServerConfig(config), token);
+
+		this.testnet.configure(config, token);
+	}
+
 }

@@ -1,24 +1,24 @@
 import { inject, injectable } from 'inversify';
 
 import { TYPES_DI } from '../constants/inversify.constants';
-import { IEthEventsClient } from '../interfaces/clients/eth/events/eth.events.client.interface';
+import { IEthEvents } from '../interfaces/clients/eth/events/eth.events.interface';
 import { IEventsClient } from '../interfaces/clients/events.client.interface';
-import { IKlayEventsClient } from '../interfaces/clients/klay/events/klay.events.client.interface';
-import { IUtxoEventsClient } from '../interfaces/clients/utxo/events/utxo.events.client.interface';
+import { IKlayEvents } from '../interfaces/clients/klay/events/klay.events.interface';
+import { IUtxoEvents } from '../interfaces/clients/utxo/events/utxo.events.client.interface';
 import { ICryptoConfig } from '../interfaces/configs/crypto.config.interface';
 
 @injectable()
 export class EventsClient implements IEventsClient {
-	eth: IEthEventsClient;
-	klay: IKlayEventsClient;
-	btc: IUtxoEventsClient;
-	bch: IUtxoEventsClient;
+	eth: IEthEvents;
+	klay: IKlayEvents;
+	btc: IUtxoEvents;
+	bch: IUtxoEvents;
 
 	constructor(
-		@inject(TYPES_DI.IEthEventsClient) eth: IEthEventsClient,
-		@inject(TYPES_DI.IKlayEventsClient) klay: IKlayEventsClient,
-		@inject(TYPES_DI.IUtxoEventsClient) btc: IUtxoEventsClient,
-		@inject(TYPES_DI.IUtxoEventsClient) bch: IUtxoEventsClient,
+		@inject(TYPES_DI.IEthEvents) eth: IEthEvents,
+		@inject(TYPES_DI.IKlayEvents) klay: IKlayEvents,
+		@inject(TYPES_DI.IUtxoEvents) btc: IUtxoEvents,
+		@inject(TYPES_DI.IUtxoEvents) bch: IUtxoEvents,
 	) {
 		this.eth = eth;
 		this.klay = klay;
@@ -41,10 +41,11 @@ export class EventsClient implements IEventsClient {
 			return;
 		}
 
-		this.eth.configure(config.eth.events, config.token);
-		this.klay.configure(config.klay.events, config.token);
-		this.btc.configure(config.btc.events, config.token);
-		this.bch.configure(config.bch.events, config.token);
+		this.eth.configure(config.eth, config.token);
+		this.klay.configure(config.klay, config.token);
+		this.btc.configure(config.btc, config.token);
+		this.bch.configure(config.bch, config.token);
+
 		this.bch.configureCoreClient(this._coreLibBch);
 		this.btc.configureCoreClient(this._coreLibBtc);
 	}

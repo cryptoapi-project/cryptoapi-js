@@ -13,11 +13,42 @@ type TCoinConfig = {
 	};
 };
 
+type TEthConfig = TCoinConfig & {
+	testnet?: {
+		api?: {
+			rinkeby?: string;
+			// ropsten?: string;
+			// kovan?: string;
+		};
+		events?: {
+			rinkeby?: string;
+		};
+	};
+};
+
+type TKlayConfig = TCoinConfig & {
+	testnet?: {
+		api?: {
+			baobab?: string;
+		};
+		events?: {
+			baobab?: string;
+		};
+	};
+};
+
+type TUtxoConfig = TCoinConfig & {
+	testnet?: {
+		api?: string;
+		events?: string;
+	};
+};
+
 export type TPublicConfig = {
 	token?: string;
 	timeout?: number;
-	eth?: TCoinConfig;
-	klay?: TCoinConfig;
-	btc?: TCoinConfig;
-	bch?: TCoinConfig;
+	eth?: TEthConfig;
+	klay?: TKlayConfig;
+	btc?: TUtxoConfig;
+	bch?: TUtxoConfig;
 };

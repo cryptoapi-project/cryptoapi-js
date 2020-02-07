@@ -9,4 +9,3 @@ Full documentation about API methods you find by the following links:
 - [KLAY API](KLAY.md)
 - [BTC API](UTXO.md)
 - [BCH API](UTXO.md)
-

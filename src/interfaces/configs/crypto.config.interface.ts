@@ -16,11 +16,40 @@ export interface IServerConfig {
 	events: IEventsConfig;
 }
 
+export interface IEthServerConfig extends IServerConfig {
+	testnet: {
+		api: {
+			rinkeby: string;
+		};
+		events: {
+			rinkeby: string;
+		};
+	};
+}
+
+export interface IKlayServerConfig extends IServerConfig {
+	testnet: {
+		api: {
+			baobab: string;
+		};
+		events: {
+			baobab: string;
+		};
+	};
+}
+
+export interface IUtxoServerConfig extends IServerConfig {
+	testnet: {
+		api: string;
+		events: string;
+	};
+}
+
 export interface ICryptoOptions {
-	eth: IServerConfig;
-	klay: IServerConfig;
-	btc: IServerConfig;
-	bch: IServerConfig;
+	eth: IEthServerConfig;
+	klay: IKlayServerConfig;
+	btc: IUtxoServerConfig;
+	bch: IUtxoServerConfig;
 	timeout: number;
 }
 

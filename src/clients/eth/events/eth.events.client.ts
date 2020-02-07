@@ -13,12 +13,15 @@ import {
 	TransactionConfirmationNotification,
 	TransferNotification,
 } from '@src/dtos/base/event.notification.dtos';
+import { ServerConfig } from '@src/dtos/crypto.config';
 import {
 	EthBlockNotification,
 	EthTransactionNotification,
 } from '@src/dtos/eth/eth.notification.dtos';
 import { InvalidParamsException } from '@src/exceptions/library.exceptions/invalid.params.exceptions';
 import { IEthEventsClient } from '@src/interfaces/clients/eth/events/eth.events.client.interface';
+import { IEthTestnetEventsClient } from '@src/interfaces/clients/eth/events/eth.testnet.events.client.interface';
+import { IEthServerConfig } from '@src/interfaces/configs/crypto.config.interface';
 import { IIdHelper } from '@src/interfaces/providers/helpers/id.helper.interface';
 import { ISubsHelper } from '@src/interfaces/providers/helpers/subs.helper.interface';
 
@@ -77,6 +80,34 @@ export class EthEventsClient extends BaseContractEventsClient<EthBlockNotificati
 			case SUBSCRIPTIONS.TOKEN_BALANCE:
 				info.sub!.cb(new TokenBalanceNotification(info.notification));
 		}
+	}
+
+}
+
+@injectable()
+export class EthEvents extends EthEventsClient {
+
+	testnet: IEthTestnetEventsClient;
+
+	constructor(
+		@inject(TYPES_DI.IIdHelper) idHelper: IIdHelper,
+		@inject(TYPES_DI.ISubsHelper) subsHelper: ISubsHelper,
+		@inject(TYPES_DI.IEthTestnetEventsClient) testnet: IEthTestnetEventsClient,
+	) {
+		super(idHelper, subsHelper);
+
+		this.testnet = testnet;
+	}
+
+	/**
+	 *  @method configure
+	 *  @param {IEthServerConfig} config
+	 *  @param {string} token
+	 */
+	configure(config: IEthServerConfig, token: string) {
+		super.configure(new ServerConfig(config), token);
+
+		this.testnet.configure(config, token);
 	}
 
 }

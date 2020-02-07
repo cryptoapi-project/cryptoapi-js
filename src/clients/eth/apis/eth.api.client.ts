@@ -1,6 +1,7 @@
 import { inject, injectable } from 'inversify';
 
 import { TYPES_DI } from '@src/constants/inversify.constants';
+import { ServerConfig } from '@src/dtos/crypto.config';
 import { EthAddressBalance } from '@src/dtos/eth/eth.address.balance';
 import { EthAddressInfo } from '@src/dtos/eth/eth.address.info';
 import { EthBlockInfo, EthBlocksResponse } from '@src/dtos/eth/eth.block.dtos';
@@ -30,7 +31,8 @@ import { IEthNotifyApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth
 import { IEthRawTransactionApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.raw.transaction.interface';
 import { IEthTokenApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.token.api.interface';
 import { IEthTransactionsApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.transactions.interface';
-import { IServerConfig } from '@src/interfaces/configs/crypto.config.interface';
+import { IEthTestnetApiClient } from '@src/interfaces/clients/eth/apis/eth.testnet.api.client.interface';
+import { IEthServerConfig, IServerConfig } from '@src/interfaces/configs/crypto.config.interface';
 import { TryCatch } from '@src/providers/decorators/try.catch';
 import { TContractCall } from '@src/types/eth/call.contract.type';
 import { TContractLogsRequest } from '@src/types/eth/contract.logs.request.type';
@@ -396,15 +398,15 @@ export class BaseEthApiClient<
 
 @injectable()
 export class EthApiClient extends BaseEthApiClient<
-EthNetworkInfo, EstimateGasResponse,
-EthAddressBalance, EthAddressInfo,
-EthTokenInfo, EthTokenBalanceByHoldersOut, EthTokenSearchResponse, EthTokenTransfersResponse,
-EthBlockInfo, EthBlocksResponse,
-EthContract, EthContractLog,
-EthRawTransaction,
-EthTransfers, EthExternalTransactions,
-EthFullTransaction, EthTransactionsBetweenAddresses,
-EthFullTransactionReceipt
+	EthNetworkInfo, EstimateGasResponse,
+	EthAddressBalance, EthAddressInfo,
+	EthTokenInfo, EthTokenBalanceByHoldersOut, EthTokenSearchResponse, EthTokenTransfersResponse,
+	EthBlockInfo, EthBlocksResponse,
+	EthContract, EthContractLog,
+	EthRawTransaction,
+	EthTransfers, EthExternalTransactions,
+	EthFullTransaction, EthTransactionsBetweenAddresses,
+	EthFullTransactionReceipt
 > {
 	constructor(
 		@inject(TYPES_DI.IEthMainInfoApi) mainInfo: IEthMainInfoApi<EthNetworkInfo, EstimateGasResponse>,
@@ -423,7 +425,66 @@ EthFullTransactionReceipt
 		>,
 		@inject(TYPES_DI.IEthApiFactoryDto) factory: IEthApiFactoryDto,
 	) {
-		super(mainInfo, tokenInfo, addressInfo, contractApi, notifyApi, rawTransactionApi,
-			block, transactions, factory);
+		super(
+			mainInfo,
+			tokenInfo,
+			addressInfo,
+			contractApi,
+			notifyApi,
+			rawTransactionApi,
+			block,
+			transactions,
+			factory,
+		);
+	}
+}
+
+@injectable()
+export class EthApi extends EthApiClient {
+	testnet: IEthTestnetApiClient;
+
+	constructor(
+		@inject(TYPES_DI.IEthMainInfoApi) mainInfo: IEthMainInfoApi<EthNetworkInfo, EstimateGasResponse>,
+		@inject(TYPES_DI.IEthTokenApi) tokenInfo: IEthTokenApi<
+			EthTokenInfo, EthTokenBalanceByHoldersOut, EthTokenSearchResponse, EthTokenTransfersResponse
+		>,
+		@inject(TYPES_DI.IEthAddressApi) addressInfo: IEthAddressApi<EthAddressBalance, EthAddressInfo>,
+		@inject(TYPES_DI.IEthContractApi) contractApi: IEthContractApi<EthContract, EthContractLog>,
+		@inject(TYPES_DI.IEthNotifyApi) notifyApi: IEthNotifyApi,
+		@inject(TYPES_DI.IEthRawTransactionApi) rawTransactionApi: IEthRawTransactionApi<EthRawTransaction>,
+		@inject(TYPES_DI.IEthBlockApi) block: IEthBlockApi<EthBlockInfo, EthBlocksResponse>,
+		@inject(TYPES_DI.IEthTransactionsApi) transactions: IEthTransactionsApi<
+			EthTransfers, EthExternalTransactions,
+			EthFullTransaction, EthTransactionsBetweenAddresses,
+			EthFullTransactionReceipt
+		>,
+		@inject(TYPES_DI.IEthApiFactoryDto) factory: IEthApiFactoryDto,
+		@inject(TYPES_DI.IEthTestnetApiClient) testnet: IEthTestnetApiClient,
+
+	) {
+		super(
+			mainInfo,
+			tokenInfo,
+			addressInfo,
+			contractApi,
+			notifyApi,
+			rawTransactionApi,
+			block,
+			transactions,
+			factory,
+		);
+
+		this.testnet = testnet;
+	}
+
+	/**
+	 * Set config to eth api.
+	 * @method configure
+	 * @param {IEthServerConfig} config
+	 * @return {void}
+	 */
+	configure(config: IEthServerConfig) {
+		super.configure(new ServerConfig(config));
+		this.testnet.configure(config);
 	}
 }

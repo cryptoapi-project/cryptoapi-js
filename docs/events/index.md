@@ -13,11 +13,12 @@ Library provides eth websocket subscribers to work with CryptoAPI.
 ## Configure Events Clients
 
 Library supports eth, btc events client.
-Crypto events client provides the ability to pass a connection url.
+Crypto events client provides the ability to pass a connection urls for mainnets and testnets.
 Also configuration allows you to set automatically reconnect.
 Set in options parameters for reconnect (count of attempts and timeout between them).
 If you want automatically resubscribe, you can set following option.
- Below are examples configure with eth client.
+
+Below are examples configure with eth client.
 
 ```javascript
 import { Client } from 'cryptoapi-lib';
@@ -30,6 +31,11 @@ const options = {
             attempts: 10,
             timeout: 1000,
             resubscribe: true,
+        },
+        testnet: {
+            events: {
+                rinkeby: 'ws://localhost:8081'
+            },
         },
     },
 };

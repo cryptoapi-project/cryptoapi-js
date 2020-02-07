@@ -1,6 +1,7 @@
 import { inject, injectable } from 'inversify';
 
 import { TYPES_DI } from '@src/constants/inversify.constants';
+import { ServerConfig } from '@src/dtos/crypto.config';
 import { IUtxoApiClient } from '@src/interfaces/clients/utxo/apis/utxo.api.client.interface';
 import { IUtxoAddressApi } from '@src/interfaces/clients/utxo/apis/utxo.sub.apis/utxo.address.api.interface';
 import { IUtxoBlockApi } from '@src/interfaces/clients/utxo/apis/utxo.sub.apis/utxo.block.interface';
@@ -8,7 +9,7 @@ import { IUtxoMainInfoApi } from '@src/interfaces/clients/utxo/apis/utxo.sub.api
 import { IUtxoOutputsApi } from '@src/interfaces/clients/utxo/apis/utxo.sub.apis/utxo.outputs.interface';
 import { IUtxoRawTransactionApi } from '@src/interfaces/clients/utxo/apis/utxo.sub.apis/utxo.raw.transaction.interface';
 import { IUtxoTransactionsApi } from '@src/interfaces/clients/utxo/apis/utxo.sub.apis/utxo.transactions.interface';
-import { IServerConfig } from '@src/interfaces/configs/crypto.config.interface';
+import { IServerConfig, IUtxoServerConfig } from '@src/interfaces/configs/crypto.config.interface';
 import { TryCatch } from '@src/providers/decorators/try.catch';
 import { TPaginationOptions } from '@src/types/paginations.options.type';
 import { TUtxoOutputsOptions } from '@src/types/utxo/utxo.outputs.options';
@@ -153,4 +154,42 @@ export class UtxoApiClient implements IUtxoApiClient {
 	getOutputsByAddresses(addresses: string[], options: TUtxoOutputsOptions) {
 		return this.utxoOutputsApi.getOutputsByAddresses(addresses, options);
 	}
+}
+
+@injectable()
+export class UtxoApi extends UtxoApiClient {
+	testnet: IUtxoApiClient;
+
+	constructor(
+		@inject(TYPES_DI.IUtxoMainInfoApi) private readonly mainInfo: IUtxoMainInfoApi,
+		@inject(TYPES_DI.IUtxoBlockApi) private readonly blockApi: IUtxoBlockApi,
+		@inject(TYPES_DI.IUtxoRawTransactionApi) private readonly rawTransactionApi: IUtxoRawTransactionApi,
+		@inject(TYPES_DI.IUtxoTransactionsApi) private readonly transactionsApi: IUtxoTransactionsApi,
+		@inject(TYPES_DI.IUtxoAddressApi) private readonly addressApi: IUtxoAddressApi,
+		@inject(TYPES_DI.IUtxoOutputsApi) private readonly outputsApi: IUtxoOutputsApi,
+		@inject(TYPES_DI.IUtxoApiClient) testnet: IUtxoApiClient,
+	) {
+		super(
+			mainInfo,
+			blockApi,
+			rawTransactionApi,
+			transactionsApi,
+			addressApi,
+			outputsApi,
+		);
+
+		this.testnet = testnet;
+	}
+
+	/**
+	 * Set config to utxo api.
+	 * @method configure
+	 * @param {IUtxoServerConfig} config
+	 * @return {void}
+	 */
+	configure(config: IUtxoServerConfig) {
+		super.configure(new ServerConfig(config));
+		this.testnet.configure({ ...config, baseUrl: config.testnet.api });
+	}
+
 }
