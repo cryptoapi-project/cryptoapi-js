@@ -40,6 +40,8 @@ export const BASE_CONFIG = {
 		attempts: BASE_WS_ATTEMPTS,
 		timeout: BASE_WS_TIMEOUT,
 		resubscribe: BASE_WS_RESUBSCRIBE,
+		ping: 30 * 1000,
+		pong: 5 * 1000,
 	},
 };
 

@@ -201,6 +201,8 @@ export abstract class BaseEventsClient<BlockNotification, TransactionNotificatio
 			this.pendingSubscribers = new Map();
 		}
 
+		clearInterval(this.pingInterval);
+
 		if (this.config!.reconnect) {
 			this.reconnect();
 		}
@@ -278,6 +280,11 @@ export abstract class BaseEventsClient<BlockNotification, TransactionNotificatio
 				}
 
 				if (!this.ws?.readyState) {
+					return;
+				}
+
+				if (this.ws && this.ws.readyState > 1) {
+					this.onClose();
 					return;
 				}
 
