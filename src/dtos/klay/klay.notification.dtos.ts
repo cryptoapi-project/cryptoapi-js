@@ -109,6 +109,8 @@ export class KlayBlockNotification {
 
 export class KlayTransactionNotification {
 
+	block_hash: string;
+	block_number: number;
 	utc: string;
 	from: string;
 	gas: number;
@@ -118,6 +120,17 @@ export class KlayTransactionNotification {
 	nonce: number;
 	to: string;
 	value: string;
+	transaction_index: number;
+
+	type: string;
+	type_int: number;
+	code_format?: string;
+	fee_payer?: string;
+	fee_ratio?: string;
+	human_readable?: boolean;
+	key?: string;
+	sender_tx_hash?: string;
+
 	internal_transactions: Array<{
 		to: string;
 		from: string;
@@ -127,6 +140,11 @@ export class KlayTransactionNotification {
 	}>;
 
 	constructor(notification: {
+		block_hash: string;
+		block_number: number;
+		transaction_index: number;
+		type: string;
+		type_int: number;
 		utc: string;
 		from: string;
 		gas: number;
@@ -144,6 +162,11 @@ export class KlayTransactionNotification {
 			type: string;
 		}>;
 	}) {
+		this.block_hash = notification.block_hash;
+		this.block_number = notification.block_number;
+		this.transaction_index = notification.transaction_index;
+		this.type = notification.type;
+		this.type_int = notification.type_int;
 		this.utc = notification.utc;
 		this.from = notification.from;
 		this.gas = notification.gas;

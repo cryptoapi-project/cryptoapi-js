@@ -393,22 +393,7 @@ console.log(client.events.eth.connected);
     gas_limit: number;
     gas_used: number;
     utc: string;
-    transactions: Array<{
-        block_hash: string;
-        block_number: number;
-        from: string;
-        gas: number;
-        gas_price: string;
-        hash: string;
-        input: string;
-        nonce: number;
-        to: string;
-        transaction_index: number;
-        value: string;
-        v: string;
-        r: string;
-        s: string;
-    }>;
+    count_transaction: number;
 }
 ```
 
@@ -564,7 +549,6 @@ console.log(client.events.eth.connected);
     reward: number;
     status: string;
     transaction_count: number;
-    transactions: Transaction[];
 }
 ```
 

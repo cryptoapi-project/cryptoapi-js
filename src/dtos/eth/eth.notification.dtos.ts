@@ -16,22 +16,7 @@ export class EthBlockNotification {
 	gas_limit: number;
 	gas_used: number;
 	utc: string;
-	transactions: Array<{
-		block_hash: string;
-		block_number: number;
-		from: string;
-		gas: number;
-		gas_price: string;
-		hash: string;
-		input: string;
-		nonce: number;
-		to: string;
-		transaction_index: number;
-		value: string;
-		v: string;
-		r: string;
-		s: string;
-	}>;
+	count_transactions: number;
 
 	constructor(notification: {
 		size: number;
@@ -50,23 +35,7 @@ export class EthBlockNotification {
 		gas_limit: number;
 		gas_used: number;
 		utc: string;
-		transactions: Array<{
-			block_hash: string;
-			block_number: number;
-			from: string;
-			gas: number;
-			gas_price: string;
-			hash: string;
-			input: string;
-			nonce: number;
-			to: string;
-			transaction_index: number;
-			value: string;
-			v: string;
-			r: string;
-			s: string;
-		}>;
-
+		count_transactions: number;
 	}) {
 		this.size = notification.size;
 		this.difficulty = notification.difficulty;
@@ -84,22 +53,7 @@ export class EthBlockNotification {
 		this.gas_limit = notification.gas_limit;
 		this.gas_used = notification.gas_used;
 		this.utc = notification.utc;
-		this.transactions = notification.transactions.map((tr) => ({
-			block_hash: tr.block_hash,
-			block_number: tr.block_number,
-			from: tr.from,
-			gas: tr.gas,
-			gas_price: tr.gas_price,
-			hash: tr.hash,
-			input: tr.input,
-			nonce: tr.nonce,
-			to: tr.to,
-			transaction_index: tr.transaction_index,
-			value: tr.value,
-			v: tr.v,
-			r: tr.r,
-			s: tr.s,
-		}));
+		this.count_transactions = notification.count_transactions;
 	}
 
 }
