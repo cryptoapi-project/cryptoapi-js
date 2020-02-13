@@ -44,7 +44,7 @@ client.events.eth.onBlock(1, (message) => { console.log(message) });
 
 // Notification example
 > {
-    count_transaction: 1,
+    count_transactions: 1,
     size: 1660,
     difficulty: '2',
     total_difficulty: '9616152',
