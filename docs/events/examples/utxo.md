@@ -44,7 +44,7 @@ client.events.btc.onBlock(1, (message) => { console.log(message) });
    status: "processing",
    time: "2015-04-28T13:16:01.000Z",
    time_normalized: "2015-04-28T13:35:54.023Z",
-   transaction_count: 1
+   count_transactions: 1
 }
 ```
 

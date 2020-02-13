@@ -548,7 +548,7 @@ console.log(client.events.eth.connected);
     next_block_hash: string;
     reward: number;
     status: string;
-    transaction_count: number;
+    count_transactions: number;
 }
 ```
 
