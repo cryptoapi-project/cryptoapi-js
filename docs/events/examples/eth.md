@@ -44,25 +44,7 @@ client.events.eth.onBlock(1, (message) => { console.log(message) });
 
 // Notification example
 > {
-    transactions:
-    [
-        {
-            block_hash: '0xd017205c2f3ea9ca37d4a6fef7a27e0d769d618530c68d1345588f9fadb30f10',
-            block_number: 5296363,
-            from: '0x9cca9a56ceabec5bfc23f9f2d2da4e5a6c8c1195',
-            gas: 6000000,
-            gas_price: '10000000000',
-            hash: '0x0921cfdb57299723a80a360a343608486b1aacb9b3f567890a530a025644ff1c',
-            input: '0x155fa82c',
-            nonce: 12330,
-            to: '0x1cddd028e63d0ff555b9de49e9b436c4e14309fc',
-            transaction_index: 0,
-            value: '0',
-            v: '0x1c',
-            r: '0x141d97be0f7279b7766e87dfe3351cbe4957ff6d1c9e954ea41d0b6e60c196e',
-            s: '0x657eb476b56149a62892e1b2d8091b7dd84cb5adec1ed036ce6b5ba8af17c7b1',
-        },
-    ],
+    count_transactions: 1,
     size: 1660,
     difficulty: '2',
     total_difficulty: '9616152',

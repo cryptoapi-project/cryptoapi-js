@@ -44,45 +44,7 @@ client.events.btc.onBlock(1, (message) => { console.log(message) });
    status: "processing",
    time: "2015-04-28T13:16:01.000Z",
    time_normalized: "2015-04-28T13:35:54.023Z",
-   transaction_count: 1,
-   transactions: [
-        {
-            block_hash: "000000000003a566221cba18f0126fe1acb495df4459e5f274fc42f124417dc4",
-            block_height: 374453,
-            block_time: "2015-04-28T13:16:01.000Z",
-            block_time_normalized: "2015-04-28T13:35:54.023Z",
-            fee: 0,
-            hash: "0a146f8c7583282c70aa1d80970f2190fd8c1126214ec86d7c81f05e5a0acc4d",
-            input_count: 1,
-            mempool_time: null,
-            n_lock_time: 0,
-            output_count: 3,
-            size: 195,
-            value: 2500021000,
-            addresses: [
-                "myqzZmRvoXmrhsrM5STiMGtNRxCFArHWRd",
-                "msTiK9Wk3xL6g54GEBiXvWkxR3baSUhFrk",
-                "mwhdUvp73wiR6gKWWzz7PhUSGc4caUCEw6",
-            ],
-            inputs: [
-                {
-                    address: null,
-                    output_index: 4294967295,
-                    previous_transaction_hash: "0000000000000000000000000000000000000000000000000000000000000000",
-                    script: null,
-                    sequence_number: 4294967295,
-                }
-            ],         
-            legacy_addresses: [],
-            outputs: [
-                {
-                    address: "myqzZmRvoXmrhsrM5STiMGtNRxCFArHWRd",
-                    satoshis: 2487520896,
-                    script: "dqkUyQwQI5PCi+n0kFgt2HuxtQztgmqIrA==",
-                }   
-            ]    
-        }
-    ]
+   count_transactions: 1
 }
 ```
 

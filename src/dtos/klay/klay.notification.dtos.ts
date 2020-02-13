@@ -20,19 +20,7 @@ export class KlayBlockNotification {
 	gas_limit: number;
 	gas_used: number;
 	utc: string;
-	transactions: Array<{
-		block_hash: string;
-		block_number: number;
-		from: string;
-		gas: number;
-		gas_price: string;
-		hash: string;
-		input: string;
-		nonce: number;
-		to: string;
-		transaction_index: number;
-		value: string;
-	}>;
+	count_transactions: number;
 
 	constructor(notification: {
 		size: number;
@@ -55,20 +43,7 @@ export class KlayBlockNotification {
 		gas_limit: number;
 		gas_used: number;
 		utc: string;
-		transactions: Array<{
-			block_hash: string;
-			block_number: number;
-			from: string;
-			gas: number;
-			gas_price: string;
-			hash: string;
-			input: string;
-			nonce: number;
-			to: string;
-			transaction_index: number;
-			value: string;
-		}>;
-
+		count_transactions: number;
 	}) {
 		this.size = notification.size;
 		this.block_score = notification.block_score;
@@ -90,25 +65,15 @@ export class KlayBlockNotification {
 		this.gas_limit = notification.gas_limit;
 		this.gas_used = notification.gas_used;
 		this.utc = notification.utc;
-		this.transactions = notification.transactions.map((tr) => ({
-			block_hash: tr.block_hash,
-			block_number: tr.block_number,
-			from: tr.from,
-			gas: tr.gas,
-			gas_price: tr.gas_price,
-			hash: tr.hash,
-			input: tr.input,
-			nonce: tr.nonce,
-			to: tr.to,
-			transaction_index: tr.transaction_index,
-			value: tr.value,
-		}));
+		this.count_transactions = notification.count_transactions;
 	}
 
 }
 
 export class KlayTransactionNotification {
 
+	block_hash: string;
+	block_number: number;
 	utc: string;
 	from: string;
 	gas: number;
@@ -118,6 +83,17 @@ export class KlayTransactionNotification {
 	nonce: number;
 	to: string;
 	value: string;
+	transaction_index: number;
+
+	type: string;
+	type_int: number;
+	code_format?: string;
+	fee_payer?: string;
+	fee_ratio?: string;
+	human_readable?: boolean;
+	key?: string;
+	sender_tx_hash?: string;
+
 	internal_transactions: Array<{
 		to: string;
 		from: string;
@@ -127,6 +103,11 @@ export class KlayTransactionNotification {
 	}>;
 
 	constructor(notification: {
+		block_hash: string;
+		block_number: number;
+		transaction_index: number;
+		type: string;
+		type_int: number;
 		utc: string;
 		from: string;
 		gas: number;
@@ -144,6 +125,11 @@ export class KlayTransactionNotification {
 			type: string;
 		}>;
 	}) {
+		this.block_hash = notification.block_hash;
+		this.block_number = notification.block_number;
+		this.transaction_index = notification.transaction_index;
+		this.type = notification.type;
+		this.type_int = notification.type_int;
 		this.utc = notification.utc;
 		this.from = notification.from;
 		this.gas = notification.gas;

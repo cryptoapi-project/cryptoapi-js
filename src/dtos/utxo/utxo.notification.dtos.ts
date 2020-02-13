@@ -13,8 +13,7 @@ export class UtxoBlockNotification {
 	next_block_hash: string;
 	reward: number;
 	status: string;
-	transaction_count: number;
-	transactions: UtxoTransactionNotification[];
+	count_transactions: number;
 
 	constructor(notification: {
 		hash: string;
@@ -31,8 +30,7 @@ export class UtxoBlockNotification {
 		next_block_hash: string;
 		reward: number;
 		status: string;
-		transaction_count: number;
-		transactions: UtxoTransactionNotification[];
+		count_transactions: number;
 	}) {
 		this.hash = notification.hash;
 		this.bits = notification.bits;
@@ -48,8 +46,7 @@ export class UtxoBlockNotification {
 		this.next_block_hash = notification.next_block_hash;
 		this.reward = notification.reward;
 		this.status = notification.status;
-		this.transaction_count = notification.transaction_count;
-		this.transactions = notification.transactions;
+		this.count_transactions = notification.count_transactions;
 	}
 
 }
