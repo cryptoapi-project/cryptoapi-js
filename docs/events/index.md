@@ -393,7 +393,7 @@ console.log(client.events.eth.connected);
     gas_limit: number;
     gas_used: number;
     utc: string;
-    count_transaction: number;
+    count_transactions: number;
 }
 ```
 
