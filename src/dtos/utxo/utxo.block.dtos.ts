@@ -10,7 +10,7 @@ export class UtxoBlockInfo {
 	previous_block_hash: string;
 	next_block_hash: string;
 	reward: number;
-	transaction_count: number;
+	count_transactions: number;
 
 	constructor(info: {
 		height: number,
@@ -24,7 +24,7 @@ export class UtxoBlockInfo {
 		previous_block_hash: string,
 		next_block_hash: string,
 		reward: number,
-		transaction_count: number,
+		count_transactions: number,
 	}) {
 		this.height = info.height;
 		this.hash = info.hash;
@@ -37,6 +37,6 @@ export class UtxoBlockInfo {
 		this.previous_block_hash = info.previous_block_hash;
 		this.next_block_hash = info.next_block_hash;
 		this.reward = info.reward;
-		this.transaction_count = info.transaction_count;
+		this.count_transactions = info.count_transactions;
 	}
 }
