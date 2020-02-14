@@ -18,7 +18,7 @@ export class UtxoMainInfoApi extends AbstractApi implements IUtxoMainInfoApi {
 	/**
 	 * Method to get network information.
 	 * @method getNetworkInfo
-	 * @return {Promise<UtxoNetworkInfo>>}
+	 * @return {Promise<UtxoNetworkInfo>}
 	 */
 	async getNetworkInfo(): Promise<UtxoNetworkInfo> {
 		this._checkConfig();
@@ -27,6 +27,20 @@ export class UtxoMainInfoApi extends AbstractApi implements IUtxoMainInfoApi {
 			`${this.config!.baseUrl}/coins/${this.config!.coin}/network`,
 		);
 		return new UtxoNetworkInfo(networkInfo.data);
+	}
+
+	/**
+	 * Method to get estimate transaction fee per kilobyte.
+	 * @method getEstimateFee
+	 * @return {Promise<string>}
+	 */
+	async getEstimateFee(): Promise<string> {
+		this._checkConfig();
+
+		const networkInfo = await this.httpService.agent.get<string>(
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/estimate-fee`,
+		);
+		return networkInfo.data;
 	}
 
 }
