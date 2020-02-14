@@ -55,7 +55,7 @@ const client = new Client('YOUR-API-KEY', options);
 <dd></dd>
 </dl>
 
-#### <a name="btc.getNetworkInfo">btc.getNetworkInfo()</a> ⇒ <code>Promise&lt;string&gt;</code></dt></dt>
+#### <a name="btc.getNetworkInfo">btc.getNetworkInfo()</a> ⇒ <code><a href="#UtxoNetworkInfo">Promise&lt;UtxoNetworkInfo&gt;</a></code></dt></dt>
 Returns JSON data about a network information such as last block, count transactions,
 current hash rate, difficulty and estimate rate per kb.
 
@@ -76,7 +76,7 @@ Example response:
 }
 ```
 
-#### <a name="btc.getEstimateFee">btc.getEstimateFee()</a> ⇒ <code><a href="#UtxoNetworkInfo">Promise&lt;UtxoNetworkInfo&gt;</a></code></dt></dt>
+#### <a name="btc.getEstimateFee">btc.getEstimateFee()</a> ⇒ <code>Promise&lt;string&gt;</code></dt></dt>
 Returns estimate transaction fee per kilobyte (BTC/kb).
 
 ```javascript
