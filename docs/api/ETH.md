@@ -151,7 +151,7 @@ Example response:
     utc: '2019-11-22T16:10:29.000Z',
     total_difficulty: 9969080,
     transaction_root: '0xba02eb65dbd8629bf13b0819e5a7e0158dfcfcc64b7c1922a794b2f6824f8b42',
-    transactions: ['0xec4f7a1a8bfbac44fd2d9af09a7291217668a6b834a54fa186a9cf613d65ca34'],
+    count_transactions: 1,
     uncles: []
 }
 ```
@@ -196,9 +196,7 @@ Example response:
             "gas_limit": 4712388,
             "gas_used": 4707786,
             "utc": "2017-05-13T23:37:12.000Z",
-            "transactions": [
-            "0x41cd77fd4532498b75551a030c8b5acf89adb99bb5331de237df38224a798587"
-            ]
+            "count_transactions": 1
         }
     ]
 }
@@ -1014,7 +1012,7 @@ Example response:
     gas_limit: number;
     gas_used: number;
     utc: string;
-    transactions: string[];
+    count_transactions: number;
 }
 ```
 
