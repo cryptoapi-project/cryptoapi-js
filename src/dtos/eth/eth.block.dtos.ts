@@ -18,7 +18,7 @@ export class EthBlockInfo {
 	gas_limit: number;
 	gas_used: number;
 	utc: string;
-	transactions: string[];
+	count_transactions: number;
 
 	constructor({
 		size,
@@ -40,7 +40,7 @@ export class EthBlockInfo {
 		gas_limit,
 		gas_used,
 		utc,
-		transactions,
+		count_transactions,
 	}: {
 		size: number,
 		difficulty: number,
@@ -61,7 +61,7 @@ export class EthBlockInfo {
 		gas_limit: number,
 		gas_used: number,
 		utc: string,
-		transactions: string[],
+		count_transactions: number,
 	}) {
 		this.size = size;
 		this.difficulty = difficulty;
@@ -82,7 +82,7 @@ export class EthBlockInfo {
 		this.gas_limit = gas_limit;
 		this.gas_used = gas_used;
 		this.utc = utc;
-		this.transactions = transactions;
+		this.count_transactions = count_transactions;
 	}
 }
 

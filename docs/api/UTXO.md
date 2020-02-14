@@ -105,7 +105,6 @@ Example response:
    next_block_hash: '000000006c02c8ea6e4ff69651f7fcde348fb9d557a06e6957b65552002a7820',
    reward: 5000000000,
    transaction_count: 1,
-   transactions: [ 'f0315ffc38709d70ad5647e22048358dd3745f3ce3874223c80a7c92fab0c8ba' ]
 }
 ```
 
@@ -140,7 +139,6 @@ Example response:
    next_block_hash: '000000006c02c8ea6e4ff69651f7fcde348fb9d557a06e6957b65552002a7820',
    reward: 5000000000,
    transaction_count: 1,
-   transactions: [ 'f0315ffc38709d70ad5647e22048358dd3745f3ce3874223c80a7c92fab0c8ba' ]
 }]
 ```
 
@@ -516,7 +514,6 @@ Example response:
     next_block_hash: string;
     reward: number;
     transaction_count: number;
-    transactions: string[];
 }
 ```
 

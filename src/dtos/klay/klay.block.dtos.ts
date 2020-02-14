@@ -1,6 +1,5 @@
 
 export class KlayBlockInfo {
-	transactions: string[];
 	size: number;
 	block_score: string;
 	total_block_score: string;
@@ -18,9 +17,9 @@ export class KlayBlockInfo {
 	extra_data: string;
 	gas_used: number;
 	utc: string;
+	count_transactions: number;
 
 	constructor({
-		transactions,
 		size,
 		block_score,
 		total_block_score,
@@ -38,6 +37,7 @@ export class KlayBlockInfo {
 		extra_data,
 		gas_used,
 		utc,
+		count_transactions,
 	}: {
 		transactions: string[];
 		size: number;
@@ -57,9 +57,8 @@ export class KlayBlockInfo {
 		extra_data: string;
 		gas_used: number;
 		utc: string;
-
+		count_transactions: number;
 	}) {
-		this.transactions = transactions;
 		this.size = size;
 		this.block_score = block_score;
 		this.total_block_score = total_block_score;
@@ -77,6 +76,7 @@ export class KlayBlockInfo {
 		this.extra_data = extra_data;
 		this.gas_used = gas_used;
 		this.utc = utc;
+		this.count_transactions = count_transactions;
 	}
 }
 
