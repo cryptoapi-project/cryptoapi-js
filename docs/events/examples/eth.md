@@ -107,7 +107,7 @@ client.events.eth.onAddressTransactions({
 }
 ```
 
-#### <a name="onTokenTransfers">onTokenTransfers</a>({ token, address, confirmations }: <a name="EthTokenTransferSubscription">EthTokenTransferSubscription</a>, callback: (notification: <a name="EthTransferNotification">EthTransferNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
+#### <a name="onTokenTransfers">onTokenTransfers</a>({ token, address, confirmations }: <a name="TokenSubscription">TokenSubscription</a>, callback: (notification: <a name="TransferNotification">TransferNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
 
 ```javascript
 import { Client } from 'cryptoapi-lib';
@@ -141,7 +141,7 @@ client.events.eth.onTokenTransfers({
 }
 ```
 
-#### <a name="onTokenBalance">onTokenBalance</a>({ token, address, confirmations }: <a name="EthTokenSubscription">EthTokenSubscription</a>, callback: (notification: <a name="EthTokenBalanceNotification">EthTokenBalanceNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
+#### <a name="onTokenBalance">onTokenBalance</a>({ token, address, confirmations }: <a name="TokenSubscription">TokenSubscription</a>, callback: (notification: <a name="TokenBalanceNotification">TokenBalanceNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
 
 ```javascript
 import { Client } from 'cryptoapi-lib';
@@ -168,7 +168,7 @@ client.events.eth.onTokenBalance({
 }
 ```
 
-#### <a name="onContractLog">onContractLog</a>({  address, confirmations, from, to, topics  }: EthContractLogSubscription, callback: (notification: EthContractLogNotification) => void) ⇒ <code>Promise&lt;number&gt;</code>
+#### <a name="onContractLog">onContractLog</a>({  address, confirmations, from, to, topics  }: ContractLogSubscription, callback: (notification: ContractLogNotification) => void) ⇒ <code>Promise&lt;number&gt;</code>
 
 ```javascript
 import { Client } from 'cryptoapi-lib';
@@ -224,7 +224,7 @@ client.events.eth.onTransactionConfirmations({
 }
 ```
 
-#### <a name="onAddressBalance">onAddressBalance</a>({ address, confirmations }: AddressSubscription, callback: (notification: BalanceSubscription) => void) ⇒ <code>Promise&lt;number&gt;</code>
+#### <a name="onAddressBalance">onAddressBalance</a>({ address, confirmations }: AddressSubscription, callback: (notification: BalanceNotification) => void) ⇒ <code>Promise&lt;number&gt;</code>
 
 ```javascript
 import { Client } from 'cryptoapi-lib';

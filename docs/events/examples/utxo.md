@@ -129,7 +129,7 @@ client.events.btc.onTransactionConfirmations({
 
 ```
 
-#### <a name="onAddressBalance">onAddressBalance</a>({ address, confirmations }: AddressSubscription, callback: (notification: BalanceSubscription) => void) ⇒ <code>Promise&lt;number&gt;</code>
+#### <a name="onAddressBalance">onAddressBalance</a>({ address, confirmations }: AddressSubscription, callback: (notification: BalanceNotification) => void) ⇒ <code>Promise&lt;number&gt;</code>
 
 ```javascript
 import { Client } from 'cryptoapi-lib';

@@ -7,12 +7,13 @@ Library provides eth websocket subscribers to work with CryptoAPI.
 * [Configure events clients](#configure-events-clients)
 * [List events clients](#list-events-clients)
     * [ETH client](#eth-client)
+    * [KLAY client](#klay-client)
 	* [BTC client](#btc-client)
 * [Typedefs](#typedefs)
 
 ## Configure Events Clients
 
-Library supports eth, btc events client.
+Library supports eth, klay and btc events client.
 Crypto events client provides the ability to pass a connection urls for mainnets and testnets.
 Also configuration allows you to set automatically reconnect.
 Set in options parameters for reconnect (count of attempts and timeout between them).
@@ -127,6 +128,52 @@ await client.events.eth.disconnect()
 <dd></dd>
 </dl>
 
+### KLAY client
+<dl>
+<dt><a href="#onBlock">klay.onBlock</a></dt></dt>
+<dd></dd>
+</dl>
+<dl>
+<dt><a href="#onAddressTransactions">klay.onAddressTransactions</a></dt></dt>
+<dd></dd>
+</dl>
+<dl>
+<dt><a href="#onAddressBalance">klay.onAddressBalance</a></dt></dt>
+<dd></dd>
+</dl>
+<dl>
+<dt><a href="#onTokenTransfers">klay.onTokenTransfers</a></dt></dt>
+<dd></dd>
+</dl>
+<dl>
+<dt><a href="#onTokenBalance">klay.onTokenBalance</a></dt>
+<dd></dd>
+</dl>
+<dl>
+<dt><a href="#onContractLog">klay.onContractLog</a></dt></dt>
+<dd></dd>
+</dl>
+<dl>
+<dt><a href="#onTransactionConfirmations">klay.onTransactionConfirmations</a></dt></dt>
+<dd></dd>
+</dl>
+<dl>
+<dt><a href="#unsubscribe">klay.unsubscribe</a></dt></dt>
+<dd></dd>
+</dl>
+<dl>
+<dt><a href="#connected">klay.connected</a></dt></dt>
+<dd></dd>
+</dl>
+<dl>
+<dt><a href="#onConnected">klay.onConnected</a></dt></dt>
+<dd></dd>
+</dl>
+<dl>
+<dt><a href="#onDisconnected">klay.onDisconnected</a></dt></dt>
+<dd></dd>
+</dl>
+
 ### BTC client
 <dl>
 <dt><a href="#onBlock">btc.onBlock</a></dt></dt>
@@ -175,14 +222,16 @@ Define generic type:
 |  | BlockNotification |
 | --- | --- |
 | eth | <a href="#EthBlockNotification">EthBlockNotification<a> |
+| klay | <a href="#KlayBlockNotification">KlayBlockNotification<a> |
 | btc | <a href="#UtxoBlockNotification">UtxoBlockNotification<a> |
 
 Examples:
 
 |  | Examples |
 | --- | --- |
-| eth | [eth.onBlock](examples/eth.md#onblockconfirmations-number-callback-notification-ethblocknotification-void-promisenumber) |
-| btc | [btc.onBlock](examples/utxo.md#onblockconfirmations-number-callback-notification-utxoblocknotification-void-promisenumber) |
+| eth | [eth.onBlock](./examples/eth.md#onblockconfirmations-number-callback-notification-ethblocknotification-void-promisenumber) |
+| klay | [klay.onBlock](./examples/klay.md#onblockconfirmations-number-callback-notification-klayblocknotification-void-promisenumber) |
+| btc | [btc.onBlock](./examples/utxo.md#onblockconfirmations-number-callback-notification-utxoblocknotification-void-promisenumber) |
 
 #### <a name="onAddressTransactions">onAddressTransactions</a>({ address, confirmations }: <a href='#AddressSubscription'>AddressSubscription</a>, callback: (notification: TransactionNotification) => void, ⇒ <code>Promise&lt;number&gt;</code>
 
@@ -199,14 +248,16 @@ Define generic type:
 |  | TransactionNotification |
 | --- | --- |
 | eth | <a href="#EthTransactionNotification">EthTransactionNotification<a> |
+| klay | <a href="#KlayTransactionNotification">KlayTransactionNotification<a> |
 | btc | <a href="#UtxoTransactionNotification">UtxoTransactionNotification<a> |
 
 Examples:
 
 |  | Examples |
 | --- | --- |
-| eth | [eth.onAddressTransactions](./examples/eth.md#onaddresstransactions-address-confirmations-addresssubscription-callback-notification-ethtransactionnotification-void-promisenumber) |
-| btc | [btc.onAddressTransactions](./examples/utxo.md#onaddresstransactions-address-confirmations-addresssubscription-callback-notification-utxotransactionnotification-void-promisenumber) |
+| eth | [eth.onAddressTransactions](./examples/eth.md#onaddresstransactions-address-confirmations-addresssubscription-callback-notification-balancenotification-void-promisenumber) |
+| klay | [klay.onAddressTransactions](./examples/klay.md#onaddresstransactions-address-confirmations-addresssubscription-callback-notification-balancenotification-void-promisenumber) |
+| btc | [btc.onAddressTransactions](./examples/utxo.md#onaddresstransactions-address-confirmations-addresssubscription-callback-notification-balancenotification-void-promisenumber) |
 
 #### <a name="onAddressBalance">onAddressBalance</a>({ address, confirmations }: <a href='#AddressSubscription'>AddressSubscription</a>, callback: (notification: <a href="#BalanceNotification">BalanceNotification</a>) => void, ⇒ <code>Promise&lt;number&gt;</code>
 
@@ -223,10 +274,11 @@ Examples:
 |  | Examples |
 | --- | --- |
 | eth | [eth.onAddressBalance](./examples/eth.md#onaddressbalance-address-confirmations-addresssubscription-callback-notification-balancesubscription-void-promisenumber) |
+| klay | [klay.onAddressBalance](./examples/klay.md#onaddressbalance-address-confirmations-addresssubscription-callback-notification-balancesubscription-void-promisenumber) |
 | btc | [btc.onAddressBalance](./examples/utxo.md#onaddressbalance-address-confirmations-addresssubscription-callback-notification-balancesubscription-void-promisenumber) |
 
 
-#### <a name="onTokenTransfers">onTokenTransfers</a>({ token, address, confirmations }: <a href="#EthTokenSubscription">EthTokenSubscription</a>, callback: (notification: <a href="#EthTransferNotification">EthTransferNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
+#### <a name="onTokenTransfers">onTokenTransfers</a>({ token, address, confirmations }: <a href="#TokenSubscription">TokenSubscription</a>, callback: (notification: <a href="#TransferNotification">TransferNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -241,9 +293,10 @@ Examples:
 
 |  | Examples |
 | --- | --- |
-| eth | [eth.onTokenTransfers](./examples/eth.md#ontokentransfers-token-address-confirmations-ethtokentransfersubscription-callback-notification-ethtransfernotification-void-promisenumber) |
+| eth | [eth.onTokenTransfers](./examples/eth.md#ontokentransfers-token-address-confirmations-tokensubscription-callback-notification-transfernotification-void-promisenumber) |
+| klay | [klay.onTokenTransfers](./examples/klay.md#ontokentransfers-token-address-confirmations-tokensubscription-callback-notification-transfernotification-void-promisenumber) |
 
-#### <a name="onTokenBalance">onTokenBalance</a>({ token, address, confirmations }: <a href="#EthTokenSubscription">EthTokenSubscription</a>, callback: (notification: <a href="#EthTokenBalanceNotification">EthTokenBalanceNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
+#### <a name="onTokenBalance">onTokenBalance</a>({ token, address, confirmations }: <a href="#TokenSubscription">TokenSubscription</a>, callback: (notification: <a href="#TokenBalanceNotification">TokenBalanceNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -258,7 +311,8 @@ Examples:
 
 |  | Examples |
 | --- | --- |
-| eth | [eth.onTokenBalance](./examples/eth.md#ontokenbalance-token-address-confirmations-ethtokensubscription-callback-notification-ethtokenbalancenotification-void-promisenumber) |
+| eth | [eth.onTokenBalance](./examples/eth.md#ontokenbalance-token-address-confirmations-tokensubscription-callback-notification-tokenbalancenotification-void-promisenumber) |
+| klay | [klay.onTokenBalance](./examples/klay.md#ontokenbalance-token-address-confirmations-ktokensubscription-callback-notification-tokenbalancenotification-void-promisenumber) |
 
 #### <a name="onContractLog">onContractLog</a>({  address, confirmations, from, to, topics  }: <a href="#EthContractLogSubscription">EthContractLogSubscription</a>, callback: (notification: <a href="#EthContractLogNotification">EthContractLogNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
 
@@ -277,9 +331,10 @@ Examples:
 
 |  | Examples |
 | --- | --- |
-| eth | [eth.onContractLog](./examples/eth.md#oncontractlog-address-confirmations-from-to-topics-ethcontractlogsubscription-callback-notification-ethcontractlognotification-void-promisenumber) |
+| eth | [eth.onContractLog](./examples/eth.md#oncontractlog-address-confirmations-from-to-topics-contractlogsubscription-callback-notification-contractlognotification-void-promisenumber) |
+| klay | [klay.onContractLog](./examples/klay.md#oncontractlog-address-confirmations-from-to-topics-contractlogsubscription-callback-notification-contractlognotification-void-promisenumber) |
 
-#### <a name="onTransactionConfirmations">onTransactionConfirmations</a>({ hash, confirmations }: <a href="#TransactionConfirmationSubscription">TransactionConfirmationSubscription</a>, callback: (notification: <a href="#TransactionConfirmationSubscription">TransactionConfirmationNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
+#### <a name="onTransactionConfirmations">onTransactionConfirmations</a>({ hash, confirmations }: <a href="#TransactionConfirmationSubscription">TransactionConfirmationSubscription</a>, callback: (notification: <a href="#TransactionConfirmationNotification">TransactionConfirmationNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -295,6 +350,7 @@ Examples:
 |  | Examples |
 | --- | --- |
 | eth | [eth.onTransactionConfirmations](./examples/eth.md#ontransactionconfirmations-hash-confirmations-transactionconfirmationsubscription-callback-notification-transactionconfirmationnotification-void-promisenumber) |
+| klay | [klay.onTransactionConfirmations](./examples/klay.md#ontransactionconfirmations-hash-confirmations-transactionconfirmationsubscription-callback-notification-transactionconfirmationnotification-void-promisenumber) |
 | btc | [btc.onTransactionConfirmations](./examples/utxo.md#ontransactionconfirmations-hash-confirmations-transactionconfirmationsubscription-callback-notification-transactionconfirmationsubscription-void-promisenumber) |
 
 #### <a name="unsubscribe">unsubscribe</a> ⇒ <code>Promise&lt;boolean&gt;</code>
@@ -354,17 +410,21 @@ console.log(client.events.eth.connected);
 <dd></dd>
 <dt><a href="#EthBlockNotification">EthBlockNotification</a> : <code>Object</code></dt>
 <dd></dd>
+<dt><a href="#KlayBlockNotification">KlayBlockNotification</a> : <code>Object</code></dt>
+<dd></dd>
 <dt><a href="#UtxoBlockNotification">UtxoBlockNotification</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthTransactionNotification">EthTransactionNotification</a> : <code>Object</code></dt>
 <dd></dd>
+<dt><a href="#KlayTransactionNotification">KlayTransactionNotification</a> : <code>Object</code></dt>
+<dd></dd>
 <dt><a href="#UtxoTransactionNotification">UtxoTransactionNotification</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#EthTokenSubscription">EthTokenSubscription</a> : <code>Object</code></dt>
+<dt><a href="#TokenSubscription">TokenSubscription</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#EthTransferNotification">EthTransferNotification</a> : <code>Object</code></dt>
+<dt><a href="#TransferNotification">TransferNotification</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#EthTokenBalanceNotification">EthTokenBalanceNotification</a> : <code>Object</code></dt>
+<dt><a href="#TokenBalanceNotification">TokenBalanceNotification</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#EthContractLogSubscription">EthContractLogSubscription</a> : <code>Object</code></dt>
 <dd></dd>
@@ -394,6 +454,33 @@ console.log(client.events.eth.connected);
     gas_used: number;
     utc: string;
     count_transactions: number;
+}
+```
+
+#### KlayBlockNotification : <code>Object</code>
+<a name="KlayBlockNotification"></a>
+
+```javascript
+{
+	size: number;	
+	block_score: string;	
+	total_block_score: string;	
+    number: number;
+    hash: string;	
+	parent_hash: string;	
+	reward: string;	
+	governance_data: string;	
+	vote_data: string;	
+	timestamp_fos: string;	
+	logs_bloom: string;	
+	transaction_root: string;	
+	state_root: string;	
+	receipts_root: string;	
+	extra_data: string;	
+	gas_used: number;
+	readonly utc: string;	
+	block_reward: string;	
+	count_transactions: number;
 }
 ```
 
@@ -443,8 +530,45 @@ console.log(client.events.eth.connected);
     }>;
 }
 ```
-#### EthTokenSubscription : <code>Object</code>
-<a name="EthTokenSubscription"></a>
+
+#### KlayTransactionNotification : <code>Object</code>
+<a name="KlayTransactionNotification"></a>
+
+```javascript
+{
+    block_hash: string;
+	block_number: number;
+	utc: string;
+	from: string;
+	gas: number;
+	gas_price: string;
+	hash: string;
+	input: string;
+	nonce: number;
+	to: string;
+	value: string;
+	transaction_index: number;
+	type: string;
+	type_int: number;
+	code_format?: string;
+	fee_payer?: string;
+	fee_ratio?: string;
+	human_readable?: boolean;
+	key?: string;
+	sender_tx_hash?: string;
+
+	internal_transactions: Array<{
+		to: string;
+		from: string;
+		value: string;
+		input: string;
+		type: string;
+	}>;
+}
+```
+
+#### TokenSubscription : <code>Object</code>
+<a name="TokenSubscription"></a>
 
 ```javascript
 {
@@ -453,8 +577,8 @@ console.log(client.events.eth.connected);
     confirmations: number;
 }
 ```
-#### EthTransferNotification : <code>Object</code>
-<a name="EthTransferNotification"></a>
+#### TransferNotification : <code>Object</code>
+<a name="TransferNotification"></a>
 
 ```javascript
 {
@@ -471,8 +595,8 @@ console.log(client.events.eth.connected);
 }
 ```
 
-#### EthTokenBalanceNotification : <code>Object</code>
-<a name="EthTokenBalanceNotification"></a>
+#### TokenBalanceNotification : <code>Object</code>
+<a name="TokenBalanceNotification"></a>
 
 ```javascript
 {
