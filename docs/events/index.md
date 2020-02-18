@@ -255,9 +255,9 @@ Examples:
 
 |  | Examples |
 | --- | --- |
-| eth | [eth.onAddressTransactions](./examples/eth.md#onaddresstransactions-address-confirmations-addresssubscription-callback-notification-balancenotification-void-promisenumber) |
-| klay | [klay.onAddressTransactions](./examples/klay.md#onaddresstransactions-address-confirmations-addresssubscription-callback-notification-balancenotification-void-promisenumber) |
-| btc | [btc.onAddressTransactions](./examples/utxo.md#onaddresstransactions-address-confirmations-addresssubscription-callback-notification-balancenotification-void-promisenumber) |
+| eth | [eth.onAddressTransactions](./examples/eth.md#onaddresstransactions-address-confirmations-addresssubscription-callback-notification-ethtransactionnotification-void-promisenumber) |
+| klay | [klay.onAddressTransactions](./examples/klay.md#onaddresstransactions-address-confirmations-addresssubscription-callback-notification-klaytransactionnotification-void-promisenumber) |
+| btc | [btc.onAddressTransactions](./examples/utxo.md#onaddresstransactions-address-confirmations-addresssubscription-callback-notification-utxotransactionnotification-void-promisenumber) |
 
 #### <a name="onAddressBalance">onAddressBalance</a>({ address, confirmations }: <a href='#AddressSubscription'>AddressSubscription</a>, callback: (notification: <a href="#BalanceNotification">BalanceNotification</a>) => void, ⇒ <code>Promise&lt;number&gt;</code>
 
@@ -273,9 +273,9 @@ Examples:
 
 |  | Examples |
 | --- | --- |
-| eth | [eth.onAddressBalance](./examples/eth.md#onaddressbalance-address-confirmations-addresssubscription-callback-notification-balancesubscription-void-promisenumber) |
-| klay | [klay.onAddressBalance](./examples/klay.md#onaddressbalance-address-confirmations-addresssubscription-callback-notification-balancesubscription-void-promisenumber) |
-| btc | [btc.onAddressBalance](./examples/utxo.md#onaddressbalance-address-confirmations-addresssubscription-callback-notification-balancesubscription-void-promisenumber) |
+| eth | [eth.onAddressBalance](./examples/eth.md#onaddressbalance-address-confirmations-addresssubscription-callback-notification-balancenotification-void-promisenumber) |
+| klay | [klay.onAddressBalance](./examples/klay.md#onaddressbalance-address-confirmations-addresssubscription-callback-notification-balancenotification-void-promisenumber) |
+| btc | [btc.onAddressBalance](./examples/utxo.md#onaddressbalance-address-confirmations-addresssubscription-callback-notification-balancenotification-void-promisenumber) |
 
 
 #### <a name="onTokenTransfers">onTokenTransfers</a>({ token, address, confirmations }: <a href="#TokenSubscription">TokenSubscription</a>, callback: (notification: <a href="#TransferNotification">TransferNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
@@ -312,7 +312,7 @@ Examples:
 |  | Examples |
 | --- | --- |
 | eth | [eth.onTokenBalance](./examples/eth.md#ontokenbalance-token-address-confirmations-tokensubscription-callback-notification-tokenbalancenotification-void-promisenumber) |
-| klay | [klay.onTokenBalance](./examples/klay.md#ontokenbalance-token-address-confirmations-ktokensubscription-callback-notification-tokenbalancenotification-void-promisenumber) |
+| klay | [klay.onTokenBalance](./examples/klay.md#ontokenbalance-token-address-confirmations-tokensubscription-callback-notification-tokenbalancenotification-void-promisenumber) |
 
 #### <a name="onContractLog">onContractLog</a>({  address, confirmations, from, to, topics  }: <a href="#EthContractLogSubscription">EthContractLogSubscription</a>, callback: (notification: <a href="#EthContractLogNotification">EthContractLogNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
 
@@ -363,13 +363,16 @@ Example:
 
 ```javascript
 client.events.eth.unsubscribe(1);
+client.events.klay.unsubscribe(1);
 // OR
 
 client.events.eth.unsubscribe((message) => { console.log(message) });
+client.events.klay.unsubscribe((message) => { console.log(message) });
 ```
 #### <a name="connected">connected</a> ⇒ <code>boolean</code>
 ```javascript
 console.log(client.events.eth.connected);
+console.log(client.events.klay.connected);
 
 // true
 
@@ -383,6 +386,7 @@ console.log(client.events.eth.connected);
 
 ```javascript
 > client.events.eth.onConnected(() => { console.log('connected') });
+> client.events.klay.onConnected(() => { console.log('connected') });
 
 ```
 
@@ -394,6 +398,7 @@ console.log(client.events.eth.connected);
 
 ```javascript
 > client.events.eth.onDisconnected(() => { console.log('disconnected') });
+> client.events.klay.onDisconnected(() => { console.log('disconnected') });
 
 ```
 
@@ -462,25 +467,25 @@ console.log(client.events.eth.connected);
 
 ```javascript
 {
-	size: number;	
-	block_score: string;	
-	total_block_score: string;	
+    size: number;
+    block_score: string;
+    total_block_score: string;
     number: number;
-    hash: string;	
-	parent_hash: string;	
-	reward: string;	
-	governance_data: string;	
-	vote_data: string;	
-	timestamp_fos: string;	
-	logs_bloom: string;	
-	transaction_root: string;	
-	state_root: string;	
-	receipts_root: string;	
-	extra_data: string;	
-	gas_used: number;
-	readonly utc: string;	
-	block_reward: string;	
-	count_transactions: number;
+    hash: string;
+    parent_hash: string;
+    reward: string;
+    governance_data: string;
+    vote_data: string;
+    timestamp_fos: string;
+    logs_bloom: string;
+    transaction_root: string;
+    state_root: string;
+    receipts_root: string;
+    extra_data: string;
+    gas_used: number;
+    readonly utc: string;
+    block_reward: string;
+    count_transactions: number;
 }
 ```
 
@@ -537,33 +542,33 @@ console.log(client.events.eth.connected);
 ```javascript
 {
     block_hash: string;
-	block_number: number;
-	utc: string;
-	from: string;
-	gas: number;
-	gas_price: string;
-	hash: string;
-	input: string;
-	nonce: number;
-	to: string;
-	value: string;
-	transaction_index: number;
-	type: string;
-	type_int: number;
-	code_format?: string;
-	fee_payer?: string;
-	fee_ratio?: string;
-	human_readable?: boolean;
-	key?: string;
-	sender_tx_hash?: string;
+    block_number: number;
+    utc: string;
+    from: string;
+    gas: number;
+    gas_price: string;
+    hash: string;
+    input: string;
+    nonce: number;
+    to: string;
+    value: string;
+    transaction_index: number;
+    type: string;
+    type_int: number;
+    code_format?: string;
+    fee_payer?: string;
+    fee_ratio?: string;
+    human_readable?: boolean;
+    key?: string;
+    sender_tx_hash?: string;
 
-	internal_transactions: Array<{
-		to: string;
-		from: string;
-		value: string;
-		input: string;
-		type: string;
-	}>;
+    internal_transactions: Array<{
+        to: string;
+        from: string;
+        value: string;
+        input: string;
+        type: string;
+      }>;
 }
 ```
 
