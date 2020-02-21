@@ -18,7 +18,7 @@ import { TTransactionsRequest } from '@src/types/utxo/utxo.transactions.request'
 @injectable()
 export class UtxoApiClient implements IUtxoApiClient {
 
-	config: IServerConfig|null = null;
+	config: IServerConfig | null = null;
 
 	constructor(
 		@inject(TYPES_DI.IUtxoMainInfoApi) private readonly utxoMainInfo: IUtxoMainInfoApi,
@@ -27,7 +27,7 @@ export class UtxoApiClient implements IUtxoApiClient {
 		@inject(TYPES_DI.IUtxoTransactionsApi) private readonly utxoTransactionsApi: IUtxoTransactionsApi,
 		@inject(TYPES_DI.IUtxoAddressApi) private readonly utxoAddressApi: IUtxoAddressApi,
 		@inject(TYPES_DI.IUtxoOutputsApi) private readonly utxoOutputsApi: IUtxoOutputsApi,
-	) {}
+	) { }
 
 	/**
 	 * Set config to eth api.
@@ -55,13 +55,23 @@ export class UtxoApiClient implements IUtxoApiClient {
 	}
 
 	/**
+	 * Get estimate transaction fee per kilobyte.
+	 * @method getEstimateFee
+	 * @return {Promise<string>}
+	 */
+	@TryCatch
+	async getEstimateFee() {
+		return this.utxoMainInfo.getEstimateFee();
+	}
+
+	/**
 	 * Get utxo block information by block hash or height.
 	 * @method getBlock
 	 * @ param {string|number} heightOrHash
 	 * @return {Promise<UtxoBlockInfo>}
 	 */
 	@TryCatch
-	async getBlock(heightOrHash: string|number) {
+	async getBlock(heightOrHash: string | number) {
 		return this.utxoBlockApi.getBlock(heightOrHash);
 	}
 
@@ -72,7 +82,7 @@ export class UtxoApiClient implements IUtxoApiClient {
 	 * @return {Promise<UtxoBlockInfo[]>}
 	 */
 	@TryCatch
-	async getBlocks(requestedBlocks: Array<string|number>) {
+	async getBlocks(requestedBlocks: Array<string | number>) {
 		return this.utxoBlockApi.getBlocks(requestedBlocks);
 	}
 

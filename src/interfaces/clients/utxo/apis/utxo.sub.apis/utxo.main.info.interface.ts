@@ -4,4 +4,5 @@ import { IServerConfig } from '@src/interfaces/configs/crypto.config.interface';
 
 export interface IUtxoMainInfoApi extends IConfigurable<IServerConfig> {
 	getNetworkInfo(): Promise<UtxoNetworkInfo>;
+	getEstimateFee(): Promise<string>;
 }

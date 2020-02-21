@@ -32,6 +32,8 @@ const client = new Client('YOUR-API-KEY', options);
 <dl>
 <dt><a href="#btc.getNetworkInfo">getNetworkInfo</a> ⇒<code><a href="#UtxoNetworkInfo">Promise&lt;UtxoNetworkInfo&gt;</a></code></dt></dt>
 <dd></dd>
+<dt><a href="#btc.getEstimateFee">getEstimateFee</a> ⇒<code>Promise&lt;string&gt;</code></dt></dt>
+<dd></dd>
 <dt><a href="#btc.getBlock">getBlock</a> ⇒<code><a href="#UtxoBlockInfo">Promise&lt;UtxoBlockInfo&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#btc.getBlocks">getBlocks</a> ⇒<code><a href="#UtxoBlockInfo">Promise&lt;UtxoBlockInfo[]&gt;</a></code></dt></dt>
@@ -55,12 +57,12 @@ const client = new Client('YOUR-API-KEY', options);
 
 #### <a name="btc.getNetworkInfo">btc.getNetworkInfo()</a> ⇒ <code><a href="#UtxoNetworkInfo">Promise&lt;UtxoNetworkInfo&gt;</a></code></dt></dt>
 Returns JSON data about a network information such as last block, count transactions,
-current hash rate, difficulty.
+current hash rate, difficulty and estimate rate per kb.
 
 ```javascript
-    import { Client } from 'cryptoapi-lib';
-    const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.btc.getNetworkInfo();
+import { Client } from 'cryptoapi-lib';
+const crypto = new Client('YOUR-API-KEY');
+const result = await crypto.api.btc.getNetworkInfo();
 ```
 
 Example response:
@@ -70,7 +72,22 @@ Example response:
     difficulty: "7767482.042232129"
     hashrate: "39070123173302.89"
     last_block: "1381092"
+    estimate_fee: "0.00022148",
 }
+```
+
+#### <a name="btc.getEstimateFee">btc.getEstimateFee()</a> ⇒ <code>Promise&lt;string&gt;</code></dt></dt>
+Returns estimate transaction fee per kilobyte (BTC/kb).
+
+```javascript
+import { Client } from 'cryptoapi-lib';
+const crypto = new Client('YOUR-API-KEY');
+const result = await crypto.api.btc.getEstimateFee();
+```
+
+Example response:
+```
+"0.00022148"
 ```
 
 #### <a name="btc.getBlock">btc.getBlock</a>(heightOrHash: string|number) ⇒ <code>Promise&lt;<a href="#UtxoBlockInfo">UtxoBlockInfo</a>&gt;</code></dt></dt>
@@ -494,6 +511,7 @@ Example response:
     count_transactions: string;
     hashrate: string;
     difficulty: string;
+    estimate_fee: string;
 }
 ```
 
