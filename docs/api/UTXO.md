@@ -511,6 +511,7 @@ Example response:
     count_transactions: string;
     hashrate: string;
     difficulty: string;
+    estimate_fee: string;
 }
 ```
 
