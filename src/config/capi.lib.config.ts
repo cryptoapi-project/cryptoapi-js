@@ -7,7 +7,7 @@ export enum TCoin {
 
 export const DEFAULT_TIMEOUT_REQUEST = 30000;
 
-export const BASE_HTTP_URL = 'http://localhost:6970/api/v1';
+export const BASE_HTTP_URL = 'https://api.apikey.io/api/v1';
 export const BASE_TESTNET_HTTP_URL = 'https://testnet-api.apikey.io/api/v1';
 
 export const BASE_WS_RECONNECT = true;
@@ -16,10 +16,10 @@ export const BASE_WS_TIMEOUT = 1000;
 export const BASE_WS_RESUBSCRIBE = true;
 
 const WS_URLS = {
-	[TCoin.ETH]: 'ws://localhost:16971',
+	[TCoin.ETH]: 'wss://api.apikey.io/ws/eth',
 	[TCoin.BTC]: 'wss://api.apikey.io/ws/btc',
 	[TCoin.BCH]: 'wss://api.apikey.io/ws/bch',
-	[TCoin.KLAY]: 'ws://localhost:16970',
+	[TCoin.KLAY]: 'wss://api.apikey.io/ws/klay',
 };
 
 const TESTNET_WS_URLS = {
