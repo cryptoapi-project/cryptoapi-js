@@ -478,13 +478,10 @@ console.log(client.events.klay.connected);
     vote_data: string;
     timestamp_fos: string;
     logs_bloom: string;
-    transaction_root: string;
     state_root: string;
-    receipts_root: string;
     extra_data: string;
     gas_used: number;
-    readonly utc: string;
-    block_reward: string;
+    utc: string;
     count_transactions: number;
 }
 ```
