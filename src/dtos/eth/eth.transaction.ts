@@ -316,7 +316,7 @@ export class EthFullTransactionReceipt {
 	readonly hash: string;
 	readonly to: string;
 	readonly transaction_index: number;
-	readonly logs: EthReceiptLog[]|null;
+	readonly logs: EthReceiptLog[] | null;
 
 	constructor(info: {
 		readonly block_hash: string;
@@ -324,7 +324,7 @@ export class EthFullTransactionReceipt {
 		readonly contract_address: string | null;
 		readonly gas_used: number;
 		readonly cumulative_gas_used: number;
-		readonly logs: EthReceiptLog[]|null;
+		readonly logs: EthReceiptLog[] | null;
 		readonly status: boolean;
 		readonly from: string;
 		readonly hash: string;
