@@ -35,12 +35,14 @@ All subscribers are listed below:
 #### <a name="onBlock">onBlock</a>(confirmations: number, callback: (notification:  <a name="EthBlockNotification">EthBlockNotification</a>) => void) ⇒ <code>Promise&lt;number&gt;</code>
 
 ```javascript
-import { Client } from 'cryptoapi-lib';
+import { Client } from 'cryptoapi-lib'; import {client} from 'websocket';
 const crypto = new Client('YOUR-API-KEY');
-const subscriptionId = await client.events.eth.onBlock(1, (message) => { console.log(message) });
-
-// By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
 client.events.eth.onBlock(1, (message) => { console.log(message) });
+
+// By subscriptionId you can unsubscribe:
+client.events.eth.onBlock(1, (message) => { console.log(message) }).then((subscriptionId) => {
+    client.events.eth.unsubscribe(subscriptionId).then(() => console.log('Unsubscribed'));
+});
 
 // Notification example
 > {
@@ -70,16 +72,18 @@ client.events.eth.onBlock(1, (message) => { console.log(message) });
 import { Client } from 'cryptoapi-lib';
 const crypto = new Client('YOUR-API-KEY');
 
-const subscriptionId = await client.events.eth.onAddressTransactions({
-    address: '0x1cDdD028E63D0Ff555B9DE49E9B436c4e14309Fc',
-    confirmations: 1,
-}, (message) => { console.log(message) });
-
-// By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
 client.events.eth.onAddressTransactions({
     address: '0x1cDdD028E63D0Ff555B9DE49E9B436c4e14309Fc',
     confirmations: 1,
 }, (message) => { console.log(message) });
+
+// By subscriptionId you can unsubscribe:
+client.events.eth.onAddressTransactions({
+    address: '0x1cDdD028E63D0Ff555B9DE49E9B436c4e14309Fc',
+    confirmations: 1,
+}, (message) => { console.log(message) }).then((subscriptionId) => {
+    client.events.eth.unsubscribe(subscriptionId).then(() => console.log('Unsubscribed'));
+});
 
 // Notification example
 > {
@@ -113,18 +117,20 @@ client.events.eth.onAddressTransactions({
 import { Client } from 'cryptoapi-lib';
 const crypto = new Client('YOUR-API-KEY');
 
-const subscriptionId = await client.events.eth.onTokenTransfers({
-    token: '0x04c9f29d7b2f65a16258cdc389b1dc3f5a731bd0',
-    address: '0x6182d3513fa43cbbb010b8c4d40a19e53e5605c3',
-    confirmations: 2,
-}, (message) => { console.log(message) });
-
-// By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
 client.events.eth.onTokenTransfers({
     token: '0x04c9f29d7b2f65a16258cdc389b1dc3f5a731bd0',
     address: '0x6182d3513fa43cbbb010b8c4d40a19e53e5605c3',
     confirmations: 2,
 }, (message) => { console.log(message) });
+
+// By subscriptionId you can unsubscribe:
+client.events.eth.onTokenTransfers({
+    token: '0x04c9f29d7b2f65a16258cdc389b1dc3f5a731bd0',
+    address: '0x6182d3513fa43cbbb010b8c4d40a19e53e5605c3',
+    confirmations: 2,
+}, (message) => { console.log(message) }).then((subscriptionId) => {
+    client.events.eth.unsubscribe(subscriptionId).then(() => console.log('Unsubscribed'));
+});
 
 // Notification example
 > {
@@ -147,18 +153,20 @@ client.events.eth.onTokenTransfers({
 import { Client } from 'cryptoapi-lib';
 const crypto = new Client('YOUR-API-KEY');
 
-const subscriptionId = await client.events.eth.onTokenBalance({
-    token: '0xa96d69556441473c14dad36a95ead179cd458e01',
-    address: '0x3e182ce283e93a9fd30a9030b1a4dc3f48462db4',
-    confirmations: 2,
-}, (message) => { console.log(message) });
-
-// By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
 client.events.eth.onTokenBalance({
     token: '0xa96d69556441473c14dad36a95ead179cd458e01',
     address: '0x3e182ce283e93a9fd30a9030b1a4dc3f48462db4',
     confirmations: 2,
 }, (message) => { console.log(message) });
+
+// By subscriptionId you can unsubscribe:
+client.events.eth.onTokenBalance({
+    token: '0xa96d69556441473c14dad36a95ead179cd458e01',
+    address: '0x3e182ce283e93a9fd30a9030b1a4dc3f48462db4',
+    confirmations: 2,
+}, (message) => { console.log(message) }).then((subscriptionId) => {
+    client.events.eth.unsubscribe(subscriptionId).then(() => console.log('Unsubscribed'));
+});
 
 // Notification example
 > {
@@ -174,14 +182,16 @@ client.events.eth.onTokenBalance({
 import { Client } from 'cryptoapi-lib';
 const crypto = new Client('YOUR-API-KEY');
 
-const subscriptionId = await client.events.eth.onContractLog({
-    address: '0xda013d0850e75fe41dc9aa854ec5b6f49ef7dec4',
-}, (message) => { console.log(message) });
-
-// By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
 client.events.eth.onContractLog({
     address: '0xda013d0850e75fe41dc9aa854ec5b6f49ef7dec4',
 }, (message) => { console.log(message) });
+
+// By subscriptionId you can unsubscribe:
+client.events.eth.onContractLog({
+    address: '0xda013d0850e75fe41dc9aa854ec5b6f49ef7dec4',
+}, (message) => { console.log(message) }).then((subscriptionId) => {
+    client.events.eth.unsubscribe(subscriptionId).then(() => console.log('Unsubscribed'));
+});
 
 // Notification example
 > {
@@ -206,16 +216,18 @@ client.events.eth.onContractLog({
 import { Client } from 'cryptoapi-lib';
 const crypto = new Client('YOUR-API-KEY');
 
-const subscriptionId = await client.events.eth.onTransactionConfirmations({
-    hash: '0x4c29f5d1bc3228cca62e29d2c9f47a028edf68f85bab133053adfc541001eeb5',
-    confirmations: 2,
-}, (message) => { console.log(message) });
-
-// By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
 client.events.eth.onTransactionConfirmations({
     hash: '0x4c29f5d1bc3228cca62e29d2c9f47a028edf68f85bab133053adfc541001eeb5',
     confirmations: 2,
 }, (message) => { console.log(message) });
+
+// By subscriptionId you can unsubscribe:
+client.events.eth.onTransactionConfirmations({
+    hash: '0x4c29f5d1bc3228cca62e29d2c9f47a028edf68f85bab133053adfc541001eeb5',
+    confirmations: 2,
+}, (message) => { console.log(message) }).then((subscriptionId) => {
+    client.events.eth.unsubscribe(subscriptionId).then(() => console.log('Unsubscribed'));
+});
 
 // Notification example
 > {
@@ -230,16 +242,18 @@ client.events.eth.onTransactionConfirmations({
 import { Client } from 'cryptoapi-lib';
 const crypto = new Client('YOUR-API-KEY');
 
-const subscriptionId = await client.events.eth.onAddressBalance({
-    address: '0x2fbeef743f5671904f7b306304dca402ae022fad',
-    confirmations: 2,
-}, (message) => { console.log(message) });
-
-// By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
 client.events.eth.onAddressBalance({
     address: '0x2fbeef743f5671904f7b306304dca402ae022fad',
     confirmations: 2,
 }, (message) => { console.log(message) });
+
+// By subscriptionId you can unsubscribe:
+client.events.eth.onAddressBalance({
+    address: '0x2fbeef743f5671904f7b306304dca402ae022fad',
+    confirmations: 2,
+}, (message) => { console.log(message) }).then((subscriptionId) => {
+    client.events.eth.unsubscribe(subscriptionId).then(() => console.log('Unsubscribed'));
+});
 
 // Notification example
 > {

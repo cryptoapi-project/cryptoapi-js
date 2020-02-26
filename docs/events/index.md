@@ -71,14 +71,14 @@ import { Client } from 'cryptoapi-lib';
 
 const client = new Client('YOUR-API-KEY');
 
-await client.events.eth.connect();
+client.events.eth.connect().then(() => console.log('Connected'));
 ```
 
 If you want to disconnect:
 
 ```javascript
 
-await client.events.eth.disconnect()
+client.events.eth.disconnect().then(() => console.log('Disconnected'));
 ```
 ## List Events Clients
 
