@@ -71,7 +71,7 @@ const client = new Client('YOUR-API-KEY', options);
 <dd></dd>
 <dt><a href="#eth.getTransactionReceipt">eth.getTransactionReceipt</a> ⇒<code>Promise&lt;EthTransactionReceipt&gt;</code></dt></dt>
 <dd></dd>
-<dt><a href="#eth.getTransactionsBetweenAddresses">eth.getTransactionsBetweenAddresses</a> ⇒<code><a href="#EthTransactionsBetweenAddresses">Promise&lt;EthTransactionsBetweenAddresses&gt;</a></code></dt></dt>
+<dt><a href="#eth.getTransactions">eth.getTransactions</a> ⇒<code><a href="#EthTransactionsBetweenAddresses">Promise&lt;EthTransactionsBetweenAddresses&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#eth.subscribePushNotifications">eth.subscribePushNotifications</a> ⇒<code><a href="#EthSubscribeToken">Promise&lt;EthSubscribeToken&gt;</a></code></dt></dt>
 <dd></dd>
@@ -525,7 +525,7 @@ Example response:
 }
 ```
 
-#### <a name="eth.getTransactionsBetweenAddresses">eth.getTransactionsBetweenAddresses(data: <a href="#TTrxsBetweenAddressesRequest">TTrxsBetweenAddressesRequest</a>, options?: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsBetweenAddresses">Promise&lt;EthTransactionsBetweenAddresses&gt;</a></code></dt></dt>
+#### <a name="eth.getTransactions">eth.getTransactions(data: <a href="#TTrxsBetweenAddressesRequest">TTrxsBetweenAddressesRequest</a>, options?: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsBetweenAddresses">Promise&lt;EthTransactionsBetweenAddresses&gt;</a></code></dt></dt>
 Return list of transactions between addresses.
 
 Input data:
@@ -538,9 +538,10 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getTransactionsBetweenAddresses({
-        from: '0xcd66e50e51026673d60b3f993610b46b0f44096f',
-        to: '0x99608ad1026a47acf7839003546748158ad55504',
+    const result = await crypto.api.eth.getTransactions({
+        from: '0x4f2b6cb17b8156633115fdb26eea20cfaa93b498',
+        to: '0x75e6de78c9968c6b5faba747d73de70787591aac',
+        block_number: 9598253,
 });
 ```
 
@@ -1319,6 +1320,7 @@ Example response:
 {
     from: string;
     to: string;
+    block_number: number;
 ```
 
 #### EthTransactionsBetweenAddresses : <code>Object</code>

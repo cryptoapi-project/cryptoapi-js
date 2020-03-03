@@ -67,7 +67,7 @@ const client = new Client('YOUR-API-KEY', options);
 <dd></dd>
 <dt><a href="#klay.getExternalTransactions">klay.getExternalTransactions</a> ⇒<code><a href="#KlayTransactionsIntersection">Promise&lt;KlayTransactionsIntersection&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#klay.getTransactionsBetweenAddresses">klay.getTransactionsBetweenAddresses</a> ⇒<code><a href="#KlayTransactionsBetweenAddresses">Promise&lt;KlayTransactionsBetweenAddresses&gt;</a></code></dt></dt>
+<dt><a href="#klay.getTransactions">klay.getTransactions</a> ⇒<code><a href="#KlayTransactionsBetweenAddresses">Promise&lt;KlayTransactionsBetweenAddresses&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#klay.getFullTransaction">klay.getFullTransaction</a> ⇒<code>Promise&lt;FullKlayTransaction&gt;</code></dt></dt>
 <dd></dd>
@@ -840,7 +840,7 @@ Example response:
 }
 ```
 
-#### <a name="klay.getTransactionsBetweenAddresses">klay.getTransactionsBetweenAddresses(data: <a href="#TrxsBetweenAddressesRequest">TrxsBetweenAddressesRequest</a>, options?: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#KlayTransactionsBetweenAddresses">Promise&lt;KlayTransactionsBetweenAddresses&gt;</a></code></dt></dt>
+#### <a name="klay.getTransactions">klay.getTransactions(data: <a href="#TrxsBetweenAddressesRequest">TrxsBetweenAddressesRequest</a>, options?: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#KlayTransactionsBetweenAddresses">Promise&lt;KlayTransactionsBetweenAddresses&gt;</a></code></dt></dt>
 Return list of transactions between addresses.
 
 Input data:
@@ -853,9 +853,10 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.getTransactionsBetweenAddresses({
+    const result = await crypto.api.klay.getTransactions({
         from: '0x4937a6f664630547f6b0c3c235c4f03a64ca36b1',
         to: '0xfcd0ea52081a6d0c75ffddb035a91a782f4af027',
+        block_number: 9998,
 });
 ```
 
@@ -1455,6 +1456,7 @@ Example response:
 {
     from: string;
     to: string;
+    block_number: number;
 ```
 
 #### KlayTransactionsBetweenAddresses : <code>Object</code>
