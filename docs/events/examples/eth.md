@@ -44,6 +44,7 @@ client.events.eth.onBlock(1, (message) => { console.log(message) }).then((subscr
 // If you don't need subscriptionId, unsubscribe using:
 client.events.eth.onBlock(1, (message) => { console.log(message) });
 
+
 // Notification example
 > {
     count_transactions: 1,
