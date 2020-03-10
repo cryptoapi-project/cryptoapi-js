@@ -37,12 +37,12 @@ All subscribers are listed below:
 ```javascript
 import { Client } from 'cryptoapi-lib';
 const crypto = new Client('YOUR-API-KEY');
-client.events.klay.onBlock(1, (message) => { console.log(message) });
-
-// By subscriptionId you can unsubscribe:
 client.events.klay.onBlock(1, (message) => { console.log(message) }).then((subscriptionId) => {
-    client.events.eth.unsubscribe(subscriptionId).then(() => console.log('Unsubscribed'));
+    // By subscriptionId you can unsubscribe
 });
+
+// If you don't need subscriptionId, unsubscribe using:
+client.events.klay.onBlock(1, (message) => { console.log(message) });
 
 // Notification example
 > {
@@ -74,15 +74,15 @@ const crypto = new Client('YOUR-API-KEY');
 client.events.klay.onAddressTransactions({
     address: '0xb8dc7b6b90019b4978fa6580f9131308cd2fd4a0',
     confirmations: 1,
-}, (message) => { console.log(message) });
+}, (message) => { console.log(message) }).then((subscriptionId) => {
+    // By subscriptionId you can unsubscribe
+});
 
-// By subscriptionId you can unsubscribe:
+// If you don't need subscriptionId, unsubscribe using:
 client.events.klay.onAddressTransactions({
     address: '0xb8dc7b6b90019b4978fa6580f9131308cd2fd4a0',
     confirmations: 1,
-}, (message) => { console.log(message) }).then((subscriptionId) => {
-    client.events.eth.unsubscribe(subscriptionId).then(() => console.log('Unsubscribed'));
-});
+}, (message) => { console.log(message) });
 
 // Notification example
 > {
@@ -123,16 +123,16 @@ client.events.klay.onTokenTransfers({
     token: '0x8bb7e8b0e476afa4c2c6863e33ba065d53eeffa5',
     address: '0xc4e0d494faf1986912ca18e36c7453b242891cec',
     confirmations: 2,
-}, (message) => { console.log(message) });
+}, (message) => { console.log(message) }).then((subscriptionId) => {
+    // By subscriptionId you can unsubscribe
+});
 
-// By subscriptionId you can unsubscribe:
+// If you don't need subscriptionId, unsubscribe using:
 client.events.klay.onTokenTransfers({
     token: '0x8bb7e8b0e476afa4c2c6863e33ba065d53eeffa5',
     address: '0xc4e0d494faf1986912ca18e36c7453b242891cec',
     confirmations: 1,
-}, (message) => { console.log(message) }).then((subscriptionId) => {
-    client.events.eth.unsubscribe(subscriptionId).then(() => console.log('Unsubscribed'));
-});
+}, (message) => { console.log(message) });
 
 // Notification example
 > {
@@ -159,16 +159,16 @@ client.events.klay.onTokenBalance({
     token: '0x8bb7e8b0e476afa4c2c6863e33ba065d53eeffa5',
     address: '0xc4e0d494faf1986912ca18e36c7453b242891cec',
     confirmations: 2,
-}, (message) => { console.log(message) });
+}, (message) => { console.log(message) }).then((subscriptionId) => {
+    // By subscriptionId you can unsubscribe
+});
 
-// By subscriptionId you can unsubscribe:
+// If you don't need subscriptionId, unsubscribe using:
 client.events.klay.onTokenBalance({
     token: '0x8bb7e8b0e476afa4c2c6863e33ba065d53eeffa5',
     address: '0xc4e0d494faf1986912ca18e36c7453b242891cec',
     confirmations: 2,
-}, (message) => { console.log(message) }).then((subscriptionId) => {
-    client.events.eth.unsubscribe(subscriptionId).then(() => console.log('Unsubscribed'));
-});
+}, (message) => { console.log(message) });
 
 // Notification example
 > {
@@ -186,14 +186,14 @@ const crypto = new Client('YOUR-API-KEY');
 
 client.events.klay.onContractLog({
     address: '0x0fe647def2783f23bde95e5a22264a155536d6ab',
-}, (message) => { console.log(message) });
+}, (message) => { console.log(message) }).then((subscriptionId) => {
+    // By subscriptionId you can unsubscribe
+});
 
-// By subscriptionId you can unsubscribe:
+// If you don't need subscriptionId, unsubscribe using:
 client.events.klay.onContractLog({
     address: '0x0fe647def2783f23bde95e5a22264a155536d6ab',
-}, (message) => { console.log(message) }).then((subscriptionId) => {
-    client.events.eth.unsubscribe(subscriptionId).then(() => console.log('Unsubscribed'));
-});
+}, (message) => { console.log(message) });
 
 // Notification example
 > {
@@ -221,15 +221,15 @@ const crypto = new Client('YOUR-API-KEY');
 client.events.klay.onTransactionConfirmations({
     hash: '0xfffb50b8c1fcbff721d0a3c5207047ed805b1eb538da59ee8edc1911744559f1',
     confirmations: 2,
-}, (message) => { console.log(message) });
+}, (message) => { console.log(message) }).then((subscriptionId) => {
+    // By subscriptionId you can unsubscribe
+});
 
-// By subscriptionId you can unsubscribe:
+// If you don't need subscriptionId, unsubscribe using:
 client.events.klay.onTransactionConfirmations({
     hash: '0xfffb50b8c1fcbff721d0a3c5207047ed805b1eb538da59ee8edc1911744559f1',
     confirmations: 2,
-}, (message) => { console.log(message) }).then((subscriptionId) => {
-    client.events.eth.unsubscribe(subscriptionId).then(() => console.log('Unsubscribed'));
-});
+}, (message) => { console.log(message) });
 
 // Notification example
 > {
@@ -247,15 +247,15 @@ const crypto = new Client('YOUR-API-KEY');
 client.events.klay.onAddressBalance({
     address: '0xea67ecf8f7fa613f16634b30cb95e4ba289ae40c',
     confirmations: 2,
-}, (message) => { console.log(message) });
+}, (message) => { console.log(message) }).then((subscriptionId) => {
+    // By subscriptionId you can unsubscribe
+});
 
-// By subscriptionId you can unsubscribe:
+// If you don't need subscriptionId, unsubscribe using:
 client.events.klay.onAddressBalance({
     address: '0xea67ecf8f7fa613f16634b30cb95e4ba289ae40c',
     confirmations: 2,
-}, (message) => { console.log(message) }).then((subscriptionId) => {
-    client.events.eth.unsubscribe(subscriptionId).then(() => console.log('Unsubscribed'));
-});
+}, (message) => { console.log(message) });
 
 // Notification example
 > {

@@ -24,12 +24,12 @@ All subscribers are listed below:
 ```javascript
 import { Client } from 'cryptoapi-lib';
 const crypto = new Client('YOUR-API-KEY');
-client.events.btc.onBlock(1, (message) => { console.log(message) });
-
-// By subscriptionId you can unsubscribe:
 client.events.btc.onBlock(1, (message) => { console.log(message) }).then((subscriptionId) => {
-    client.events.eth.unsubscribe(subscriptionId).then(() => console.log('Unsubscribed'));
+    // By subscriptionId you can unsubscribe
 });
+
+// If you don't need subscriptionId, unsubscribe using:
+client.events.btc.onBlock(1, (message) => { console.log(message) });
 
 // Notification example
 > {
@@ -59,15 +59,15 @@ const crypto = new Client('YOUR-API-KEY');
 client.events.btc.onAddressTransactions({
     address: '0x1cDdD028E63D0Ff555B9DE49E9B436c4e14309Fc',
     confirmations: 1,
-}, (message) => { console.log(message) });
+}, (message) => { console.log(message) }).then((subscriptionId) => {
+    // By subscriptionId you can unsubscribe
+});
 
-// By subscriptionId you can unsubscribe:
+// If you don't need subscriptionId, unsubscribe using:
 client.events.btc.onAddressTransactions({
     address: '0x1cDdD028E63D0Ff555B9DE49E9B436c4e14309Fc',
     confirmations: 1,
-}, (message) => { console.log(message) }).then((subscriptionId) => {
-    client.events.eth.unsubscribe(subscriptionId).then(() => console.log('Unsubscribed'));
-});
+}, (message) => { console.log(message) });
 
 // Notification example
 > {
@@ -117,15 +117,15 @@ const crypto = new Client('YOUR-API-KEY');
 client.events.btc.onTransactionConfirmations({
     hash: '0x4c29f5d1bc3228cca62e29d2c9f47a028edf68f85bab133053adfc541001eeb5',
     confirmations: 2,
-}, (message) => { console.log(message) });
+}, (message) => { console.log(message) }).then((subscriptionId) => {
+    // By subscriptionId you can unsubscribe
+});
 
-// By subscriptionId you can unsubscribe:
+// If you don't need subscriptionId, unsubscribe using:
 client.events.btc.onTransactionConfirmations({
     hash: '0x4c29f5d1bc3228cca62e29d2c9f47a028edf68f85bab133053adfc541001eeb5',
     confirmations: 2,
-}, (message) => { console.log(message) }).then((subscriptionId) => {
-    client.events.eth.unsubscribe(subscriptionId).then(() => console.log('Unsubscribed'));
-});
+}, (message) => { console.log(message) });
 
 // Notification example
 > {
@@ -144,15 +144,15 @@ const crypto = new Client('YOUR-API-KEY');
 client.events.btc.onAddressBalance({
     address: '12dRugNcdxK39288NjcDV4GX7rMsKCGn6B',
     confirmations: 2,
-}, (message) => { console.log(message) });
+}, (message) => { console.log(message) }).then((subscriptionId) => {
+    // By subscriptionId you can unsubscribe
+});
 
-// By subscriptionId you can unsubscribe:
+// If you don't need subscriptionId, unsubscribe using:
 client.events.btc.onAddressBalance({
     address: '12dRugNcdxK39288NjcDV4GX7rMsKCGn6B',
     confirmations: 2,
-}, (message) => { console.log(message) }).then((subscriptionId) => {
-    client.events.eth.unsubscribe(subscriptionId).then(() => console.log('Unsubscribed'));
-});
+}, (message) => { console.log(message) });
 
 // Notification example
 > {
