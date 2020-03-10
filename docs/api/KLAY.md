@@ -1292,10 +1292,12 @@ Example response:
 
 ```javascript
 {
+    cursor: string;
+    reversed_fetch: boolean;
     from_block: number;
     to_block: number;
     addresses: string[];
-    topics: string[];    
+    topics: string[];
 }
 ```
 
@@ -1312,6 +1314,7 @@ Example response:
     transaction_index: number;
     block_hash: string;
     block_number: number;
+    id: string;
 }
 ```
 

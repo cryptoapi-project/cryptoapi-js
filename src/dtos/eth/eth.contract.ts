@@ -17,6 +17,7 @@ export class EthContractLog {
 	readonly transaction_index: number;
 	readonly block_hash: string;
 	readonly block_number: number;
+	readonly id: string;
 
 	constructor(info: {
 		address: string;
@@ -27,6 +28,7 @@ export class EthContractLog {
 		transaction_index: number;
 		block_hash: string;
 		block_number: number;
+		id: string;
 	}) {
 		this.address = info.address;
 		this.data = info.data;
@@ -36,5 +38,6 @@ export class EthContractLog {
 		this.transaction_index = info.transaction_index;
 		this.block_hash = info.block_hash;
 		this.block_number = info.block_number;
+		this.id = info.id;
 	}
 }
