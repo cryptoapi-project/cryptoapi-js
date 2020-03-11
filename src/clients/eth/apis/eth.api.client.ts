@@ -270,9 +270,9 @@ export class BaseEthApiClient<
 	 * @return {Promise<TTransactionsBetweenAddresses>}
 	 */
 	@TryCatch
-	async getTransactionsBetweenAddresses(data: TTrxsBetweenAddressesRequest, options?: TPaginationOptions) {
-		const info = await this.ethTransactions.getTransactionsBetweenAddresses(data, options);
-		return this.factoryDto.getTransactionsBetweenAddresses(info);
+	async getTransactions(data: TTrxsBetweenAddressesRequest, options?: TPaginationOptions) {
+		const info = await this.ethTransactions.getTransactions(data, options);
+		return this.factoryDto.getTransactions(info);
 	}
 
 	/**

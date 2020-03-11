@@ -67,7 +67,7 @@ const client = new Client('YOUR-API-KEY', options);
 <dd></dd>
 <dt><a href="#klay.getExternalTransactions">klay.getExternalTransactions</a> ⇒<code><a href="#KlayTransactionsIntersection">Promise&lt;KlayTransactionsIntersection&gt;</a></code></dt></dt>
 <dd></dd>
-<dt><a href="#klay.getTransactionsBetweenAddresses">klay.getTransactionsBetweenAddresses</a> ⇒<code><a href="#KlayTransactionsBetweenAddresses">Promise&lt;KlayTransactionsBetweenAddresses&gt;</a></code></dt></dt>
+<dt><a href="#klay.getTransactions">klay.getTransactions</a> ⇒<code><a href="#KlayTransactionsBetweenAddresses">Promise&lt;KlayTransactionsBetweenAddresses&gt;</a></code></dt></dt>
 <dd></dd>
 <dt><a href="#klay.getFullTransaction">klay.getFullTransaction</a> ⇒<code>Promise&lt;FullKlayTransaction&gt;</code></dt></dt>
 <dd></dd>
@@ -82,7 +82,7 @@ Returns JSON data about a network information such as last block, count transact
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.getNetworkInfo();
+    crypto.api.klay.getNetworkInfo().then(console.log);
 ```
 
 Example response:
@@ -101,11 +101,11 @@ Returns JSON data about an estimate gas information.
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.estimateGas({
+    crypto.api.klay.estimateGas({
         from: '0x653a801625c60112a03097c51b7d3f3a19e07c9c',
     	to: '0xc6c65a3979a7ea0b2ff3040e6d3efdbebf87c345',
     	value: '20000000000000000'
-    });
+    }).then(console.log);
 ```
 Example response:
 ```
@@ -128,10 +128,10 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.getAddressesBalances([
+    crypto.api.klay.getAddressesBalances([
         '0xa177AD7c3CA2cCa794C02a0FF4dF1C2B09D49C8f',
         '0xf24A2674208B7B5EC2f2863DCb65938EF82dC180'
-    ]);
+    ]).then(console.log);
 ```
 
 Example response:
@@ -159,9 +159,9 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.getAddressesInfos([
+    crypto.api.klay.getAddressesInfos([
         '0xa177AD7c3CA2cCa794C02a0FF4dF1C2B09D49C8f',
-    ]);
+    ]).then(console.log);
 ```
 
 Example response:
@@ -190,7 +190,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.getToken('0x106c2dbabeb8c4932e3f68b76fb9665180b74587');
+    crypto.api.klay.getToken('0x106c2dbabeb8c4932e3f68b76fb9665180b74587').then(console.log);
 ```
 
 Example response:
@@ -221,10 +221,10 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getTokenBalanceByAddresses({
+    crypto.api.eth.getTokenBalanceByAddresses({
         tokenAddress: '0x5ae86537ea087929a34b597480fd23144d2dd216',
         holderAddresses: ['0xd89f43605f4ccc0935afceba98f3d5d04ce2e390'],
-    });
+    }).then(console.log);
 ```
 
 Example response:
@@ -254,7 +254,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.getTokenBalancesByHolders(['0xd89f43605f4ccc0935afceba98f3d5d04ce2e390'], { limit: 10 });
+    crypto.api.klay.getTokenBalancesByHolders(['0xd89f43605f4ccc0935afceba98f3d5d04ce2e390'], { limit: 10 }).then(console.log);
 ```
 
 Example response:
@@ -284,10 +284,10 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.getTokenTransfers({tokenAddress: '0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c'}, {
+    crypto.api.klay.getTokenTransfers({tokenAddress: '0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c'}, {
         skip: 1,
         limit: 1
-    });
+    }).then(console.log);
 ```
 
 Example response:
@@ -328,13 +328,13 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.getTokenTransfersByAddresses({
+    crypto.api.klay.getTokenTransfersByAddresses({
         tokenAddress: '0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c',
         addresses: ['0x08355184bdfd2f61324808cc8652b12db6d4f8cc']
     }, {
         skip: 1,
         limit: 1
-    });
+    }).then(console.log);
 ```
 
 Example response:
@@ -375,7 +375,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.searchToken({ query: 'ERC721' }, { limit: 1 })
+    crypto.api.klay.searchToken({ query: 'ERC721' }, { limit: 1 }).then(console.log);
 ```
 
 Example response:
@@ -408,7 +408,7 @@ Returns JSON data about contract information.
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.getContractInfo('0x77ac6721fd5c5e5e2b3169ffd648d1e419ae0353');
+    crypto.api.klay.getContractInfo('0x77ac6721fd5c5e5e2b3169ffd648d1e419ae0353').then(console.log);
 ```
 
 Example response:
@@ -430,12 +430,12 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.callContract({
+    crypto.api.klay.callContract({
         address: "0x77ac6721fd5c5e5e2b3169ffd648d1e419ae0353",
         bytecode: "0xa9059cbb0000000000000000000000008d09819b35c28280bf6fbcef84d01645ec9745590000000000000000000000000000000000000000000000000000000000000064",
         sender: "0x21507b4458ce97cb45eb6ee487b926b923668601",
         amount: 0
-    });
+    }).then(console.log);
 ```
 
 Example response:
@@ -456,10 +456,10 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.getContractLogs({
+    crypto.api.klay.getContractLogs({
         from_block: 0,
         address: ["0x77ac6721fd5c5e5e2b3169ffd648d1e419ae0353"],
-      });
+      }).then(console.log);
 ```
 
 Example response:
@@ -494,7 +494,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.decodeRawTransaction('0x2af902ca0a8505d21dba00843b9ac9ff80809490b3e9a3770481345a7f17f22f16d020bccfd33eb901fe608060405234801561001057600080fd5b506101de806100206000396000f3006080604052600436106100615763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416631a39d8ef81146100805780636353586b146100a757806370a08231146100ca578063fd6b7ef8146100f8575b3360009081526001602052604081208054349081019091558154019055005b34801561008c57600080fd5b5061009561010d565b60408051918252519081900360200190f35b6100c873ffffffffffffffffffffffffffffffffffffffff60043516610113565b005b3480156100d657600080fd5b5061009573ffffffffffffffffffffffffffffffffffffffff60043516610147565b34801561010457600080fd5b506100c8610159565b60005481565b73ffffffffffffffffffffffffffffffffffffffff1660009081526001602052604081208054349081019091558154019055565b60016020526000908152604090205481565b336000908152600160205260408120805490829055908111156101af57604051339082156108fc029083906000818181858888f193505050501561019c576101af565b3360009081526001602052604090208190555b505600a165627a7a72305820627ca46bb09478a015762806cc00c431230501118c7c26c30ac58c4e09e51c4f0029802180f845f84325a0d8cdc1219df8bbca8a00255420a5bec0f602e6266b76ce7dcf5b0b26bd7fe3b9a05557496a3a17f784c3eb40acbb526dfbc20ae6b00c633a0186d804cd9137b13e9433f524631e573329a550296f595c820d6c65213ff845f84325a041a4c4bf0e3039d04472beae4135a14c26ae4c88bad08d5f0acf61f7c0eb60dfa03d1658f38e5c2089d64985fb33cb13db2e41cde6958ba2cfcfaba685a7f565e2');
+    crypto.api.klay.decodeRawTransaction('0x2af902ca0a8505d21dba00843b9ac9ff80809490b3e9a3770481345a7f17f22f16d020bccfd33eb901fe608060405234801561001057600080fd5b506101de806100206000396000f3006080604052600436106100615763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416631a39d8ef81146100805780636353586b146100a757806370a08231146100ca578063fd6b7ef8146100f8575b3360009081526001602052604081208054349081019091558154019055005b34801561008c57600080fd5b5061009561010d565b60408051918252519081900360200190f35b6100c873ffffffffffffffffffffffffffffffffffffffff60043516610113565b005b3480156100d657600080fd5b5061009573ffffffffffffffffffffffffffffffffffffffff60043516610147565b34801561010457600080fd5b506100c8610159565b60005481565b73ffffffffffffffffffffffffffffffffffffffff1660009081526001602052604081208054349081019091558154019055565b60016020526000908152604090205481565b336000908152600160205260408120805490829055908111156101af57604051339082156108fc029083906000818181858888f193505050501561019c576101af565b3360009081526001602052604090208190555b505600a165627a7a72305820627ca46bb09478a015762806cc00c431230501118c7c26c30ac58c4e09e51c4f0029802180f845f84325a0d8cdc1219df8bbca8a00255420a5bec0f602e6266b76ce7dcf5b0b26bd7fe3b9a05557496a3a17f784c3eb40acbb526dfbc20ae6b00c633a0186d804cd9137b13e9433f524631e573329a550296f595c820d6c65213ff845f84325a041a4c4bf0e3039d04472beae4135a14c26ae4c88bad08d5f0acf61f7c0eb60dfa03d1658f38e5c2089d64985fb33cb13db2e41cde6958ba2cfcfaba685a7f565e2').then(console.log);
 ```
 
 Example response:
@@ -523,7 +523,7 @@ Returns JSON data about block information.
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.getBlock('0x0b0c5d50a96e764f8f32453d0e3bc4a7c28639b96b112e6d1b6348bb9829d09a');
+    crypto.api.klay.getBlock('0x0b0c5d50a96e764f8f32453d0e3bc4a7c28639b96b112e6d1b6348bb9829d09a').then(console.log);
 ```
 
 Example response:
@@ -560,7 +560,7 @@ Returns JSON data about all blocks.
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.getBlocks({ limit: 1 });
+    crypto.api.klay.getBlocks({ limit: 1 }).then(console.log);
 ```
 
 Example response:
@@ -601,7 +601,7 @@ Returns JSON data about contract information.
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.getContractInfo('0x77ac6721fd5c5e5e2b3169ffd648d1e419ae0353');
+    crypto.api.klay.getContractInfo('0x77ac6721fd5c5e5e2b3169ffd648d1e419ae0353').then(console.log);
 ```
 
 Example response:
@@ -623,12 +623,12 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.callContract({
+    crypto.api.klay.callContract({
         address: "0x77ac6721fd5c5e5e2b3169ffd648d1e419ae0353",
         bytecode: "0xa9059cbb0000000000000000000000008d09819b35c28280bf6fbcef84d01645ec9745590000000000000000000000000000000000000000000000000000000000000064",
         sender: "0x21507b4458ce97cb45eb6ee487b926b923668601",
         amount: 0
-    });
+    }).then(console.log);
 ```
 
 Example response:
@@ -649,10 +649,10 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.getContractLogs({
+    crypto.api.klay.getContractLogs({
         from_block: 0,
         address: ["0x77ac6721fd5c5e5e2b3169ffd648d1e419ae0353"],
-      });
+      }).then(console.log);
 ```
 
 Example response:
@@ -687,7 +687,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.decodeRawTransaction('0x2af902ca0a8505d21dba00843b9ac9ff80809490b3e9a3770481345a7f17f22f16d020bccfd33eb901fe608060405234801561001057600080fd5b506101de806100206000396000f3006080604052600436106100615763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416631a39d8ef81146100805780636353586b146100a757806370a08231146100ca578063fd6b7ef8146100f8575b3360009081526001602052604081208054349081019091558154019055005b34801561008c57600080fd5b5061009561010d565b60408051918252519081900360200190f35b6100c873ffffffffffffffffffffffffffffffffffffffff60043516610113565b005b3480156100d657600080fd5b5061009573ffffffffffffffffffffffffffffffffffffffff60043516610147565b34801561010457600080fd5b506100c8610159565b60005481565b73ffffffffffffffffffffffffffffffffffffffff1660009081526001602052604081208054349081019091558154019055565b60016020526000908152604090205481565b336000908152600160205260408120805490829055908111156101af57604051339082156108fc029083906000818181858888f193505050501561019c576101af565b3360009081526001602052604090208190555b505600a165627a7a72305820627ca46bb09478a015762806cc00c431230501118c7c26c30ac58c4e09e51c4f0029802180f845f84325a0d8cdc1219df8bbca8a00255420a5bec0f602e6266b76ce7dcf5b0b26bd7fe3b9a05557496a3a17f784c3eb40acbb526dfbc20ae6b00c633a0186d804cd9137b13e9433f524631e573329a550296f595c820d6c65213ff845f84325a041a4c4bf0e3039d04472beae4135a14c26ae4c88bad08d5f0acf61f7c0eb60dfa03d1658f38e5c2089d64985fb33cb13db2e41cde6958ba2cfcfaba685a7f565e2');
+    crypto.api.klay.decodeRawTransaction('0x2af902ca0a8505d21dba00843b9ac9ff80809490b3e9a3770481345a7f17f22f16d020bccfd33eb901fe608060405234801561001057600080fd5b506101de806100206000396000f3006080604052600436106100615763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416631a39d8ef81146100805780636353586b146100a757806370a08231146100ca578063fd6b7ef8146100f8575b3360009081526001602052604081208054349081019091558154019055005b34801561008c57600080fd5b5061009561010d565b60408051918252519081900360200190f35b6100c873ffffffffffffffffffffffffffffffffffffffff60043516610113565b005b3480156100d657600080fd5b5061009573ffffffffffffffffffffffffffffffffffffffff60043516610147565b34801561010457600080fd5b506100c8610159565b60005481565b73ffffffffffffffffffffffffffffffffffffffff1660009081526001602052604081208054349081019091558154019055565b60016020526000908152604090205481565b336000908152600160205260408120805490829055908111156101af57604051339082156108fc029083906000818181858888f193505050501561019c576101af565b3360009081526001602052604090208190555b505600a165627a7a72305820627ca46bb09478a015762806cc00c431230501118c7c26c30ac58c4e09e51c4f0029802180f845f84325a0d8cdc1219df8bbca8a00255420a5bec0f602e6266b76ce7dcf5b0b26bd7fe3b9a05557496a3a17f784c3eb40acbb526dfbc20ae6b00c633a0186d804cd9137b13e9433f524631e573329a550296f595c820d6c65213ff845f84325a041a4c4bf0e3039d04472beae4135a14c26ae4c88bad08d5f0acf61f7c0eb60dfa03d1658f38e5c2089d64985fb33cb13db2e41cde6958ba2cfcfaba685a7f565e2').then(console.log);
 ```
 
 Example response:
@@ -722,7 +722,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.sendRawTransaction('0xf867078505d21dba00830186a094cae7cd8e94233f0bb8a2f08ef36d65f987cb4fc401808207f6a00f571767e3d59596656160261f78e0591fd0aced4362ba80faeb4ec8b629a167a05c69bf85c2a20149a38c4299ae59dde72c1ee01bae5203f9c29f869ffffe4b0f');
+    crypto.api.klay.sendRawTransaction('0xf867078505d21dba00830186a094cae7cd8e94233f0bb8a2f08ef36d65f987cb4fc401808207f6a00f571767e3d59596656160261f78e0591fd0aced4362ba80faeb4ec8b629a167a05c69bf85c2a20149a38c4299ae59dde72c1ee01bae5203f9c29f869ffffe4b0f').then(console.log);
 ```
 
 Example response:
@@ -744,12 +744,12 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.getTransfers({
+    crypto.api.klay.getTransfers({
         addresses: ["0x4937a6f664630547f6b0c3c235c4f03a64ca36b1"],
     }, {
         skip: 1,
         limit: 1
-    });
+    }).then(console.log);
 ```
 
 Example response:
@@ -790,9 +790,9 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.getExternalTransactions(['0x4937a6f664630547f6b0c3c235c4f03a64ca36b1'], {
+    crypto.api.klay.getExternalTransactions(['0x4937a6f664630547f6b0c3c235c4f03a64ca36b1'], {
         limit: 1
-    });
+    }).then(console.log);
 ```
 
 Example response:
@@ -840,7 +840,7 @@ Example response:
 }
 ```
 
-#### <a name="klay.getTransactionsBetweenAddresses">klay.getTransactionsBetweenAddresses(data: <a href="#TrxsBetweenAddressesRequest">TrxsBetweenAddressesRequest</a>, options?: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#KlayTransactionsBetweenAddresses">Promise&lt;KlayTransactionsBetweenAddresses&gt;</a></code></dt></dt>
+#### <a name="klay.getTransactions">klay.getTransactions(data: <a href="#TrxsBetweenAddressesRequest">TrxsBetweenAddressesRequest</a>, options?: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#KlayTransactionsBetweenAddresses">Promise&lt;KlayTransactionsBetweenAddresses&gt;</a></code></dt></dt>
 Return list of transactions between addresses.
 
 Input data:
@@ -853,10 +853,11 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.getTransactionsBetweenAddresses({
-        from: '0x4937a6f664630547f6b0c3c235c4f03a64ca36b1',
-        to: '0xfcd0ea52081a6d0c75ffddb035a91a782f4af027',
-});
+    crypto.api.klay.getTransactions({
+      from: '0x4937a6f664630547f6b0c3c235c4f03a64ca36b1',
+      to: '0xfcd0ea52081a6d0c75ffddb035a91a782f4af027',
+      block_number: 9998,
+    }).then(console.log);
 ```
 
 Example response:
@@ -911,7 +912,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.klay.getFullTransaction('0x879c7099922be963176af976022a858e02fd0b4f1923b9f5bf48c9099b305d07')
+    crypto.api.klay.getFullTransaction('0x879c7099922be963176af976022a858e02fd0b4f1923b9f5bf48c9099b305d07').then(console.log);
 ```
 
 Example response:
@@ -1455,6 +1456,7 @@ Example response:
 {
     from: string;
     to: string;
+    block_number: number;
 ```
 
 #### KlayTransactionsBetweenAddresses : <code>Object</code>

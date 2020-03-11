@@ -86,7 +86,7 @@ export class KlayApiFactoryDto implements IKlayApiFactoryDto {
 		return new KlayTransfers(data);
 	}
 
-	getTransactionsBetweenAddresses(data: any): KlayTransactionsBetweenAddresses {
+	getTransactions(data: any): KlayTransactionsBetweenAddresses {
 		return new KlayTransactionsBetweenAddresses(data);
 	}
 

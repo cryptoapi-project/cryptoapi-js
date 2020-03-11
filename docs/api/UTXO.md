@@ -62,7 +62,7 @@ current hash rate, difficulty and estimate rate per kb.
 ```javascript
 import { Client } from 'cryptoapi-lib';
 const crypto = new Client('YOUR-API-KEY');
-const result = await crypto.api.btc.getNetworkInfo();
+crypto.api.btc.getNetworkInfo().then(console.log);
 ```
 
 Example response:
@@ -82,7 +82,7 @@ Returns estimate transaction fee per kilobyte (BTC/kb).
 ```javascript
 import { Client } from 'cryptoapi-lib';
 const crypto = new Client('YOUR-API-KEY');
-const result = await crypto.api.btc.getEstimateFee();
+crypto.api.btc.getEstimateFee().then(console.log);
 ```
 
 Example response:
@@ -103,7 +103,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.btc.getBlock(1);
+    crypto.api.btc.getBlock(1).then(console.log);
 ```
 
 Example response:
@@ -137,7 +137,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.btc.getBlocks([1]);
+    crypto.api.btc.getBlocks([1]).then(console.log);
 ```
 
 Example response:
@@ -171,7 +171,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.btc.getFullTransactionInfo('fd127bd2992876507ccf668d07e303e11ad8ffbbbb0f5660b0849fd6ba6480db')
+    crypto.api.btc.getFullTransactionInfo('fd127bd2992876507ccf668d07e303e11ad8ffbbbb0f5660b0849fd6ba6480db').then(console.log);
 ```
 
 Example response:
@@ -222,7 +222,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.btc.getTransactions({ blockHeightOrHash: 2, from: null, to: null }, { limit: 15, skip: 0 });
+    crypto.api.btc.getTransactions({ blockHeightOrHash: 2, from: null, to: null }, { limit: 15, skip: 0 }).then(console.log);
 ```
 
 Example response:
@@ -282,7 +282,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.btc.getAddressesInfos(['mj7x3dQvsSkEoBuuU3GBKMTqDXBArFC1zu','mnz4DK2sv9RkkPd96b1ZAgKQ4nRpCoA1kb']);
+    crypto.api.btc.getAddressesInfos(['mj7x3dQvsSkEoBuuU3GBKMTqDXBArFC1zu','mnz4DK2sv9RkkPd96b1ZAgKQ4nRpCoA1kb']).then(console.log);
 ```
 
 Example response:
@@ -324,7 +324,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.btc.getAddressesHistory(['mstvLRTSSEaMGHEUmhUe5CCWYUJ8Z78Y8w', { skip: 1, limit:1 });
+    crypto.api.btc.getAddressesHistory(['mstvLRTSSEaMGHEUmhUe5CCWYUJ8Z78Y8w'], { skip: 1, limit:1 }).then(console.log);
 ```
 
 Example response:
@@ -385,10 +385,10 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.btc.sendRawTransaction('01000000014368d74c6a7b118610b325389613acff68a324eb86caf61e1494d1ff6bcb07e9010000006a4730440220463a47bd9ba114ba919' +
+    crypto.api.btc.sendRawTransaction('01000000014368d74c6a7b118610b325389613acff68a324eb86caf61e1494d1ff6bcb07e9010000006a4730440220463a47bd9ba114ba919' +
         'b7bb6fc4f9e97754fb1e8eb78c5d4803cb3208fea7c8c0220271174def0bf6499b09b48fa87ad6f3ae8e3f1' +
         '6217228ed5c722aa9a4e1180fd01210309a18fa38989b25a7cc4f66fb193a9a26842113874908c430a25d65f6' +
-        '6e4e5fbffffffff0101000000000000001976a91492bf5261a59bd600825dc81cfee868b7f123b97288ac00000000');
+        '6e4e5fbffffffff0101000000000000001976a91492bf5261a59bd600825dc81cfee868b7f123b97288ac00000000').then(console.log);
 ```
 
 Example response:
@@ -409,7 +409,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.btc.decodeRawTransaction('01000000014368d74c6a7b118610b325389613acff68a324eb86caf61e1494d1ff6bcb07e9010000006a4730440220463a47bd9ba114ba919b7bb6fc4f9e97754fb1e8eb78c5d4803cb3208fea7c8c0220271174def0bf6499b09b48fa87ad6f3ae8e3f16217228ed5c722aa9a4e1180fd01210309a18fa38989b25a7cc4f66fb193a9a26842113874908c430a25d65f66e4e5fbffffffff0101000000000000001976a91492bf5261a59bd600825dc81cfee868b7f123b97288ac00000000');
+    crypto.api.btc.decodeRawTransaction('01000000014368d74c6a7b118610b325389613acff68a324eb86caf61e1494d1ff6bcb07e9010000006a4730440220463a47bd9ba114ba919b7bb6fc4f9e97754fb1e8eb78c5d4803cb3208fea7c8c0220271174def0bf6499b09b48fa87ad6f3ae8e3f16217228ed5c722aa9a4e1180fd01210309a18fa38989b25a7cc4f66fb193a9a26842113874908c430a25d65f66e4e5fbffffffff0101000000000000001976a91492bf5261a59bd600825dc81cfee868b7f123b97288ac00000000').then(console.log);
 ```
 
 Example response:
@@ -451,7 +451,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.btc.getOutputsByAddresses(['mqHPFTRk23JZm9W1ANuEFtwTYwxjESSgKs'], { status: 'unspent', skip: 1});
+    crypto.api.btc.getOutputsByAddresses(['mqHPFTRk23JZm9W1ANuEFtwTYwxjESSgKs'], { status: 'unspent', skip: 1}).then(console.log);
 ```
 
 Example response:
