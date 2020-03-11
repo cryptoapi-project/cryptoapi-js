@@ -3,6 +3,11 @@ import bitcoreLib from 'bitcore-lib';
 import bitcoreLibCash from 'bitcore-lib-cash';
 import { Container } from 'inversify';
 
+import { HooksClient } from '@src/clients/hooks.client';
+import { HookEvents } from '@src/clients/hooks/apis/hook.events';
+import { IHooksClient } from '@src/interfaces/clients/hooks.client.interface';
+import { IHookEvents } from '@src/interfaces/clients/hooks/hook.events.interface';
+
 import { ApiClient } from '../clients/api.client';
 import { EthApi, EthApiClient } from '../clients/eth/apis/eth.api.client';
 import { EthApiFactoryDto } from '../clients/eth/apis/eth.api.factory.dto';
@@ -70,6 +75,7 @@ const diContainer = new Container();
 diContainer.bind<ICrypto>(TYPES_DI.ICrypto).to(Crypto);
 diContainer.bind<IApiClient>(TYPES_DI.IApiClient).to(ApiClient);
 diContainer.bind<IEventsClient>(TYPES_DI.IEventsClient).to(EventsClient);
+diContainer.bind<IHooksClient>(TYPES_DI.IHooksClient).to(HooksClient);
 
 /**
  * Inject service by module, example eth, utxo and etc.
@@ -118,6 +124,8 @@ diContainer.bind<IUtxoRawTransactionApi>(TYPES_DI.IUtxoRawTransactionApi).to(Utx
 diContainer.bind<IUtxoTransactionsApi>(TYPES_DI.IUtxoTransactionsApi).to(UtxoTransactionsApi);
 diContainer.bind<IUtxoAddressApi>(TYPES_DI.IUtxoAddressApi).to(UtxoAddressApi);
 diContainer.bind<IUtxoOutputsApi>(TYPES_DI.IUtxoOutputsApi).to(UtxoOutputsApi);
+
+diContainer.bind<IHookEvents>(TYPES_DI.IUtxoOutputsApi).to(HookEvents);
 /**
  * Inject providers.
  */

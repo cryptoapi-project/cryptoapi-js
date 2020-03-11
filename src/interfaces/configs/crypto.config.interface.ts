@@ -45,11 +45,18 @@ export interface IUtxoServerConfig extends IServerConfig {
 	};
 }
 
+export interface IHooksConfig {
+	baseUrl: string;
+	token: string;
+	timeout: number;
+}
+
 export interface ICryptoOptions {
 	eth: IEthServerConfig;
 	klay: IKlayServerConfig;
 	btc: IUtxoServerConfig;
 	bch: IUtxoServerConfig;
+	hooks: IHooksConfig;
 	timeout: number;
 }
 

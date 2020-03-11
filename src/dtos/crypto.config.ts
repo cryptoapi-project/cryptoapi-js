@@ -3,7 +3,7 @@ import { injectable } from 'inversify';
 import {
 	ICryptoConfig,
 	IEthServerConfig,
-	IEventsConfig,
+	IEventsConfig, IHooksConfig,
 	IKlayServerConfig,
 	IServerConfig,
 	IUtxoServerConfig,
@@ -121,6 +121,24 @@ export class UtxoServerConfig extends ServerConfig {
 	}
 }
 
+export class HooksConfig {
+	baseUrl: string;
+	token: string;
+	timeout: number;
+
+	constructor(
+		config: {
+			baseUrl: string,
+			token: string,
+			timeout: number,
+		},
+	) {
+		this.baseUrl = config.baseUrl;
+		this.token = config.token;
+		this.timeout = config.timeout;
+	}
+}
+
 @injectable()
 export class CryptoConfig implements ICryptoConfig {
 	token: string;
@@ -129,6 +147,7 @@ export class CryptoConfig implements ICryptoConfig {
 	klay: IKlayServerConfig;
 	btc: IUtxoServerConfig;
 	bch: IUtxoServerConfig;
+	hooks: IHooksConfig;
 
 	constructor(
 		config: {
@@ -138,6 +157,7 @@ export class CryptoConfig implements ICryptoConfig {
 			klay: IKlayServerConfig;
 			btc: IUtxoServerConfig;
 			bch: IUtxoServerConfig;
+			hooks: HooksConfig;
 		},
 	) {
 		this.token = config.token;
@@ -145,6 +165,7 @@ export class CryptoConfig implements ICryptoConfig {
 		this.klay = new KlayServerConfig(config.klay);
 		this.btc = new UtxoServerConfig(config.btc);
 		this.bch = new UtxoServerConfig(config.bch);
+		this.hooks = new HooksConfig(config.hooks);
 		this.timeout = config.timeout;
 	}
 }

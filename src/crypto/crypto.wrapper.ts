@@ -1,4 +1,6 @@
-import { CONFIG_BY_COIN, DEFAULT_TIMEOUT_REQUEST, TCoin } from '../config/capi.lib.config';
+import { IHooksClient } from '@src/interfaces/clients/hooks.client.interface';
+
+import { CONFIG_BY_COIN, DEFAULT_TIMEOUT_REQUEST, HOOKS_CONFIG, TCoin } from '../config/capi.lib.config';
 import { diContainer } from '../configuration/di.container';
 import { TYPES_DI } from '../constants/inversify.constants';
 import { InvalidParamsException } from '../exceptions/library.exceptions/invalid.params.exceptions';
@@ -12,6 +14,7 @@ class CryptoWrapper implements IPublicCrypto {
 	private crypto: ICrypto;
 	api: IApiClient | null;
 	events: IEventsClient | null;
+	hooks: IHooksClient | null;
 
 	constructor(config: TPublicConfig);
 	constructor(token: string, options?: TPublicConfig);
@@ -38,6 +41,9 @@ class CryptoWrapper implements IPublicCrypto {
 		cryptoConfig.btc = this.getConfigByCoin(TCoin.BTC, options.btc);
 		cryptoConfig.bch = this.getConfigByCoin(TCoin.BCH, options.bch);
 
+		options.hooks.baseUrl = options.hooks.baseUrl || HOOKS_CONFIG.baseUrl;
+		cryptoConfig.hooks = options.hooks;
+
 		if (!cryptoConfig.token) {
 			throw new InvalidParamsException('Token is not exist.');
 		}
@@ -46,6 +52,7 @@ class CryptoWrapper implements IPublicCrypto {
 		this.crypto.configure(cryptoConfig);
 		this.api = this.crypto.api;
 		this.events = this.crypto.events;
+		this.hooks = this.crypto.hooks;
 	}
 
 	/**
