@@ -85,7 +85,7 @@ export class EthApiFactoryDto implements IEthApiFactoryDto {
 		return new EthTransfers(data);
 	}
 
-	getTransactionsBetweenAddresses(data: any): EthTransactionsBetweenAddresses {
+	getTransactions(data: any): EthTransactionsBetweenAddresses {
 		return new EthTransactionsBetweenAddresses(data);
 	}
 

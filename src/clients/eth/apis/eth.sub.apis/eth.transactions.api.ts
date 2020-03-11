@@ -85,18 +85,18 @@ export class EthTransactionsApi<
 
 	/**
 	 * Get transactions from one address to another
-	 * @method getTransactionsBetweenAddresses
+	 * @method getTransactions
 	 * @param {TTrxsBetweenAddressesRequest} data
 	 * @param {TPaginationOptions} options?
 	 * @return {Promise<TTransactionsBetweenAddresses>}
 	 */
-	async getTransactionsBetweenAddresses(
-		{ from, to }: TTrxsBetweenAddressesRequest,
+	async getTransactions(
+		{ from, to, block_number }: TTrxsBetweenAddressesRequest,
 		options?: TPaginationOptions,
 	): Promise<TTransactionsBetweenAddresses> {
 		this._checkConfig();
 
-		const query = this.urlHelper.addOptionsToUrl('', {from, to, ...options});
+		const query = this.urlHelper.addOptionsToUrl('', {from, to, block_number, ...options});
 		const { data } = await this.httpService.agent.get(
 			`${this.config!.baseUrl}/coins/${this.config!.coin}/transactions${query}`,
 		);
@@ -128,7 +128,7 @@ export class EthTransactionsApi<
 		this._checkConfig();
 
 		const transaction = await this.httpService.agent.get(
-			`${this.config!.baseUrl}/coins/${this.config!.coin}/transactions/receipt/${hash}`,
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/transactions/${hash}/receipt`,
 		);
 		return transaction.data;
 	}

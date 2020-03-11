@@ -50,7 +50,7 @@ export interface IBaseEthFactoryDto<
 
 	getTransfers(data: any): TTransfers;
 	getExternalTransactions(data: any): TExternalTransactions;
-	getTransactionsBetweenAddresses(data: any): TTransactionsBetweenAddresses;
+	getTransactions(data: any): TTransactionsBetweenAddresses;
 	getFullTransaction(data: any): TFullTransaction;
 	getTransactionReceipt(data: any): TTransactionReceipt;
 }
