@@ -128,7 +128,7 @@ export class EthTransactionsApi<
 		this._checkConfig();
 
 		const transaction = await this.httpService.agent.get(
-			`${this.config!.baseUrl}/coins/${this.config!.coin}/transactions/receipt/${hash}`,
+			`${this.config!.baseUrl}/coins/${this.config!.coin}/transactions/${hash}/receipt`,
 		);
 		return transaction.data;
 	}

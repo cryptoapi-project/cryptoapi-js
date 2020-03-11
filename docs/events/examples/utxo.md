@@ -24,9 +24,11 @@ All subscribers are listed below:
 ```javascript
 import { Client } from 'cryptoapi-lib';
 const crypto = new Client('YOUR-API-KEY');
-const subscriptionId = await client.events.btc.onBlock(1, (message) => { console.log(message) });
+client.events.btc.onBlock(1, (message) => { console.log(message) }).then((subscriptionId) => {
+    // By subscriptionId you can unsubscribe
+});
 
-// By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
+// If you don't need subscriptionId, unsubscribe using:
 client.events.btc.onBlock(1, (message) => { console.log(message) });
 
 // Notification example
@@ -54,12 +56,14 @@ client.events.btc.onBlock(1, (message) => { console.log(message) });
 import { Client } from 'cryptoapi-lib';
 const crypto = new Client('YOUR-API-KEY');
 
-const subscriptionId = await client.events.btc.onAddressTransactions({
+client.events.btc.onAddressTransactions({
     address: '0x1cDdD028E63D0Ff555B9DE49E9B436c4e14309Fc',
     confirmations: 1,
-}, (message) => { console.log(message) });
+}, (message) => { console.log(message) }).then((subscriptionId) => {
+    // By subscriptionId you can unsubscribe
+});
 
-// By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
+// If you don't need subscriptionId, unsubscribe using:
 client.events.btc.onAddressTransactions({
     address: '0x1cDdD028E63D0Ff555B9DE49E9B436c4e14309Fc',
     confirmations: 1,
@@ -110,12 +114,14 @@ client.events.btc.onAddressTransactions({
 import { Client } from 'cryptoapi-lib';
 const crypto = new Client('YOUR-API-KEY');
 
-const subscriptionId = await client.events.btc.onTransactionConfirmations({
+client.events.btc.onTransactionConfirmations({
     hash: '0x4c29f5d1bc3228cca62e29d2c9f47a028edf68f85bab133053adfc541001eeb5',
     confirmations: 2,
-}, (message) => { console.log(message) });
+}, (message) => { console.log(message) }).then((subscriptionId) => {
+    // By subscriptionId you can unsubscribe
+});
 
-// By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
+// If you don't need subscriptionId, unsubscribe using:
 client.events.btc.onTransactionConfirmations({
     hash: '0x4c29f5d1bc3228cca62e29d2c9f47a028edf68f85bab133053adfc541001eeb5',
     confirmations: 2,
@@ -135,12 +141,14 @@ client.events.btc.onTransactionConfirmations({
 import { Client } from 'cryptoapi-lib';
 const crypto = new Client('YOUR-API-KEY');
 
-const subscriptionId = await client.events.btc.onAddressBalance({
+client.events.btc.onAddressBalance({
     address: '12dRugNcdxK39288NjcDV4GX7rMsKCGn6B',
     confirmations: 2,
-}, (message) => { console.log(message) });
+}, (message) => { console.log(message) }).then((subscriptionId) => {
+    // By subscriptionId you can unsubscribe
+});
 
-// By subscriptionId you can unsubscribe, but if you don't need subscriptionId, just use:
+// If you don't need subscriptionId, unsubscribe using:
 client.events.btc.onAddressBalance({
     address: '12dRugNcdxK39288NjcDV4GX7rMsKCGn6B',
     confirmations: 2,

@@ -86,7 +86,7 @@ current hash rate, gas price, difficulty.
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getNetworkInfo();
+    crypto.api.eth.getNetworkInfo().then(console.log);
 ```
 
 Example response:
@@ -106,11 +106,11 @@ Returns JSON data about an estimate gas information.
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.estimateGas({
+    crypto.api.eth.estimateGas({
         from: '0x653a801625c60112a03097c51b7d3f3a19e07c9c',
     	to: '0xc6c65a3979a7ea0b2ff3040e6d3efdbebf87c345',
     	value: '20000000000000000'
-    });
+    }).then(console.log);
 ```
 Example response:
 ```
@@ -127,7 +127,7 @@ Returns JSON data about block information.
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getBlock(5485938);
+    crypto.api.eth.getBlock(5485938).then(console.log);
 ```
 
 Example response:
@@ -166,7 +166,7 @@ Returns JSON data about all blocks.
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getBlocks({ limit: 1 });
+    crypto.api.eth.getBlocks({ limit: 1 }).then(console.log);
 ```
 
 Example response:
@@ -214,10 +214,10 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getAddressesBalances([
+    crypto.api.eth.getAddressesBalances([
         '0xa177AD7c3CA2cCa794C02a0FF4dF1C2B09D49C8f',
         '0xf24A2674208B7B5EC2f2863DCb65938EF82dC180'
-    ]);
+    ]).then(console.log);
 ```
 
 Example response:
@@ -245,9 +245,9 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getAddressesInfos([
+    crypto.api.eth.getAddressesInfos([
         '0xa177AD7c3CA2cCa794C02a0FF4dF1C2B09D49C8f',
-    ]);
+    ]).then(console.log);
 ```
 
 Example response:
@@ -269,7 +269,7 @@ Returns JSON data about contract information.
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getContractInfo('0x772fe05f6663bdabdc99f7067baeb21a5484fbcc');
+    crypto.api.eth.getContractInfo('0x772fe05f6663bdabdc99f7067baeb21a5484fbcc').then(console.log);
 ```
 
 Example response:
@@ -291,7 +291,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getToken('0x106c2dbabeb8c4932e3f68b76fb9665180b74587');
+    crypto.api.eth.getToken('0x106c2dbabeb8c4932e3f68b76fb9665180b74587').then(console.log);
 ```
 
 Example response:
@@ -322,10 +322,10 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getTokenBalanceByAddresses({
+    crypto.api.eth.getTokenBalanceByAddresses({
         tokenAddress: '0x5ae86537ea087929a34b597480fd23144d2dd216',
         holderAddresses: ['0xd89f43605f4ccc0935afceba98f3d5d04ce2e390'],
-    });
+    }).then(console.log);
 ```
 
 Example response:
@@ -355,7 +355,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getTokenBalancesByHolders(['0xd89f43605f4ccc0935afceba98f3d5d04ce2e390'], { limit: 10 });
+    crypto.api.eth.getTokenBalancesByHolders(['0xd89f43605f4ccc0935afceba98f3d5d04ce2e390'], { limit: 10 }).then(console.log);
 ```
 
 Example response:
@@ -384,7 +384,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.decodeRawTransaction('0xf86e8386ca038602bba7f5220083632ea0941de29f644d555fe9cc3241e1083de0868f959bfa8545d964b800801ca04ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637fdc35bdc49c4a04b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02');
+    crypto.api.eth.decodeRawTransaction('0xf86e8386ca038602bba7f5220083632ea0941de29f644d555fe9cc3241e1083de0868f959bfa8545d964b800801ca04ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637fdc35bdc49c4a04b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02').then(console.log);
 ```
 
 Example response:
@@ -415,7 +415,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.sendRawTransaction('0xf86e8386ca038602bba7f5220083632ea0941de29f644d555fe9cc3241e1083de0868f959bfa8545d964b800801ca04ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637fdc35bdc49c4a04b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02');
+    crypto.api.eth.sendRawTransaction('0xf86e8386ca038602bba7f5220083632ea0941de29f644d555fe9cc3241e1083de0868f959bfa8545d964b800801ca04ef1f13c58af9a9ac4be66b838a238b24db798d585d882865637fdc35bdc49c4a04b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c4f7cdccce020ea02').then(console.log);
 ```
 
 Example response:
@@ -437,9 +437,9 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getTransfers({
+    crypto.api.eth.getTransfers({
         addresses: ['0x99608ad1026a47acf7839003546748158ad55504'],
-    });
+    }).then(console.log);
 ```
 
 Example response:
@@ -480,7 +480,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getExternalTransactions(['0x99608ad1026a47acf7839003546748158ad55504', '0xcd66e50e51026673d60b3f993610b46b0f44096f']);
+    crypto.api.eth.getExternalTransactions(['0x99608ad1026a47acf7839003546748158ad55504', '0xcd66e50e51026673d60b3f993610b46b0f44096f']).then(console.log);
 ```
 
 Example response:
@@ -538,11 +538,11 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getTransactions({
+    crypto.api.eth.getTransactions({
         from: '0x4f2b6cb17b8156633115fdb26eea20cfaa93b498',
         to: '0x75e6de78c9968c6b5faba747d73de70787591aac',
         block_number: 9598253,
-});
+    }).then(console.log);
 ```
 
 Example response:
@@ -585,10 +585,10 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getTokenTransfers({tokenAddress: '0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c'}, {
+    crypto.api.eth.getTokenTransfers({tokenAddress: '0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c'}, {
         skip: 1,
         limit: 1
-    });
+    }).then(console.log);
 ```
 
 Example response:
@@ -629,13 +629,13 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getTokenTransfersByAddresses({
+    crypto.api.eth.getTokenTransfersByAddresses({
         tokenAddress: '0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c',
         addresses: ['0x08355184bdfd2f61324808cc8652b12db6d4f8cc']
     }, {
         skip: 1,
         limit: 1
-    });
+    }).then(console.log);
 ```
 
 Example response:
@@ -675,12 +675,12 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.callContract({
+    crypto.api.eth.callContract({
         address: "0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c",
         bytecode: "0x2c6ce78b000000000000000000000000be125ecedd3a2e8615f5736523dd04e4ce13753d",
         sender: "0xf876154263cf61e15e84695096cfdcb5ceed8d86",
         amount: 11
-      });
+    }).then(console.log);
 ```
 
 Example response:
@@ -701,11 +701,11 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getContractLogs({
+    crypto.api.eth.getContractLogs({
         from_block: "5550100",
         to_block: "5550500",
         address: ["0x23b814a57d53b1a7a860194f53401d0d639abed7"],
-      });
+    }).then(console.log);
 ```
 
 Example response:
@@ -740,7 +740,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.searchToken({ query: 'ERC721' }, { limit: 1 })
+    crypto.api.eth.searchToken({ query: 'ERC721' }, { limit: 1 }).then(console.log);
 ```
 
 Example response:
@@ -780,10 +780,10 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.subscribePushNotifications('dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jk' +
+    crypto.api.eth.subscribePushNotifications('dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jk' +
                   		'QkueHG00uHyv3VIuThFxgTf6X8udvDdJIiUrX3SEiEW7dPg3rRxIKsajd' +
                   		'qc84kG1SuRz9JDoEgJXEa-CCNw1Jjn9vKXWrF23zDnNuhMaFksO-',
-                  		['0x13b5685d07fa4764a9da7385fd1be93e8829618f']);
+                  		['0x13b5685d07fa4764a9da7385fd1be93e8829618f']).then(console.log);
 ```
 
 Example response:
@@ -807,10 +807,10 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.unsubscribePushNotifications('dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jk' +
+    crypto.api.eth.unsubscribePushNotifications('dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jk' +
                   		'QkueHG00uHyv3VIuThFxgTf6X8udvDdJIiUrX3SEiEW7dPg3rRxIKsajd' +
                   		'qc84kG1SuRz9JDoEgJXEa-CCNw1Jjn9vKXWrF23zDnNuhMaFksO-',
-                  		['0x13b5685d07fa4764a9da7385fd1be93e8829618f']);
+                  		['0x13b5685d07fa4764a9da7385fd1be93e8829618f']).then(console.log);
 ```
 
 Example response:
@@ -831,7 +831,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    const result = await crypto.api.eth.getFullTransaction('0x2dd50756cfd189177d0de4d65b7926459d7bb01de197c26517d05cd2b1c77ebc')
+    crypto.api.eth.getFullTransaction('0x2dd50756cfd189177d0de4d65b7926459d7bb01de197c26517d05cd2b1c77ebc').then(console.log);
 ```
 
 Example response:
@@ -873,7 +873,7 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('******');
-    crypto.api.eth.getTransactionReceipt('0xee7f707e7b9961ddfefcc2b00057021b89818942ec0d2f686012878f2276de98')
+    crypto.api.eth.getTransactionReceipt('0xee7f707e7b9961ddfefcc2b00057021b89818942ec0d2f686012878f2276de98').then(console.log);
 ```
 
 Example response:
