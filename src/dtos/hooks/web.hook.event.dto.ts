@@ -1,3 +1,5 @@
+import { TTrigger } from '../../types/hooks/events.request.type';
+
 class BlockDTO {
 	size: number;
 	difficulty: number;
@@ -142,22 +144,25 @@ class WebHookLogDTO {
 class WebHookEventPaginationOptions {
 	start_id: number;
 	end_id: number;
-	failed: boolean;
+	is_failed: boolean;
 	skip: number;
 	limit: number;
+	type: TTrigger;
 
 	constructor(info: {
 		start_id: number,
 		end_id: number,
-		failed: boolean,
+		is_failed: boolean,
 		skip: number,
 		limit: number,
+		type: TTrigger,
 	}) {
 		this.start_id = info.start_id;
 		this.end_id = info.end_id;
-		this.failed = info.failed;
+		this.is_failed = info.is_failed;
 		this.skip = info.skip;
 		this.limit = info.limit;
+		this.type = info.type;
 	}
 
 }

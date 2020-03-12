@@ -40,13 +40,7 @@ class CryptoWrapper implements IPublicCrypto {
 		cryptoConfig.klay = this.getConfigByCoin(TCoin.KLAY, options.klay);
 		cryptoConfig.btc = this.getConfigByCoin(TCoin.BTC, options.btc);
 		cryptoConfig.bch = this.getConfigByCoin(TCoin.BCH, options.bch);
-
-		if (!options.hooks) {
-			options.hooks = {};
-		}
-
-		options.hooks.baseUrl = options.hooks.baseUrl || HOOKS_CONFIG.baseUrl;
-		cryptoConfig.hooks = options.hooks;
+		cryptoConfig.hooks = this.getHooksConfig(options, cryptoConfig.token, cryptoConfig.timeout);
 
 		if (!cryptoConfig.token) {
 			throw new InvalidParamsException('Token is not exist.');
@@ -86,6 +80,17 @@ class CryptoWrapper implements IPublicCrypto {
 		}
 
 		return config;
+	}
+
+	private getHooksConfig(options: any, token: string, timeout: string) {
+		if (!options.hooks) {
+			options.hooks = {};
+		}
+
+		options.hooks.baseUrl = options.hooks.baseUrl || HOOKS_CONFIG.baseUrl;
+		options.hooks.token = token;
+		options.hooks.timeout = timeout;
+		return options.hooks;
 	}
 
 }
