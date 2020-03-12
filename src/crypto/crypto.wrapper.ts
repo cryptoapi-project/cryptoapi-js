@@ -41,6 +41,10 @@ class CryptoWrapper implements IPublicCrypto {
 		cryptoConfig.btc = this.getConfigByCoin(TCoin.BTC, options.btc);
 		cryptoConfig.bch = this.getConfigByCoin(TCoin.BCH, options.bch);
 
+		if (!options.hooks) {
+			options.hooks = {};
+		}
+
 		options.hooks.baseUrl = options.hooks.baseUrl || HOOKS_CONFIG.baseUrl;
 		cryptoConfig.hooks = options.hooks;
 

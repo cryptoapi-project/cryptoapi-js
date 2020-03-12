@@ -25,7 +25,6 @@ export class HooksClient implements IHooksClient {
 	 * @return {void}
 	 */
 	configure(config: IHooksConfig) {
-		this.httpService.configure(config.token, config.timeout);
 		this.events.configure(config);
 	}
 }

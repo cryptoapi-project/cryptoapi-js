@@ -4,5 +4,5 @@ import { IConfigurable } from '../../configs/configurable.interface';
 import { IHooksConfig } from '../../configs/crypto.config.interface';
 
 export interface IHookEvents extends IConfigurable<IHooksConfig> {
-	getHookEvents(hookId: number, options: TWebHookEventsRequest): Promise<WebHookLogOutDTO>;
+	getHookEvents(hookId: number, options?: TWebHookEventsRequest): Promise<WebHookLogOutDTO>;
 }

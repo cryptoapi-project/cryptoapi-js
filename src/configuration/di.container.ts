@@ -125,7 +125,7 @@ diContainer.bind<IUtxoTransactionsApi>(TYPES_DI.IUtxoTransactionsApi).to(UtxoTra
 diContainer.bind<IUtxoAddressApi>(TYPES_DI.IUtxoAddressApi).to(UtxoAddressApi);
 diContainer.bind<IUtxoOutputsApi>(TYPES_DI.IUtxoOutputsApi).to(UtxoOutputsApi);
 
-diContainer.bind<IHookEvents>(TYPES_DI.IUtxoOutputsApi).to(HookEvents);
+diContainer.bind<IHookEvents>(TYPES_DI.IHookEvents).to(HookEvents);
 /**
  * Inject providers.
  */
