@@ -28,6 +28,7 @@ const client = new Client('YOUR-API-KEY', options);
 <dd></dd>
 </dl>
 
+
 #### <a name="hooks.getHookEvents">hooks.getHookEvents()</a> ⇒ <code><a href="#WebHookLogOutDTO">Promise&lt;WebHookLogOutDTO&gt;</a></code></dt></dt>
 Returns JSON data about a web hook events such as block info, transactions or transfers.
 
