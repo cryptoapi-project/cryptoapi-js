@@ -1,8 +1,6 @@
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 
-import { IHooksClient } from '@src/interfaces/clients/hooks.client.interface';
-
 import { TYPES_DI } from '../constants/inversify.constants';
 import { CryptoConfig } from '../dtos/crypto.config';
 import { UnauthorizedException } from '../exceptions/http.exceptions/unauthorized.exception';
@@ -18,7 +16,6 @@ export class Crypto implements ICrypto {
 	constructor(
 		@inject(TYPES_DI.IApiClient) private readonly _api: IApiClient,
 		@inject(TYPES_DI.IEventsClient) private readonly _events: IEventsClient,
-		@inject(TYPES_DI.IHooksClient) private readonly _hooks: IHooksClient,
 	) {}
 
 	/**
@@ -31,7 +28,6 @@ export class Crypto implements ICrypto {
 		this._config = new CryptoConfig(config);
 		this._api.configure(config);
 		this._events.configure(config);
-		this._hooks.configure(config.hooks);
 	}
 
 	/**
@@ -63,15 +59,5 @@ export class Crypto implements ICrypto {
 	get api() {
 		this._checkCredentials();
 		return this._api;
-	}
-
-	/**
-	 * Check credentials before getting access to api clients.
-	 * @property api
-	 * @return {IApiClient}
-	 */
-	get hooks() {
-		this._checkCredentials();
-		return this._hooks;
 	}
 }

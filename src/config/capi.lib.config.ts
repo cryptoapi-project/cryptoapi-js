@@ -10,7 +10,7 @@ export const DEFAULT_TIMEOUT_REQUEST = 30000;
 export const BASE_HTTP_URL = 'https://api.apikey.io/api/v1';
 export const BASE_TESTNET_HTTP_URL = 'https://testnet-api.apikey.io/api/v1';
 
-export const BASE_HOOKS_HTTP_URL = 'https://697-crypto-api-user-api.pixelplex-test.by/whooks-api';
+export const BASE_HOOKS_HTTP_URL = 'https://697-crypto-api-api.pixelplex-test.by/whooks-api';
 
 export const BASE_WS_RECONNECT = true;
 export const BASE_WS_ATTEMPTS = 5;

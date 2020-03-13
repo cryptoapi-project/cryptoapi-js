@@ -1,5 +1,3 @@
-import { IHooksClient } from '@src/interfaces/clients/hooks.client.interface';
-
 import { CONFIG_BY_COIN, DEFAULT_TIMEOUT_REQUEST, HOOKS_CONFIG, TCoin } from '../config/capi.lib.config';
 import { diContainer } from '../configuration/di.container';
 import { TYPES_DI } from '../constants/inversify.constants';
@@ -14,7 +12,6 @@ class CryptoWrapper implements IPublicCrypto {
 	private crypto: ICrypto;
 	api: IApiClient | null;
 	events: IEventsClient | null;
-	hooks: IHooksClient | null;
 
 	constructor(config: TPublicConfig);
 	constructor(token: string, options?: TPublicConfig);
@@ -50,7 +47,6 @@ class CryptoWrapper implements IPublicCrypto {
 		this.crypto.configure(cryptoConfig);
 		this.api = this.crypto.api;
 		this.events = this.crypto.events;
-		this.hooks = this.crypto.hooks;
 	}
 
 	/**
