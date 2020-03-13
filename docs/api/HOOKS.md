@@ -87,6 +87,12 @@ Example response:
 <dl>
 <dt><a href="#WebHookLogOutDTO">WebHookLogOutDTO</a> : <code>Object</code></dt>
 <dd></dd>
+<dt><a href="#BlockDTO">BlockDTO</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#TransactionOutDTO">TransactionOutDTO</a> : <code>Object</code></dt>
+<dd></dd>
+<dt><a href="#TransferDTO">TransferDTO</a> : <code>Object</code></dt>
+<dd></dd>
 </dl>
 
 #### WebHookLogOutDTO : <code>Object</code>
@@ -99,12 +105,66 @@ Example response:
     limit: number;
     type: string;
     items: {
-        id: number,
-        user_id: number,
-        hook_id: number,
-        status: number,
-        log_id: number,
-        data: any,
+        id: number;
+        user_id: number;
+        hook_id: number;
+        status: number;
+        log_id: number;
+        data: BlockDTO | TransactionOutDTO | TransferDTO;
     }[];
+}
+```
+
+#### BlockDTO : <code>BlockDTO</code>
+<a name="BlockDTO"></a>
+
+```javascript
+{
+    size: number;
+    difficulty: number;
+    total_difficulty: string;
+    uncles: string[];
+    number: number;
+    hash: string;
+    parent_hash: string;
+    nonce: string;
+    sha3_uncles: string;
+    logs_bloom: string;
+    transaction_root: string;
+    state_root: string;
+    receipt_root: string;
+    miner: string;
+    extra_data: string;
+    gas_limit: string;
+    gas_used: number;
+    utc: string;
+}
+```
+
+#### TransactionOutDTO : <code>Object</code>
+<a name="TransactionOutDTO"></a>
+
+```javascript
+{
+	hash: string;
+	addresses: string[];
+}
+```
+
+#### TransferDTO : <code>Object</code>
+<a name="TransferDTO"></a>
+
+```javascript
+{
+	type: string;
+	execute_address: string;
+	from: string;
+	to: string;
+	value: string;
+	address: string;
+	block_number: number;
+	transaction_hash: string;
+	transaction_index: number;
+	utc: string;
 }
 ```

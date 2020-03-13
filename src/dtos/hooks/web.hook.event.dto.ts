@@ -61,19 +61,6 @@ class BlockDTO {
 	}
 }
 
-class TransactionInDTO {
-	addresses: string[];
-	hash: string;
-
-	constructor(info: {
-		addresses: string[];
-		hash: string;
-	}) {
-		this.hash = info.hash;
-		this.addresses = info.addresses;
-	}
-}
-
 class TransactionOutDTO {
 	hash: string;
 	address: string;
@@ -126,12 +113,12 @@ class TransferDTO {
 
 class WebHookLogDTO {
 	hook_id: number;
-	data: BlockDTO | TransactionInDTO | TransactionOutDTO | TransferDTO;
+	data: BlockDTO | TransactionOutDTO | TransferDTO;
 	status: number;
 
 	constructor(info: {
 		hook_id: number,
-		data: BlockDTO | TransactionInDTO | TransactionOutDTO | TransferDTO,
+		data: BlockDTO | TransactionOutDTO | TransferDTO,
 		status: number,
 	}) {
 		this.hook_id = info.hook_id;
