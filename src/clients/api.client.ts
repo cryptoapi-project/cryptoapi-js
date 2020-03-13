@@ -1,6 +1,8 @@
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 
+import { IHooksClient } from '@src/interfaces/clients/hooks.client.interface';
+
 import { TYPES_DI } from '../constants/inversify.constants';
 import { IApiClient } from '../interfaces/clients/api.client.interface';
 import { IEthApi } from '../interfaces/clients/eth/apis/eth.api.interface';
@@ -15,6 +17,7 @@ export class ApiClient implements IApiClient {
 	klay: IKlayApi;
 	btc: IUtxoApi;
 	bch: IUtxoApi;
+	hooks: IHooksClient;
 
 	constructor(
 		@inject(TYPES_DI.IHttpService) private readonly httpService: IHttpService,
@@ -22,11 +25,13 @@ export class ApiClient implements IApiClient {
 		@inject(TYPES_DI.IKlayApi) klay: IKlayApi,
 		@inject(TYPES_DI.IUtxoApi) btc: IUtxoApi,
 		@inject(TYPES_DI.IUtxoApi) bch: IUtxoApi,
+		@inject(TYPES_DI.IHooksClient) hooks: IHooksClient,
 	) {
 		this.eth = eth;
 		this.klay = klay;
 		this.btc = btc;
 		this.bch = bch;
+		this.hooks = hooks;
 	}
 
 	/**
@@ -42,5 +47,6 @@ export class ApiClient implements IApiClient {
 		this.klay.configure(config.klay);
 		this.btc.configure(config.btc);
 		this.bch.configure(config.bch);
+		this.hooks.configure(config.hooks);
 	}
 }

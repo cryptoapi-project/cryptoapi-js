@@ -13,6 +13,10 @@ type TCoinConfig = {
 	};
 };
 
+type THooksConfig = {
+	baseUrl?: string;
+};
+
 type TEthConfig = TCoinConfig & {
 	testnet?: {
 		api?: {
@@ -51,4 +55,5 @@ export type TPublicConfig = {
 	klay?: TKlayConfig;
 	btc?: TUtxoConfig;
 	bch?: TUtxoConfig;
+	hooks?: THooksConfig;
 };

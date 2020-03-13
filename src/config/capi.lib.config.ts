@@ -10,6 +10,8 @@ export const DEFAULT_TIMEOUT_REQUEST = 30000;
 export const BASE_HTTP_URL = 'https://api.apikey.io/api/v1';
 export const BASE_TESTNET_HTTP_URL = 'https://testnet-api.apikey.io/api/v1';
 
+export const BASE_HOOKS_HTTP_URL = 'https://api.apikey.io/whooks-api';
+
 export const BASE_WS_RECONNECT = true;
 export const BASE_WS_ATTEMPTS = 5;
 export const BASE_WS_TIMEOUT = 1000;
@@ -43,6 +45,10 @@ export const BASE_CONFIG = {
 		ping: 30 * 1000,
 		pong: 5 * 1000,
 	},
+};
+
+export const HOOKS_CONFIG = {
+	baseUrl: BASE_HOOKS_HTTP_URL,
 };
 
 export const ETH_CONFIG = {
