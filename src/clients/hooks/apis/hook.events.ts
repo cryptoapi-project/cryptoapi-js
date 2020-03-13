@@ -35,8 +35,8 @@ export class HookEvents extends AbstractHooks implements IHookEvents {
 		const query = `${this.urlHelper.addOptionsToUrl('', options)}`;
 
 		const transaction = await this.httpService.agent.get(
-			`${this.config!.baseUrl}/webhooks/${hookId}/events${query}`,
+			`${this.config!.baseUrl}/web-hooks/${hookId}/events${query}`,
 		);
-		return transaction.data;
+		return new WebHookLogOutDTO(transaction.data);
 	}
 }
