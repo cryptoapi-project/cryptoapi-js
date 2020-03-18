@@ -1,7 +1,7 @@
 {
   "name": "cryptoapi-lib",
   "description": "Cryptoapi library",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "author": {
     "name": "PixelPlex, Inc.",
     "email": "info@pixelplex.io",
@@ -25,9 +25,9 @@
   "keywords": [],
   "scripts": {
     "start": "tsc && tsc -w -p .",
-    "compile": "tsc -m es6 --outDir dist/lib-esm && tsc-alias -p tsconfig.json",
+    "compile": "npm run build",
     "clean": "shx rm -rf dist",
-    "build": "npm run clean && tsc && tsc -m es6 --outDir dist/lib-esm && tsc-alias -p tsconfig.json && webpack",
+    "build": "npm run clean && tsc && tsc -m es6 --outDir dist/lib-esm && webpack && tsc-alias -p tsconfig.json && tsc-alias -p tsconfig.esm.json",
     "predocs": "npm run compile",
     "preconformance-test": "npm run compile",
     "presystem-test": "npm run compile",
