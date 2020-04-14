@@ -56,6 +56,7 @@ export interface ICryptoOptions {
 	klay: IKlayServerConfig;
 	btc: IUtxoServerConfig;
 	bch: IUtxoServerConfig;
+	ltc: IUtxoServerConfig;
 	hooks: IHooksConfig;
 	timeout: number;
 }

@@ -2,6 +2,8 @@ import bitcoreLib from 'bitcore-lib';
 // @ts-ignore
 import bitcoreLibCash from 'bitcore-lib-cash';
 import { Container } from 'inversify';
+// @ts-ignore
+import litecoreLib from 'litecore-lib';
 
 import { HooksClient } from '@src/clients/hooks.client';
 import { HookEvents } from '@src/clients/hooks/apis/hook.events';
@@ -137,5 +139,6 @@ diContainer.bind<ISubsHelper>(TYPES_DI.ISubsHelper).to(SubsHelper).inSingletonSc
 
 diContainer.bind(TYPES_DI.ICoreLibBch).toConstantValue(bitcoreLibCash);
 diContainer.bind(TYPES_DI.ICoreLibBtc).toConstantValue(bitcoreLib);
+diContainer.bind(TYPES_DI.ICoreLibLtc).toConstantValue(litecoreLib);
 
 export { diContainer };

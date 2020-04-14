@@ -3,6 +3,7 @@ export enum TCoin {
 	BTC = 'btc',
 	BCH = 'bch',
 	KLAY = 'klay',
+	LTC = 'ltc',
 }
 
 export const DEFAULT_TIMEOUT_REQUEST = 30000;
@@ -22,6 +23,7 @@ const WS_URLS = {
 	[TCoin.BTC]: 'wss://api.apikey.io/ws/btc',
 	[TCoin.BCH]: 'wss://api.apikey.io/ws/bch',
 	[TCoin.KLAY]: 'wss://api.apikey.io/ws/klay',
+	[TCoin.LTC]: 'wss://api.apikey.io/ws/ltc',
 };
 
 const TESTNET_WS_URLS = {
@@ -33,6 +35,7 @@ const TESTNET_WS_URLS = {
 	},
 	[TCoin.BTC]: 'wss://testnet-api.apikey.io/ws/btc',
 	[TCoin.BCH]: 'wss://testnet-api.apikey.io/ws/bch',
+	[TCoin.LTC]: 'ws://localhost:16970/ws/ltc',
 };
 
 export const BASE_CONFIG = {
@@ -51,7 +54,7 @@ export const HOOKS_CONFIG = {
 	baseUrl: BASE_HOOKS_HTTP_URL,
 };
 
-export const ETH_CONFIG = {
+const ETH_CONFIG = {
 	...BASE_CONFIG,
 	events: {
 		...BASE_CONFIG.events,
@@ -67,7 +70,7 @@ export const ETH_CONFIG = {
 	},
 };
 
-export const KLAY_CONFIG = {
+const KLAY_CONFIG = {
 	...BASE_CONFIG,
 	events: {
 		...BASE_CONFIG.events,
@@ -83,7 +86,7 @@ export const KLAY_CONFIG = {
 	},
 };
 
-export const BTC_CONFIG = {
+const BTC_CONFIG = {
 	...BASE_CONFIG,
 	events: {
 		...BASE_CONFIG.events,
@@ -96,7 +99,7 @@ export const BTC_CONFIG = {
 	},
 };
 
-export const BCH_CONFIG = {
+const BCH_CONFIG = {
 	...BASE_CONFIG,
 	events: {
 		...BASE_CONFIG.events,
@@ -109,9 +112,23 @@ export const BCH_CONFIG = {
 	},
 };
 
+const LTC_CONFIG = {
+	...BASE_CONFIG,
+	events: {
+		...BASE_CONFIG.events,
+		network: 'testnet',
+		url: WS_URLS[TCoin.LTC],
+	},
+	testnet: {
+		api: BASE_TESTNET_HTTP_URL,
+		events: TESTNET_WS_URLS[TCoin.LTC],
+	},
+};
+
 export const CONFIG_BY_COIN = {
 	[TCoin.ETH]: ETH_CONFIG,
 	[TCoin.KLAY]: KLAY_CONFIG,
 	[TCoin.BTC]: BTC_CONFIG,
 	[TCoin.BCH]: BCH_CONFIG,
+	[TCoin.LTC]: LTC_CONFIG,
 };

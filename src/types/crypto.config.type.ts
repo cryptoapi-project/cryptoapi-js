@@ -55,5 +55,6 @@ export type TPublicConfig = {
 	klay?: TKlayConfig;
 	btc?: TUtxoConfig;
 	bch?: TUtxoConfig;
+	ltc?: TUtxoConfig;
 	hooks?: THooksConfig;
 };

@@ -9,4 +9,5 @@ export interface IEventsClient extends IConfigurable<ICryptoConfig>  {
 	klay: IKlayEvents;
 	btc: IUtxoEvents;
 	bch: IUtxoEvents;
+	ltc: IUtxoEvents;
 }
