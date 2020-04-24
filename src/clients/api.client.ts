@@ -17,6 +17,7 @@ export class ApiClient implements IApiClient {
 	klay: IKlayApi;
 	btc: IUtxoApi;
 	bch: IUtxoApi;
+	ltc: IUtxoApi;
 	hooks: IHooksClient;
 
 	constructor(
@@ -25,12 +26,14 @@ export class ApiClient implements IApiClient {
 		@inject(TYPES_DI.IKlayApi) klay: IKlayApi,
 		@inject(TYPES_DI.IUtxoApi) btc: IUtxoApi,
 		@inject(TYPES_DI.IUtxoApi) bch: IUtxoApi,
+		@inject(TYPES_DI.IUtxoApi) ltc: IUtxoApi,
 		@inject(TYPES_DI.IHooksClient) hooks: IHooksClient,
 	) {
 		this.eth = eth;
 		this.klay = klay;
 		this.btc = btc;
 		this.bch = bch;
+		this.ltc = ltc;
 		this.hooks = hooks;
 	}
 
@@ -47,6 +50,7 @@ export class ApiClient implements IApiClient {
 		this.klay.configure(config.klay);
 		this.btc.configure(config.btc);
 		this.bch.configure(config.bch);
+		this.ltc.configure(config.ltc);
 		this.hooks.configure(config.hooks);
 	}
 }

@@ -13,17 +13,20 @@ export class EventsClient implements IEventsClient {
 	klay: IKlayEvents;
 	btc: IUtxoEvents;
 	bch: IUtxoEvents;
+	ltc: IUtxoEvents;
 
 	constructor(
 		@inject(TYPES_DI.IEthEvents) eth: IEthEvents,
 		@inject(TYPES_DI.IKlayEvents) klay: IKlayEvents,
 		@inject(TYPES_DI.IUtxoEvents) btc: IUtxoEvents,
 		@inject(TYPES_DI.IUtxoEvents) bch: IUtxoEvents,
+		@inject(TYPES_DI.IUtxoEvents) ltc: IUtxoEvents,
 	) {
 		this.eth = eth;
 		this.klay = klay;
 		this.btc = btc;
 		this.bch = bch;
+		this.ltc = ltc;
 	}
 
 	@inject(TYPES_DI.ICoreLibBch)
@@ -31,6 +34,9 @@ export class EventsClient implements IEventsClient {
 
 	@inject(TYPES_DI.ICoreLibBtc)
 	private _coreLibBtc: any;
+
+	@inject(TYPES_DI.ICoreLibLtc)
+	private _coreLibLtc: any;
 
 	/**
 	 *  @method configure
@@ -45,8 +51,10 @@ export class EventsClient implements IEventsClient {
 		this.klay.configure(config.klay, config.token);
 		this.btc.configure(config.btc, config.token);
 		this.bch.configure(config.bch, config.token);
+		this.ltc.configure(config.ltc, config.token);
 
 		this.bch.configureCoreClient(this._coreLibBch);
 		this.btc.configureCoreClient(this._coreLibBtc);
+		this.ltc.configureCoreClient(this._coreLibLtc);
 	}
 }

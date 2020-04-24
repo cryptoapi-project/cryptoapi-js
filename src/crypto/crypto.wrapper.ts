@@ -37,6 +37,7 @@ class CryptoWrapper implements IPublicCrypto {
 		cryptoConfig.klay = this.getConfigByCoin(TCoin.KLAY, options.klay);
 		cryptoConfig.btc = this.getConfigByCoin(TCoin.BTC, options.btc);
 		cryptoConfig.bch = this.getConfigByCoin(TCoin.BCH, options.bch);
+		cryptoConfig.ltc = this.getConfigByCoin(TCoin.LTC, options.ltc);
 		cryptoConfig.hooks = this.getHooksConfig(options, cryptoConfig.token, cryptoConfig.timeout);
 
 		if (!cryptoConfig.token) {

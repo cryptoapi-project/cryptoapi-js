@@ -55,6 +55,7 @@ const TYPES_DI = {
 
 	ICoreLibBtc: Symbol.for('ICoreLibBtc'),
 	ICoreLibBch: Symbol.for('ICoreLibBch'),
+	ICoreLibLtc: Symbol.for('ICoreLibLtc'),
 
 	IHttpService: Symbol.for('IHttpService'),
 	ICryptoConfig: Symbol.for('ICryptoConfig'),

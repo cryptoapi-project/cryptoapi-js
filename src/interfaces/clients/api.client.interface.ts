@@ -11,5 +11,6 @@ export interface IApiClient extends IConfigurable<ICryptoConfig> {
 	klay: IKlayApi;
 	btc: IUtxoApi;
 	bch: IUtxoApi;
+	ltc: IUtxoApi;
 	hooks: IHooksClient;
 }

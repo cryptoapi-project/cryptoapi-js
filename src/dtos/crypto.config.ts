@@ -147,6 +147,7 @@ export class CryptoConfig implements ICryptoConfig {
 	klay: IKlayServerConfig;
 	btc: IUtxoServerConfig;
 	bch: IUtxoServerConfig;
+	ltc: IUtxoServerConfig;
 	hooks: IHooksConfig;
 
 	constructor(
@@ -157,6 +158,7 @@ export class CryptoConfig implements ICryptoConfig {
 			klay: IKlayServerConfig;
 			btc: IUtxoServerConfig;
 			bch: IUtxoServerConfig;
+			ltc: IUtxoServerConfig;
 			hooks: HooksConfig;
 		},
 	) {
@@ -165,6 +167,7 @@ export class CryptoConfig implements ICryptoConfig {
 		this.klay = new KlayServerConfig(config.klay);
 		this.btc = new UtxoServerConfig(config.btc);
 		this.bch = new UtxoServerConfig(config.bch);
+		this.ltc = new UtxoServerConfig(config.ltc);
 		this.hooks = new HooksConfig(config.hooks);
 		this.timeout = config.timeout;
 	}

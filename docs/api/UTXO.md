@@ -1,7 +1,7 @@
 # Utxo API cryptoapi-lib
 
 This library provides utxo api methods to work with CryptoAPI.
-List supported utxo coins: btc, bch. All supported utxo coins can work with next api methods.
+List supported utxo coins: btc, bch, ltc. All supported utxo coins can work with next api methods.
 Below are examples with btc.
 
 ## Configure API
