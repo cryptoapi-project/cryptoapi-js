@@ -63,6 +63,7 @@ export class KlayTransaction {
 	readonly key: string|null;
 	readonly sender_tx_hash: string|null;
 	readonly signatures: Signature[];
+	readonly status?: boolean;
 
 	constructor(info: {
 		readonly block_hash: string;
@@ -88,6 +89,7 @@ export class KlayTransaction {
 		readonly key: string|null;
 		readonly sender_tx_hash: string|null;
 		readonly signatures: Signature[];
+		readonly status?: boolean;
 	}) {
 		this.block_hash = info.block_hash;
 		this.block_number = info.block_number;
@@ -114,6 +116,7 @@ export class KlayTransaction {
 		this.key = info.key;
 		this.sender_tx_hash = info.sender_tx_hash;
 		this.signatures = info.signatures;
+		this.status = info.status;
 	}
 }
 
@@ -127,6 +130,7 @@ export class KlayTransfer {
 	gas_price: string;
 	internal: boolean;
 	utc: string;
+	status?: boolean;
 
 	constructor(data: {
 		block_number: number;
@@ -138,6 +142,7 @@ export class KlayTransfer {
 		gas_price: string;
 		internal: boolean;
 		utc: string;
+		status?: boolean;
 	}) {
 		this.block_number = data.block_number;
 		this.from = data.from;
@@ -148,6 +153,7 @@ export class KlayTransfer {
 		this.gas_price = data.gas_price;
 		this.internal = data.internal;
 		this.utc = data.utc;
+		this.status = data.status;
 	}
 }
 
@@ -226,14 +232,14 @@ export class KlayFullTransaction extends KlayTransaction {
 }
 
 export class KlayTransactionsBetweenAddresses {
-	readonly total: number;
+	readonly count: number;
 	readonly items: KlayTransaction[];
 
-	constructor({ total, items }: {
-		total: number,
+	constructor({ count, items }: {
+		count: number,
 		items: KlayTransaction[],
 	}) {
-		this.total = total;
+		this.count = count;
 		this.items = items.map((item) => new KlayTransaction(item));
 	}
 
