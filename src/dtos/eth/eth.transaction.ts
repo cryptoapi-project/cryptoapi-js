@@ -40,6 +40,7 @@ export class EthTransaction {
 	readonly s: string;
 	readonly r: string;
 	readonly internal_transactions: EthInternalTransaction[];
+	readonly status?: boolean;
 
 	constructor(info: {
 		readonly block_hash: string;
@@ -58,6 +59,7 @@ export class EthTransaction {
 		readonly s: string;
 		readonly r: string;
 		readonly internal_transactions: EthInternalTransaction[];
+		readonly status?: boolean;
 	}) {
 		this.block_hash = info.block_hash;
 		this.block_number = info.block_number;
@@ -75,6 +77,7 @@ export class EthTransaction {
 		this.s = info.s;
 		this.r = info.r;
 		this.internal_transactions = info.internal_transactions.map((t) => new EthInternalTransaction(t));
+		this.status = info.status;
 	}
 }
 
@@ -88,6 +91,7 @@ export class EthTransfer {
 	gas_price: string;
 	internal: boolean;
 	utc: string;
+	status?: boolean;
 
 	constructor(data: {
 		block_number: number;
@@ -99,6 +103,7 @@ export class EthTransfer {
 		gas_price: string;
 		internal: boolean;
 		utc: string;
+		status?: boolean;
 	}) {
 		this.block_number = data.block_number;
 		this.from = data.from;
@@ -109,6 +114,7 @@ export class EthTransfer {
 		this.gas_price = data.gas_price;
 		this.internal = data.internal;
 		this.utc = data.utc;
+		this.status = data.status;
 	}
 }
 
@@ -190,86 +196,14 @@ export class EthFullTransaction extends EthTransaction {
 
 export class EthTransactionsBetweenAddresses {
 	readonly count: number;
-	readonly items: Array<{
-		readonly block_hash: string;
-		readonly block_number: number;
-		readonly utc: string;
-		readonly from: string;
-		readonly gas: number;
-		readonly gas_price: any;
-		readonly hash: string;
-		readonly input: string;
-		readonly nonce: number;
-		readonly to: string;
-		readonly transaction_index: number;
-		readonly value: any;
-		readonly v: string;
-		readonly s: string;
-		readonly r: string;
-		readonly internal_transactions: Array<{
-			readonly to: string;
-			readonly from: string;
-			readonly value: string;
-			readonly input: string;
-			readonly is_suicide: boolean;
-			readonly type: string;
-		}>;
-	}>;
+	readonly items: EthTransaction[];
 
 	constructor({ count, items }: {
 		count: number,
-		items: Array<{
-			block_hash: string;
-			block_number: number;
-			utc: string;
-			from: string;
-			gas: number;
-			gas_price: any;
-			hash: string;
-			input: string;
-			nonce: number;
-			to: string;
-			transaction_index: number;
-			value: any;
-			v: string;
-			s: string;
-			r: string;
-			internal_transactions: Array<{
-				to: string;
-				from: string;
-				value: string;
-				input: string;
-				is_suicide: boolean;
-				type: string;
-			}>;
-		}>;
+		items: EthTransaction[];
 	}) {
 		this.count = count;
-		this.items = items.map((item) => ({
-			block_hash: item.block_hash,
-			block_number: item.block_number,
-			utc: item.utc,
-			from: item.from,
-			gas: item.gas,
-			gas_price: item.gas_price,
-			hash: item.hash,
-			input: item.input,
-			nonce: item.nonce,
-			to: item.to,
-			transaction_index: item.transaction_index,
-			value: item.value,
-			v: item.v,
-			s: item.s,
-			r: item.r,
-			internal_transactions: item.internal_transactions.map((internal) => ({
-				to: internal.to,
-				from: internal.from,
-				value: internal.value,
-				input: internal.input,
-				is_suicide: internal.is_suicide,
-				type: internal.type,
-			})),
-		}));
+		this.items = items.map((item) => new EthTransaction(item));
 	}
 
 }

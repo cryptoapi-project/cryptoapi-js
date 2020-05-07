@@ -35,7 +35,7 @@ const TESTNET_WS_URLS = {
 	},
 	[TCoin.BTC]: 'wss://testnet-api.apikey.io/ws/btc',
 	[TCoin.BCH]: 'wss://testnet-api.apikey.io/ws/bch',
-	[TCoin.LTC]: 'ws://localhost:16970/ws/ltc',
+	[TCoin.LTC]: 'wss://testnet-api.apikey.io/ws/ltc',
 };
 
 export const BASE_CONFIG = {
