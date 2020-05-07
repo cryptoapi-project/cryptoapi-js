@@ -1,0 +1,32 @@
+{
+  "extends": "./node_modules/gts/tsconfig-google.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "module": "commonjs",
+    "target": "es6",
+    "noLib":false,
+    "outDir": "dist/lib-esm",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": false,
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "paths": {
+      "@src/*": ["./src/*"]
+    },
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "downlevelIteration": true
+  },
+  "include": [
+    "./src/*.ts"
+  ],
+  "files": [
+    "node_modules/inversify/dts/inversify.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
