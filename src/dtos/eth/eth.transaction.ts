@@ -196,32 +196,7 @@ export class EthFullTransaction extends EthTransaction {
 
 export class EthTransactionsBetweenAddresses {
 	readonly count: number;
-	readonly items: Array<{
-		readonly block_hash: string;
-		readonly block_number: number;
-		readonly utc: string;
-		readonly from: string;
-		readonly gas: number;
-		readonly gas_price: any;
-		readonly hash: string;
-		readonly input: string;
-		readonly nonce: number;
-		readonly to: string;
-		readonly transaction_index: number;
-		readonly value: any;
-		readonly v: string;
-		readonly s: string;
-		readonly r: string;
-		readonly internal_transactions: Array<{
-			readonly to: string;
-			readonly from: string;
-			readonly value: string;
-			readonly input: string;
-			readonly is_suicide: boolean;
-			readonly type: string;
-		}>;
-		readonly status?: boolean;
-	}>;
+	readonly items: EthTransaction[];
 
 	constructor({ count, items }: {
 		count: number,
