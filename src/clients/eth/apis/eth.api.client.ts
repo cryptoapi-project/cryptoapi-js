@@ -341,11 +341,12 @@ export class BaseEthApiClient<
 	 * @method subscribePushNotifications
 	 * @param {string} token
 	 * @param {string[]} addresses
+	 * @param {string[]} types
 	 * @return {Promise<EthSubscribeToken>}
 	 */
 	@TryCatch
-	subscribePushNotifications(token: string, addresses: string[]) {
-		return this.ethNotifyApi.subscribePushNotifications(token, addresses);
+	subscribePushNotifications(token: string, addresses: string[], types: string[]) {
+		return this.ethNotifyApi.subscribePushNotifications(token, addresses, types);
 	}
 
 	/**
@@ -353,11 +354,12 @@ export class BaseEthApiClient<
 	 * @method unsubscribePushNotifications
 	 * @param {string} token
 	 * @param {string[]} addresses
+	 * @param {string[]} types
 	 * @return {Promise<EthSubscribeToken>}
 	 */
 	@TryCatch
-	unsubscribePushNotifications(token: string, addresses: string[]) {
-		return this.ethNotifyApi.unsubscribePushNotifications(token, addresses);
+	unsubscribePushNotifications(token: string, addresses: string[], types: string[]) {
+		return this.ethNotifyApi.unsubscribePushNotifications(token, addresses, types);
 	}
 
 	/**

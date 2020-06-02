@@ -767,8 +767,8 @@ Example response:
 }
  ```
 
-#### <a name="eth.subscribePushNotifications">eth.subscribePushNotifications(token: string, addresses: string[])</a> ⇒ <code><a href="#EthSubscribeToken">Promise&lt;EthSubscribeToken&gt;</a></code></dt></dt>
-Subscribe push notification by token. Returns JSON data subscribed addresses and token.
+#### <a name="eth.subscribePushNotifications">eth.subscribePushNotifications(token: string, addresses: string[], types: string[])</a> ⇒ <code><a href="#EthSubscribeToken">Promise&lt;EthSubscribeToken&gt;</a></code></dt></dt>
+Subscribe push notification by token. Returns JSON data subscribed addresses, token and types.
 
 Input data:
 
@@ -776,6 +776,7 @@ Input data:
 | --- | --- | --- |
 | token | <code>string</code> | [Firebase token] |
 | addresses | <code>string[]</code> | [Subscribed addresses] |
+| types | <code>string[]</code> | [Notification types] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
@@ -783,18 +784,19 @@ Input data:
     crypto.api.eth.subscribePushNotifications('dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jk' +
                   		'QkueHG00uHyv3VIuThFxgTf6X8udvDdJIiUrX3SEiEW7dPg3rRxIKsajd' +
                   		'qc84kG1SuRz9JDoEgJXEa-CCNw1Jjn9vKXWrF23zDnNuhMaFksO-',
-                  		['0x13b5685d07fa4764a9da7385fd1be93e8829618f']).then(console.log);
+                  		['0x13b5685d07fa4764a9da7385fd1be93e8829618f'], ['balance']).then(console.log);
 ```
 
 Example response:
 ```
 {
     token: "dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jkQkueHG00uHyv3VIuThFxgTf6X8udvDdJIiUrX3SEiEW7dPg3rRxIKsajdqc84kG1SuRz9JDoEgJXEa-CCNw1Jjn9vKXWrF23zDnNuhMaFksO-",
-    addresses: ["0x13b5685d07fa4764a9da7385fd1be93e8829618f"]
+    addresses: ["0x13b5685d07fa4764a9da7385fd1be93e8829618f"],
+    types: ["balance"]
 }
  ```
 
-#### <a name="eth.unsubscribePushNotifications">eth.unsubscribePushNotifications(token: string, addresses: string[])</a> ⇒ <code>Promise&lt;boolean&gt;</code></dt></dt>
+#### <a name="eth.unsubscribePushNotifications">eth.unsubscribePushNotifications(token: string, addresses: string[], types: string[])</a> ⇒ <code>Promise&lt;boolean&gt;</code></dt></dt>
 Unsubscribe push notification by token. If success unsubscribe returns true, else false.
 
 Input data:
@@ -803,6 +805,7 @@ Input data:
 | --- | --- | --- |
 | token | <code>string</code> | [Firebase token] |
 | addresses | <code>string[]</code> | [Subscribed addresses] |
+| types | <code>string[]</code> | [Notification types] |
 
 ```javascript
     import { Client } from 'cryptoapi-lib';
@@ -810,7 +813,7 @@ Input data:
     crypto.api.eth.unsubscribePushNotifications('dtW0fPnQz3w:APA91bGyEM8PDhu386WmID8fe99x0jk' +
                   		'QkueHG00uHyv3VIuThFxgTf6X8udvDdJIiUrX3SEiEW7dPg3rRxIKsajd' +
                   		'qc84kG1SuRz9JDoEgJXEa-CCNw1Jjn9vKXWrF23zDnNuhMaFksO-',
-                  		['0x13b5685d07fa4764a9da7385fd1be93e8829618f']).then(console.log);
+                  		['0x13b5685d07fa4764a9da7385fd1be93e8829618f'], ['balance']).then(console.log);
 ```
 
 Example response:

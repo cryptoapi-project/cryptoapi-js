@@ -23,19 +23,24 @@ export class EthNotifyApi extends AbstractApi  implements IEthNotifyApi {
 	 * @method subscribePushNotifications
 	 * @param {string} token
 	 * @param {string[]} addresses
+	 * @param {string[]} types
 	 * @return {Promise<EthSubscribeToken>}
 	 */
-	async subscribePushNotifications(token: string, addresses: string[]): Promise<EthSubscribeToken> {
+	async subscribePushNotifications(token: string, addresses: string[], types: string[]): Promise<EthSubscribeToken> {
 		this._checkConfig();
 
 		if (!this.validateHelper.isArray(addresses)) {
 			throw new BaseLibraryException(`Addresses must be an array.`);
 		}
 
+		if (!this.validateHelper.isArray(types)) {
+			throw new BaseLibraryException(`Types must be an array.`);
+		}
+
 		const subscribeToken = await this.httpService.agent.post<EthSubscribeToken>(
-			`${this.config!.baseUrl}/coins/eth/push-notifications/addresses/:addresses/balance`
+			`${this.config!.baseUrl}/coins/eth/push-notifications/addresses/:addresses`
 				.replace(':addresses', addresses.join(',')),
-			 { firebase_token: token },
+			 { firebase_token: token, types: types.join(',') },
 		);
 
 		return new EthSubscribeToken(subscribeToken.data);
@@ -46,18 +51,24 @@ export class EthNotifyApi extends AbstractApi  implements IEthNotifyApi {
 	 * @method unsubscribePushNotifications
 	 * @param {string} token
 	 * @param {string[]} addresses
+	 * @param {string[]} types
 	 * @return {Promise<EthSubscribeToken>}
 	 */
-	async unsubscribePushNotifications(token: string, addresses: string[]): Promise<boolean> {
+	async unsubscribePushNotifications(token: string, addresses: string[], types: string[]): Promise<boolean> {
 		this._checkConfig();
 
 		if (!this.validateHelper.isArray(addresses)) {
 			throw new BaseLibraryException(`Addresses must be an array.`);
 		}
 
+		if (!this.validateHelper.isArray(types)) {
+			throw new BaseLibraryException(`Types must be an array.`);
+		}
+
 		const unsubscribeToken = await this.httpService.agent.delete<EthSubscribeToken>(
-			`${this.config!.baseUrl}/coins/eth/push-notifications/addresses/:addresses/balance?firebase_token=${token}`
-				.replace(':addresses', addresses.join(',')),
+			`${this.config!.baseUrl}/coins/eth/push-notifications/addresses/:addresses?firebase_token=${token}&types=:types`
+				.replace(':addresses', addresses.join(','))
+				.replace(':types', types.join(',')),
 		);
 
 		return unsubscribeToken.status === CODE.OK;
