@@ -1,8 +1,6 @@
 import { PENDING_PARAMETER } from '../../constants/eth.constants';
 
-export type TTrxsBetweenAddressesRequest = {
-	from: string;
-	to: string;
-	block_number: number;
+export type TExternalTransactionsRequest = {
+	addresses: string[];
 	pending?: PENDING_PARAMETER;
 };

@@ -2,13 +2,16 @@ import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 
 import { AbstractApi } from '@src/abstracts/abstract.api';
+import { PENDING_PARAMETER } from '@src/constants/eth.constants';
 import { MAX_LIMIT_HISTORY } from '@src/constants/history.constants';
 import { TYPES_DI } from '@src/constants/inversify.constants';
 import { InternalLibraryException } from '@src/exceptions/library.exceptions/internal.library.exception';
+import { InvalidParamsException } from '@src/exceptions/library.exceptions/invalid.params.exceptions';
 import { IEthTransactionsApi } from '@src/interfaces/clients/eth/apis/eth.sub.apis/eth.transactions.interface';
 import { IUrlHelper } from '@src/interfaces/providers/helpers/url.helper.interface';
 import { IValidateHelper } from '@src/interfaces/providers/helpers/validate.helper.interface';
 import { IHttpService } from '@src/interfaces/providers/http.service.interface';
+import { TExternalTransactionsRequest } from '@src/types/eth/external.transactions.request.type';
 import { TTransfersRequest } from '@src/types/eth/transfers.request.type';
 import { TTrxsBetweenAddressesRequest } from '@src/types/eth/trxs.between.addresses.request.type';
 import { TPaginationOptions } from '@src/types/paginations.options.type';
@@ -18,11 +21,11 @@ export class EthTransactionsApi<
 	TTransfers, TTransactionsIntersection,
 	TFullTransaction, TTransactionsBetweenAddresses,
 	TTransactionReceipt
-> extends AbstractApi implements IEthTransactionsApi<
+	> extends AbstractApi implements IEthTransactionsApi<
 	TTransfers, TTransactionsIntersection,
 	TFullTransaction, TTransactionsBetweenAddresses,
 	TTransactionReceipt
-> {
+	> {
 
 	constructor(
 		@inject(TYPES_DI.IHttpService) private readonly httpService: IHttpService,
@@ -40,7 +43,7 @@ export class EthTransactionsApi<
 	 * @return {Promise<TTransfers>}
 	 */
 	async getTransfers(
-		{ addresses, positive}: TTransfersRequest,
+		{ addresses, positive, pending }: TTransfersRequest,
 		options: TPaginationOptions = {
 			skip: 0,
 			limit: MAX_LIMIT_HISTORY,
@@ -52,7 +55,7 @@ export class EthTransactionsApi<
 			throw new InternalLibraryException('Addresses must be no empty array.');
 		}
 
-		const query = `${this.urlHelper.addOptionsToUrl('', { ...options, positive: !!positive })}`;
+		const query = `${this.urlHelper.addOptionsToUrl('', { ...options, pending, positive: !!positive })}`;
 		const { data } = await this.httpService.agent.get(
 			`${this.config!.baseUrl}/coins/${this.config!.coin}/addresses/${addresses.join(',')}/transfers${query}`,
 		);
@@ -62,12 +65,12 @@ export class EthTransactionsApi<
 	/**
 	 * Get External transactions by addresses
 	 * @method getExternalTransactions
-	 * @param {string[]} addresses
+	 * @param {TExternalTransactionsRequest} data
 	 * @param {TPaginationOptions} options?
 	 * @return {Promise<TTransactionsIntersection>}
 	 */
 	async getExternalTransactions(
-		addresses: string[],
+		{ addresses, pending }: TExternalTransactionsRequest,
 		options?: TPaginationOptions,
 	): Promise<TTransactionsIntersection> {
 		this._checkConfig();
@@ -76,7 +79,7 @@ export class EthTransactionsApi<
 			throw new InternalLibraryException('Addresses must be no empty array.');
 		}
 
-		const query = options ? this.urlHelper.addOptionsToUrl('', options) : '';
+		const query = `${this.urlHelper.addOptionsToUrl('', { ...options, pending })}`;
 		const { data } = await this.httpService.agent.get(
 			`${this.config!.baseUrl}/coins/${this.config!.coin}/addresses/${addresses.join(',')}/transactions${query}`,
 		);
@@ -91,12 +94,16 @@ export class EthTransactionsApi<
 	 * @return {Promise<TTransactionsBetweenAddresses>}
 	 */
 	async getTransactions(
-		{ from, to, block_number }: TTrxsBetweenAddressesRequest,
+		{ from, to, block_number, pending }: TTrxsBetweenAddressesRequest,
 		options?: TPaginationOptions,
 	): Promise<TTransactionsBetweenAddresses> {
 		this._checkConfig();
 
-		const query = this.urlHelper.addOptionsToUrl('', {from, to, block_number, ...options});
+		if (block_number && (pending === PENDING_PARAMETER.ONLY)) {
+			throw new InvalidParamsException('Block number is not specify with pending transactions.');
+		}
+
+		const query = this.urlHelper.addOptionsToUrl('', { from, to, block_number, pending, ...options });
 		const { data } = await this.httpService.agent.get(
 			`${this.config!.baseUrl}/coins/${this.config!.coin}/transactions${query}`,
 		);

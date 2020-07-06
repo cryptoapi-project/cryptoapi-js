@@ -37,6 +37,7 @@ import { TryCatch } from '@src/providers/decorators/try.catch';
 import { TContractCall } from '@src/types/eth/call.contract.type';
 import { TContractLogsRequest } from '@src/types/eth/contract.logs.request.type';
 import { TEstimateGasRequest } from '@src/types/eth/estimate.gas.request.type';
+import { TExternalTransactionsRequest} from '@src/types/eth/external.transactions.request.type';
 import { TTokenBalanceRequest } from '@src/types/eth/token.balance.request.type';
 import { TTokenTransfersByAddressesRequest, TTokenTransfersRequest } from '@src/types/eth/token.transfer.request.type';
 import { TTransfersRequest } from '@src/types/eth/transfers.request.type';
@@ -252,13 +253,13 @@ export class BaseEthApiClient<
 	/**
 	 * Get transactions interception by addresses
 	 * @method getExternalTransactions
-	 * @param {string[]} addresses
+	 * @param {TExternalTransactionsRequest} data
 	 * @param {TPaginationOptions} options
 	 * @return {Promise<TExternalTransactions>}
 	 */
 	@TryCatch
-	async getExternalTransactions(addresses: string[], options: TPaginationOptions) {
-		const info = await this.ethTransactions.getExternalTransactions(addresses, options);
+	async getExternalTransactions(data: TExternalTransactionsRequest, options: TPaginationOptions) {
+		const info = await this.ethTransactions.getExternalTransactions(data, options);
 		return this.factoryDto.getExternalTransactions(info);
 	}
 

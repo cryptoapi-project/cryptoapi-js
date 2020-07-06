@@ -439,6 +439,7 @@ Input data:
     const crypto = new Client('YOUR-API-KEY');
     crypto.api.eth.getTransfers({
         addresses: ['0x99608ad1026a47acf7839003546748158ad55504'],
+        pending: 'include'
     }).then(console.log);
 ```
 
@@ -467,7 +468,7 @@ Example response:
 }
 ```
 
-#### <a name="eth.getExternalTransactions">eth.getExternalTransactions(addresses: string[], options?: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
+#### <a name="eth.getExternalTransactions">eth.getExternalTransactions( <a href="#TExternalTransactionsRequest">TExternalTransactionsRequest</a>, options?: <a href="#TPaginationOptions">TPaginationOptions</a>)</a> ⇒<code><a href="#EthTransactionsIntersection">Promise&lt;EthTransactionsIntersection&gt;</a></code></dt></dt>
 Return list of transactions interception by addresses.
 
 Input data:
@@ -480,7 +481,10 @@ Input data:
 ```javascript
     import { Client } from 'cryptoapi-lib';
     const crypto = new Client('YOUR-API-KEY');
-    crypto.api.eth.getExternalTransactions(['0x99608ad1026a47acf7839003546748158ad55504', '0xcd66e50e51026673d60b3f993610b46b0f44096f']).then(console.log);
+    crypto.api.eth.getExternalTransactions({
+        addresses: ['0x99608ad1026a47acf7839003546748158ad55504', '0xcd66e50e51026673d60b3f993610b46b0f44096f'],
+        pending: 'include'
+    }).then(console.log);
 ```
 
 Example response:
@@ -1196,7 +1200,8 @@ Example response:
 ```javascript
 {
 	addresses: string[];
-	positive?: boolean;
+    positive?: boolean;
+    pending? 'only'|'include'|'include';
 }
 ```
 
@@ -1233,6 +1238,17 @@ Example response:
 	input: string;
 	is_suicide: boolean;
 	type: string[];
+}
+```
+
+
+#### TExternalTransactionsRequest : <code>Object</code>
+<a name="TExternalTransactionsRequest"></a>
+
+```javascript
+{
+	addresses: string[];
+    pending? 'only'|'include'|'include';
 }
 ```
 
@@ -1321,6 +1337,7 @@ Example response:
     from: string;
     to: string;
     block_number: number;
+    pending? 'only'|'include'|'include';
 ```
 
 #### EthTransactionsBetweenAddresses : <code>Object</code>
